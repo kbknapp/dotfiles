@@ -14,5 +14,5 @@ PS1='[\e[32m\u\e[39m@\h \e[1;34m\W\e[0;39m]\$ '
 
 export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
-export GOROOT=/opt/go
+export GOROOT=/usr/share/go
 export PATH=$PATH:$GOBIN:$GOROOT/bin
