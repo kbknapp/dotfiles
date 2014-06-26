@@ -7,9 +7,9 @@
 
 # Turn prompt red for root green for all else
 if [ $(id -u) -eq 0 ]; then
-	PS1='[\e[31m\u\e[39m@\h \e[1;34m\W\e[0;39m]\$ '
+	PS1='\[[\e[31m\u\e[39m@\h \e[1;34m\W\e[0;39m]\]\$ '
 else
-	PS1='[\e[32m\u\e[39m@\h \e[1;34m\W\e[0;39m]\$ '
+	PS1='\[[\e[32m\u\e[39m@\h \e[1;34m\W\e[0;39m]\]\$ '
 fi
 PS2='> '
 PS3='> '
