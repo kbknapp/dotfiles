@@ -12,7 +12,7 @@ alias ll='ls -al --color=auto'
 
 PS1='\[[\e[32m\u\e[39m@\h \e[1;34m\W\e[0;39m]\]\$ '
 	
-export GOPATH=$HOME/.go
+export GOPATH=$HOME/Projects/.go
 export GOBIN=$GOPATH/bin
-export GOROOT=/opt/go
+export GOROOT=/usr/lib/go/src
 export PATH=$PATH:$GOBIN:$GOROOT/bin
