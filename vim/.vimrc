@@ -11,6 +11,7 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
+set mouse=a
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -21,6 +22,10 @@ set hidden
 " This loads all the plugins in ~/.vim/bundle
 " using ~/.vim/autoload/pathogen.vim
 execute pathogen#infect()
+
+" ============== Omnicomplete Support ===============
+" This adds the autocomplete function
+set omnifunc=syntaxcomplete#Complete
 
 " ================ Indentation ======================
 set autoindent
@@ -47,7 +52,11 @@ set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
+" =============== Mappings  ===========================
+nmap <F8> :TagbarToggle<CR>     " Use F8 to open Tagbar
+nmap <F7> :NERDTree<CR>         " Use F7 to open NERDTree
 
 " =============== Go ================================
 " These settings are for Go-lang specific features
 autocmd FileType go autocmd BufWritePre <buffer> Fmt	" gofmt code on save
+autocmd FileType go compiler go     " Always enable compiler plugin
