@@ -55,6 +55,11 @@ set nofoldenable        "dont fold by default
 " =============== Mappings  ===========================
 nmap <F8> :TagbarToggle<CR>     " Use F8 to open Tagbar
 nmap <F7> :NERDTree<CR>         " Use F7 to open NERDTree
+inoremap { {<CR><BS>}<Esc>O<BS>	
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap ] <Esc>la
+inoremap ) <Esc>la
 
 " =============== Go ================================
 " These settings are for Go-lang specific features
