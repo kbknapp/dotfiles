@@ -1,0 +1,20 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias lsg='ls -G --group-directories-first'
+alias ls='ls -G'
+#alias llg='ls -Gal --group-directories-first'
+alias ll='ls -Gal'
+
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+
+PS1='\[[\e[1;32m\u\e[0;39m@\h \e[1;36m\W\e[0;39m]\]\$ '
+	
+export GOPATH=$HOME/.go
+export GOBIN=$GOPATH/bin
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOBIN:$GOROOT/bin
