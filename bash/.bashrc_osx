@@ -12,9 +12,9 @@ alias ll='ls -Gal'
 
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 
-PS1='\[[\e[1;32m\u\e[0;39m@\h \e[1;36m\W\e[0;39m]\]\$ '
+PS1='\[[\e[32m\u\e[0;39m@\h \e[36m\W\e[0;39m]\]\$ '
 	
 export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
 export GOROOT=/usr/local/go
-export PATH=$PATH:$GOBIN:$GOROOT/bin
+export PATH=/usr/local/bin:$PATH:$GOBIN:$GOROOT/bin
