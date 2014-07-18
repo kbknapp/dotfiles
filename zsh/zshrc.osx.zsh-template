@@ -82,6 +82,13 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Set MacVim to vim
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 
+# git settings
+alias gl='git log --graph --all --oneline --decorate'
+alias gc='git commit -am'
+alias clone='git clone'
+alias gb='git checkout'
+alias gpo='git push origin'
+
 # Go(lang) Settings
 export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
