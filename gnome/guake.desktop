@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/guake
+Hidden=false
+X-GNOME-Autostart-enable=true
+Name[en_US]=guake
+Name=guake
+Comment[en_US]=drop down terminal
+Comment=drop down terminal
