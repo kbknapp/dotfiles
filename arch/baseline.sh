@@ -64,6 +64,9 @@ mkdir -p .config/autostart
 cd .config/autostart
 cp ~/.dotfiles/gnome/guake.desktop ~/.config/autostart
 
+# Setting up Go
+go get code.google.com/p/go.tools/cmd/goimports
+
 # AUR Insalls (Maybe)
 #yaourt -S pycharm-community
 #yaourt -S sublime-text-dev
