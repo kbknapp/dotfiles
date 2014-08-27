@@ -102,3 +102,6 @@ export GOPATH=$HOME/.go
 export GOBIN=$GOPATH/bin
 export GOROOT=/usr/lib/go
 export PATH=/usr/local/bin/:$PATH:$GOBIN:$GOROOT/bin
+
+# Rust(lang) Settings
+export LD_LIBRARY_PATH=/usr/local/lib

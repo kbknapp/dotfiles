@@ -69,8 +69,18 @@ cp ~/.dotfiles/gnome/guake.desktop ~/.config/autostart
 su -c "go install std"
 go get code.google.com/p/go.tools/cmd/goimports
 
+# Setting up Rust
+mkdir -p Projects/rust-nightlies
+cd ~/Projects/rust-nightlies
+curl -LSso rustup.sh https://static.rust-lang.org/rustup.sh
+chmod +x rustup.sh
+sudo ./rustup.sh
+cd ~
+mkdir -p .rust/{bin,pkg,src/github.com}
+
 # AUR Insalls (Maybe)
 #yaourt -S pycharm-community
 #yaourt -S sublime-text-dev
+#yaourt -S haroopad
 
 echo "Complete!"
