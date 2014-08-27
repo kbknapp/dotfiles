@@ -1,7 +1,0 @@
-    3  cd /etc/pacman.d
-    4  mv mirrorlist mirrorlist.backup
-    5  rankmirrors -n 6 mirrorlist.backup > mirrorlist
-    6  mv antergos-mirrorlist antergos-mirrorlist.backup
-    7  rankmirrors -n 6 antergos-mirrorlist.backup > antergos-mirrorlist
-    8  pacman -Syy
-    9  pacman -Syu
