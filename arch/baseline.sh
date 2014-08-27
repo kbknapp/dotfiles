@@ -65,6 +65,8 @@ cd .config/autostart
 cp ~/.dotfiles/gnome/guake.desktop ~/.config/autostart
 
 # Setting up Go
+# Used for stale packages in Go 1.3.1
+su -c "go install std"
 go get code.google.com/p/go.tools/cmd/goimports
 
 # AUR Insalls (Maybe)
