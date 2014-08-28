@@ -70,7 +70,12 @@ cd ~
 echo "Configuring GNOME startup applications"
 mkdir -p .config/autostart
 cd .config/autostart
-cp ~/.dotfiles/gnome/guake.desktop ~/.config/autostart
+cp ~/.dotfiles/gauke/guake.desktop ~/.config/autostart
+cp ~/.dotfiles/conky/conky.desktop ~/.config/autostart
+
+# Setup conky
+cd ~
+cp ~/.dotfiles/conky/conkyrc ~/.conkyrc
 
 # Setting up Go
 cd ~
