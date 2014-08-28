@@ -1,0 +1,81 @@
+background yes
+use_xft yes
+xftfont Sans:size=8
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type conky
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 100 100
+maximum_width 600
+draw_shades yes
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color white
+default_shade_color black
+default_outline_color white
+alignment top_right
+gap_x 12
+gap_y 5
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+
+TEXT
+${color FF9900}${font inconsolata:bold:size=11:}CONKY${hr 2}
+${color FFFF00}${font inconsolata:normal:size=10}Version $alignr $conky_version
+${color FF9900}${font inconsolata:bold:size=11:}SYSTEM${hr 2}
+${color FFFF00}${font inconsolata:normal:size=10}$sysname $kernel $alignr $machine
+Host:$alignr$nodename
+Uptime:$alignr$uptime
+File System: $alignr${fs_type}
+Battery: $alignr${battery_percent BAT1}%
+Battery Time: $alignr${battery_time BAT1}
+
+${font inconsolata:bold:size=11}${color FF9900}PROCESSORS ${hr 2}${font inconsolata:normal:size=10}${color 
+FFFF00}
+CPU0: ${cpu cpu0}% ${cpubar cpu0}
+CPU1: ${cpu cpu1}% ${cpubar cpu1}
+CPU2: ${cpu cpu2}% ${cpubar cpu2}
+CPU3: ${cpu cpu3}% ${cpubar cpu3}
+CPU4: ${cpu cpu4}% ${cpubar cpu4}
+CPU5: ${cpu cpu5}% ${cpubar cpu5}
+CPU6: ${cpu cpu6}% ${cpubar cpu6}
+CPU7: ${cpu cpu7}% ${cpubar cpu7}
+
+${font inconsolata:bold:size=11}${color FF9900}MEMORY ${hr 2}
+${font inconsolata:normal:size=10}${color FFFF00}RAM $alignc $mem / $memmax $alignr $memperc%
+$membar
+${font inconsolata:normal:size=10}${color FFFF00}SWAP $alignc $swap / $swapmax $alignr $swapperc%
+$swapbar
+
+${font inconsolata:bold:size=11}${color FF9900}DISKS ${hr 2} 
+${font inconsolata:normal:size=10}${color FFFF00}/ $alignc ${fs_used /} / ${fs_size /} $alignr${fs_used_perc /}%
+${fs_bar /}
+Home $alignc ${fs_used /home/kevin} / ${fs_size /home/kevin} $alignr ${fs_used_perc /home/kevin}%
+${fs_bar /home/kevin}
+
+${font inconsolata:bold:size=11}${color FF9900}TOP PROCESSES ${hr 2}
+${font inconsolata:normal:size=10}${color FFFF00}${top_mem name 1}${alignr}${top mem 1} %
+${top_mem name 2}${alignr}${top mem 2} %
+$font${top_mem name 3}${alignr}${top mem 3} %
+$font${top_mem name 4}${alignr}${top mem 4} %
+$font${top_mem name 5}${alignr}${top mem 5} %
+
+${font inconsolata:bold:size=11}${color FF9900}NETWORK ${hr 2}
+${font inconsolata:normal:size=10}${color FFFF00}IP address: $alignr ${addr wlp2s0}
+ESSID: $alignr ${wireless_essid wlp2s0}
+Connection Quality: $alignr ${wireless_link_qual_perc wlp2s0}%
+
+$alignr Download
+${downspeedgraph wlp2s0}
+${downspeed wlp2s0}/s $alignr ${totaldown wlp2s0}
+
+$alignr Upload
+${upspeedgraph wlp2s0}
+${upspeed wlp2s0}/s $alignr ${totalup wlp2s0}

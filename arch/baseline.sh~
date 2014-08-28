@@ -45,12 +45,12 @@ git config --global color.ui true
 
 # Clone my repos
 echo "Checking for dotfiles"
-if [[ ! -d ~/.dotfiles ]]; then
+if [[ ! -d .dotfiles ]]; then
 	echo "Cloning dotfiles repo"
 	git clone https://github.com/kbknapp/dotfiles .dotfiles
 fi
 echo "Checking for oh-my-zsh repo"
-if [[ ! -d ~/.oh-my-zsh ]]; then
+if [[ ! -d .oh-my-zsh ]]; then
 	echo "Cloning oh-my-zsh repo"
 	git clone https://github.com/kbknapp/oh-my-zsh .oh-my-zsh
 fi

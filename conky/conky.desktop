@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=conky -d
+Hidden=false
+X-GNOME-Autostart-enable=true
+Name[en_US]=conky
+Name=conky
+Comment[en_US]=system monitor
+Comment=system monitor
+Terminal=false
+StartupNotify=false
