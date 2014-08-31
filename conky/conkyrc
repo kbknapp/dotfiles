@@ -8,6 +8,8 @@ own_window yes
 own_window_transparent yes
 own_window_type conky
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_argb_visual yes
+own_window_argb_value 255
 double_buffer yes
 minimum_size 100 100
 maximum_width 600
@@ -27,48 +29,53 @@ cpu_avg_samples 2
 override_utf8_locale no
 
 TEXT
-${color FF9900}${font inconsolata:bold:size=11:}CONKY${hr 2}
-${color FFFF00}${font inconsolata:normal:size=10}Version $alignr $conky_version
-${color FF9900}${font inconsolata:bold:size=11:}SYSTEM${hr 2}
-${color FFFF00}${font inconsolata:normal:size=10}$sysname $kernel $alignr $machine
+${color 1E90FF}${font inconsolata:bold:size=11:}CONKY${hr 2}
+${color 4682B4}${font inconsolata:normal:size=10}Version $alignr $conky_version
+${color 1E90FF}${font inconsolata:bold:size=11:}SYSTEM${hr 2}
+${color 4682B4}${font inconsolata:normal:size=10}$sysname $kernel $alignr $machine
 Host:$alignr$nodename
 Uptime:$alignr$uptime
-File System: $alignr${fs_type}
+#File System: $alignr${fs_type}
 Battery: $alignr${battery_percent BAT1}%
-Battery Time: $alignr${battery_time BAT1}
+#Battery Time: $alignr${battery_time BAT1}
 
-${font inconsolata:bold:size=11}${color FF9900}PROCESSORS ${hr 2}${font inconsolata:normal:size=10}${color 
-FFFF00}
-CPU0: ${cpu cpu0}% ${cpubar cpu0}
-CPU1: ${cpu cpu1}% ${cpubar cpu1}
-CPU2: ${cpu cpu2}% ${cpubar cpu2}
-CPU3: ${cpu cpu3}% ${cpubar cpu3}
-CPU4: ${cpu cpu4}% ${cpubar cpu4}
-CPU5: ${cpu cpu5}% ${cpubar cpu5}
-CPU6: ${cpu cpu6}% ${cpubar cpu6}
-CPU7: ${cpu cpu7}% ${cpubar cpu7}
+${font inconsolata:bold:size=11}${color 1E90FF}PROCESSOR ${hr 2}${font inconsolata:normal:size=10}${color 
+4682B4}
+${color 4682B4}${font inconsolata:normal:size=10}Model $alignr ${exec lscpu | grep "Model name" | gawk -F: '{print $2}' | tail -c 24}
+${color 4682B4}${font inconsolata:normal:size=10}Cores $alignr ${exec lscpu | grep "per socket" | gawk -F: '{print $2}' | tail -c 2}
+${color 4682B4}${font inconsolata:normal:size=10}CPU(s) $alignr ${exec nproc}
+CPU1: ${cpu cpu0}% ${cpubar cpu0}
+CPU2: ${cpu cpu1}% ${cpubar cpu1}
+CPU3: ${cpu cpu2}% ${cpubar cpu2}
+CPU4: ${cpu cpu3}% ${cpubar cpu3}
+CPU5: ${cpu cpu4}% ${cpubar cpu4}
+CPU6: ${cpu cpu5}% ${cpubar cpu5}
+CPU7: ${cpu cpu6}% ${cpubar cpu6}
+CPU8: ${cpu cpu7}% ${cpubar cpu7}
 
-${font inconsolata:bold:size=11}${color FF9900}MEMORY ${hr 2}
-${font inconsolata:normal:size=10}${color FFFF00}RAM $alignc $mem / $memmax $alignr $memperc%
+${font inconsolata:bold:size=11}${color 1E90FF}MEMORY ${hr 2}
+${font inconsolata:normal:size=10}${color 4682B4}RAM $alignc $mem / $memmax $alignr $memperc%
 $membar
-${font inconsolata:normal:size=10}${color FFFF00}SWAP $alignc $swap / $swapmax $alignr $swapperc%
+${font inconsolata:normal:size=10}${color 4682B4}SWAP $alignc $swap / $swapmax $alignr $swapperc%
 $swapbar
 
-${font inconsolata:bold:size=11}${color FF9900}DISKS ${hr 2} 
-${font inconsolata:normal:size=10}${color FFFF00}/ $alignc ${fs_used /} / ${fs_size /} $alignr${fs_used_perc /}%
+${font inconsolata:bold:size=11}${color 1E90FF}DISKS ${hr 2} 
+${font inconsolata:normal:size=10}${color 4682B4}/ $alignc ${fs_used /} / ${fs_size /} $alignr${fs_used_perc /}%
 ${fs_bar /}
-Home $alignc ${fs_used /home/kevin} / ${fs_size /home/kevin} $alignr ${fs_used_perc /home/kevin}%
+#Home $alignc ${fs_used /home/kevin} / ${fs_size /home/kevin} $alignr ${fs_used_perc /home/kevin}%
+#${fs_bar /home/kevin}
+Windows $alignc ${fs_used /mnt/windows} / ${fs_size /mnt/windows} $alignr ${fs_used_perc /home/kevin}%
 ${fs_bar /home/kevin}
 
-${font inconsolata:bold:size=11}${color FF9900}TOP PROCESSES ${hr 2}
-${font inconsolata:normal:size=10}${color FFFF00}${top_mem name 1}${alignr}${top mem 1} %
+${font inconsolata:bold:size=11}${color 1E90FF}TOP PROCESSES ${hr 2}
+${font inconsolata:normal:size=10}${color 4682B4}${top_mem name 1}${alignr}${top mem 1} %
 ${top_mem name 2}${alignr}${top mem 2} %
 $font${top_mem name 3}${alignr}${top mem 3} %
 $font${top_mem name 4}${alignr}${top mem 4} %
 $font${top_mem name 5}${alignr}${top mem 5} %
 
-${font inconsolata:bold:size=11}${color FF9900}NETWORK ${hr 2}
-${font inconsolata:normal:size=10}${color FFFF00}IP address: $alignr ${addr wlp2s0}
+${font inconsolata:bold:size=11}${color 1E90FF}NETWORK ${hr 2}
+${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${addr wlp2s0}
 ESSID: $alignr ${wireless_essid wlp2s0}
 Connection Quality: $alignr ${wireless_link_qual_perc wlp2s0}%
 
