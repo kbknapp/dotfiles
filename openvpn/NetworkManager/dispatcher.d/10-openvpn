@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case "$2" in
+	up)
+		if [ "$CONNECTION_ID" == "vypr-ca" ]; then
+			systemctl start openvpn@vypr-ca
+		fi
+	;;
+	down)
+		systemctl stop openvpn@vypr-ca
+	;;
+esac
