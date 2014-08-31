@@ -5,11 +5,11 @@ xftalpha 1
 update_interval 1.0
 total_run_times 0
 own_window yes
-own_window_transparent yes
+own_window_transparent no
 own_window_type conky
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 own_window_argb_visual yes
-own_window_argb_value 255
+own_window_argb_value 100
 double_buffer yes
 minimum_size 100 100
 maximum_width 600
@@ -91,4 +91,4 @@ ${upspeed wlp2s0}/s $alignr ${totalup wlp2s0}
 ${font inconsolata:bold:size=11}${color 1E90FF}VPN ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}Status: $alignr ${if_up tun0}Active $else Inactive $endif
 ${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${addr tun0}
-
+${font inconsolata:bold:size=11}${color 1E90FF}  
