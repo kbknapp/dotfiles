@@ -66,6 +66,8 @@ ${fs_bar /}
 #${fs_bar /home/kevin}
 Windows $alignc ${fs_used /mnt/windows} / ${fs_size /mnt/windows} $alignr ${fs_used_perc /home/kevin}%
 ${fs_bar /home/kevin}
+RAM Disk $alignc ${fs_used /mnt/ramdisk} / ${fs_size /mnt/ramdisk} $alignr ${fs_used_perc /mnt/ramdisk}%
+${fs_bar /mnt/ramdisk}
 
 ${font inconsolata:bold:size=11}${color 1E90FF}TOP PROCESSES ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}${top_mem name 1}${alignr}${top mem 1} %
