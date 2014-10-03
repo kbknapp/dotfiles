@@ -1,3 +1,4 @@
+
 # Linux settings
 alias llg='ls -al --color=auto --group-directories-first'
 alias lsg='ls --color=auto --group-directories-first'
@@ -5,3 +6,4 @@ alias ls='ls --color=auto'
 alias ll='ls -al --color=auto'
 
 export EDITOR=vim
+
