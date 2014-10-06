@@ -1,7 +1,7 @@
 
 # Linux settings
 my_howto() {
-    cat ~/.dotfiles/scripts/usefulcommands.md | grep -A 2 $1 | sed -e '/^```bash/d' | sed -e '/^```/d'
+    cat ~/.dotfiles/scripts/usefulcommands.md | grep -n -A2 '$1' | awk 'NR==1; END{print}'
 }
 alias llg='ls -al --color=auto --group-directories-first'
 alias lsg='ls --color=auto --group-directories-first'
