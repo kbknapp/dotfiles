@@ -1,0 +1,14 @@
+#!/bin/bash
+VERSION="0.2"
+PWD=
+echo "Vault v$VERSION"
+echo
+read -p "Vault: Enter your password: " -s PWD
+echo
+echo -n "Vault: Decrypting..."
+dislocker -v -V /dev/sda7 -u$PWD -- /mnt/tmp
+echo "OK"
+echo -n "Vault: Mounting..."
+mount -o loop -t ntfs-3g /mnt/tmp/dislocker-file /mnt/vault
+echo "OK"
+
