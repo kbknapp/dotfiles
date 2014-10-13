@@ -1,4 +1,5 @@
 
 # Rust(lang) Settings
 export LD_LIBRARY_PATH=/usr/local/lib
+export RUST_SRC_PATH=/usr/local/src/rust/src
 
