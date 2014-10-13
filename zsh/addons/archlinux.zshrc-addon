@@ -10,4 +10,4 @@ alias ll='ls -al --color=auto'
 alias howto=my_howto
 
 export EDITOR=vim
-
+export PATH=$PATH:$HOME/.bin
