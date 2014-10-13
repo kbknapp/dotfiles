@@ -41,6 +41,10 @@ filetype indent on
 
 syntax on
 
+" ============ Solarized Colors ================
+syntax enable
+set background=dark
+
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
 
@@ -55,11 +59,12 @@ set nofoldenable        "dont fold by default
 " =============== Mappings  ===========================
 nmap <F8> :TagbarToggle<CR>     " Use F8 to open Tagbar
 nmap <F7> :NERDTree<CR>         " Use F7 to open NERDTree
-inoremap { {<CR><BS>}<Esc>O<BS>	
+inoremap { {}<Esc>i	
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap ] <Esc>la
 inoremap ) <Esc>la
+inoremap } <Esc>la
 
 " =============== Go ================================
 " These settings are for Go-lang specific features
@@ -71,3 +76,7 @@ autocmd FileType go compiler go     " Always enable compiler plugin
 " and Racer auto-complete
 let g:racer_cmd = "/home/kevin/.bin/racer"
 let $RUST_SRC_PATH="/usr/local/src/rust/src"
+
+" =============== Python ===========================
+" These settings are for Python and Flake8 settings
+autocmd FileType python map <buffer> <F3> :call Flake8()<CR>
