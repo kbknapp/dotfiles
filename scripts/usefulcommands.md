@@ -10,8 +10,12 @@ find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -0 md5sum |
 awk 'NR==1; END{print}'
 ```
 
-
 ## print first and last line of file
 ```bash
 (head -n1 && tail -n1)<file
+```
+
+## link files link directories symlinks
+```bash
+ln -s <object> <new link>
 ```
