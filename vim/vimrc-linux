@@ -13,7 +13,7 @@ set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 set mouse=a
-
+set list                        " Show line feeds as $
 " ================ Vundle ===========================
 " Set the runtime path to include Vundle and it's init
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -58,6 +58,11 @@ set softtabstop=4
 set tabstop=4
 set expandtab
 
+" ================ Folds ============================
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
+
 filetype plugin indent on
 
 syntax on
@@ -71,11 +76,6 @@ set list listchars=tab:\ \ ,trail:·
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
-
-" ================ Folds ============================
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
 
 " =============== Mappings  ===========================
 nmap <F8> :TagbarToggle<CR>     " Use F8 to open Tagbar
@@ -92,6 +92,12 @@ nnoremap <F5> :GundoToggle<CR>
 
 " Flake8
 nnoremap <F8> :call Flake8()<CR>
+
+" Working with Splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " =============== Go ================================
 " These settings are for Go-lang specific features
