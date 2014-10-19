@@ -90,6 +90,7 @@ alias ll='ls -al --color=auto'
 alias howto=my_howto
 
 export EDITOR=vim
+export PATH=$PATH:$HOME/.bin
 
 # git settings
 alias gl='git log --graph --all --oneline --decorate'
@@ -100,3 +101,4 @@ alias gpo='git push origin'
 
 # Rust(lang) Settings
 export LD_LIBRARY_PATH=/usr/local/lib
+export RUST_SRC_PATH=/usr/local/src/rust/src

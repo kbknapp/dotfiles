@@ -52,6 +52,8 @@ CPU5: ${cpu cpu4}% ${cpubar cpu4}
 CPU6: ${cpu cpu5}% ${cpubar cpu5}
 CPU7: ${cpu cpu6}% ${cpubar cpu6}
 CPU8: ${cpu cpu7}% ${cpubar cpu7}
+CPU9: ${cpu cpu8}% ${cpubar cpu8}
+
 
 ${font inconsolata:bold:size=11}${color 1E90FF}MEMORY ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}RAM $alignc $mem / $memmax $alignr $memperc%
@@ -68,6 +70,8 @@ Windows $alignc ${fs_used /mnt/windows} / ${fs_size /mnt/windows} $alignr ${fs_u
 ${fs_bar /home/kevin}
 RAM Disk $alignc ${fs_used /mnt/ramdisk} / ${fs_size /mnt/ramdisk} $alignr ${fs_used_perc /mnt/ramdisk}%
 ${fs_bar /mnt/ramdisk}
+Vault $alignc ${fs_used /mnt/vault} / ${fs_size /mnt/vault} $alignr ${fs_used_perc /mnt/vault}%
+${fs_bar /mnt/vault}
 
 ${font inconsolata:bold:size=11}${color 1E90FF}TOP PROCESSES ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}${top_mem name 1}${alignr}${top mem 1} %
@@ -77,10 +81,10 @@ $font${top_mem name 4}${alignr}${top mem 4} %
 $font${top_mem name 5}${alignr}${top mem 5} %
 
 ${font inconsolata:bold:size=11}${color 1E90FF}NETWORK ${hr 2}
-${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${if_up wlp2s0}${addr wlp2s0} $else ${addr eth0} $endif
+${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${if_up wlp3s0}${addr wlp3s0} $else ${addr eth0} $endif
 ${font inconsolata:normal:size=10}${color 4682B4}Gateway: $alignr $gw_ip
-ESSID: $alignr ${wireless_essid wlp2s0}
-Connection Quality: $alignr ${wireless_link_qual_perc wlp2s0}%
+ESSID: $alignr ${wireless_essid wlp3s0}
+Connection Quality: $alignr ${wireless_link_qual_perc wlp3s0}%
 
 $alignr Download
 ${downspeedgraph wlp2s0}
