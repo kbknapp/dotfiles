@@ -66,8 +66,8 @@ ${font inconsolata:normal:size=10}${color 4682B4}/ $alignc ${fs_used /} / ${fs_s
 ${fs_bar /}
 #Home $alignc ${fs_used /home/kevin} / ${fs_size /home/kevin} $alignr ${fs_used_perc /home/kevin}%
 #${fs_bar /home/kevin}
-Windows $alignc ${fs_used /mnt/windows} / ${fs_size /mnt/windows} $alignr ${fs_used_perc /home/kevin}%
-${fs_bar /home/kevin}
+Windows $alignc ${fs_used /mnt/windows} / ${fs_size /mnt/windows} $alignr ${fs_used_perc /mnt/windows}%
+${fs_bar /mnt/windows}
 RAM Disk $alignc ${fs_used /mnt/ramdisk} / ${fs_size /mnt/ramdisk} $alignr ${fs_used_perc /mnt/ramdisk}%
 ${fs_bar /mnt/ramdisk}
 Vault $alignc ${fs_used /mnt/vault} / ${fs_size /mnt/vault} $alignr ${fs_used_perc /mnt/vault}%
