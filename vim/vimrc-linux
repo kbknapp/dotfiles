@@ -1,19 +1,55 @@
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-filetype off
+" filetype off
 
 " ================ General Config ====================
-set number                      "Line numbers are good
-set backspace=indent,eol,start  "Allow backspace in insert mode
-set history=1000                "Store lots of :cmdline history
-set showcmd                     "Show incomplete cmds down the bottom
-set showmode                    "Show current mode down the bottom
-set gcr=a:blinkon0              "Disable cursor blink
-set visualbell                  "No sounds
-set autoread                    "Reload files changed outside vim
+" set number                      " Line numbers are good
+set ruler                       " Show cursor position in status instead of full line numbers
+set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
+set history=1000                " Store lots of :cmdline history (default is 20)
+set showcmd                     " Show incomplete cmds down the bottom
+set showmode                    " Show current mode down the bottom
+" set gcr=a:blinkon0              " Disable cursor blink
+set visualbell                  " No sounds
+set autoread                    " Reload files changed outside vim
 set mouse=a
-set list                        " Show line feeds as $
+set confirm                     " Instead of failing cmd from no save, ask to save
+" set ruler                     " show cursor postion in status
+set wildmenu                    " Better command line completion
+set wildmode=list:longest       " Only complete up to the point of ambiguity (i.e. like a shell)
+set scrolloff=3                 " Show lines of context around the cursor when scrolling
+" Store temp files in specific loctions
+set backupdir=~/.vim-tmp,~/.tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,/tmp
+
+" =============== Search Settings ===================
+set hlsearch                    " Highlight searches (Use <C-L> to temporarily disable)
+set incsearch                   " highlight incrementally as they are typed
+set ignorecase                  " Ignore case when searching
+set smartcase                   " Except when using capital letters
+" Remap <C-L> (redraw screen) to disable search highlight until next search
+nnoremap <C-L> :nohl<CR><C-L>
+
+" ============== Copy / Paste ========================
+set pastetoggle=<F11>           " Toggle between paste/nopaste with <F11>
+
+" Make Y act like D and C, i.e. yank till EOL rather than yy
+map Y y$
+
+" ================ Indentation ======================
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=4
+set softtabstop=4
+" set tabstop=4                 " Use hard tabs of 4 spaces
+set expandtab
+
+" Buffers can exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
+
 " ================ Vundle ===========================
 " Set the runtime path to include Vundle and it's init
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -30,6 +66,7 @@ Plugin 'sjl/gundo.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'wting/rust.vim'
 Plugin 'Valloric/YouCompleteMe'
 
 " Done with Vundle Plugins
@@ -49,15 +86,6 @@ set hidden
 " This adds the autocomplete function
 set omnifunc=syntaxcomplete#Complete
 
-" ================ Indentation ======================
-set autoindent
-set smartindent
-set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set expandtab
-
 " ================ Folds ============================
 set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 3 levels
@@ -74,24 +102,25 @@ set background=dark
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
 
-set nowrap       "Don't wrap lines
-set linebreak    "Wrap lines at convenient points
+set nowrap       " Don't wrap lines
+" set linebreak    "Wrap lines at convenient points
 
 " =============== Mappings  ===========================
-nmap <F8> :TagbarToggle<CR>     " Use F8 to open Tagbar
+nmap <F4> :TagbarToggle<CR>     " Use F8 to open Tagbar
 nmap <F7> :NERDTree<CR>         " Use F7 to open NERDTree
-inoremap { {}<Esc>i	
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap ] <Esc>la
-inoremap ) <Esc>la
-inoremap } <Esc>la
+" inoremap { {}<Esc>i	
+" inoremap ( ()<Esc>i
+" inoremap [ []<Esc>i
+" inoremap ] <Esc>la
+" inoremap ) <Esc>la
+" inoremap } <Esc>la
+
+" Enable faster viewport scrolling
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 
 " gundo
 nnoremap <F5> :GundoToggle<CR>
-
-" Flake8
-nnoremap <F8> :call Flake8()<CR>
 
 " Working with Splits
 nnoremap <C-J> <C-W><C-J>
@@ -112,4 +141,5 @@ let $RUST_SRC_PATH="/usr/local/src/rust/src"
 
 " =============== Python ===========================
 " These settings are for Python and Flake8 settings
+nnoremap <F8> :call Flake8()<CR>
 autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
