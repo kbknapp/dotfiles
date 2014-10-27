@@ -115,6 +115,9 @@ nmap <F7> :NERDTree<CR>         " Use F7 to open NERDTree
 " inoremap ) <Esc>la
 " inoremap } <Esc>la
 
+" Remap the leader key to something more convienient
+let mapleader = ","
+
 " Enable faster viewport scrolling
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
@@ -128,6 +131,10 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Catch trailing whitespace when desired (<leader>s)
+set listchars=tab:>-,trail:·,eol:$
+nmap <silent> <leader>s :set nolist!<CR>
+
 " =============== Go ================================
 " These settings are for Go-lang specific features
 " autocmd FileType go autocmd BufWritePre <buffer> Fmt	" gofmt code on save
@@ -136,7 +143,7 @@ nnoremap <C-H> <C-W><C-H>
 " ================ Rust ============================
 " These settings are for Rust-lang specific features
 " and Racer auto-complete
-let g:racer_cmd = "/home/kevin/.bin/racer"
+let g:racer_cmd = "~/.bin/racer"
 let $RUST_SRC_PATH="/usr/local/src/rust/src"
 
 " =============== Python ===========================
