@@ -23,15 +23,15 @@ ZSH_THEME="kustom-linux"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -45,13 +45,13 @@ ZSH_THEME="kustom-linux"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python vi-mode sublime systemd archlinux)
+plugins=(git python sudo systemd)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:/usr/local/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -68,7 +68,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -81,7 +81,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Linux settings
 my_howto() {
-    cat ~/.dotfiles/scripts/usefulcommands.md | grep -A 2 $1 | sed -e '/^```bash/d' | sed -e '/^```/d'
+    cat ~/.dotfiles/scripts/usefulcommands.md | grep -A 2 $1 | sed -e '/^```/d'
 }
 alias llg='ls -al --color=auto --group-directories-first'
 alias lsg='ls --color=auto --group-directories-first'
@@ -99,6 +99,3 @@ alias clone='git clone'
 alias gb='git checkout'
 alias gpo='git push origin'
 
-# Rust(lang) Settings
-export LD_LIBRARY_PATH=/usr/local/lib
-export RUST_SRC_PATH=/usr/local/src/rust/src
