@@ -42,17 +42,17 @@ Battery Time: $alignr${battery_time BAT0}
 ${font inconsolata:bold:size=11}${color 1E90FF}PROCESSOR ${hr 2}${font inconsolata:normal:size=10}${color 
 4682B4}
 ${color 4682B4}${font inconsolata:normal:size=10}Model $alignr ${exec lscpu | grep "Model name" | gawk -F: '{print $2}' | tail -c 24}
-${color 4682B4}${font inconsolata:normal:size=10}Cores $alignr ${exec lscpu | grep "per socket" | gawk -F: '{print $2}' | tail -c 2}
-${color 4682B4}${font inconsolata:normal:size=10}CPU(s) $alignr ${exec nproc}
+${color 4682B4}${font inconsolata:normal:size=10}Cores / Thread(s) $alignr ${exec lscpu | grep "per socket" | gawk -F: '{print $2}' | tail -c 2} / ${exec nproc}
+#${color 4682B4}${font inconsolata:normal:size=10}CPU(s) $alignr ${exec nproc}
 #Total: ${cpu cpu0}% ${cpubar cpu0}
-CPU1: ${cpu cpu1}% ${cpubar cpu1}
-CPU2: ${cpu cpu2}% ${cpubar cpu2}
-CPU3: ${cpu cpu3}% ${cpubar cpu3}
-CPU4: ${cpu cpu4}% ${cpubar cpu4}
-CPU5: ${cpu cpu5}% ${cpubar cpu5}
-CPU6: ${cpu cpu6}% ${cpubar cpu6}
-CPU7: ${cpu cpu7}% ${cpubar cpu7}
-CPU8: ${cpu cpu8}% ${cpubar cpu8}
+Thread1: ${cpu cpu1}% ${cpubar cpu1}
+Thread2: ${cpu cpu2}% ${cpubar cpu2}
+Thread3: ${cpu cpu3}% ${cpubar cpu3}
+Thread4: ${cpu cpu4}% ${cpubar cpu4}
+Thread5: ${cpu cpu5}% ${cpubar cpu5}
+Thread6: ${cpu cpu6}% ${cpubar cpu6}
+Thread7: ${cpu cpu7}% ${cpubar cpu7}
+Thread8: ${cpu cpu8}% ${cpubar cpu8}
 ${color 4682B4}${font inconsolata:normal:size=10} $alignr TOTAL CPU USAGE
 ${cpu cpu0}% ${cpubar cpu0}
 #${cpugraph cpu0}
@@ -84,10 +84,10 @@ $font${top_mem name 4}${alignr}${top mem 4} %
 $font${top_mem name 5}${alignr}${top mem 5} %
 
 ${font inconsolata:bold:size=11}${color 1E90FF}NETWORK ${hr 2}
-${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${if_up wlp3s0}${addr wlp3s0} $else ${addr eth0} $endif
+${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${if_up wlp3s0}${addr wlp3s0} $else ${addr enp0s25} $endif
 ${font inconsolata:normal:size=10}${color 4682B4}Gateway: $alignr $gw_ip
-ESSID: $alignr ${wireless_essid wlp3s0}
-Connection Quality: $alignr ${wireless_link_qual_perc wlp3s0}%
+${if_up wlp3s0}ESSID: $alignr ${wireless_essid wlp3s0}
+Connection Quality: $alignr ${wireless_link_qual_perc wlp3s0}%$endif
 
 $alignr Download
 ${downspeedgraph wlp3s0}
