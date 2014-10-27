@@ -32,7 +32,7 @@ set smartcase                   " Except when using capital letters
 nnoremap <C-L> :nohl<CR><C-L>
 
 " ============== Copy / Paste ========================
-set pastetoggle=<F11>           " Toggle between paste/nopaste with <F11>
+set pastetoggle=<F10>           " Toggle between paste/nopaste with <F10>
 
 " Make Y act like D and C, i.e. yank till EOL rather than yy
 map Y y$
