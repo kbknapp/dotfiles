@@ -29,8 +29,8 @@ cpu_avg_samples 2
 override_utf8_locale no
 
 TEXT
-#${color 1E90FF}${font inconsolata:bold:size=11:}CONKY${hr 2}
-#${color 4682B4}${font inconsolata:normal:size=10}Version $alignr $conky_version
+${color 1E90FF}${font inconsolata:bold:size=11:}CONKY${hr 2}
+${color 4682B4}${font inconsolata:normal:size=10}Version $alignr $conky_version
 ${color 1E90FF}${font inconsolata:bold:size=11:}SYSTEM${hr 2}
 ${color 4682B4}${font inconsolata:normal:size=10}$sysname $kernel $alignr $machine
 Host:$alignr$nodename
@@ -38,13 +38,10 @@ Uptime:$alignr$uptime
 #File System: $alignr${fs_type}
 Battery: $alignr${battery_percent BAT0}%
 Battery Time: $alignr${battery_time BAT0}
-
 ${font inconsolata:bold:size=11}${color 1E90FF}PROCESSOR ${hr 2}${font inconsolata:normal:size=10}${color 
 4682B4}
 ${color 4682B4}${font inconsolata:normal:size=10}Model $alignr ${exec lscpu | grep "Model name" | gawk -F: '{print $2}' | tail -c 24}
 ${color 4682B4}${font inconsolata:normal:size=10}Cores / Thread(s) $alignr ${exec lscpu | grep "per socket" | gawk -F: '{print $2}' | tail -c 2} / ${exec nproc}
-#${color 4682B4}${font inconsolata:normal:size=10}CPU(s) $alignr ${exec nproc}
-#Total: ${cpu cpu0}% ${cpubar cpu0}
 Thread1: ${cpu cpu1}% ${cpubar cpu1}
 Thread2: ${cpu cpu2}% ${cpubar cpu2}
 Thread3: ${cpu cpu3}% ${cpubar cpu3}
@@ -55,48 +52,50 @@ Thread7: ${cpu cpu7}% ${cpubar cpu7}
 Thread8: ${cpu cpu8}% ${cpubar cpu8}
 ${color 4682B4}${font inconsolata:normal:size=10} $alignr TOTAL CPU USAGE
 ${cpu cpu0}% ${cpubar cpu0}
-#${cpugraph cpu0}
-
-
 ${font inconsolata:bold:size=11}${color 1E90FF}MEMORY ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}RAM $alignc $mem / $memmax $alignr $memperc%
 $membar
 #${font inconsolata:normal:size=10}${color 4682B4}SWAP $alignc $swap / $swapmax $alignr $swapperc%
 #$swapbar
-
 ${font inconsolata:bold:size=11}${color 1E90FF}DISKS ${hr 2} 
 ${font inconsolata:normal:size=10}${color 4682B4}/ $alignc ${fs_used /} / ${fs_size /} $alignr${fs_used_perc /}%
 ${fs_bar /}
-#Home $alignc ${fs_used /home/kevin} / ${fs_size /home/kevin} $alignr ${fs_used_perc /home/kevin}%
-#${fs_bar /home/kevin}
 Windows $alignc ${fs_used /mnt/windows} / ${fs_size /mnt/windows} $alignr ${fs_used_perc /mnt/windows}%
 ${fs_bar /mnt/windows}
 RAM Disk $alignc ${fs_used /mnt/ramdisk} / ${fs_size /mnt/ramdisk} $alignr ${fs_used_perc /mnt/ramdisk}%
 ${fs_bar /mnt/ramdisk}
 ${if_mounted /mnt/vault}Vault $alignc ${fs_used /mnt/vault} / ${fs_size /mnt/vault} $alignr ${fs_used_perc /mnt/vault}%
-${fs_bar /mnt/vault}$endif
-
+    ${fs_bar /mnt/vault}
+$endif
 ${font inconsolata:bold:size=11}${color 1E90FF}TOP PROCESSES ${hr 2}
-${font inconsolata:normal:size=10}${color 4682B4}${top_mem name 1}${alignr}${top mem 1} %
-${top_mem name 2}${alignr}${top mem 2} %
-$font${top_mem name 3}${alignr}${top mem 3} %
-$font${top_mem name 4}${alignr}${top mem 4} %
-$font${top_mem name 5}${alignr}${top mem 5} %
-
+${font inconsolata:normal:size=10}${color 4682B4}${top_mem name 1}${alignr}${top mem 1}%
+${top_mem name 2} ${alignr} ${top mem 2}%
+$font${top_mem name 3}${alignr}${top mem 3}%
+$font${top_mem name 4}${alignr}${top mem 4}%
+$font${top_mem name 5}${alignr}${top mem 5}%
 ${font inconsolata:bold:size=11}${color 1E90FF}NETWORK ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${if_up wlp3s0}${addr wlp3s0} $else ${addr enp0s25} $endif
 ${font inconsolata:normal:size=10}${color 4682B4}Gateway: $alignr $gw_ip
-${if_up wlp3s0}ESSID: $alignr ${wireless_essid wlp3s0}
-Connection Quality: $alignr ${wireless_link_qual_perc wlp3s0}%$endif
+${if_up wlp3s0}
+    ESSID: $alignr ${wireless_essid wlp3s0}
+    Connection Quality: $alignr ${wireless_link_qual_perc wlp3s0}%
 
-$alignr Download
-${downspeedgraph wlp3s0}
-${downspeed wlp3s0}/s $alignr ${totaldown wlp3s0}
+    $alignr Download
+    ${downspeedgraph wlp3s0}
+    ${downspeed wlp3s0}/s $alignr ${totaldown wlp3s0}
 
-$alignr Upload
-${upspeedgraph wlp3s0}
-${upspeed wlp3s0}/s $alignr ${totalup wlp3s0}
+    $alignr Upload
+    ${upspeedgraph wlp3s0}
+    ${upspeed wlp3s0}/s $alignr ${totalup wlp3s0}
+$else 
+    $alignr Download
+    ${downspeedgraph enp0s25}
+    ${downspeed enp0s25}/s $alignr ${totaldown enp0s25}
 
+    $alignr Upload
+    ${upspeedgraph enp0s25}
+    ${upspeed enp0s25}/s $alignr ${totalup enp0s25}
+$endif
 ${font inconsolata:bold:size=11}${color 1E90FF}VPN ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}Status: $alignr ${if_up tun0}Active $else Inactive $endif
 ${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${addr tun0}
