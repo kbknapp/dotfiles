@@ -29,8 +29,9 @@ cpu_avg_samples 2
 override_utf8_locale no
 
 TEXT
-${color 1E90FF}${font inconsolata:bold:size=11:}CONKY${hr 2}
-${color 4682B4}${font inconsolata:normal:size=10}Version $alignr $conky_version
+#${color 1E90FF}${font inconsolata:bold:size=11:}CONKY${hr 2}
+#${color 4682B4}${font inconsolata:normal:size=10}Version $alignr $conky_version
+#
 ${color 1E90FF}${font inconsolata:bold:size=11:}SYSTEM${hr 2}
 ${color 4682B4}${font inconsolata:normal:size=10}$sysname $kernel $alignr $machine
 Host:$alignr$nodename
@@ -38,6 +39,7 @@ Uptime:$alignr$uptime
 #File System: $alignr${fs_type}
 Battery: $alignr${battery_percent BAT0}%
 Battery Time: $alignr${battery_time BAT0}
+
 ${font inconsolata:bold:size=11}${color 1E90FF}PROCESSOR ${hr 2}${font inconsolata:normal:size=10}${color 
 4682B4}
 ${color 4682B4}${font inconsolata:normal:size=10}Model $alignr ${exec lscpu | grep "Model name" | gawk -F: '{print $2}' | tail -c 24}
@@ -52,11 +54,13 @@ Thread7: ${cpu cpu7}% ${cpubar cpu7}
 Thread8: ${cpu cpu8}% ${cpubar cpu8}
 ${color 4682B4}${font inconsolata:normal:size=10} $alignr TOTAL CPU USAGE
 ${cpu cpu0}% ${cpubar cpu0}
+
 ${font inconsolata:bold:size=11}${color 1E90FF}MEMORY ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}RAM $alignc $mem / $memmax $alignr $memperc%
 $membar
 #${font inconsolata:normal:size=10}${color 4682B4}SWAP $alignc $swap / $swapmax $alignr $swapperc%
 #$swapbar
+
 ${font inconsolata:bold:size=11}${color 1E90FF}DISKS ${hr 2} 
 ${font inconsolata:normal:size=10}${color 4682B4}/ $alignc ${fs_used /} / ${fs_size /} $alignr${fs_used_perc /}%
 ${fs_bar /}
@@ -73,6 +77,7 @@ ${top_mem name 2} ${alignr} ${top mem 2}%
 $font${top_mem name 3}${alignr}${top mem 3}%
 $font${top_mem name 4}${alignr}${top mem 4}%
 $font${top_mem name 5}${alignr}${top mem 5}%
+
 ${font inconsolata:bold:size=11}${color 1E90FF}NETWORK ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${if_up wlp3s0}${addr wlp3s0} $else ${addr enp0s25} $endif
 ${font inconsolata:normal:size=10}${color 4682B4}Gateway: $alignr $gw_ip
@@ -96,6 +101,7 @@ $else
     ${upspeedgraph enp0s25}
     ${upspeed enp0s25}/s $alignr ${totalup enp0s25}
 $endif
+
 ${font inconsolata:bold:size=11}${color 1E90FF}VPN ${hr 2}
 ${font inconsolata:normal:size=10}${color 4682B4}Status: $alignr ${if_up tun0}Active $else Inactive $endif
 ${font inconsolata:normal:size=10}${color 4682B4}IP address: $alignr ${addr tun0}

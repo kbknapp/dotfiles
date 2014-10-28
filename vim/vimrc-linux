@@ -6,8 +6,8 @@ set nocompatible
 filetype off
 
 " ================ General Config ====================
-" set number                      " Line numbers are good
-set ruler                       " Show cursor position in status instead of full line numbers
+set number                      " Line numbers are good
+" set ruler                       " Show cursor position in status instead of full line numbers
 set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
 set history=1000                " Store lots of :cmdline history (default is 20)
 set showcmd                     " Show incomplete cmds down the bottom
@@ -149,5 +149,5 @@ let $RUST_SRC_PATH="/usr/local/src/rust/src"
 
 " =============== Python ===========================
 " These settings are for Python and Flake8 settings
-nnoremap <F8> :call Flake8()<CR>
-autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
+autocmd FileType python nnoremap <silent> <leader>8 :call Flake8()<CR>
+"autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
