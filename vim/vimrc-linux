@@ -1,7 +1,9 @@
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-" filetype off
+
+" Turn off filetype to ensure Vundle executes properly
+filetype off
 
 " ================ General Config ====================
 " set number                      " Line numbers are good
@@ -36,7 +38,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 set paste                       " Turn on paste mode always
 
 " Make Y act like D and C, i.e. yank till EOL rather than yy
-map Y y$
+" map Y y$
 
 " ================ Indentation ======================
 set autoindent
@@ -94,6 +96,8 @@ set nofoldenable        "dont fold by default
 
 filetype plugin indent on
 
+" This must come AFTER Vundle or it will not detect all filetypes properly
+filetype on
 syntax on
 
 " ============ Solarized Colors ================
