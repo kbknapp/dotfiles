@@ -6,5 +6,7 @@
 		""
 	],
 	"theme": "Numix Dark.sublime-theme",
+        "overlay_scroll_bars": "enabled",
+        "numix_folder_icons": true,
 	"vintage_start_in_command_mode": true
 }
