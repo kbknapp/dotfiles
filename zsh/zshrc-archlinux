@@ -80,14 +80,13 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Linux settings
-my_howto() {
-    cat ~/.dotfiles/scripts/usefulcommands.md | grep -A 2 $1 | sed -e '/^```/d'
-}
 alias llg='ls -al --color=auto --group-directories-first'
 alias lsg='ls --color=auto --group-directories-first'
 alias ls='ls --color=auto'
 alias ll='ls -al --color=auto'
-alias howto=my_howto
+
+alias grep='grep ${GREP_OPTIONS}'
+unset GREP_OPTIONS
 
 export EDITOR=vim
 export PATH=$PATH:$HOME/.bin
@@ -101,4 +100,4 @@ alias gpo='git push origin'
 
 # rust settings
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
-
+export RUST_SRC_PATH=/usr/local/src/rust
