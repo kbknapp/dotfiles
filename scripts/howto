@@ -1,5 +1,4 @@
 #!/usr/bin/bash
+HOWTO_DIR="${HOME}/.dotfiles/howtos/"
 
-for prog in ~/Documents/howtos/*; do
-	cat ~/.dotfiles/scripts/"${prog}" | grep -A 2 $1 | sed -e '/^```/d'
-done
+grep "$*" -A 2 -r "${HOWTO_DIR}" | sed -e '/```/d' | sed -e "s@^${HOWTO_DIR}@@g"
