@@ -7,47 +7,47 @@ Install an AUR package:
 ```bash
 aura -A (package)
 ```
-Author's favourite. Upgrade all AUR packages, show PKGBUILD diffs, and remove unneeded makedeps after installation:
+Upgrade all AUR packages, show PKGBUILD diffs, and remove unneeded makedeps after installation:
 ```bash
 aura -Akua
 ```
 
-Just sync the package database and upgrade all installed AUR packages:
+Sync aur package database and upgrade all AUR packages:
 ```bash
 aura -Ayu
 ```
 
-Install with makepkg output unsuppressed:
+Install aur package with makepkg output unsuppressed:
 ```bash
 aura -Ax (package)
 ```
 
-Install and remove make dependencies afterwards:
+Install aur package and remove make dependencies afterwards:
 ```bash
 aura -Aa (package)
 ```
 
-Show a packages recent PKGBUILD changes when installing:
+Show an aur packages recent PKGBUILD changes when installing:
 ```bash
 aura -Ak (package)
 ```
 
-Look up information on an AUR package:
+AUR package info:
 ```bash
 aura -Ai (package)
 ```
 
-Checkout an AUR package's PKGBUILD:
+View AUR package PKGBUILD:
 ```bash
 aura -Ap (package)
 ```
 
-Only download an AUR package's PKGBUILD:
+Only download AUR package PKGBUILD:
 ```bash
 aura -Ap package > PKGBUILD
 ```
 
-Search the AUR with a keyword:
+Search AUR with a keyword:
 ```bash
 aura -As (keyword)
 ```
@@ -71,22 +71,22 @@ aura -Bc (number)
 
 ### Working with the Package Cache
 
-Downgrade a package (this is interactive):
+Downgrade package (this is interactive):
 ```bash
 aura -C (package)
 ```
 
-Search the package cache for package files via a regex:
+Search package cache with regex:
 ```bash
 aura -Cs (regex)
 ```
 
-Backup the package cache:
+Backup package cache:
 ```bash
 aura -Cb (/path/to/backup/location/)
 ```
 
-Reduce the package cache to contain only the 5 most recent versions of each package file:
+Reduce package cache to contain only the 5 most recent versions of each package file:
 ```bash
 aura -Cc 5
 ```
@@ -98,29 +98,29 @@ View the pacman log:
 aura -L
 ```
 
-View log info on a package:
+View pacman log info on a package:
 ```bash
 aura -Li
 ```
 
-Search the log via a regex:
+Search pacman log via a regex:
 ```bash
 aura -Ls (regex)
 ```
 
 ### Working with Orphan Dependencies
 
-Display orphans:
+View orphan packages:
 ```bash
 aura -O
 ```
 
-Adopt a package (shorthand for -D --asexplicit):
+Adopt orphan package (shorthand for -D --asexplicit):
 ```bash
 aura -O (package)
 ```
 
-Uninstall all orphans:
+Remove all orphan packages:
 ```bash
 aura -Oj
 ```

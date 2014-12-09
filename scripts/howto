@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 HOWTO_DIR="${HOME}/.dotfiles/howtos/"
 
-grep "$*" -A 2 -r "${HOWTO_DIR}" | sed -e '/```/d' | sed -e "s@^${HOWTO_DIR}@@g"
+grep "$*" -i -A 2 -r "${HOWTO_DIR}" | sed -e '/```/d' | sed -e "s@^${HOWTO_DIR}@@g"
