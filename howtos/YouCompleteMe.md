@@ -14,7 +14,7 @@ Generate youcompleteme makefiles
 ```bash
 $ cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
 ```
-OR Generate youcompleteme makefiles for C-Family syntax (require steps prior too)
+Generate youcompleteme makefiles for C-Family syntax (require steps prior too)
 ```bash
 cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT=~/ycm_temp/llvm_root_dir . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
 ```

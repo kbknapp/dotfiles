@@ -4,78 +4,74 @@ A How-To about using the `git` command for version tracking a repository.
 
 ## Config
 
-Set the username for all repositories to John Doe.
+Set `git` username for all repositories to John Doe.
+```bash
+$ git config --global user.name "John Doe"
+```
 
-	$ git config --global user.name "John Doe"
-
-Set the user email for all repositories to jdoe@mail.com.
-
-	$ git config --global user.email "jdoe@mail.com"
+Set `git` user email for all repositories to jdoe@mail.com.
+```bash
+$ git config --global user.email "jdoe@mail.com"
+```
 
 Set the `git` output to colorized.
-
-	$ git config --global color.ui true
-
+```bash
+$ git config --global color.ui true
+```
 ## Initializing
 
-Create a new repository.
-
-    $ git init
-
-The above is typically preceded by `$ mkdir myproject && cd myproject` which creates a directory called *myproject* and then changes into that directory.
+Create new `git` repository.
+```bash
+$ git init
+```
+Typically preceded by `$ mkdir myproject && cd myproject`
 
 ## Status
 
-Check the status of `git` repository
-
-	$ git status
-
+View `git` repository status
+```bash
+$ git status
+```
 ## Tracking Files / Folders
 
-Add a file or folder to be tracked.
-
-	$ git add some_file.txt
-
+Add a file or folder to `git` tracking.
+```bash
+$ git add some_file.txt
+```
 `git add` also accepts wildcards (`*`) or the special character `.` meaning all files and folders.
 
 ## Displaying Differences
 
-Display the differences between the working directory (example *some_file.py*) and the staging directory 
-
-	$ git diff some_file.py
+View `git` differences between the working and staging directory 
+```bash
+$ git diff some_file.py
+```
 
 ### Flags
 
-Adding the following flags to `git diff` changes the functionality.
-
+`git diff` flags:
 `--staged` compares the staging area to the repository.
-
 `HEAD`  compares the file in your working directory to the most recent commit version of the same file.
 
 ## Logging / History
 
-Show a Tk GUI showing commit history
+Tk GUI of commit history (i.e. gui git log)
+```bash
+$ gitk
+```
 
-	$ gitk
-
-Show a history of commits on the current repository in the current branch.
-
-	$ git log
-
+View history of commits on the current repository in the current branch.
+```bash
+$ git log
+```
 ### Flags
 
-Adding the following flags changes the output of `git log` or `gitk` respectively
-
+`git log` and `gitk` flags:
 `--stats` show's the history with some statistics of what was changed.
-
 `--oneline` shows single line version of commits history. (May be combined with the following flags as well)
-
 `--graph` shows branch diagrams
-
 `--all` shows commit history for the current repository from *all* branches.
-
 `--decorate` shows which branch commits were made two along with HEAD information.
-
 `--pretty="%h, %cn, %cr"` shows commit history in a formatted version (example uses abbreviated hash, commiter name, and relative commiter date seperated via commas)
 
 ### --pretty Formatter Values
@@ -92,54 +88,75 @@ Adding the following flags changes the output of `git log` or `gitk` respectivel
 
 ## Commiting
 
-Commit all files by showing a status and asking for a commit message.
-
-	$ git commit .
-
+Commit all files and prompt for commit message.
+```bash
+$ git commit .
+```
 ### Flags
 
-Adding the following flags to `git commit` changes the functionality.
-
+`git commit` flags:
 `-a` Commits all tracked files with all current changes. Asks for a commit message by showing a status screen.
-
 `-m "a message"` Commits files with the specified message.
 
 ## Ignoring
 
-To ignore files create a file named *.gitignore* inside the repository. Add one line per file (or folder) to ignore. Wildcards (`*`) are allowed. A line starting with `!` tels `git` to *include* such files and folders regardless of what other rules are listed in this file. Example:
-
-	$ editor .gitignore
-	.DS_Store
-	tmp/*.txt
-	!tmp/important.txt
+Create a file named *.gitignore* inside the repository.
+Add one line per file (or folder) to ignore.
+Wildcards (`*`) are allowed.
+Lines starting with `!` says to *include* them regardless of other rules in this file.
+```bash
+$ editor .gitignore
+tmp/*.txt
+!tmp/important.txt
+```
 
 ## Branches
 
-To see a list of branches as well s the currently selected branch
+List all git branches
+```bash
+$ git branch
+```
 
-	$ git branch
+Create git branch
+```bash
+$ git branch devel
+```
 
-To create a branch pass the branch name to `git branch`, i.e.
+Switch git branch
+```bash
+$ git checkout devel
+```
 
-	$ git branch devel
+Create git branch and switch to it
+```bash
+$ git checkout -b devel
+```
 
-Switch to a different branch (example switches to the `devel` branch)
+Delete git branch
+```bash
+$ git checkout -d <name>
+```
 
-	$ git checkout devel
-
-Alternatively use `git checkout` with the `-b` flag to create a new branch and switch to it in a single command.
-
-	$ git checkout -b devel
-
-Delete a branch using the `-d` and the branch name
-
-Another way to merge two branches is using `rebase` which applies changes to the `master` in a linear fashion, then re-applies all other commits and finally removes the branch being merged. Example:
-
-	$ git rebase devel
+rebase git branch
+```bash
+$ git rebase devel
+```
+`rebase` which applies changes to the `master` in a linear fashion, then re-applies all other commits and finally removes the branch being merged.
 
 ### Merging
 
-If you have two branches that you'd like to merge `master` and `devel` switch two the branch that will be merged *into* (i.e. example merges the `devel` branch *into* the `master` branch)
+merge git branch
+```bash
+$ git checkout master
+$ git merge devel
+```
 
-	$ git checkout master
-	$ git merge devel
+## change remote git from ssh to https
+```bash
+git remote set-url origin https://github.com/USERNAME/REPOSITORY2.git
+```
+
+## change remote git from https to ssh key
+```bash
+git remote set-url origin git@github.com:USERNAME/REPOSITORY2.git
+```

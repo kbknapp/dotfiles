@@ -19,13 +19,3 @@ awk 'NR==1; END{print}'
 ```bash
 ln -s <object> <new link>
 ```
-
-## change remote git from ssh to https
-```bash
-git remote set-url origin https://github.com/USERNAME/REPOSITORY2.git
-```
-
-## change remote git from https to ssh key
-```bash
-git remote set-url origin git@github.com:USERNAME/REPOSITORY2.git
-```
