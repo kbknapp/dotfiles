@@ -164,7 +164,7 @@ Mac `Cmd + U`
 ## Vintage Mode
 Enable Vintage Mode
 Inside User Settings
-```
+```json
 {
 	"ignored_packages": []
 }
@@ -172,7 +172,7 @@ Inside User Settings
 
 Start in Command Mode
 Inside User Settings, add
-```
+```json
 {
 	"vintage_start_in_command_mode": true
 }
@@ -184,7 +184,7 @@ Open Auto Complete List
 
 Set Accept Auto Complete Suggestion on Tab
 Inside User Settings, add
-```
+```json
 {
 	"auto_complete_commit_on_tab": true
 }
@@ -195,11 +195,11 @@ Start or Stop recoding Macro
 `^Q`
 
 Playback Macro
-`^Shift + Q`
+`^Shift + Alt + Q`
 
 Add Keyboard Shortcut to custom macro
 Inside User Keybindings, add
-```
+```json
 // Adds ^; as macro invoking keybinding
 [
 	{

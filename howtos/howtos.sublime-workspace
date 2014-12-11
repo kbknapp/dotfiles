@@ -7,14 +7,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "aura.md",
-			"settings":
-			{
-				"buffer_size": 1904,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -25,6 +17,10 @@
 			[
 				":w",
 				":w - Save"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
 			],
 			[
 				"shell",
@@ -80,13 +76,16 @@
 	},
 	"expanded_folders":
 	[
-		"/home/kevin/.dotfiles/howtos"
 	],
 	"file_history":
 	[
-		"/home/kevin/.dotfiles/howtos/YouCompleteMe.md",
 		"/home/kevin/.dotfiles/scripts/howto",
+		"/home/kevin/.dotfiles/howtos/YouCompleteMe.md",
+		"/home/kevin/.dotfiles/howtos/usefulcommands.md",
+		"/home/kevin/.dotfiles/howtos/sublime.md",
+		"/home/kevin/.dotfiles/howtos/git.md",
 		"/home/kevin/.dotfiles/zsh/zshrc-archlinux",
+		"/home/kevin/.dotfiles/howtos/aura.md",
 		"/home/kevin/Documents/howtos/sublime.md",
 		"/home/kevin/Documents/howtos/hub.md",
 		"/home/kevin/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
@@ -101,7 +100,7 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 23.0
 	},
 	"find_in_files":
 	{
@@ -115,6 +114,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"o",
+			"To"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -132,43 +133,14 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "aura.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1904,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1903,
-								1903
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1383.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -204,7 +176,7 @@
 	"project": "howtos.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
