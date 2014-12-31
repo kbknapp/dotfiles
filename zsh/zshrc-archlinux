@@ -84,6 +84,7 @@ alias llg='ls -al --color=auto --group-directories-first'
 alias lsg='ls --color=auto --group-directories-first'
 alias ls='ls --color=auto'
 alias ll='ls -al --color=auto'
+alias tree='tree -C'
 
 alias grep='grep ${GREP_OPTIONS}'
 unset GREP_OPTIONS
@@ -91,13 +92,3 @@ unset GREP_OPTIONS
 export EDITOR=vim
 export PATH=$PATH:$HOME/.bin
 
-# git settings
-alias gl='git log --graph --all --oneline --decorate'
-alias gc='git commit -am'
-alias clone='git clone'
-alias gb='git checkout'
-alias gpo='git push origin'
-
-# rust settings
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
-export RUST_SRC_PATH=/usr/local/src/rust
