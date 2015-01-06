@@ -7,7 +7,7 @@ filetype off
 
 " ================ General Config ====================
 set number                      " Line numbers are good
-" set ruler                       " Show cursor position in status instead of full line numbers
+"set ruler                       " Show cursor position in status instead of full line numbers
 set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
 set history=1000                " Store lots of :cmdline history (default is 20)
 set showcmd                     " Show incomplete cmds down the bottom
@@ -23,6 +23,8 @@ set scrolloff=3                 " Show lines of context around the cursor when s
 " Store temp files in specific loctions
 set backupdir=~/.vim-tmp,~/.tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,/tmp
+" Set a highlighted column to give reference for long lines
+set colorcolumn=85
 
 " =============== Search Settings ===================
 set hlsearch                    " Highlight searches (Use <C-L> to temporarily disable)
@@ -30,11 +32,16 @@ set incsearch                   " highlight incrementally as they are typed
 set ignorecase                  " Ignore case when searching
 set smartcase                   " Except when using capital letters
 " Remap <C-L> (redraw screen) to disable search highlight until next search
-nnoremap <C-L> :nohl<CR><C-L>
+"nnoremap <C-L> :nohl<CR><C-L>
 
 " ============== Copy / Paste ========================
 set pastetoggle=<F10>           " Toggle between paste/nopaste with <F10>
-set paste                       " Turn on paste mode always
+"set paste                       " Turn on paste mode always
+" Alias the unnamed clipboard to the Linux X11 clipboard
+set clipboard=unnamed
+" Yank text to the system clipboard in Linux
+"noremap <leader>y "*y
+"noremap <leader>yy "*Y
 
 " Make Y act like D and C, i.e. yank till EOL rather than yy
 " map Y y$
@@ -60,16 +67,17 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Vundle Plugins
-Plugin 'tpope/vim-fugitive'
-Plugin 'kien/ctrlp.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'godlygeek/tabular'
+"Plugin 'plasticboy/vim-markdown'
 Plugin 'sjl/gundo.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'wting/rust.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'altercation/vim-colors-solarized'
 
 " Done with Vundle Plugins
 call vundle#end()
@@ -82,6 +90,7 @@ set hidden
 " ============== Pathogen Initialization =============
 " This loads all the plugins in ~/.vim/bundle
 " using ~/.vim/autoload/pathogen.vim
+" NOT//NOT compatible with Vundle!
 " execute pathogen#infect()
 
 " ============== Omnicomplete Support ===============
@@ -100,31 +109,39 @@ filetype on
 syntax on
 
 " ============ Solarized Colors ================
-syntax enable
+"syntax enable
 set background=dark
+" If terminal doesn't support solarized color palettes
+"let g:solarized_termcolors=256
+" Allow transperant backgrounds
+"let g:solarized_termtrans = 1
+"let g:solarized_visibility = "high"
+" Must come last
+colorscheme solarized
 
 set nowrap       " Don't wrap lines
 " set linebreak    "Wrap lines at convenient points
 
 " =============== Mappings  ===========================
-nmap <F4> :TagbarToggle<CR>     " Use F8 to open Tagbar
+"nmap <F4> :TagbarToggle<CR>     " Use F4 to open Tagbar
 nmap <F7> :NERDTree<CR>         " Use F7 to open NERDTree
-" inoremap { {}<Esc>i	
-" inoremap ( ()<Esc>i
-" inoremap [ []<Esc>i
-" inoremap ] <Esc>la
-" inoremap ) <Esc>la
-" inoremap } <Esc>la
+" Insert matching brackets
+inoremap { {}<Esc>i	
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap ] <Esc>la
+inoremap ) <Esc>la
+inoremap } <Esc>la
 
 " Remap the leader key to something more convienient
 let mapleader = ","
 
 " Enable faster viewport scrolling
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
+nnoremap <C-e> 4<C-e>
+nnoremap <C-y> 4<C-y>
 
 " gundo
-nnoremap <F5> :GundoToggle<CR>
+"nnoremap <F5> :GundoToggle<CR>
 
 " Working with Splits
 nnoremap <C-J> <C-W><C-J>
