@@ -1,0 +1,6 @@
+#source $BYOBU_PREFIX/share/byobu/keybindings/f-keys.screen.disable
+#source $BYOBU_PREFIX/share/byobu/keybindings/f-keys.screen
+
+# No need to source the disable, it happens in the f-keys.tmux
+#source $BYOBU_PREFIX/share/byobu/keybindings/f-keys.tmux.disable
+source $BYOBU_PREFIX/share/byobu/keybindings/f-keys.tmux

@@ -85,6 +85,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'wting/rust.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
+Plugin 'phildawes/racer'
 Plugin 'altercation/vim-colors-solarized'
 
 " Done with Vundle Plugins
@@ -137,9 +138,11 @@ nmap <F7> :NERDTree<CR>
 inoremap { {}<Esc>i
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
-inoremap ] <Esc>la
-inoremap ) <Esc>la
-inoremap } <Esc>la
+inoremap " ""<Esc>i
+inoremap ' ''<Esc>i
+inoremap ] <Esc>lxa]
+inoremap ) <Esc>lxa)
+inoremap } <Esc>lxa}
 
 " Remap the leader key to something more convienient
 let mapleader = ","
@@ -177,3 +180,4 @@ let $RUST_SRC_PATH="/usr/local/src/rust/src"
 " These settings are for Python and Flake8 settings
 autocmd FileType python nnoremap <silent> <leader>8 :call Flake8()<CR>
 "autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
+
