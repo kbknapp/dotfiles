@@ -68,7 +68,7 @@ export PATH=$PATH:/usr/local/bin
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -79,25 +79,14 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source ~/.dotfiles/zsh/kustom_cmds
-
 # Linux settings
-my_howto() {
-    cat ~/.dotfiles/scripts/usefulcommands.md | grep -A 2 $1 | sed -e '/^```/d'
-}
+alias tree='tree -C'
 alias llg='ls -al --color=auto --group-directories-first'
 alias lsg='ls --color=auto --group-directories-first'
 alias ls='ls --color=auto'
 alias ll='ls -al --color=auto'
-alias howto=my_howto
+source ~/.dotfiles/zsh/kustom_cmds
 
 export EDITOR=vim
 export PATH=$PATH:$HOME/.bin
-
-# git settings
-alias gl='git log --graph --all --oneline --decorate'
-alias gc='git commit -am'
-alias clone='git clone'
-alias gb='git checkout'
-alias gpo='git push origin'
-
+export TERM="xterm-256color"

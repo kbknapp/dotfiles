@@ -5,4 +5,3 @@ alias gc='git commit -am'
 alias clone='git clone'
 alias gb='git checkout'
 alias gpo='git push origin'
-
