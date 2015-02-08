@@ -79,6 +79,8 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+source ~/.dotfiles/zsh/kustom_cmds
+
 # Linux settings
 alias llg='ls -al --color=auto --group-directories-first'
 alias lsg='ls --color=auto --group-directories-first'
@@ -92,3 +94,4 @@ unset GREP_OPTIONS
 export EDITOR=vim
 export PATH=$PATH:$HOME/.bin
 
+export TERM="xterm-256color"

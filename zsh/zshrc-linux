@@ -79,6 +79,8 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+source ~/.dotfiles/zsh/kustom_cmds
+
 # Linux settings
 my_howto() {
     cat ~/.dotfiles/scripts/usefulcommands.md | grep -A 2 $1 | sed -e '/^```/d'

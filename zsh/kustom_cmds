@@ -1,0 +1,11 @@
+function k {
+    case $1 in
+    skip)
+        n=$(($2 + 1))
+        cut -d ' ' -f $n -
+        ;;
+    col)
+        awk -v col=$2 '{print $col}'
+        ;;
+    esac
+}

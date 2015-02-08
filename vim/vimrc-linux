@@ -123,7 +123,7 @@ set background=dark
 " If terminal doesn't support solarized color palettes
 "let g:solarized_termcolors=256
 " Allow transperant backgrounds
-"let g:solarized_termtrans = 1
+" let g:solarized_termtrans = 1
 "let g:solarized_visibility = "high"
 " Must come last
 colorscheme solarized
