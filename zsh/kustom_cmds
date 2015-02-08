@@ -7,12 +7,12 @@ function k {
     col)
         awk -v col=$2 '{print $col}'
         ;;
+    howto)
+        grep $2 -r ~/.dotfiles/howtos -A 2 -h | sed -e '/```/d'
+        ;;
     *)
     	echo "col <num> where num is the column of output to display"
     	echo "skip <num> where num is the number of space deliminated values to skip"
-    	;;
-	howto)
-    	cat ~/.dotfiles/scripts/usefulcommands.md | grep -A 2 $2 | sed -e '/^```/d'
     	;;
     esac
 }
