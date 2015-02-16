@@ -83,7 +83,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'wting/rust.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'phildawes/racer'
 Plugin 'altercation/vim-colors-solarized'
@@ -140,9 +140,9 @@ inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap " ""<Esc>i
 inoremap ' ''<Esc>i
-inoremap ] <Esc>lxa]
-inoremap ) <Esc>lxa)
-inoremap } <Esc>lxa}
+"inoremap ] <Esc>lxa]
+"inoremap ) <Esc>lxa)
+"inoremap } <Esc>lxa}
 
 " Remap the leader key to something more convienient
 let mapleader = ","
