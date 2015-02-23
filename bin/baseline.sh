@@ -182,6 +182,14 @@ function linux_setup_conky(){
 	cd "${ODIR}"
 }
 
+function linux_setup_byobu(){
+	ODIR="$(pwd)"
+	echo -n "Copying byobu keybindings files..."
+	cp /home/$1/.dotfiles/byobu/* /usr/share/byobu/keybindings
+	echo "done"
+	cd "${ODIR}"
+}
+
 # Setting up Go
 # cd ~
 # mkdir -p .go/{bin,src/github.com,pkg}
@@ -249,6 +257,10 @@ case "$K_OS" in
 
 		# Set up GNOME startup programs
 		linux_gnome_startup_apps
+
+		# Set byobu keybindings
+		LOCAL_USER=$USER
+		sudo linux_setup_byobu "$LOCAL_USER"
 		;;
 	*)
 		k_os_settings
