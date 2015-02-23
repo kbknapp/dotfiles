@@ -1,10 +1,15 @@
 #!/bin/bash
-VERSION="0.2.0"
+VERSION="0.2.2"
 
 # Check that variables set correctly
 if [ -z "$K_OS" ]; then
 	k_os_settings
 fi
+
+LUSER=
+until [ -e "$LUSER" ]; do
+	read -p "Enter your username: " -s LUSER
+done
 
 # Helper Functions
 function k_os_settings() {
@@ -16,139 +21,165 @@ function k_os_settings() {
 	exit 1
 }
 
-function pacman_mirror_list() {
-	OLD_DIR="$(pwd)"
+function antergos_mirror_list(){
+	ODIR="$(pwd)"
 	cd /etc/pacman.d
-	echo "Downloading the latest US mirrors..."
-	sudo mv mirrorlist mirrorlist.backup
-	sudo sh -c "curl -L https://www.archlinux.org/mirrorlist/\?country\=US | sed -e 's/^#Server/Server/g' > mirrorlist-us"
-	echo "Sorting Arch mirrors by speed..."
-	sudo sh -c "rankmirrors mirrorlist-us > mirrorlist"
-	cd "$OLD_DIR"
+	mv antergos-mirrorlist antergos-mirrorlist.backup
+	echo -n "Listing Antergos mirrors by speed..."
+	rankmirrors antergos-mirrorlist.backup > antergos-mirrorlist
+	echo "done"
+	cd "${ODIR}"
+}
+
+function pacman_mirror_list() {
+	ODIR="$(pwd)"
+	echo -n "Downloading the latest Arch US mirrors..."
+	cd /etc/pacman.d
+	mv mirrorlist mirrorlist.backup
+	curl -Ls https://www.archlinux.org/mirrorlist/\?country\=US | sed -e 's/^#Server/Server/g' > mirrorlist-us
+	echo "done"
+	echo -n "Listing Arch mirrors by speed..."
+	rankmirrors mirrorlist-us > mirrorlist
+	echo "done"
+	cd "${ODIR}"
 }
 
 function arch_update_and_upgrade(){
 	echo "Updating local mirror repos..."
-	sudo pacman -Syy
+	pacman -Syy
 	echo "Peforming system upgrade..."
-	sudo pacman -Syu --noconfirm
+	pacman -Syu --noconfirm
 }
 
 function arch_install_base(){
 	echo "Installing base terminal applications..."
-	sudo pacman -S firefox guake terminator --noconfirm
+	pacman -S zsh git vim --noconfirm
 }
 
 function arch_install_base_gui(){
 	arch_install_base
 	echo "Installing base GUI software..."
-	sudo pacman -S firefox guake vlc terminator --noconfirm
+	pacman -S firefox guake vlc terminator --noconfirm
 }
 
 function arch_install_aur_base(){
 	# Install aura
+	ODIR="$(pwd)"
 	cd ~
 	mkdir -p Builds
 	cd Builds
+	echo -n "Downloading aura-bin from the AUR..."
 	curl -Lso aura-bin.tar.gz https://aur.archlinux.org/packages/au/aura-bin/aura-bin.tar.gz
+	echo "done"
 	tar xf aura-bin.tar.gz
 	cd aura-bin
+	echo "Running makepkg for aura..."
 	makepkg -sci
+	echo -n "Cleaning up..."
 	cd ..
 	rm -r aura-bin
+	echo "done"
+	cd "${ODIR}"
 }
 
 function arch_install_aur_base_gui(){
 	arch_install_aur_base
-	sudo arua -A sublime-text-dev haroopad conky-lua-nv google-chrome byobu
+	 arua -A sublime-text-dev haroopad conky-lua-nv google-chrome byobu
 }
 
 function linux_setup_home(){
 	# Set up user home
+	ODIR="$(pwd)"
 	cd ~
-	LOCAL_USER="$USER"
-	echo "Creating required home directories..."
+	echo -n "Creating required home directories for $USER..."
 	mkdir -p {.tmp,.bin,Projects}
-	echo "Checking for dotfiles"
+	echo "done"
+	echo -n "Checking for dotfiles repo..."
 	if [[ ! -d ~/.dotfiles ]]; then
+		echo "not found"
 		echo "Cloning dotfiles repo..."
 		git clone https://github.com/kbknapp/dotfiles .dotfiles
+	else
+		echo "found"
 	fi
-
-	# Set up root home
-	echo "Creating required root home directories..."
-	su -
-	mkdir -p {.tmp,.bin,Builds}
-	ln -s /home/$LOCAL_USER/.dotfiles .dotfiles
-	exit
+	cd "${ODIR}"
 }
 
 function linux_setup_git(){
-	echo "Configuring git..."
+	echo -n "Configuring git..."
 	git config --global user.name "Kevin K."
 	git config --global user.email "kbknapp@gmail.com"
 	git config --global color.ui true
+	echo "done"
 }
 
 function linux_setup_ssh_client(){
+	echo "Configuring SSH..."
 	ssh-keygen -t rsa -C "kbknapp@gmail.com"
 	eval "$(ssh-agent -s)"
 	ssh-add ~/.ssh/id_rsa
 }
 
-function _linux_setup_zsh(){
-	echo "Checking for oh-my-zsh..."
-	if [[ ! -d ~/.oh-my-zsh ]]; then
+function linux_setup_zsh(){
+	ODIR="$(pwd)"
+	cd ~
+	echo -n "Checking for oh-my-zsh..."
+	if [[ ! -d  ~/.oh-my-zsh ]]; then
+		echo "not found"
 		echo "Cloning oh-my-zsh repo"
 		git clone https://github.com/robbyrussell/oh-my-zsh .oh-my-zsh
+	else
+		echo "found"
 	fi
+	echo -n "Copying zsh profiles..."
 	cp .dotfiles/zsh/zshrc-linux .zshrc
 	cp .dotfiles/zsh/kustom-linux.zsh-theme .oh-my-zsh/themes
 	cat .dotfiles/zsh/addons/git.zshrc-addon >> .zshrc
-	chsh -s "$(which zsh)" "${whoami}"
-}
-
-function linux_setup_zsh(){
-	cd ~
-	echo "Setting up ZSH for $USER..."
-	_linux_setup_zsh
-	echo "Setting up ZSH for root..."
-	su -
-	_linux_setup_zsh
-	exit
+	chsh -s "$(which zsh)" "$USER"
+	echo "done"
+	cd "${ODIR}"
 }
 
 function linux_gnome_startup_apps(){
+	ODIR="$(pwd)"
 	cd ~
 	echo "Configuring GNOME startup applications..."
-	mkdir -p .config/autostart
+	echo -n "Checking for ~/.config/autostart..."
+	if [[ ! -d .config/autostart ]]; then
+		echo "not found"
+		mkdir -p .config/autostart
+	else
+		echo "found"
+	fi
 	cd .config/autostart
+	echo -n "Adding guake to autostart..."
 	cp ~/.dotfiles/gauke/guake.desktop ~/.config/autostart
+	echo "done"
+	ehco -n "Adding ConkyBar to autostart..."
 	cp ~/.dotfiles/conky/conkybar.desktop ~/.config/autostart
+	echo "done"
+	cd "${ODIR}"
 }
 
 function linux_setup_vim(){
 	# Setting up vim for user
-	cd ~
+	ODIR="$(pwd)"
+	cd ~ 
 	echo "Setting up vim for $USER..."
 	ln -s .dotfiles/vim .vim
 	ln -s .vim/vimrc-linux .vimrc
 	cd .vim/bundle
 	git clone https://github.com/gmarik/Vundle.vim
-	vim -c ":PluginInstall | qa"
-
-	# Setting up vim for root
-	echo "Setting up vim for root..."
-	su -
-	ln -s .dotfiles/vim .vim
-	ln -s .vim/vimrc-linux .vimrc
-	exit
-
+	vim -c ":PluginInstall"
+	cd "${ODIR}"
 }
 
 function linux_setup_conky(){
+	ODIR="$(pwd)"
+	echo "Cloning ConkyBar..."
 	cd ~/.config
 	git clone https://github.com/kbknapp/conkybar.git conky
+	cd "${ODIR}"
 }
 
 # Setting up Go
@@ -156,7 +187,7 @@ function linux_setup_conky(){
 # mkdir -p .go/{bin,src/github.com,pkg}
 # export GOPATH=$HOME/.go
 # Used for stale packages in Go 1.3.1
-# sudo go install std
+#  go install std
 # go get code.google.com/p/go.tools/cmd/goimports
 
 # Setting up Rust
@@ -166,7 +197,7 @@ function linux_setup_conky(){
 # cd ~/Projects/rust-nightlies
 # curl -LSso rustup.sh https://static.rust-lang.org/rustup.sh
 # chmod +x rustup.sh
-# sudo ./rustup.sh
+#  ./rustup.sh
 
 echo "############################"
 echo "## Kustom Baseline v$VERSION"
@@ -175,30 +206,29 @@ echo
 
 case "$K_OS" in
 	ANTERGOS)
-		echo "OS set to $K_OS..."
+		echo "OS set to ${K_OS}..."
 		
 		# Set up mirror lists
-		echo "Enabling [multilib] repos..."
-		sudo sh -c "echo \"[multilib]\" >> /etc/pacman.conf"
-		sudo sh -c "echo \"Include = /etc/pacman.d/mirrorlist\" >> /etc/pacman.conf"
+		echo -n "Enabling [multilib] repos..."
+		sh -c "echo \"[multilib]\" >> /etc/pacman.conf"
+		sh -c "echo \"Include = /etc/pacman.d/mirrorlist\" >> /etc/pacman.conf"
+		echo "done"
 
-		pacman_mirror_list
-		
-		echo "Listing Antergos mirrors by speed..."
-		sudo mv antergos-mirrorlist antergos-mirrorlist.backup
-		sudo sh -c "rankmirrors antergos-mirrorlist.backup > antergos-mirrorlist"
-		update_and_upgrade_arch
+		sudo pacman_mirror_list
+		sudo antergos_mirror_list	
 		
 		# Debloat the system
-		echo "Removing bloat software..."
-		sudo sh -c "pacman -Rns gnome-robots gnome-chess gnome-tetravex gnome-nibbles xnoise empathy anjuta aisleriot accerciser gnome-sudoku gnome-mahjongg  four-in-a-row five-or-more evolution gnome-klotski iagno gnome-mines polari quadrapassel tali swell-foop transmission-cli --noconfirm 2>/dev/null"
+		echo -n "Removing bloat software..."
+		sh -c "pacman -Rns gnome-robots gnome-chess gnome-tetravex gnome-nibbles xnoise empathy anjuta aisleriot accerciser gnome-ku gnome-mahjongg  four-in-a-row five-or-more evolution gnome-klotski iagno gnome-mines polari quadrapassel tali swell-foop transmission-cli --noconfirm 2>/dev/null"
+		echo "done"
 
 		# Install common software
-		arch_install_base_gui
-		arch_install_aur_base_gui
+		sudo arch_install_base_gui
+		sudo arch_install_aur_base_gui
 
 		# Set up /home
 		linux_setup_home
+		sudo linux_setup_home
 
 		# Set up git
 		linux_setup_git
@@ -208,9 +238,11 @@ case "$K_OS" in
 
 		# Set up ZSH
 		linux_setup_zsh
+		sudo linux_setup_zsh
 
 		# Set up vim
 		linux_setup_vim
+		sudo linux_setup_vim
 
 		# Set up conky
 		linux_setup_conky

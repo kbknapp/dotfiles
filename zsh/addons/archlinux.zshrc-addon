@@ -1,0 +1,8 @@
+# Arch Linux settings
+alias pacs="pacman -Ss"
+alias paci="sudo pacman -S"
+alias pacu="sudo pacman -Syu"
+alias aurs="aura -As"
+alias auri="sudo aura -Ax"
+alias auru="sudo aura -Akuax"
+
