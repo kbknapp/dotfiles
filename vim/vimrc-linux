@@ -165,6 +165,13 @@ set background=dark
 " Must come last
 colorscheme solarized
 
+" Change cursor based on mode (Gnome Terminal)
+if has("autocmd")
+  au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+  au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+  au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+endif
+
 " ============= session management ===================
 let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
