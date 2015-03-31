@@ -13,7 +13,7 @@ call vundle#begin()
 
 " core plugin (required)
 Plugin 'gmarik/Vundle.vim'
-Plugin "flazz/vim-colorschemes"
+Plugin 'flazz/vim-colorschemes'
 Plugin 'kien/ctrlp.vim'
 "Plugin 'altercation/vim-colors-solarized'
 
@@ -22,22 +22,22 @@ Plugin 'sjl/gundo.vim'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin "jlanzarotta/bufexplorer"
-Plugin "vim-scripts/tComment"
-Plugin "tpope/vim-surround"
-Plugin "rking/ag.vim"
-"Bundle "edsono/vim-matchit"
-Plugin  "henrik/vim-indexed-search"
-Plugin "tpope/vim-abolish"
-Plugin "tpope/vim-repeat"
-Plugin "jiangmiao/auto-pairs"
-"Bundle "xolox/vim-session"
-"Bundle "xolox/vim-misc"
-"Bundle "editorconfig/editorconfig-vim"
-Plugin "godlygeek/tabular"
-Plugin "airblade/vim-gitgutter"
-Plugin "Lokaltog/vim-easymotion"
-Plugin "rhysd/clever-f.vim"
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'vim-scripts/tComment'
+Plugin 'tpope/vim-surround'
+Plugin 'rking/ag.vim'
+"Bundle 'edsono/vim-matchit'
+Plugin  'henrik/vim-indexed-search'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-repeat'
+Plugin 'jiangmiao/auto-pairs'
+"Bundle 'xolox/vim-session'
+"Bundle 'xolox/vim-misc'
+"Bundle 'editorconfig/editorconfig-vim'
+Plugin 'godlygeek/tabular'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'rhysd/clever-f.vim'
 
 " git plugins
 Plugin 'tpope/vim-fugitive'
