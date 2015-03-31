@@ -9,53 +9,54 @@ filetype off
 
 " Set the runtime path to include Vundle and it's init
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
+call vundle#begin()
 
 " core plugin (required)
-Bundle 'gmarik/Vundle.vim'
-Bundle "flazz/vim-colorschemes"
-Bundle 'kien/ctrlp.vim'
-"Bundle 'altercation/vim-colors-solarized'
+Plugin 'gmarik/Vundle.vim'
+Plugin "flazz/vim-colorschemes"
+Plugin 'kien/ctrlp.vim'
+"Plugin 'altercation/vim-colors-solarized'
 
 " main plugins
-Bundle 'sjl/gundo.vim'
-Bundle 'bling/vim-airline'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle "jlanzarotta/bufexplorer"
-Bundle "vim-scripts/tComment"
-Bundle "tpope/vim-surround"
-Bundle "rking/ag.vim"
+Plugin 'sjl/gundo.vim'
+Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin "jlanzarotta/bufexplorer"
+Plugin "vim-scripts/tComment"
+Plugin "tpope/vim-surround"
+Plugin "rking/ag.vim"
 "Bundle "edsono/vim-matchit"
-Bundle "henrik/vim-indexed-search"
-Bundle "tpope/vim-abolish"
-Bundle "tpope/vim-repeat"
-Bundle "jiangmiao/auto-pairs"
+Plugin  "henrik/vim-indexed-search"
+Plugin "tpope/vim-abolish"
+Plugin "tpope/vim-repeat"
+Plugin "jiangmiao/auto-pairs"
 "Bundle "xolox/vim-session"
 "Bundle "xolox/vim-misc"
 "Bundle "editorconfig/editorconfig-vim"
-Bundle "godlygeek/tabular"
-Bundle "airblade/vim-gitgutter"
-Bundle "Lokaltog/vim-easymotion"
-Bundle "rhysd/clever-f.vim"
+Plugin "godlygeek/tabular"
+Plugin "airblade/vim-gitgutter"
+Plugin "Lokaltog/vim-easymotion"
+Plugin "rhysd/clever-f.vim"
 
 " git plugins
-"Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
 " rust plugins
-Bundle 'wting/rust.vim'
-Bundle 'phildawes/racer'
+Plugin 'wting/rust.vim'
+Plugin 'phildawes/racer'
 
 " python plugins
-Bundle 'nvie/vim-flake8'
+Plugin 'nvie/vim-flake8'
 
 " autocompletion
 "Bundle 'Valloric/YouCompleteMe'
 
 " markdown plugins
-"Bundle 'plasticboy/vim-markdown'
+Plugin 'plasticboy/vim-markdown'
 
 " enable all plugins
+call vundle#end()
 filetype plugin indent on
 
 " ================ General Config ====================
