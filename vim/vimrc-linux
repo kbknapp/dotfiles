@@ -127,6 +127,7 @@ nnoremap <leader>bp :CtrlPBuffer<CR>
 " clever-f prompt
 let g:clever_f_show_prompt = 1
 let g:clever_f_across_no_line = 1
+
 " =============== Search Settings ===================
 set hlsearch                    " Highlight searches (Use <C-L> to temporarily disable)
 set incsearch                   " highlight incrementally as they are typed
@@ -136,20 +137,31 @@ set smartcase                   " Except when using capital letters
 "nnoremap <C-L> :nohl<CR><C-L>
 
 " ============== Copy / Paste ========================
-set pastetoggle=<F10>           " Toggle between paste/nopaste with <F10>
+set pastetoggle=<F10>            " Toggle between paste/nopaste with <F10>
 "set paste                       " Turn on paste mode always
+
 " Alias the unnamed clipboard to the Linux X11 clipboard
 set clipboard=unnamedplus
+
 " Yank text to the system clipboard in Linux
 "noremap <leader>y "*y
 "noremap <leader>yy "*Y
+
 " make C-a, C-x work properly
 set nrformats=
-" Make Y act like D and C, i.e. yank till EOL rather than yy
-" map Y y$
 
-" ============= syntax highlighting ==================
+" Make Y act like D and C, i.e. yank till EOL rather than yy
+map Y y$
+
+" ============= syntax highlighting / display ================
 syntax on
+set background=dark
+" If terminal doesn't support solarized color palettes
+"let g:solarized_termcolors=256
+" Allow transperant backgrounds
+" let g:solarized_termtrans = 1
+"let g:solarized_visibility = "high"
+" Must come last
 colorscheme solarized
 
 " ============= session management ===================
@@ -170,57 +182,26 @@ au BufReadPost *
 \ execute 'normal! g`"zvzz' |
 \ endif
 augroup END
+
 " ============== Pathogen Initialization =============
 " This loads all the plugins in ~/.vim/bundle
 " using ~/.vim/autoload/pathogen.vim
 " NOT//NOT compatible with Vundle!
-" execute pathogen#infect()
+"execute pathogen#infect()
 
 " ============== Omnicomplete Support ===============
 " This adds the autocomplete function
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
 
 " ================ Folds ============================
 set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
-filetype plugin indent on
-
-" This must come AFTER Vundle or it will not detect all filetypes properly
-filetype on
-syntax on
-
-" ============ Solarized Colors ================
-"syntax enable
-set background=dark
-" If terminal doesn't support solarized color palettes
-"let g:solarized_termcolors=256
-" Allow transperant backgrounds
-" let g:solarized_termtrans = 1
-"let g:solarized_visibility = "high"
-" Must come last
-colorscheme solarized
-
-
-" =============== Mappings  ===========================
-" Use F4 to open Tagbar
-"nmap <F4> :TagbarToggle<CR>
-" Use F7 to open NERDTree
-nmap <F7> :NERDTree<CR>
-" Insert matching brackets
-inoremap { {}<Esc>i
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap " ""<Esc>i
-inoremap ' ''<Esc>i
-"inoremap ] <Esc>lxa]
-"inoremap ) <Esc>lxa)
-"inoremap } <Esc>lxa}
-
 " Remap the leader key to something more convienient
 let mapleader = ","
 
+" =============== Mapping =========================
 " Enable faster viewport scrolling
 nnoremap <C-e> 4<C-e>
 nnoremap <C-y> 4<C-y>
@@ -236,8 +217,19 @@ nnoremap <F5> :GundoToggle<CR>
 
 " ========== Airline ============
 set laststatus=2                " Always show statusbar
-" Always show buffers and tabs
+if !exists("g:airline_symbols")
+  let g:airline_symbols = {}
+endif
+let g:airline_theme="powerlineish"
+let g:airline_powerline_fonts=1
+" let g:airline_section_warning = airline#section#create([ "syntastic" ])
+let g:airline#extensions#branch#empty_message = "No SCM"
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#fnamecollapse = 1 " /a/m/model.rb
+let g:airline#extensions#hunks#non_zero_only = 1 " git gutter
 
 " =============== Go ================================
 " These settings are for Go-lang specific features
