@@ -1,38 +1,118 @@
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+set encoding=utf-8
 
+" ================ Vundle ===========================
 " Turn off filetype to ensure Vundle executes properly
 filetype off
 
+" Set the runtime path to include Vundle and it's init
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#rc()
+
+" core plugin (required)
+Bundle 'gmarik/Vundle.vim'
+Bundle "flazz/vim-colorschemes"
+Bundle 'kien/ctrlp.vim'
+"Bundle 'altercation/vim-colors-solarized'
+
+" main plugins
+Bundle 'sjl/gundo.vim'
+Bundle 'bling/vim-airline'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle "jlanzarotta/bufexplorer"
+Bundle "vim-scripts/tComment"
+Bundle "tpope/vim-surround"
+Bundle "rking/ag.vim"
+"Bundle "edsono/vim-matchit"
+Bundle "henrik/vim-indexed-search"
+Bundle "tpope/vim-abolish"
+Bundle "tpope/vim-repeat"
+Bundle "jiangmiao/auto-pairs"
+"Bundle "xolox/vim-session"
+"Bundle "xolox/vim-misc"
+"Bundle "editorconfig/editorconfig-vim"
+Bundle "godlygeek/tabular"
+Bundle "airblade/vim-gitgutter"
+Bundle "Lokaltog/vim-easymotion"
+Bundle "rhysd/clever-f.vim"
+
+" git plugins
+"Bundle 'tpope/vim-fugitive'
+
+" rust plugins
+Bundle 'wting/rust.vim'
+Bundle 'phildawes/racer'
+
+" python plugins
+Bundle 'nvie/vim-flake8'
+
+" autocompletion
+"Bundle 'Valloric/YouCompleteMe'
+
+" markdown plugins
+"Bundle 'plasticboy/vim-markdown'
+
+" enable all plugins
+filetype plugin indent on
+
 " ================ General Config ====================
-set number                      " Line numbers are good
-"set ruler                       " Show cursor position in status instead of full line numbers
+set expandtab                   " Use spaces not tabs
+set tabstop=4                   " Use 4 spaces
+set shiftwidth=4                " Use 4 spaces for indents
+set smarttab
+set autoindent                  " Indent if preivous line is indented
+set title                       " Show the title in the vim title bar
+"set number                      " Line numbers are good
+set relativenumber              " Show relative line numbers
+set ruler                       " Show cursor position in status instead of full line numbers
 set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
 set history=1000                " Store lots of :cmdline history (default is 20)
 set showcmd                     " Show incomplete cmds down the bottom
 set showmode                    " Show current mode down the bottom
-" set gcr=a:blinkon0              " Disable cursor blink
+"set gcr=a:blinkon0              " Disable cursor blink
 set visualbell                  " No sounds
 set autoread                    " Reload files changed outside vim
-set mouse=a
+set mouse=a                     " Enable mouse usage
+set ls=2                        " Show status bar with file path and name
 set confirm                     " Instead of failing cmd from no save, ask to save
 set wildmenu                    " Better command line completion
 set wildmode=list:longest       " Only complete up to the point of ambiguity (i.e. like a shell)
 set scrolloff=3                 " Show lines of context around the cursor when scrolling
-" Store temp files in specific loctions
-set backupdir=~/.vim-tmp,~/.tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,/tmp
+set nowrap                      " Don't wrap lines
+" set linebreak                 " Wrap lines at convenient points
+set ttyfast                     " Smoother changes
+set cursorline                  " Highlight current line
+set shell=/usr/bin/zsh          " Use zsh as the shell
+set completeopt -=preview
+set noshowmode                  " Don't show current mode
+
 " Set a highlighted column to give reference for long lines
-set colorcolumn=80
+set colorcolumn=99
+
+" Buffers can exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
 
 " Catch trailing whitespace when desired (<leader>s)
 set listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 
-set nowrap       " Don't wrap lines
-" set linebreak    "Wrap lines at convenient points
+" Store temp files in specific loctions
+set backupdir=~/.vim-tmp,~/.tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,/tmp
 
+" persist (g)undo tree between sessions
+set undofile
+set history=100
+set undolevels=100
+
+
+" consistent menu navigation
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
 " =============== Search Settings ===================
 set hlsearch                    " Highlight searches (Use <C-L> to temporarily disable)
 set incsearch                   " highlight incrementally as they are typed
@@ -45,57 +125,39 @@ set smartcase                   " Except when using capital letters
 set pastetoggle=<F10>           " Toggle between paste/nopaste with <F10>
 "set paste                       " Turn on paste mode always
 " Alias the unnamed clipboard to the Linux X11 clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 " Yank text to the system clipboard in Linux
 "noremap <leader>y "*y
 "noremap <leader>yy "*Y
-
+" make C-a, C-x work properly
+set nrformats=
 " Make Y act like D and C, i.e. yank till EOL rather than yy
 " map Y y$
 
-" ================ Indentation ======================
-set autoindent
-set smartindent
-set smarttab
-set shiftwidth=4
-set softtabstop=4
-" set tabstop=4                 " Use hard tabs of 4 spaces
-set expandtab
 
-" Buffers can exist in the background without being in a window.
-" http://items.sjbach.com/319/configuring-vim-right
-set hidden
 
-" ================ Vundle ===========================
-" Set the runtime path to include Vundle and it's init
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" Let Vundle manage Vundle (required)
-Plugin 'gmarik/Vundle.vim'
+" ============= syntax highlighting ==================
+syntax on
+colorscheme solarized
 
-" Vundle Plugins
-"Plugin 'tpope/vim-fugitive'
-"Plugin 'kien/ctrlp.vim'
-"Plugin 'godlygeek/tabular'
-"Plugin 'plasticboy/vim-markdown'
-Plugin 'sjl/gundo.vim'
-Plugin 'nvie/vim-flake8'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'wting/rust.vim'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'bling/vim-airline'
-Plugin 'phildawes/racer'
-Plugin 'altercation/vim-colors-solarized'
+" ============= session management ===================
+let g:session_directory = "~/.vim/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1
+nnoremap <leader>so :OpenSession
+nnoremap <leader>ss :SaveSession
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
 
-" Done with Vundle Plugins
-call vundle#end()
-
-" This makes vim act like all other editors, buffers can
-" exist in the background without being in a window.
-" http://items.sjbach.com/319/configuring-vim-right
-set hidden
-
+" Make sure Vim returns to the same line when you reopen a file.
+augroup line_return
+au!
+au BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\ execute 'normal! g`"zvzz' |
+\ endif
+augroup END
 " ============== Pathogen Initialization =============
 " This loads all the plugins in ~/.vim/bundle
 " using ~/.vim/autoload/pathogen.vim
