@@ -109,10 +109,24 @@ set undofile
 set history=100
 set undolevels=100
 
-
 " consistent menu navigation
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
+
+" togglables without FN keys
+nnoremap <leader>1 :GundoToggle<CR>
+set pastetoggle=<leader>2
+nnoremap <leader>3 :TlistToggle<CR>
+nnoremap <leader>4 :TagbarToggle<CR>
+nnoremap <leader>5 :NERDTreeToggle<CR>
+
+" ctrlP config
+let g:ctrlp_map = "<c-p>"
+nnoremap <leader>t :CtrlPMRU<CR>
+nnoremap <leader>bp :CtrlPBuffer<CR>
+" clever-f prompt
+let g:clever_f_show_prompt = 1
+let g:clever_f_across_no_line = 1
 " =============== Search Settings ===================
 set hlsearch                    " Highlight searches (Use <C-L> to temporarily disable)
 set incsearch                   " highlight incrementally as they are typed
@@ -133,8 +147,6 @@ set clipboard=unnamedplus
 set nrformats=
 " Make Y act like D and C, i.e. yank till EOL rather than yy
 " map Y y$
-
-
 
 " ============= syntax highlighting ==================
 syntax on
