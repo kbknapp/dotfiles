@@ -147,7 +147,7 @@ function linux_gnome_startup_apps(){
 	fi
 	cd .config/autostart
 	echo -n "Adding guake to autostart..."
-	cp ~/.dotfiles/gauke/guake.desktop ~/.config/autostart
+	cp ~/.dotfiles/guake/guake.desktop ~/.config/autostart
 	echo "done"
 	echo -n "Adding ConkyBar to autostart..."
 	cp ~/.dotfiles/conky/conkybar.desktop ~/.config/autostart
