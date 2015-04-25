@@ -1,16 +1,6 @@
 #!/bin/bash
 VERSION="0.2.2"
 
-# Check that variables set correctly
-if [ -z "$K_OS" ]; then
-	k_os_settings
-fi
-
-LUSER=
-until [ -e "$LUSER" ]; do
-	read -p "Enter your username: " -s LUSER
-done
-
 # Helper Functions
 function k_os_settings() {
 	echo "Must set K_OS before running, values include:"
@@ -20,6 +10,10 @@ function k_os_settings() {
 	echo "Exiting..."
 	exit 1
 }
+
+# Check that variables set correctly
+K_OS="ANTERGOS"
+LUSER="kevin"
 
 function antergos_mirror_list(){
 	ODIR="$(pwd)"
@@ -74,17 +68,17 @@ function arch_install_aur_base(){
 	tar xf aura-bin.tar.gz
 	cd aura-bin
 	echo "Running makepkg for aura..."
-	makepkg -sci
+	#makepkg -sci
 	echo -n "Cleaning up..."
 	cd ..
-	rm -r aura-bin
+	#rm -r aura-bin
 	echo "done"
 	cd "${ODIR}"
 }
 
 function arch_install_aur_base_gui(){
 	arch_install_aur_base
-	 arua -A sublime-text-dev haroopad conky-lua-nv google-chrome byobu
+	 #arua -A sublime-text-dev haroopad conky-lua-nv google-chrome byobu
 }
 
 function linux_setup_home(){
@@ -153,9 +147,9 @@ function linux_gnome_startup_apps(){
 	fi
 	cd .config/autostart
 	echo -n "Adding guake to autostart..."
-	cp ~/.dotfiles/gauke/guake.desktop ~/.config/autostart
+	cp ~/.dotfiles/guake/guake.desktop ~/.config/autostart
 	echo "done"
-	ehco -n "Adding ConkyBar to autostart..."
+	echo -n "Adding ConkyBar to autostart..."
 	cp ~/.dotfiles/conky/conkybar.desktop ~/.config/autostart
 	echo "done"
 	cd "${ODIR}"
@@ -170,7 +164,7 @@ function linux_setup_vim(){
 	ln -s .vim/vimrc-linux .vimrc
 	cd .vim/bundle
 	git clone https://github.com/gmarik/Vundle.vim
-	vim -c ":PluginInstall"
+	vim +PluginInstall +qall
 	cd "${ODIR}"
 }
 
@@ -222,8 +216,8 @@ case "$K_OS" in
 		sh -c "echo \"Include = /etc/pacman.d/mirrorlist\" >> /etc/pacman.conf"
 		echo "done"
 
-		sudo pacman_mirror_list
-		sudo antergos_mirror_list	
+		pacman_mirror_list
+		antergos_mirror_list	
 		
 		# Debloat the system
 		echo -n "Removing bloat software..."
@@ -231,12 +225,12 @@ case "$K_OS" in
 		echo "done"
 
 		# Install common software
-		sudo arch_install_base_gui
-		sudo arch_install_aur_base_gui
+		arch_install_base_gui
+		arch_install_aur_base_gui
 
 		# Set up /home
 		linux_setup_home
-		sudo linux_setup_home
+		linux_setup_home
 
 		# Set up git
 		linux_setup_git
@@ -246,11 +240,11 @@ case "$K_OS" in
 
 		# Set up ZSH
 		linux_setup_zsh
-		sudo linux_setup_zsh
+		linux_setup_zsh
 
 		# Set up vim
 		linux_setup_vim
-		sudo linux_setup_vim
+		linux_setup_vim
 
 		# Set up conky
 		linux_setup_conky
@@ -260,7 +254,7 @@ case "$K_OS" in
 
 		# Set byobu keybindings
 		LOCAL_USER=$USER
-		sudo linux_setup_byobu "$LOCAL_USER"
+		linux_setup_byobu "$LOCAL_USER"
 		;;
 	*)
 		k_os_settings

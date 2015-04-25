@@ -1,7 +1,4 @@
 *.sublime-project
 *.sublime-workspace
-
-# temp files
-.*~
-
 vim/bundle/*
+.*~

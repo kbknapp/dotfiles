@@ -1,0 +1,12 @@
+*.sublime-project
+*.sublime-workspace
+<<<<<<< HEAD
+
+# temp files
+.*~
+
+vim/bundle/*
+=======
+vim/bundle/*
+.*~
+>>>>>>> 5304ad18a57b0b9c04e2df2ccf36fd9ec66eb716
