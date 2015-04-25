@@ -1,5 +1,5 @@
 function k {
-    LBIN="${HOME}"/.dotfiles/bin/"${K_OS}"
+    LBIN="${HOME}/.dotfiles/bin/${K_OS}"
     case $1 in
     skip)
         n=$(($2 + 1))
@@ -12,13 +12,16 @@ function k {
         grep $2 -r ~/.dotfiles/howtos -A 2 -h | sed -e '/```/d'
         ;;
     update)
-        sudo sh "${LBIN}"/update.sh
+        sudo sh "${LBIN}/update.sh"
         ;;
     upgrade)
-        sudo sh "${LBIN}"/upgrade.sh
+        sudo sh "${LBIN}/upgrade.sh"
+        ;;
+    yolo)
+        sudo sh "${LBIN}/yolo.sh"
         ;;
     refresh-mirrors)
-        sudo sh "${LBIN}"/refresh_mirrors.sh
+        sudo sh "${LBIN}/refresh_mirrors.sh"
         ;;
     *)
     	echo "col <num> where num is the column of output to display"
@@ -26,6 +29,7 @@ function k {
 	    echo "update"
 	    echo "upgrade"
 	    echo "refresh-mirrors"
+        echo "yolo"
     	;;
     esac
 }

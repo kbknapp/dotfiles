@@ -50,7 +50,7 @@ Plugin 'phildawes/racer'
 Plugin 'nvie/vim-flake8'
 
 " autocompletion
-"Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 " markdown plugins
 Plugin 'plasticboy/vim-markdown'
@@ -222,6 +222,7 @@ nnoremap <C-H> <C-W><C-H>
 
 " =========== Gundo ============
 nnoremap <F5> :GundoToggle<CR>
+nnoremap <F3> :NERDTree<CR>
 
 " ========== Airline ============
 set laststatus=2                " Always show statusbar
