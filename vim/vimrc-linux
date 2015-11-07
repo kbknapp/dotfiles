@@ -66,8 +66,8 @@ set shiftwidth=4                " Use 4 spaces for indents
 set smarttab
 set autoindent                  " Indent if preivous line is indented
 set title                       " Show the title in the vim title bar
-"set number                      " Line numbers are good
-set relativenumber              " Show relative line numbers
+set number                      " Line numbers are good
+"set relativenumber              " Show relative line numbers
 set ruler                       " Show cursor position in status instead of full line numbers
 set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
 set history=1000                " Store lots of :cmdline history (default is 20)
@@ -160,7 +160,7 @@ set background=dark
 " If terminal doesn't support solarized color palettes
 "let g:solarized_termcolors=256
 " Allow transperant backgrounds
-" let g:solarized_termtrans = 1
+let g:solarized_termtrans = 1
 "let g:solarized_visibility = "high"
 " Must come last
 colorscheme solarized

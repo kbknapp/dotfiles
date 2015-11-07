@@ -52,6 +52,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:$HOME/.bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -79,14 +80,5 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Linux settings
-alias tree='tree -C'
-alias llg='ls -al --color=auto --group-directories-first'
-alias lsg='ls --color=auto --group-directories-first'
-alias ls='ls --color=auto'
-alias ll='ls -al --color=auto'
-source ~/.dotfiles/zsh/kommands.sh
-
 export EDITOR=vim
-export PATH=$PATH:$HOME/.bin
 export TERM="xterm-256color"

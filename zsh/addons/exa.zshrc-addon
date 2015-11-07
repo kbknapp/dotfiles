@@ -1,4 +1,5 @@
 # exa is a ls replacement written in Rust
 alias ls='exa'
 alias ll='exa -bghHliS'
+alias tree='exa -T'
 
