@@ -1,7 +1,7 @@
-
 # git settings
 alias gl='git log --graph --all --oneline --decorate'
 alias gc='git commit -m'
 alias clone='git clone'
 alias gb='git checkout'
 alias gpo='git push origin'
+

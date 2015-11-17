@@ -1,3 +1,4 @@
 # nim settings
 export NIMPATH=$HOME/.Nimrod
 export PATH=$PATH:$NIMPATH/bin
+
