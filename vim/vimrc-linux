@@ -15,7 +15,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'kien/ctrlp.vim'
-"Plugin 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 
 " main plugins
 Plugin 'sjl/gundo.vim'
@@ -26,14 +26,14 @@ Plugin 'jlanzarotta/bufexplorer'
 Plugin 'vim-scripts/tComment'
 Plugin 'tpope/vim-surround'
 Plugin 'rking/ag.vim'
-"Bundle 'edsono/vim-matchit'
+Bundle 'edsono/vim-matchit'
 Plugin  'henrik/vim-indexed-search'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-repeat'
 Plugin 'jiangmiao/auto-pairs'
-"Bundle 'xolox/vim-session'
-"Bundle 'xolox/vim-misc'
-"Bundle 'editorconfig/editorconfig-vim'
+Bundle 'xolox/vim-session'
+Bundle 'xolox/vim-misc'
+Bundle 'editorconfig/editorconfig-vim'
 Plugin 'godlygeek/tabular'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Lokaltog/vim-easymotion'
@@ -158,9 +158,9 @@ map Y y$
 syntax on
 set background=dark
 " If terminal doesn't support solarized color palettes
-"let g:solarized_termcolors=256
+let g:solarized_termcolors=256
 " Allow transperant backgrounds
-let g:solarized_termtrans = 1
+"let g:solarized_termtrans = 1
 "let g:solarized_visibility = "high"
 " Must come last
 colorscheme solarized
