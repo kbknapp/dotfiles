@@ -27,40 +27,101 @@ Plugin 'gmarik/Vundle.vim'
 "     -> :CtrlPMixed             Files, Buffers, and MRU
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = "<c-p>"
-nnoremap <leader>t :CtrlPMRU<CR>
-nnoremap <leader>bp :CtrlPBuffer<CR>
+nnoremap <leader>p :CtrlPMRU<CR>
+nnoremap <leader>pb :CtrlPBuffer<CR>
 
 " Visualize your Undo Tree
 "     -> :GundoToggle           See Undo Tree
 "     -> <F5>
 Plugin 'sjl/gundo.vim'
-nnoremap <F5> :GundoToggle<CR>
+"nnoremap <F5> :GundoToggle<CR>
+nnoremap <leader>u :GundoToggle<CR>
 
 " File Explorer
 "     -> :NERDTreeToggle        See File Tree
 "     -> <F3>
 Plugin 'scrooloose/nerdtree'
-nnoremap <F3> :NERDTreeToggle<CR>
+"nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <leader>nt :GundoToggle<CR>
 
 " Syntax Checking
 Plugin 'scrooloose/syntastic'
 
 " Comment or UN-Comment Code
+"     -> gcc                  Comment or uncomment line(s)
 Plugin 'vim-scripts/tComment'
 
-" Clever-F Config 
+" better find support
+"     -> f           FORWARD
+"     -> F           BACKWARDS
+"     -> t           Till
 Plugin 'rhysd/clever-f.vim'
 let g:clever_f_show_prompt = 1
-let g:clever_f_across_no_line = 1
+let g:clever_f_across_no_line = 0   " Enable for multi line (1=current line only)
 
+" Better surround support
+"     -> cs"'     "Hello"->'Hello'
+"     -> ysiw[   'Hello'->[Hello]
+"     -> ds[     [Hello]->Hello
 Plugin 'tpope/vim-surround'
+
+" Repeat all commands with . not just native
+Plugin 'tpope/vim-repeat'
+
+" Better pattern matching, includes 3 plugins
+"     -> COERCION
+"         - crs           Coerce to snake_case
+"         - cru           Coerce to UPPER_CASE
+"         - crm           Coerce to MixedCase
+"         - crc           Coerce to camelCase
+"     -> SUBSTITUION
+"         - :Subvert/di{e,ce}/spinner{,s}/g
+"     -> Abbreviations
+"         - :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or} {despe,sepa}rat{}
+Plugin 'tpope/vim-abolish'
+
+" Pair brackets
 Plugin 'jiangmiao/auto-pairs'
+
+" Tab aligns, example:
+" abc,def,ghi
+" a,b
+" a,b,c
+" :Tabularize /,/r1c1l0    "right aligned 1 space, center aligned 1 space, left aligned 0 spaces
+" abc , def, ghi
+"   a , b
+"   a , b  ,  c
 Plugin 'godlygeek/tabular'
 
 " autocompletion
 Plugin 'Valloric/YouCompleteMe'
 
-"Plugin 'Lokaltog/vim-easymotion'
+" VIM Motions on crack!
+"     -> <leader>s
+Plugin 'Lokaltog/vim-easymotion'
+
+" Allows use of EditorConfig files
+Plugin 'editorconfig/editorconfig-vim'
+
+" Quickly Select Buffers
+"     -> be             Normal
+"     -> bt             Toggle
+"     -> bs             Horizontal Split
+"     -> bv             Vertical Split
+Plugin 'jlanzarotta/bufexplorer'
+
+" Session management
+"     -> :SaveSession
+"     -> :OpenSession
+Plugin 'xolox/vim-session'
+let g:session_directory = "~/.vim/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1
+nnoremap <leader>so :OpenSession
+nnoremap <leader>ss :SaveSession
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
 
 "Plugin 'bling/vim-airline'
 "set laststatus=2                " Always show statusbar
@@ -78,26 +139,17 @@ Plugin 'Valloric/YouCompleteMe'
 "let g:airline#extensions#tabline#fnamecollapse = 1 " /a/m/model.rb
 "let g:airline#extensions#hunks#non_zero_only = 1 " git gutter
 
-"Plugin 'xolox/vim-session'
-"Plugin 'xolox/vim-misc'
-"Plugin 'editorconfig/editorconfig-vim'
-"Plugin 'jlanzarotta/bufexplorer'
-"Plugin 'rking/ag.vim'
-"Plugin 'edsono/vim-matchit'
-"Plugin  'henrik/vim-indexed-search'
-"Plugin 'tpope/vim-abolish'
-"Plugin 'tpope/vim-repeat'
 " Solarized Color Scheme
 "Plugin 'altercation/vim-colors-solarized'
 
 " ----- Git Plugins -----
-"Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
 " +,-,~ in gutter
 Plugin 'airblade/vim-gitgutter'
 
 " ----- Rust Plugins -----
-Plugin 'wting/rust.vim'
+Plugin 'rust-lang/rust.vim'
 Plugin 'phildawes/racer'
 
 " ----- Python Plugins -----
@@ -105,6 +157,11 @@ Plugin 'phildawes/racer'
 
 " ----- Markdown Plugins ------
 "Plugin 'plasticboy/vim-markdown'
+
+" ------ Unused ATM -------
+"Plugin 'rking/ag.vim'
+"Plugin 'edsono/vim-matchit'
+"Plugin  'henrik/vim-indexed-search'
 
 " enable all plugins
 call vundle#end()
@@ -179,7 +236,7 @@ set incsearch                   " highlight incrementally as they are typed
 set ignorecase                  " Ignore case when searching
 set smartcase                   " Except when using capital letters
 " Remap <C-L> (redraw screen) to disable search highlight until next search
-"nnoremap <C-L> :nohl<CR><C-L>
+nnoremap <C-L> :nohl<CR><C-L>
 
 " ============== Copy / Paste ========================
 set pastetoggle=<F10>            " Toggle between paste/nopaste with <F10>
@@ -216,16 +273,6 @@ if has("autocmd")
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
 endif
 
-" ----- session management -----
-let g:session_directory = "~/.vim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
-nnoremap <leader>so :OpenSession
-nnoremap <leader>ss :SaveSession
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
-
 " Make sure Vim returns to the same line when you reopen a file.
 augroup line_return
 au!
@@ -241,7 +288,7 @@ set foldnestmax=10      "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
 " Remap the leader key to something more convienient
-let mapleader = ","
+let mapleader = "-"
 
 " Enable faster viewport scrolling
 nnoremap <C-e> 4<C-e>
