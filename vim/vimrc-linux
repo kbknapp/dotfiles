@@ -27,22 +27,14 @@ Plugin 'gmarik/Vundle.vim'
 "     -> :CtrlPMixed             Files, Buffers, and MRU
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = "<c-p>"
-nnoremap <leader>p :CtrlPMRU<CR>
-nnoremap <leader>pb :CtrlPBuffer<CR>
 
 " Visualize your Undo Tree
 "     -> :GundoToggle           See Undo Tree
-"     -> <F5>
 Plugin 'sjl/gundo.vim'
-"nnoremap <F5> :GundoToggle<CR>
-nnoremap <leader>u :GundoToggle<CR>
 
 " File Explorer
 "     -> :NERDTreeToggle        See File Tree
-"     -> <F3>
 Plugin 'scrooloose/nerdtree'
-"nnoremap <F3> :NERDTreeToggle<CR>
-nnoremap <leader>nt :GundoToggle<CR>
 
 " Syntax Checking
 Plugin 'scrooloose/syntastic'
@@ -119,10 +111,6 @@ let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
-nnoremap <leader>so :OpenSession
-nnoremap <leader>ss :SaveSession
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
 
 "Plugin 'bling/vim-airline'
 "set laststatus=2                " Always show statusbar
@@ -153,16 +141,15 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'rust-lang/rust.vim'
 Plugin 'phildawes/racer'
 
-" ----- Python Plugins -----
-"Plugin 'nvie/vim-flake8'
-
-" ----- Markdown Plugins ------
-"Plugin 'plasticboy/vim-markdown'
 
 " ------ Unused ATM -------
 "Plugin 'rking/ag.vim'
 "Plugin 'edsono/vim-matchit'
 "Plugin  'henrik/vim-indexed-search'
+" ----- Python Plugins -----
+"Plugin 'nvie/vim-flake8'
+" ----- Markdown Plugins ------
+"Plugin 'plasticboy/vim-markdown'
 
 " enable all plugins
 call vundle#end()
@@ -200,7 +187,7 @@ set ttyfast                     " Smoother changes
 set cursorline                  " Highlight current line
 set shell=/usr/bin/zsh          " Use zsh as the shell
 set completeopt -=preview
-set colorcolumn=99              " Set a highlighted column to give reference for long lines
+set colorcolumn=100              " Set a highlighted column to give reference for long lines
 
 " Buffers can exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
@@ -219,42 +206,77 @@ set undofile
 set history=100
 set undolevels=100
 
-" consistent menu navigation
-inoremap <C-j> <C-n>
-inoremap <C-k> <C-p>
+" make C-a, C-x work properly
+set nrformats=
 
-" ================ togglables without FN keys ===============================
-"nnoremap <leader>1 :GundoToggle<CR>
-"set pastetoggle=<leader>2
-"nnoremap <leader>3 :TlistToggle<CR>
-"nnoremap <leader>4 :TagbarToggle<CR>
-"nnoremap <leader>5 :NERDTreeToggle<CR>
+" Alias the unnamed clipboard to the Linux X11 clipboard
+set clipboard=unnamedplus
 
+" ============== Copy / Paste ========================
+"set pastetoggle=<F10>            " Toggle between paste/nopaste with <F10>
+set pastetoggle=<leader>pt
+"set paste                       " Turn on paste mode always
 
 " =============== Search Settings ===================
 set hlsearch                    " Highlight searches (Use <C-L> to temporarily disable)
 set incsearch                   " highlight incrementally as they are typed
 set ignorecase                  " Ignore case when searching
 set smartcase                   " Except when using capital letters
+
 " Remap <C-L> (redraw screen) to disable search highlight until next search
 nnoremap <C-L> :nohl<CR><C-L>
 
-" ============== Copy / Paste ========================
-set pastetoggle=<F10>            " Toggle between paste/nopaste with <F10>
-"set paste                       " Turn on paste mode always
+" ===== Folds =====
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
 
-" Alias the unnamed clipboard to the Linux X11 clipboard
-set clipboard=unnamedplus
+" Remap the leader key to something more convienient
+let mapleader = "-"
+
+" ===== Remaps =====
+" Enable faster viewport scrolling
+nnoremap <C-e> 4<C-e>
+nnoremap <C-y> 4<C-y>
+
+" Working with Splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" consistent menu navigation
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
+
+" Make Y act like D and C, i.e. yank till EOL rather than yy
+map Y y$
 
 " Yank text to the system clipboard in Linux
 "noremap <leader>y "*y
 "noremap <leader>yy "*Y
 
-" make C-a, C-x work properly
-set nrformats=
+" NERDTree
+"nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
 
-" Make Y act like D and C, i.e. yank till EOL rather than yy
-map Y y$
+" CTRL+P
+nnoremap <leader>p :CtrlPMixed<CR>
+nnoremap <leader>pm :CtrlPMRU<CR>
+nnoremap <leader>pb :CtrlPBuffer<CR>
+
+" Comment Lines
+nnoremap <leader>c gcc
+
+" Gundo
+"nnoremap <F5> :GundoToggle<CR>
+nnoremap <leader>u :GundoToggle<CR>
+
+" Sessions
+nnoremap <leader>so :OpenSession
+nnoremap <leader>ss :SaveSession
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
 
 " ----- syntax highlighting / display -----
 syntax on
@@ -282,24 +304,6 @@ au BufReadPost *
 \ execute 'normal! g`"zvzz' |
 \ endif
 augroup END
-
-" ================ Folds ============================
-set foldmethod=indent   "fold based on indent
-set foldnestmax=10      "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-
-" Remap the leader key to something more convienient
-let mapleader = "-"
-
-" Enable faster viewport scrolling
-nnoremap <C-e> 4<C-e>
-nnoremap <C-y> 4<C-y>
-
-" Working with Splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 " =============== Go ================================
 " These settings are for Go-lang specific features
