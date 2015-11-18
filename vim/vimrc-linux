@@ -114,6 +114,7 @@ Plugin 'jlanzarotta/bufexplorer'
 "     -> :SaveSession
 "     -> :OpenSession
 Plugin 'xolox/vim-session'
+Plugin 'xolox/vim-misc'
 let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
