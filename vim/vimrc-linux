@@ -1,10 +1,10 @@
-if !has('nvim')
-	" Use Vim settings, rather then Vi settings (much better!).
-	" This must be first, because it changes other options as a side effect.
-	set nocompatible
-	set encoding=utf-8
-endif
-
+"------------------------------------------------------------------------------
+" File:     $XDG_CONFIG_HOME/nvim/init.vim
+"           $HOME/.vimrc
+" Author:   Kevin K. <kbknapp@gmail.com>
+"
+" Based on https://github.com/s3rvac/dotfiles/blob/master/vim/.vimrc
+"------------------------------------------------------------------------------
 " ==================
 " ===== Vundle =====
 " ==================
@@ -29,21 +29,42 @@ Plugin 'gmarik/Vundle.vim'
 "     -> :CtrlPMixed             Files, Buffers, and MRU
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = "<c-p>"
+nnoremap <C-p> :CtrlPMixed<CR>
+nnoremap <C-m> :CtrlPMRU<CR>
+nnoremap <C-b> :CtrlPBuffer<CR>
 
 " Visualize your Undo Tree
 "     -> :GundoToggle           See Undo Tree
 Plugin 'sjl/gundo.vim'
+"nnoremap <F5> :GundoToggle<CR>
+nnoremap <C-u> :GundoToggle<CR>
+" persist (g)undo tree between sessions
+set undofile
+set undolevels=100
 
 " File Explorer
 "     -> :NERDTreeToggle        See File Tree
 Plugin 'scrooloose/nerdtree'
+map <C-n> :NERDTreeToggle<CR>
 
 " Syntax Checking
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
+Plugin 'neomake/neomake'
+"set makeprg=cargo\ rustc\ -Zno-trans
+autocmd! BufWritePost,BufEnter * Neomake
+"let g:neomake_verbose=3
+"let g:neomake_logfile='/tmp/ergror.log'
+
+" List Toggle for Location/Quick Fix list
+Plugin 'Valloric/ListToggle'
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
+let g:lt_height = 10
 
 " Comment or UN-Comment Code
 "     -> gcc                  Comment or uncomment line(s)
 Plugin 'vim-scripts/tComment'
+nnoremap <C-/> gcc
 
 " better find support
 "     -> f           FORWARD
@@ -89,10 +110,14 @@ Plugin 'jlanzarotta/bufexplorer'
 "     -> :OpenSession
 Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
-let g:session_directory = "~/.vim/session"
+let g:session_directory = ".config/nvim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
+nnoremap <leader>so :OpenSession
+nnoremap <leader>ss :SaveSession
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -131,6 +156,10 @@ endif
 " ===== General Config =====
 " ==========================
 if !has('nvim')
+	" Use Vim settings, rather then Vi settings (much better!).
+	" This must be first, because it changes other options as a side effect.
+	set nocompatible
+	set encoding=utf-8
 	set autoindent                  " Indent if preivous line is indented
 	set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
 	set history=10000               " Store lots of :cmdline history (default is 20)
@@ -142,15 +171,18 @@ if !has('nvim')
 endif
 set expandtab                   " Use spaces not tabs
 set tabstop=4                   " Use 4 spaces
+set nostartofline               " Keep the cursor in the current column with page cmds.
+set noshowmatch                 " Don't show matching brackets when typing
 set shiftwidth=4                " Use 4 spaces for indents
 set title                       " Show the title in the vim title bar
 set number                      " Line numbers are good
-"set relativenumber              " Show relative line numbers
+set relativenumber              " Show relative line numbers
 set ruler                       " Show cursor position in status instead of full line numbers
 set showcmd                     " Show incomplete cmds down the bottom
 set showmode                    " Show current mode down the bottom
-"set noshowmode                  " Don't show current mode
+"set noshowmode                 " Don't show current mode
 set gcr=a:blinkon0              " Disable cursor blink
+set nojoinspaces                " Insert just one space joining lines with J.
 set visualbell                  " No sounds
 set autoread                    " Reload files changed outside vim
 set ls=2                        " Show status bar with file path and name
@@ -158,40 +190,45 @@ set confirm                     " Instead of failing cmd from no save, ask to sa
 set wildmode=list:longest       " Only complete up to the point of ambiguity (i.e. like a shell)
 set scrolloff=3                 " Show lines of context around the cursor when scrolling
 set nowrap                      " Don't wrap lines
-" set linebreak                 " Wrap lines at convenient points
+"set linebreak                  " Wrap lines at convenient points
 set cursorline                  " Highlight current line
 set shell=/usr/bin/zsh          " Use zsh as the shell
 set completeopt -=preview
-set colorcolumn=100              " Set a highlighted column to give reference for long lines
+set colorcolumn=100             " Set a highlighted column to give reference for long lines
+set hidden                      " Buffers can exist in the background without being in a window.
 
-" Buffers can exist in the background without being in a window.
-" http://items.sjbach.com/319/configuring-vim-right
-set hidden
+" ---------- Backup and swap files -------
+set nobackup            " Disable backup files.
+set noswapfile          " Disable swap files.
+set nowritebackup       " Disable auto backup before overwriting a file.
+" Store temp files in specific loctions
+"set backupdir=~/.vim/bak,~/.bak,/tmp
+"set directory=~/.vim/tmp,~/.tmp,/tmp
+
+" ------------- Security -----------------
+set secure              " Forbid loading of .vimrc under $PWD.
+set nomodeline          " Modelines have been a source of vulnerabilities.
+
+" ----- syntax highlighting / display -----
+syntax on
+set background=dark
+colorscheme monokai
+let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
 
 " Catch trailing whitespace when desired (<leader>s)
 set listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 
-" Store temp files in specific loctions
-set backupdir=~/.vim/bak,~/.bak,/tmp
-set directory=~/.vim/tmp,~/.tmp,/tmp
-
-" persist (g)undo tree between sessions
-set undofile
-set undolevels=100
-
-if !has('nvim')
-	" make C-a, C-x work properly
-	set nrformats=
-endif
-
-" Alias the unnamed clipboard to the Linux X11 clipboard
-set clipboard=unnamedplus
 
 " ============== Copy / Paste ========================
 set pastetoggle=<F10>            " Toggle between paste/nopaste with <F10>
 " set pastetoggle=<leader>pt
 set paste                        " Turn on paste mode always
+if !has('nvim')
+	set nrformats=              " make C-a, C-x work properly
+endif
+" Alias the unnamed clipboard to the Linux X11 clipboard
+set clipboard=unnamedplus
 
 " =============== Search Settings ===================
 if !has('nvim')
@@ -209,12 +246,112 @@ set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
-" ===== Remaps =====
+" ===============================================================
+" ================ Re-Maps ======================================
+" ===============================================================
+
+" The leader and local-leader characters.
+let mapleader = ','
+let maplocalleader = ','
+
+" Jump to the previous/next tab.
+noremap <silent> J gT
+noremap <silent> K gt
+
+" Join lines by <Leader>+j because I use J to go to the previous tab.
+noremap <Leader>j J
+" Join lines without producing any spaces. It works like gJ, but does not keep
+" the indentation whitespace.
+" Based on http://vi.stackexchange.com/a/440.
+function! s:JoinWithoutSpaces()
+	normal! gJ
+	" Remove any whitespace.
+	if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
+		normal! dw
+	endif
+endfunction
+noremap <silent> <Leader>J :call <SID>JoinWithoutSpaces()<CR>
+
+" Quicksave all buffers.
+" (Use both :w and :wa to force write of the currently edited buffer, even if
+" there are no changes. This forces removal of trailing whitespace from the
+" buffer and also overwrites of the file even if it has changed, which is
+" sometimes handy.)
+nnoremap <silent> <C-s> :w<CR>:wa<CR>
+inoremap <silent> <C-s> <Esc>:w<CR><Esc>:wa<CR>
+vnoremap <silent> <C-s> <Esc>:w<CR><Esc>:wa<CR>
+
+" Make Ctrl-e jump to the end of the line in the insert mode.
+inoremap <C-e> <C-o>$
+
+" Stay in visual mode when indenting.
+vnoremap < <gv
+vnoremap > >gv
+
+" Quickly select the text I just pasted.
+noremap gV `[v`]
+
+" Hitting space in normal/visual mode will make the current search disappear.
+noremap <silent> <Space> :silent nohlsearch<CR>
+
+" Insert the contents of the clipboard.
+nnoremap <silent> <Leader>P :set paste<CR>"+]P:set nopaste<CR>
+nnoremap <silent> <Leader>p :set paste<CR>"+]p:set nopaste<CR>
+vnoremap          <Leader>p "+p
+
+" ---------------- Function Keys -------------------------------
+" F1: Toggle spell checker.
+nnoremap <silent> <F1> :set spell!<CR>:set spell?<CR>
+
+" F2: Toggle the display of unprintable characters.
+nnoremap <silent> <F2> :set list!<CR>:set list?<CR>
+function! s:ToggleExceedingCharsHighlight()
+	if exists('w:long_line_match')
+		silent! call matchdelete(w:long_line_match)
+		unlet w:long_line_match
+		echo 'Disable highlighting.'
+	elseif &textwidth > 0
+		let w:long_line_match=matchadd('ExceedCharsGroup', '\%>' . &textwidth . 'v.\+', -1)
+		echo 'Enable highlighting after ' . &textwidth . ' characters.'
+	else
+		let w:long_line_match=matchadd('ExceedCharsGroup', '\%>80v.\+', -1)
+		echo 'Enable highlighting after 80 characters.'
+	endif
+endfunction
+nnoremap <silent> <S-F2> :call <SID>ToggleExceedingCharsHighlight()<CR>
+
+" F3: Toggle line wrapping.
+nnoremap <silent> <F3> :set nowrap!<CR>:set nowrap?<CR>
+
+" F4:
+
+" F5:
+
+" F6: Toggle relative/absolute numbers.
+nnoremap <silent> <F6> :set relativenumber!<CR>:set relativenumber?<CR>
+
+" F7:
+
+" F8:
+
+" F9:
+
+" F10: Toggles Paste Mode
+
+" F11:
+
+" F12:
+
 " Enable faster viewport scrolling
 nnoremap <C-e> 4<C-e>
 nnoremap <C-y> 4<C-y>
+" Make j/k work by actual line count if preceded with number, otherwise like gj/gk
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " Working with Splits
+set splitright          " Open new vertical panes in the right rather than left.
+set splitbelow          " Open new horizontal panes in the bottom rather than top.
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -227,38 +364,50 @@ inoremap <C-k> <C-p>
 " Make Y act like D and C, i.e. yank till EOL rather than yy
 map Y y$
 
-" CTRL+P
-nnoremap <leader>p :CtrlPMixed<CR>
-nnoremap <leader>pm :CtrlPMRU<CR>
-nnoremap <leader>pb :CtrlPBuffer<CR>
+" ===============================================================
+" ================ Language Specific  ===========================
+" ===============================================================
 
-" Comment Lines
-nnoremap <leader>c gcc
-
-" Gundo
-"nnoremap <F5> :GundoToggle<CR>
-nnoremap <leader>u :GundoToggle<CR>
-
-" Sessions
-nnoremap <leader>so :OpenSession
-nnoremap <leader>ss :SaveSession
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
-
-" NERDTree
-map <C-n> :NERDTreeToggle<CR>
-
-" ----- syntax highlighting / display -----
-if !has('nvim')
-	syntax on
-endif
-set background=dark
-colorscheme monokai
-" If terminal doesn't support solarized color palettes
-let g:solarized_termcolors=256
-
-" ================ Rust ============================
+" -------------------- Rust ------------------------------------
 " These settings are for Rust-lang specific features
 " and Racer auto-complete
 let g:racer_cmd = "~/.bin/racer"
 let $RUST_SRC_PATH="/usr/local/src/rust/src"
+
+" ===============================================================
+" ================ File Specific ================================
+" ===============================================================
+
+" Visually wrap long lines in Markdown
+autocmd BufRead,BufNewFile   *.md setlocal wrap linebreak nolist
+autocmd BufRead,BufNewFile   *.py setlocal colorcolumn=80
+autocmd BufRead,BufNewFile   *.rs setlocal colorcolumn=99
+
+augroup trailing_whitespace
+au!
+" Automatically remove trailing whitespace when saving a file.
+function! s:RemoveTrailingWhitespace()
+	let pattern = '\\s\\+$'
+	if &ft ==# 'mail'
+		" Do not remove the space from the email signature marker ("-- \n").
+		let pattern = '\\(^--\\)\\@<!' . pattern
+	endif
+	call setline(1, map(getline(1, '$'), 'substitute(v:val, "' . pattern . '", "", "")'))
+endfunction
+au BufWritePre * :if !&bin | call s:RemoveTrailingWhitespace()
+
+"-------------------------------------------------------------------------------
+" Firefox "It's all text plugin".
+"-------------------------------------------------------------------------------
+
+augroup firefox_its_all_text
+au!
+let s:opened_file_path = expand('%:p')
+if s:opened_file_path =~ '\.mozilla/firefox/'
+	" Enable Czech spell checking by default.
+	au BufRead,BufNewFile *.txt setl spell
+	au BufRead,BufNewFile *.txt setl spelllang=cs
+
+	au BufRead,BufNewFile *.txt setl ft=html
+endif
+augroup end

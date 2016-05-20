@@ -1,0 +1,4 @@
+
+# neovim settings
+export EDITOR=nvim
+alias vim='nvim'
