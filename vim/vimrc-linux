@@ -51,7 +51,8 @@ map <C-n> :NERDTreeToggle<CR>
 " Plugin 'scrooloose/syntastic'
 Plugin 'neomake/neomake'
 "set makeprg=cargo\ rustc\ -Zno-trans
-autocmd! BufWritePost,BufEnter * Neomake
+autocmd! BufWritePost * Neomake
+let g:neomake_open_list = 2
 "let g:neomake_verbose=3
 "let g:neomake_logfile='/tmp/ergror.log'
 
