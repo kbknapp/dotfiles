@@ -1,7 +1,9 @@
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-set encoding=utf-8
+if !has('nvim')
+	" Use Vim settings, rather then Vi settings (much better!).
+	" This must be first, because it changes other options as a side effect.
+	set nocompatible
+	set encoding=utf-8
+endif
 
 " ==================
 " ===== Vundle =====
@@ -72,28 +74,8 @@ Plugin 'tpope/vim-repeat'
 "         - :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or} {despe,sepa}rat{}
 Plugin 'tpope/vim-abolish'
 
-" Pair brackets
-Plugin 'jiangmiao/auto-pairs'
-
-" Tab aligns, example:
-" abc,def,ghi
-" a,b
-" a,b,c
-" :Tabularize /,/r1c1l0    "right aligned 1 space, center aligned 1 space, left aligned 0 spaces
-" abc , def, ghi
-"   a , b
-"   a , b  ,  c
-Plugin 'godlygeek/tabular'
-
 " autocompletion
 Plugin 'Valloric/YouCompleteMe'
-
-" VIM Motions on crack!
-"     -> <leader>s
-Plugin 'Lokaltog/vim-easymotion'
-
-" Allows use of EditorConfig files
-Plugin 'editorconfig/editorconfig-vim'
 
 " Quickly Select Buffers
 "     -> be             Normal
@@ -112,24 +94,22 @@ let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
-"Plugin 'bling/vim-airline'
-"set laststatus=2                " Always show statusbar
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts=1
+let g:airline_theme="luna"
+" let g:airline_section_warning = airline#section#create([ "syntastic" ])
+let g:airline#extensions#branch#empty_message = "No SCM"
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#fnamecollapse = 1 " /a/m/model.rb
+let g:airline#extensions#hunks#non_zero_only = 1 " git gutter
 "if !exists("g:airline_symbols")
 "  let g:airline_symbols = {}
 "endif
 "let g:airline_theme="powerlineish"
-"let g:airline_powerline_fonts=1
-" let g:airline_section_warning = airline#section#create([ "syntastic" ])
-"let g:airline#extensions#branch#empty_message = "No SCM"
-"let g:airline#extensions#whitespace#enabled = 0
-"let g:airline#extensions#syntastic#enabled = 1
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-"let g:airline#extensions#tabline#fnamecollapse = 1 " /a/m/model.rb
-"let g:airline#extensions#hunks#non_zero_only = 1 " git gutter
-
-" Solarized Color Scheme
-"Plugin 'altercation/vim-colors-solarized'
 
 " ----- Git Plugins -----
 Plugin 'tpope/vim-fugitive'
@@ -141,49 +121,44 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'rust-lang/rust.vim'
 Plugin 'phildawes/racer'
 
-
-" ------ Unused ATM -------
-"Plugin 'rking/ag.vim'
-"Plugin 'edsono/vim-matchit'
-"Plugin  'henrik/vim-indexed-search'
-" ----- Python Plugins -----
-"Plugin 'nvie/vim-flake8'
-" ----- Markdown Plugins ------
-"Plugin 'plasticboy/vim-markdown'
-
 " enable all plugins
 call vundle#end()
-filetype plugin indent on
+if !has('nvim')
+	filetype plugin indent on
+endif
 
 " ==========================
 " ===== General Config =====
 " ==========================
+if !has('nvim')
+	set autoindent                  " Indent if preivous line is indented
+	set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
+	set history=10000               " Store lots of :cmdline history (default is 20)
+	set mouse=a                     " Enable mouse usage
+	set laststatus=2                " Always show statusbar
+	set smarttab
+	set ttyfast                     " Smoother changes
+	set wildmenu                    " Better command line completion
+endif
 set expandtab                   " Use spaces not tabs
 set tabstop=4                   " Use 4 spaces
 set shiftwidth=4                " Use 4 spaces for indents
-set smarttab
-set autoindent                  " Indent if preivous line is indented
 set title                       " Show the title in the vim title bar
 set number                      " Line numbers are good
 "set relativenumber              " Show relative line numbers
 set ruler                       " Show cursor position in status instead of full line numbers
-set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
-set history=1000                " Store lots of :cmdline history (default is 20)
 set showcmd                     " Show incomplete cmds down the bottom
 set showmode                    " Show current mode down the bottom
 "set noshowmode                  " Don't show current mode
 set gcr=a:blinkon0              " Disable cursor blink
 set visualbell                  " No sounds
 set autoread                    " Reload files changed outside vim
-set mouse=a                     " Enable mouse usage
 set ls=2                        " Show status bar with file path and name
 set confirm                     " Instead of failing cmd from no save, ask to save
-set wildmenu                    " Better command line completion
 set wildmode=list:longest       " Only complete up to the point of ambiguity (i.e. like a shell)
 set scrolloff=3                 " Show lines of context around the cursor when scrolling
 set nowrap                      " Don't wrap lines
 " set linebreak                 " Wrap lines at convenient points
-set ttyfast                     " Smoother changes
 set cursorline                  " Highlight current line
 set shell=/usr/bin/zsh          " Use zsh as the shell
 set completeopt -=preview
@@ -203,23 +178,26 @@ set directory=~/.vim/tmp,~/.tmp,/tmp
 
 " persist (g)undo tree between sessions
 set undofile
-set history=100
 set undolevels=100
 
-" make C-a, C-x work properly
-set nrformats=
+if !has('nvim')
+	" make C-a, C-x work properly
+	set nrformats=
+endif
 
 " Alias the unnamed clipboard to the Linux X11 clipboard
 set clipboard=unnamedplus
 
 " ============== Copy / Paste ========================
-"set pastetoggle=<F10>            " Toggle between paste/nopaste with <F10>
-set pastetoggle=<leader>pt
-"set paste                       " Turn on paste mode always
+set pastetoggle=<F10>            " Toggle between paste/nopaste with <F10>
+" set pastetoggle=<leader>pt
+set paste                        " Turn on paste mode always
 
 " =============== Search Settings ===================
-set hlsearch                    " Highlight searches (Use <C-L> to temporarily disable)
-set incsearch                   " highlight incrementally as they are typed
+if !has('nvim')
+	set hlsearch                    " Highlight searches (Use <C-L> to temporarily disable)
+	set incsearch                   " highlight incrementally as they are typed
+endif
 set ignorecase                  " Ignore case when searching
 set smartcase                   " Except when using capital letters
 
@@ -230,9 +208,6 @@ nnoremap <C-L> :nohl<CR><C-L>
 set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
-
-" Remap the leader key to something more convienient
-let mapleader = "-"
 
 " ===== Remaps =====
 " Enable faster viewport scrolling
@@ -252,14 +227,6 @@ inoremap <C-k> <C-p>
 " Make Y act like D and C, i.e. yank till EOL rather than yy
 map Y y$
 
-" Yank text to the system clipboard in Linux
-"noremap <leader>y "*y
-"noremap <leader>yy "*Y
-
-" NERDTree
-"nnoremap <F3> :NERDTreeToggle<CR>
-nnoremap <leader>nt :NERDTreeToggle<CR>
-
 " CTRL+P
 nnoremap <leader>p :CtrlPMixed<CR>
 nnoremap <leader>pm :CtrlPMRU<CR>
@@ -278,46 +245,20 @@ nnoremap <leader>ss :SaveSession
 nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
 " ----- syntax highlighting / display -----
-syntax on
+if !has('nvim')
+	syntax on
+endif
 set background=dark
+colorscheme monokai
 " If terminal doesn't support solarized color palettes
 let g:solarized_termcolors=256
-" Allow transperant backgrounds
-"let g:solarized_termtrans = 1
-"let g:solarized_visibility = "high"
-" Must come last
-"colorscheme solarized
-
-" Change cursor based on mode (Gnome Terminal)
-if has("autocmd")
-  au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
-  au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-  au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
-endif
-
-" Make sure Vim returns to the same line when you reopen a file.
-augroup line_return
-au!
-au BufReadPost *
-\ if line("'\"") > 0 && line("'\"") <= line("$") |
-\ execute 'normal! g`"zvzz' |
-\ endif
-augroup END
-
-" =============== Go ================================
-" These settings are for Go-lang specific features
-" autocmd FileType go autocmd BufWritePre <buffer> Fmt	" gofmt code on save
-" autocmd FileType go compiler go     " Always enable compiler plugin
 
 " ================ Rust ============================
 " These settings are for Rust-lang specific features
 " and Racer auto-complete
 let g:racer_cmd = "~/.bin/racer"
 let $RUST_SRC_PATH="/usr/local/src/rust/src"
-
-" =============== Python ===========================
-" These settings are for Python and Flake8 settings
-"autocmd FileType python nnoremap <silent> <leader>8 :call Flake8()<CR>
-"autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
-
