@@ -208,12 +208,13 @@ bar {
 }
 
 # start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 80 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 11"
+bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 400 -opacity "90" -bw 0 -font "System San Francisco Display 32"
 
 exec firefox
-exec --no-startup-id i3-msg 'workspace $workspace3; exec terminoloy; workspace $workspace1'
+exec --no-startup-id i3-msg 'workspace 3; exec terminoloy; workspace 1'
 exec google-chrome https://tweetdeck.twitter.com/
 exec hexchat
 exec code
 exec_always feh --bg-scale /home/kevin/Pictures/rust.png
 exec compton -f
+exec xrdb ~/.Xresources
