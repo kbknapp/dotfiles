@@ -82,3 +82,7 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export EDITOR=vim
 export TERM="xterm-256color"
+
+fpath+=~/.zfunc
+compinit -U
+
