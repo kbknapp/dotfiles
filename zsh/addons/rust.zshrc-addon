@@ -1,12 +1,9 @@
 
 # Rust(lang) Settings
-export LD_LIBRARY_PATH=/usr/local/lib
-export RUST_SRC_PATH=/usr/local/src/rust/src
-export PATH=$PATH:$HOME/.cargo/bin
+source $HOME/.cargo/env
+export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$DYLD_LIBRARY_PATH
 alias cb='cargo build'
 alias cbr='cb --release'
-alias cc='cargo clean'
-alias cu='cargo update'
 alias cba='cc && cu && cbr'
-export RUST_NEW_ERROR_FORMAT=true
 
