@@ -23,6 +23,9 @@ Plugin 'gmarik/Vundle.vim'
 
 " ----- Main Plugins -----
 
+" Solarized colors
+Plugin 'altercation/vim-colors-solarized'
+
 " Ctrl+P Fuzzy Matching Files
 "     -> <c-p> / :CtrlP [dir]    Fuzzy Match Files
 "     -> :CtrlPBuffer            Search Buffers
@@ -48,19 +51,20 @@ Plugin 'scrooloose/nerdtree'
 map <C-n> :NERDTreeToggle<CR>
 
 " Syntax Checking
-" Plugin 'scrooloose/syntastic'
-Plugin 'neomake/neomake'
+Plugin 'scrooloose/syntastic'
+
+"Plugin 'neomake/neomake'
 "set makeprg=cargo\ rustc\ -Zno-trans
-autocmd! BufWritePost * Neomake
-let g:neomake_open_list = 2
+"autocmd! BufWritePost * Neomake
+"let g:neomake_open_list = 2
 "let g:neomake_verbose=3
 "let g:neomake_logfile='/tmp/ergror.log'
 
 " List Toggle for Location/Quick Fix list
-Plugin 'Valloric/ListToggle'
-let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_map = '<leader>q'
-let g:lt_height = 10
+"Plugin 'Valloric/ListToggle'
+"let g:lt_location_list_toggle_map = '<leader>l'
+"let g:lt_quickfix_list_toggle_map = '<leader>q'
+"let g:lt_height = 10
 
 " Comment or UN-Comment Code
 "     -> gcc                  Comment or uncomment line(s)
@@ -109,30 +113,30 @@ Plugin 'jlanzarotta/bufexplorer'
 " Session management
 "     -> :SaveSession
 "     -> :OpenSession
-Plugin 'xolox/vim-session'
-Plugin 'xolox/vim-misc'
-let g:session_directory = ".config/nvim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
-nnoremap <leader>so :OpenSession
-nnoremap <leader>ss :SaveSession
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
+"Plugin 'xolox/vim-session'
+"Plugin 'xolox/vim-misc'
+"let g:session_directory = ".config/nvim/session"
+"let g:session_autoload = "no"
+"let g:session_autosave = "no"
+"let g:session_command_aliases = 1
+"nnoremap <leader>so :OpenSession
+"nnoremap <leader>ss :SaveSession
+"nnoremap <leader>sd :DeleteSession<CR>
+"nnoremap <leader>sc :CloseSession<CR>
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-let g:airline_powerline_fonts=1
-let g:airline_theme="luna"
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
+"let g:airline_powerline_fonts=1
+"let g:airline_theme="luna"
 " let g:airline_section_warning = airline#section#create([ "syntastic" ])
-let g:airline#extensions#branch#empty_message = "No SCM"
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tabline#fnamecollapse = 1 " /a/m/model.rb
-let g:airline#extensions#hunks#non_zero_only = 1 " git gutter
-"if !exists("g:airline_symbols")
+"let g:airline#extensions#branch#empty_message = "No SCM"
+"let g:airline#extensions#whitespace#enabled = 0
+"let g:airline#extensions#syntastic#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+"let g:airline#extensions#tabline#fnamecollapse = 1 " /a/m/model.rb
+"let g:airline#extensions#hunks#non_zero_only = 1 " git gutter
+""if !exists("g:airline_symbols")
 "  let g:airline_symbols = {}
 "endif
 "let g:airline_theme="powerlineish"
@@ -145,7 +149,7 @@ Plugin 'airblade/vim-gitgutter'
 
 " ----- Rust Plugins -----
 Plugin 'rust-lang/rust.vim'
-Plugin 'phildawes/racer'
+Plugin 'racer-rust/vim-racer'
 
 " enable all plugins
 call vundle#end()
@@ -212,8 +216,9 @@ set nomodeline          " Modelines have been a source of vulnerabilities.
 
 " ----- syntax highlighting / display -----
 syntax on
+syntax enable
 set background=dark
-colorscheme monokai
+colorscheme solarized
 let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
 
 " Catch trailing whitespace when desired (<leader>s)
@@ -256,11 +261,12 @@ let mapleader = ','
 let maplocalleader = ','
 
 " Jump to the previous/next tab.
-noremap <silent> J gT
-noremap <silent> K gt
+noremap <silent> H gT
+noremap <silent> L gt
 
-" Join lines by <Leader>+j because I use J to go to the previous tab.
-noremap <Leader>j J
+
+" Join lines
+" nnoremap <silent> J :join
 " Join lines without producing any spaces. It works like gJ, but does not keep
 " the indentation whitespace.
 " Based on http://vi.stackexchange.com/a/440.
@@ -372,12 +378,20 @@ map Y y$
 " -------------------- Rust ------------------------------------
 " These settings are for Rust-lang specific features
 " and Racer auto-complete
-let g:racer_cmd = "~/.bin/racer"
-let $RUST_SRC_PATH="/usr/local/src/rust/src"
+"let g:racer_cmd = "~/.bin/racer"
+"let $RUST_SRC_PATH="/usr/local/src/rust/src"
+set hidden
+let g:racer_cmd = "/home/casper/.cargo/bin/racer"
 
 " ===============================================================
 " ================ File Specific ================================
 " ===============================================================
+
+" Rust specific files
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " Visually wrap long lines in Markdown
 autocmd BufRead,BufNewFile   *.md setlocal wrap linebreak nolist
@@ -401,14 +415,14 @@ au BufWritePre * :if !&bin | call s:RemoveTrailingWhitespace()
 " Firefox "It's all text plugin".
 "-------------------------------------------------------------------------------
 
-augroup firefox_its_all_text
-au!
-let s:opened_file_path = expand('%:p')
-if s:opened_file_path =~ '\.mozilla/firefox/'
-	" Enable Czech spell checking by default.
-	au BufRead,BufNewFile *.txt setl spell
-	au BufRead,BufNewFile *.txt setl spelllang=cs
-
-	au BufRead,BufNewFile *.txt setl ft=html
-endif
-augroup end
+" augroup firefox_its_all_text
+" au!
+" let s:opened_file_path = expand('%:p')
+" if s:opened_file_path =~ '\.mozilla/firefox/'
+" 	" Enable Czech spell checking by default.
+" 	au BufRead,BufNewFile *.txt setl spell
+" 	au BufRead,BufNewFile *.txt setl spelllang=cs
+"
+" 	au BufRead,BufNewFile *.txt setl ft=html
+" endif
+" augroup end
