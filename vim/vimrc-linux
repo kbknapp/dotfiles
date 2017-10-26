@@ -24,7 +24,10 @@ Plugin 'gmarik/Vundle.vim'
 " ----- Main Plugins -----
 
 " Solarized colors
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
+
+" Solidity
+Plugin 'tomlion/vim-solidity'
 
 " Ctrl+P Fuzzy Matching Files
 "     -> <c-p> / :CtrlP [dir]    Fuzzy Match Files
@@ -181,7 +184,7 @@ set noshowmatch                 " Don't show matching brackets when typing
 set shiftwidth=4                " Use 4 spaces for indents
 set title                       " Show the title in the vim title bar
 set number                      " Line numbers are good
-set relativenumber              " Show relative line numbers
+" set relativenumber              " Show relative line numbers
 set ruler                       " Show cursor position in status instead of full line numbers
 set showcmd                     " Show incomplete cmds down the bottom
 set showmode                    " Show current mode down the bottom
@@ -218,8 +221,8 @@ set nomodeline          " Modelines have been a source of vulnerabilities.
 syntax on
 syntax enable
 set background=dark
-colorscheme solarized
-let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
+" colorscheme solarized
+" let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
 
 " Catch trailing whitespace when desired (<leader>s)
 set listchars=tab:>-,trail:·,eol:$
@@ -370,6 +373,17 @@ inoremap <C-k> <C-p>
 
 " Make Y act like D and C, i.e. yank till EOL rather than yy
 map Y y$
+
+" ===============================================================
+" ================ Use Ripgrep with Ctrl-P  =====================
+" ===============================================================
+
+if executable('rg')
+  let g:ctrlp_user_command = 'rg --files %s'
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_switch_buffer = 'et'
+endif
 
 " ===============================================================
 " ================ Language Specific  ===========================
