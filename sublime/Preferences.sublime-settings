@@ -1,12 +1,53 @@
 {
-	"auto_complete_commit_on_tab": true,
-	"color_scheme": "Packages/Color Scheme - Default/Twilight.tmTheme",
+	"always_show_minimap_viewport": true,
+	"auto_find_in_selection": true,
+	"bold_folder_labels": false,
+	"caret_style": "wide",
+	"close_windows_when_empty": false,
+	"copy_with_empty_selection": false,
+	"create_window_at_startup": false,
+	"detect_indentation": true,
+	"drag_text": false,
+	"file_exclude_patterns":
+	[
+		".DS_Store"
+	],
+	"folder_exclude_patterns":
+	[
+		".bundle",
+		".git",
+		".hg",
+		".sass-cache",
+		".svn",
+		"bin",
+		"CVS",
+		"target",
+		"tmp"
+	],
+	"font_face": "Inconsolata",
+	"font_options":
+	[
+		"subpixel_antialias"
+	],
+	"font_size": 12,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"rulers": [100],
 	"ignored_packages":
 	[
-		""
+		"Vintage",
+		"Markdown"
 	],
-	"theme": "Numix Dark.sublime-theme",
-        "overlay_scroll_bars": "enabled",
-        "numix_folder_icons": true,
-	"vintage_start_in_command_mode": true
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"line_padding_bottom": 2,
+	"line_padding_top": 2,
+	"match_brackets_angle": true,
+	"overlay_scroll_bars": "enabled",
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": true
 }
+
