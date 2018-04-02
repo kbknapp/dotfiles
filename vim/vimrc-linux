@@ -104,7 +104,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-abolish'
 
 " autocompletion
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 
 " Quickly Select Buffers
 "     -> be             Normal
@@ -178,9 +178,10 @@ if !has('nvim')
 	set wildmenu                    " Better command line completion
 endif
 set expandtab                   " Use spaces not tabs
+set softtabstop=4
 set tabstop=4                   " Use 4 spaces
 set nostartofline               " Keep the cursor in the current column with page cmds.
-set noshowmatch                 " Don't show matching brackets when typing
+"set noshowmatch                 " Don't show matching brackets when typing
 set shiftwidth=4                " Use 4 spaces for indents
 set title                       " Show the title in the vim title bar
 set number                      " Line numbers are good
@@ -188,7 +189,7 @@ set number                      " Line numbers are good
 set ruler                       " Show cursor position in status instead of full line numbers
 set showcmd                     " Show incomplete cmds down the bottom
 set showmode                    " Show current mode down the bottom
-"set noshowmode                 " Don't show current mode
+set noshowmode                 " Don't show current mode
 set gcr=a:blinkon0              " Disable cursor blink
 set nojoinspaces                " Insert just one space joining lines with J.
 set visualbell                  " No sounds
@@ -225,7 +226,7 @@ set background=dark
 " let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
 
 " Catch trailing whitespace when desired (<leader>s)
-set listchars=tab:>-,trail:·,eol:$
+set list listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 
 
@@ -260,8 +261,8 @@ set nofoldenable        "dont fold by default
 " ===============================================================
 
 " The leader and local-leader characters.
-let mapleader = ','
-let maplocalleader = ','
+let mapleader = ","
+let maplocalleader = ","
 
 " Jump to the previous/next tab.
 noremap <silent> H gT
@@ -412,18 +413,60 @@ autocmd BufRead,BufNewFile   *.md setlocal wrap linebreak nolist
 autocmd BufRead,BufNewFile   *.py setlocal colorcolumn=80
 autocmd BufRead,BufNewFile   *.rs setlocal colorcolumn=99
 
-augroup trailing_whitespace
-au!
-" Automatically remove trailing whitespace when saving a file.
-function! s:RemoveTrailingWhitespace()
-	let pattern = '\\s\\+$'
-	if &ft ==# 'mail'
-		" Do not remove the space from the email signature marker ("-- \n").
-		let pattern = '\\(^--\\)\\@<!' . pattern
-	endif
-	call setline(1, map(getline(1, '$'), 'substitute(v:val, "' . pattern . '", "", "")'))
+" Capture current file path into clipboard
+function! CaptureFile()
+  let @+ = expand('%')
 endfunction
-au BufWritePre * :if !&bin | call s:RemoveTrailingWhitespace()
+map <leader>f :call CaptureFile()<cr>
+
+" Rename current file
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'))
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
+" Strip whitespace on save
+function! <SID>StripTrailingWhitespaces()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfun
+
+command -nargs=0 Stripwhitespace :call <SID>StripTrailingWhitespaces()
+
+if has("autocmd")
+  " StripTrailingWhitespaces
+  autocmd BufWritePre * Stripwhitespace
+
+" To spell check all git commit messages
+  au BufNewFile,BufRead COMMIT_EDITMSG set spell nonumber nolist wrap linebreak
+
+  " Set filetype tab settings
+  autocmd FileType python,doctest set ai ts=4 sw=4 sts=4 et
+
+  autocmd BufReadPost *
+  \ if line("'\"") > 1 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
+endif
+
+" Fix indentation in file
+map <leader>i mmgg=G`m<CR>
+
+" Toggle highlighting of search results
+nnoremap <leader><space> :nohlsearch<cr>
 
 "-------------------------------------------------------------------------------
 " Firefox "It's all text plugin".
