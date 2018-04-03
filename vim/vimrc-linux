@@ -26,8 +26,11 @@ Plugin 'gmarik/Vundle.vim'
 " Solarized colors
 " Plugin 'altercation/vim-colors-solarized'
 
+" Dracula colors
+Plugin 'dracula/vim'
+
 " Solidity
-Plugin 'tomlion/vim-solidity'
+" Plugin 'tomlion/vim-solidity'
 
 " Ctrl+P Fuzzy Matching Files
 "     -> <c-p> / :CtrlP [dir]    Fuzzy Match Files
@@ -222,7 +225,7 @@ set nomodeline          " Modelines have been a source of vulnerabilities.
 syntax on
 syntax enable
 set background=dark
-" colorscheme solarized
+color dracula
 " let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
 
 " Catch trailing whitespace when desired (<leader>s)
