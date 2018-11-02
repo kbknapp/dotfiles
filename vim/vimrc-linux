@@ -5,11 +5,13 @@
 "
 " Based on https://github.com/s3rvac/dotfiles/blob/master/vim/.vimrc
 "------------------------------------------------------------------------------
+
 " ==================
 " ===== Vundle =====
 " ==================
 
-" Turn off filetype to ensure Vundle executes properly
+" required by Vundle
+set nocompatible			" Don't use backwards compat with Vi
 filetype off
 
 " Set the runtime path to include Vundle and it's init
@@ -19,7 +21,7 @@ call vundle#begin()
 " ----- Core Plugin (required) -----
 
 " Must come first
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " ----- Main Plugins -----
 
@@ -157,29 +159,25 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
 
-" enable all plugins
+" enable all plugins, required by Vundel
 call vundle#end()
-if !has('nvim')
-	filetype plugin indent on
-endif
+filetype plugin indent on
 
 " ==========================
 " ===== General Config =====
 " ==========================
-if !has('nvim')
-	" Use Vim settings, rather then Vi settings (much better!).
-	" This must be first, because it changes other options as a side effect.
-	set nocompatible
-	set encoding=utf-8
-	set autoindent                  " Indent if preivous line is indented
-	set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
-	set history=10000               " Store lots of :cmdline history (default is 20)
-	set mouse=a                     " Enable mouse usage
-	set laststatus=2                " Always show statusbar
-	set smarttab
-	set ttyfast                     " Smoother changes
-	set wildmenu                    " Better command line completion
-endif
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+set encoding=utf-8
+set autoindent                  " Indent if preivous line is indented
+set backspace=indent,eol,start  " Allow backspace in insert mode over autoindent, line breaks, and start of insert action
+set history=10000               " Store lots of :cmdline history (default is 20)
+set mouse=a                     " Enable mouse usage
+set laststatus=2                " Always show statusbar
+set smarttab
+set ttyfast                     " Smoother changes
+set wildmenu                    " Better command line completion
 set expandtab                   " Use spaces not tabs
 set softtabstop=4
 set tabstop=4                   " Use 4 spaces
@@ -188,11 +186,11 @@ set nostartofline               " Keep the cursor in the current column with pag
 set shiftwidth=4                " Use 4 spaces for indents
 set title                       " Show the title in the vim title bar
 set number                      " Line numbers are good
-" set relativenumber              " Show relative line numbers
+"set relativenumber              " Show relative line numbers
 set ruler                       " Show cursor position in status instead of full line numbers
 set showcmd                     " Show incomplete cmds down the bottom
 set showmode                    " Show current mode down the bottom
-set noshowmode                 " Don't show current mode
+set noshowmode                  " Don't show current mode
 set gcr=a:blinkon0              " Disable cursor blink
 set nojoinspaces                " Insert just one space joining lines with J.
 set visualbell                  " No sounds
@@ -214,8 +212,8 @@ set nobackup            " Disable backup files.
 set noswapfile          " Disable swap files.
 set nowritebackup       " Disable auto backup before overwriting a file.
 " Store temp files in specific loctions
-"set backupdir=~/.vim/bak,~/.bak,/tmp
-"set directory=~/.vim/tmp,~/.tmp,/tmp
+set backupdir=~/.vim/bak,~/.bak,/tmp
+set directory=~/.vim/tmp,~/.tmp,/tmp
 
 " ------------- Security -----------------
 set secure              " Forbid loading of .vimrc under $PWD.
@@ -226,7 +224,7 @@ syntax on
 syntax enable
 set background=dark
 color dracula
-" let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
+let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
 
 " Catch trailing whitespace when desired (<leader>s)
 set list listchars=tab:>-,trail:·,eol:$
@@ -235,11 +233,9 @@ nmap <silent> <leader>s :set nolist!<CR>
 
 " ============== Copy / Paste ========================
 set pastetoggle=<F10>            " Toggle between paste/nopaste with <F10>
-" set pastetoggle=<leader>pt
+set pastetoggle=<leader>pt
 set paste                        " Turn on paste mode always
-if !has('nvim')
-	set nrformats=              " make C-a, C-x work properly
-endif
+set nrformats=                   " make C-a, C-x work properly
 " Alias the unnamed clipboard to the Linux X11 clipboard
 set clipboard=unnamedplus
 
@@ -267,10 +263,16 @@ set nofoldenable        "dont fold by default
 let mapleader = ","
 let maplocalleader = ","
 
-" Jump to the previous/next tab.
-noremap <silent> H gT
-noremap <silent> L gt
+nmap <leader>so :source $MYVIMRC
+nmap <leader>vr :e $MYVIMRC
 
+" Jump to the previous/next tab.
+"noremap <silent> H gT
+"noremap <silent> L gt
+
+" Move visual lines, not phyiscal lines
+nmap j gj
+nmap k gk
 
 " Join lines
 " nnoremap <silent> J :join
@@ -398,23 +400,28 @@ endif
 " and Racer auto-complete
 "let g:racer_cmd = "~/.bin/racer"
 "let $RUST_SRC_PATH="/usr/local/src/rust/src"
-set hidden
-let g:racer_cmd = "/home/casper/.cargo/bin/racer"
+let g:racer_cmd = "~/.cargo/bin/racer"
 
 " ===============================================================
-" ================ File Specific ================================
+" ================ Filetype Specific ============================
 " ===============================================================
 
-" Rust specific files
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+" ------------- Rust Files --------------
+autocmd FileType rust nmap gd <Plug>(rust-def)
+autocmd FileType rust nmap gs <Plug>(rust-def-split)
+autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 
+" ------------- Markdown Files --------------
 " Visually wrap long lines in Markdown
 autocmd BufRead,BufNewFile   *.md setlocal wrap linebreak nolist
 autocmd BufRead,BufNewFile   *.py setlocal colorcolumn=80
 autocmd BufRead,BufNewFile   *.rs setlocal colorcolumn=99
+
+" ------------- Help Files --------------
+" Allow 'q' to quit help documents
+autocmd FileType help nmap q :q<cr>
+
 
 " Capture current file path into clipboard
 function! CaptureFile()
@@ -434,36 +441,6 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-" Strip whitespace on save
-function! <SID>StripTrailingWhitespaces()
-  " Preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  %s/\s\+$//e
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfun
-
-command -nargs=0 Stripwhitespace :call <SID>StripTrailingWhitespaces()
-
-if has("autocmd")
-  " StripTrailingWhitespaces
-  autocmd BufWritePre * Stripwhitespace
-
-" To spell check all git commit messages
-  au BufNewFile,BufRead COMMIT_EDITMSG set spell nonumber nolist wrap linebreak
-
-  " Set filetype tab settings
-  autocmd FileType python,doctest set ai ts=4 sw=4 sts=4 et
-
-  autocmd BufReadPost *
-  \ if line("'\"") > 1 && line("'\"") <= line("$") |
-  \   exe "normal! g`\"" |
-  \ endif
-endif
 
 " Fix indentation in file
 map <leader>i mmgg=G`m<CR>
@@ -488,10 +465,7 @@ nnoremap <leader><space> :nohlsearch<cr>
 " augroup end
 
 " Turn VIM into a wordprocessor
-func! WordProcessor()
-  " movement changes
-  map j gj
-  map k gk
+function! WordProcessor()
   " formatting text
   setlocal formatoptions=1
   setlocal noexpandtab
@@ -502,5 +476,5 @@ func! WordProcessor()
   set thesaurus+=/home/kevin/.vim/thesaurus/mthesaur.txt
   " complete+=s makes autocompletion search the thesaurus
   set complete+=s
-endfu
+endfunction
 com! WP call WordProcessor()
