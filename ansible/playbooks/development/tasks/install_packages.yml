@@ -1,0 +1,50 @@
+---
+- name: Install FiraCode Fonts (Ubuntu)
+  apt:
+    name: fonts-firacode
+    state: latest
+    update_cache: yes
+  when: 
+    - (ansible_facts.ansible_distribution == "Ubuntu") and (development_machine or development_component_fonts_firacode)
+
+- name: Install git (Ubuntu)
+  apt:
+    name: git
+    state: latest
+  when: 
+    - (ansible_facts.ansible_distribution == "Ubuntu") and (development_machine or development_component_git)
+
+- name: Install meld (Ubuntu)
+  apt:
+    name: meld
+    state: latest
+  when: 
+    - (ansible_facts.ansible_distribution == "Ubuntu") and (development_machine or development_component_meld)
+
+- name: Install vim (Ubuntu)
+  apt:
+    name: vim
+    state: latest
+  when: 
+    - (ansible_facts.ansible_distribution == "Ubuntu") and (development_machine or development_component_vim)
+    
+- name: Install VSCode (Flatpak)
+  flatpak:
+    name: com.visualstudio.code.oss
+    state: present
+  when: 
+    - development_machine or development_component_vscode
+
+- name: Install GitKraken (Flatpak)
+  flatpak:
+    name: com.axosoft.GitKraken
+    state: present
+  when: 
+    - development_machine or development_component_gitkraken
+
+- name: Install CLion (Snap)
+  command: snap install clion --classic
+  args:
+    creates: /snap/clion
+  when: 
+    - (development_machine or development_component_clion) and desktop_component_snap

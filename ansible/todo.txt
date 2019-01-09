@@ -1,0 +1,46 @@
+# buttercup
+sudo dpkg -i ./Downloads/buttercup-desktop_1.14.0_amd64.deb
+
+# vpnarea
+sudo cp vpnarea.pl /usr/bin
+
+# vmware
+chmod u+x VMware-Workstation-Full-15.0.2-10952284.x86_64.bundle
+sudo ./VMware-Workstation-Full-15.0.2-10952284.x86_64.bundle
+
+# timeshift
+sudo add-apt-repository -y ppa:teejee2008/ppa
+sudo apt update
+sudo apt install timeshift
+
+# standard notes
+chmod u+x standard-notes-3.0.1-x86_64.AppImage
+./standard-notes-3.0.1-x86_64.AppImage
+
+# ssh
+ssh-keygen -t rsa -b 4096 -C "kbknapp@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add .ssh/id_rsa.pub
+ssh-add .ssh/id_rsa
+
+# swapfile
+sudo fallocate -l 32G /swapfile
+sudo dd if=/dev/zero of=/swapfile bs=1024
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon
+sudo echo UUID=d7ca38df-257a-46d2-9cf9-2c5f430babee >> /etc/fstab
+sudo su -c 'echo UUID=d7ca38df-257a-46d2-9cf9-2c5f430babee >> /etc/fstab'
+sudo vim /etc/fstab
+
+# chrome
+sudo dpkg -i ./google-chrome-stable_current_amd64.deb
+sudo apt install -f
+
+# docker
+
+# gpg
+cd .tmp
+gpg --allow-secret-key-import --import keybase-private.key
+gpg --import keybase-public.key
+rm *.key

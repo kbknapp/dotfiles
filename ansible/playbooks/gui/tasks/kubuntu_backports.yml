@@ -1,0 +1,9 @@
+---
+- name: Add Kubuntu Backports PPA (Kubuntu)
+  apt_repository:
+    repo: ppa:kubuntu-ppa/backports
+
+- name: Perform Full Upgrade from Backports (Kubuntu)
+  apt:
+    upgrade: full
+    update_cache: yes

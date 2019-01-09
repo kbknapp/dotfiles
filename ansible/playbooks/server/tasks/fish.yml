@@ -1,0 +1,28 @@
+---
+- name: Add Fish v2 PPA (Ubuntu)
+  apt_repository:
+    repo: ppa:fish-shell/release-2
+  when: 
+    -| 
+    ((ansible_facts.ansible_distribution == "Ubuntu") and 
+    (ansible_facts.ansible_distribution_release != "cosmic") and 
+    (server_machine or server_component_fish)
+
+- name: Add Fish v3 PPA (Ubuntu)
+  apt_repository:
+    repo: ppa:fish-shell/release-2
+  when: 
+    -|
+    ((ansible_facts.ansible_distribution == "Ubuntu") and 
+    (ansible_facts.ansible_distribution_release == "cosmic") and 
+    (server_machine or server_component_fish)
+
+- name: Install FISH (Ubuntu)
+  apt:
+    name: fish
+    state: latest
+  when: 
+    -| 
+    (ansible_facts.ansible_distribution == "Ubuntu") and 
+    (server_machine or server_component_fish)
+    

@@ -1,0 +1,35 @@
+---
+- name: Install npm (Ubuntu)
+  apt:
+    name: npm
+    state: latest
+  when: 
+    - ansible_facts.ansible_distribution == "Ubuntu" 
+
+- name: Create NPM directory
+  file:
+    path: "/home/kevin/.npm-global"
+    state: directory
+    mode: 0755
+
+- name: Set NPM prefix
+  command: "npm config set prefix '~/.npm-global'"
+
+- name: Add NPM global dir to $PATH (ZSH)
+  lineinfile:
+    path: "/home/kevin/.zshrc"
+    line: "export PATH=$HOME/.npm-global:$PATH"
+  when:
+    - default_shell == "zsh"
+
+- name: Source profile (ZSH)
+  shell: "source /home/kevin/.zshrc"
+
+- name: Add NPM global dir to $PATH (FISH)
+  lineinfile:
+    path: "/home/kevin/.config/fish/config.fish"
+    line: "set -gx PATH /home/kevin/.npm-global/bin $PATH"
+  when:
+    - default_shell == "fish"
+
+# Need to source fish profile?

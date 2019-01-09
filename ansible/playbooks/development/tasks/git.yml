@@ -1,0 +1,30 @@
+---
+- name: Set global git conifguration options
+  git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  with_items:
+    - {name: "user.name", value: "Kevin K."}
+    - {name: "user.email", value: "kbknapp@gmail.com"}
+    - {name: "color.ui", value: "true"}
+    - {name: "rebase.autosquash", value: "true"}
+
+- name: Set global git gpg conifguration options
+  git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  with_items:
+    - {name: "commit.gpgsign", value: "true"}
+    - {name: "user.signingkey", value: "{{ gpg_key_id }}"}
+  when:
+    - development_machine or development_component_gpg
+
+# this will add the line over and over
+- name: Copy Rust setting to ZSH profile
+  shell: "cat /home/kevin/.dotfiles/zsh/addons/git.zsh-addon >> /home/kevin/.zshrc"
+  when: 
+    -|
+     desktop_component_dotfiles and 
+     default_shell == "zsh"

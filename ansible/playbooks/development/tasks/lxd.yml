@@ -1,0 +1,16 @@
+---
+- name: Install LXD (Ubuntu)
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - lxd
+    - lxd-client
+  when: 
+    - (ansible_facts.ansible_distribution == "Ubuntu") 
+
+- name: Append kevin to the lxd group
+  user:
+    name: kevin
+    groups: lxd
+    append: yes

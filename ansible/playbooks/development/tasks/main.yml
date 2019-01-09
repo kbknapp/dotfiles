@@ -1,0 +1,30 @@
+---
+# tasks file for development
+- include_tasks: 
+  - install_packages.yml
+  - dotfiles.yml
+- include_tasks: vim.yml
+  when: 
+    - development_machine or development_component_vim
+- include_tasks: git.yml
+  when: 
+    - development_machine or development_component_git
+- include_tasks: rust.yml
+  when: 
+    - development_machine or development_component_rust
+- include_tasks: lxd.yml
+  when:
+    - development_machine or development_component_lxd
+
+- name: Clone Dotfiles repository
+  git:
+    repo: "{{ item.url }}"
+    dest: /home/kevin/Projects/{{ item.repo }}
+  with_items:
+    - { url: https://github.com/clap-rs/clap, repo: clap }
+    - { url: https://github.com/clap-rs/clap, repo: clap_derive }
+    - { url: https://github.com/clap-rs/clap, repo: clap_generate }
+    - { url: https://github.com/clap-rs/clap, repo: term_size-rs }
+    - { url: https://versionctl.com/sc/docs.git, repo: term_size-rs }
+  when:
+    - development_machine or development_component_common_projects

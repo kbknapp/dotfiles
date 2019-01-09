@@ -1,0 +1,8 @@
+---
+# tasks file for desktop
+- include_tasks: 
+  - install_packages.yml
+  - flatpak.yml
+  - pip.yml
+  - snap.yml
+  - npm.yml
