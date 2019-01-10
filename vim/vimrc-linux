@@ -223,7 +223,11 @@ set nomodeline          " Modelines have been a source of vulnerabilities.
 syntax on
 syntax enable
 set background=dark
-color dracula
+try
+    colorscheme dracula
+catch /^Vim\%((\a\+)\)\=:E185/
+    " deal with it
+endtry
 let g:solarized_termcolors=256      " If terminal doesn't support solarized color palettes
 
 " Catch trailing whitespace when desired (<leader>s)
