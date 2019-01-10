@@ -1,9 +1,0 @@
----
-- name: Install VIM (Ubuntu)
-  apt:
-    name: vim
-    state: latest
-  when: 
-    -|
-    (ansible_facts.ansible_distribution == "Ubuntu") and 
-    (server_machine or server_component_vim)

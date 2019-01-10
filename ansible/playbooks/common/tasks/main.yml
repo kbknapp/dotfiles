@@ -1,8 +1,0 @@
----
-- include_tasks: 
-  - update_system.yml
-  - install_packages.yml
-  - common_directories.yml
-
-- name: Set the default shell
-  command: "chsh -s $(which {{ default_shell }}) kevin"

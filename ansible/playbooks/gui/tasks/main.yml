@@ -1,6 +1,0 @@
----
-# tasks file for gui
-- include_tasks: 
-    - kubuntu_backports.yml
-  when: 
-    - (ansible_facts.ansible_distribution == "Ubuntu") and (gui_kde or gui_component_kubuntu_backports)

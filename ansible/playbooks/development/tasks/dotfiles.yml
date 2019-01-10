@@ -1,5 +1,0 @@
----
-- name: Clone Dotfiles repository
-  git:
-    repo: https://github.com/kbknapp/dotfiles
-    dest: /home/kevin/.dotfiles
