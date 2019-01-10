@@ -202,7 +202,7 @@ set scrolloff=3                 " Show lines of context around the cursor when s
 set nowrap                      " Don't wrap lines
 "set linebreak                  " Wrap lines at convenient points
 set cursorline                  " Highlight current line
-set shell=/usr/bin/zsh          " Use zsh as the shell
+"set shell=/usr/bin/zsh          " Use zsh as the shell
 set completeopt -=preview
 set colorcolumn=100             " Set a highlighted column to give reference for long lines
 set hidden                      " Buffers can exist in the background without being in a window.
