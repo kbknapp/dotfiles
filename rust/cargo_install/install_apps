@@ -1,0 +1,25 @@
+cargo install \
+  cargo-outdated \
+  cargo-tree \
+  cargo-modules \
+  cargo-cache \
+  cargo-graph \
+  cargo-edit \
+  cargo-geiger \
+  cargo-bloat \
+  cargo-thanks \
+  cargo-audit \
+  cargo-update \
+  cargo-count \
+  clog-cli \
+  exa \
+  hyperfine \
+  fd-find \
+  ripgrep \
+  skim \
+  hexyl \
+  cw \
+  bat \
+  mdbook \
+  tokei 
+
