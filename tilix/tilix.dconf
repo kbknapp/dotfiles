@@ -1,0 +1,29 @@
+[keybindings]
+session-resize-terminal-left='<Shift><Alt>h'
+session-switch-to-terminal-down='<Alt>j'
+session-add-right='<Primary><Alt>l'
+session-resize-terminal-up='<Shift><Alt>k'
+session-add-down='<Primary><Alt>j'
+session-resize-terminal-down='<Shift><Alt>j'
+session-switch-to-terminal-right='<Alt>l'
+session-switch-to-terminal-up='<Alt>k'
+session-resize-terminal-right='<Shift><Alt>l'
+session-switch-to-terminal-left='<Alt>h'
+
+[/]
+paste-advanced-default=true
+new-instance-mode='focus-window'
+theme-variant='dark'
+
+[profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
+foreground-color='#829395'
+visible-name='Default'
+palette=['#063541', '#DB312E', '#849900', '#B48800', '#258AD1', '#D23581', '#29A097', '#EDE7D4', '#002A35', '#CA4A15', '#576D74', '#647A82', '#829395', '#6B70C3', '#92A0A0', '#FCF5E2']
+badge-color-set=false
+use-system-font=false
+cursor-colors-set=false
+highlight-colors-set=false
+use-theme-colors=false
+bold-color-set=false
+font='Fira Code 12'
+background-color='#002A35'
