@@ -5,3 +5,4 @@ flatpak install -y flathub com.slack.Slack
 flatpak install -y flathub com.visualstudio.code.oss
 flatpak install -y flathub org.signal.Signal
 flatpak install -y flathub org.telegram.desktop
+flatpak install -y flathub im.riot.Riot
