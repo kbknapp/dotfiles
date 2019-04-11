@@ -57,11 +57,11 @@ set $down j
 set $left h
 set $right l
 
-set $WS1 "1: "
+set $WS1 "1: "
 set $WS2 "2: "
 set $WS3 "3: "
 set $WS4 "4: "
-set $WS5 "5: "
+set $WS5 "5: "
 set $WS6 "6: "
 set $WS7 "7: "
 set $WS8 "8: "
@@ -138,11 +138,11 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 ###########          Workspace Bindings          ###############
 ################################################################
 
-#"1: "
+#"1: "
 #"2: "
 #"3: "
 #"4: "
-#"5: "
+#"5: "
 #"6: "
 #"7: "
 #"8: "
@@ -273,6 +273,12 @@ bindsym $Mod+Shift+Left  move left  10px
 bindsym $Mod+Shift+Right move right 10px
 
 # Size
+bindsym Mod1+$up    resize shrink height 10 px or 1 ppt
+bindsym Mod1+$down  resize grow   height 10 px or 1 ppt
+bindsym Mod1+$left  resize shrink width  10 px or 1 ppt
+bindsym Mod1+$right resize grow   width  10 px or 1 ppt
+
+# Same with Arrows
 bindsym Mod1+Up    resize shrink height 10 px or 1 ppt
 bindsym Mod1+Down  resize grow   height 10 px or 1 ppt
 bindsym Mod1+Left  resize shrink width  10 px or 1 ppt
@@ -328,12 +334,12 @@ bindsym $Mod+Control+Shift+minus gaps outer all     minus 5
 for_window [class="(?i)(?:qt5ct|pinentry)"] floating enable, focus
 for_window [class="(?i)(?:thunar|mousepad|xterm|alacritty)"] focus
 
-#"1: "
+#"1: "
 #"2: "
 #"3: "
 #"4: "
-#"5: "
 #"6: "
+#"5: "
 #"7: "
 #"8: "
 #"9: "
@@ -343,7 +349,8 @@ for_window [class="(?i)(?:thunar|mousepad|xterm|alacritty)"] focus
 assign [class="(?i)(?:firefox)"] → $WS2
 assign [class="(?i)(?:thunar)"]  → $WS3
 assign [class="(?i)(?:mousepad)"]   → $WS4
-assign [class="(?i)(?:alacritty|xterm)"] → $WS5
+assign [class="(?i)(?:alacritty|xterm)"] → $WS1
+assign [class="(?i)(?:vmware)"] → $WS6
 assign [class="(?i)(?:TelegramDesktop)"] → $WS7
 assign [class="(?i)(?:standard notes)"] → $WS8
 assign [class="(?i)(?:tilix)"] → $WS10
