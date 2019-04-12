@@ -223,6 +223,9 @@ bindsym $Mod+Shift+0 move container to workspace $WS10
 #bindsym $Mod+Shift+Mod2+KP_Home move container to workspace $WS7; workspace $WS7
 #bindsym $Mod+Shift+Mod2+KP_Up move container to workspace $WS8; workspace $WS8
 
+# move workspaces left or right
+bindsym $Mod+Shift+Mod1+h exec i3-msg move workspace to output left
+bindsym $Mod+Shift+Mod1+l exec i3-msg move workspace to output right
 
 ############################################################
 ##############     Reload configs           ################
