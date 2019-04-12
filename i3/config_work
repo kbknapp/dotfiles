@@ -188,6 +188,9 @@ bindsym $mod+Mod2+KP_0 workspace $WS10
 bindsym $mod+Mod1+Left workspace prev
 bindsym $mod+Mod1+Right workspace next
 
+# toggle between two workspaces
+bindsym $Mod+BackSpace workspace back_and_forth
+
 
 # move focused container to workspace, focus workspace
 bindsym $Mod+Shift+Mod1+1 move container to workspace $WS1; workspace $WS1
@@ -353,6 +356,7 @@ assign [class="(?i)(?:firefox)"] → $WS2
 assign [class="(?i)(?:thunar)"]  → $WS3
 assign [class="(?i)(?:mousepad)"]   → $WS4
 assign [class="(?i)(?:alacritty|xterm)"] → $WS1
+assign [class="(?i)(?:jetbrains-clion)"] → $WS4
 assign [class="(?i)(?:vmware)"] → $WS6
 assign [class="(?i)(?:TelegramDesktop)"] → $WS7
 assign [class="(?i)(?:standard notes)"] → $WS8
