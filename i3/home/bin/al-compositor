@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+# al-compositor: openbox pipe menu for use with compton
+
+# Copyright (C) 2012 Philip Newborough <corenominal@corenominal.org>
+# Copyright (C) 2013 Aleks-Daniel Jakimenko
+# Copyright (C) 2015 John Crawley <john@bunsenlabs.org>
+# Copyright (C) 2019 Nathaniel Maia <natemaia10@gmail.com>
+
+readonly EXECXCOMP='compton -b'
+readonly RESTART_ATTEMPTS=20
+
+if ! hash compton >/dev/null 2>&1; then
+	echo "al-compositor: error: requires compton installed" >&2
+	exit
+elif [[ ! -e "$HOME/.config/compton.conf" && -e '/etc/skel/.config/compton.conf' ]]; then
+	cp '/etc/skel/.config/compton.conf' "$HOME/.config/compton.conf"
+fi
+
+forcekill_compton() {
+	killall -q compton
+	for ((i=0; i < RESTART_ATTEMPTS; i++)); do
+		pidof compton >/dev/null 2>&1 || break
+		killall -q -S KILL compton
+		sleep 0.25
+	done
+}
+
+case "$1" in
+	-h|--help)
+		cat << EOF
+al-compositor - a compton manament script and pipemenu
+
+options:
+    --help      show this message
+    --start     start the compositor and restart tint2, if running
+    --restart   restart the compositor, if running
+    --stop      stop the compositor
+    --edit      open the compton config file in a text editor
+    --watch     restart compton when the config is modified (useful for debugging)
+
+If al-compositor is called with no options (the usual method),
+it will output an xml openbox pipemenu for handling compositing.
+
+See ~/.config/compton.conf and "man compton" for configuration options.
+EOF
+		;;
+	--edit)
+		hash exo-open >/dev/null 2>&1 && exo-open "$HOME/.config/compton.conf"
+		;;
+	--start)
+		if pidof compton >/dev/null 2>&1; then
+			echo "al-compositor: error: compton already running" >&2
+			exit
+		else
+			$EXECXCOMP
+		fi
+		;;
+	--stop)
+		forcekill_compton
+		;;
+	--restart)
+		if pidof compton >/dev/null 2>&1; then
+			forcekill_compton
+			$EXECXCOMP
+		else
+			echo "al-compositor: error: compton isn't running" >&2
+			exit
+		fi
+		;;
+	--watch)
+		while inotifywait -e close_write "$HOME/.config/compton.conf"; do
+			"$0" --restart
+		done
+		;;
+	*)
+		if ! pidof openbox >/dev/null 2>&1; then
+			echo "al-compositor: error: openbox isn't running for pipemenus" >&2
+			exit
+		elif ! . /usr/lib/archlabs/common/al-include 2>/dev/null; then
+			echo "al-compositor: error: failed to source /usr/lib/archlabs/common/al-include" >&2
+			exit
+		else
+			menuStart
+			if pidof compton >/dev/null 2>&1; then
+				menuItem 'Restart Compton' "$0 --restart"
+				menuItem 'Disable Compton' "$0 --stop"
+			else
+				menuItem 'Enable Compton' "$0 --start"
+			fi
+			menuSeparator
+			if [[ -e /usr/bin/paranoid.py ]]; then
+				menuItem 'Compton GUI' "paranoid.py"
+			fi
+			menuItem 'Edit compton.conf' "$0 --edit"
+			menuEnd
+		fi
+		;;
+esac
+
+exit 0
+
