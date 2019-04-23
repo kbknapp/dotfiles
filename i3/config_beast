@@ -24,7 +24,7 @@ client.background       $bg
 for_window [class="^.*"] border pixel 2, title_format "<b> %class >> %title </b>"
 
 # gaps
-gaps inner 15
+gaps inner 10
 gaps outer 5
 
 # font
@@ -53,16 +53,17 @@ set $down j
 set $left h
 set $right l
 
+set $WS0 "~: "
 set $WS1 "1: "
 set $WS2 "2: "
 set $WS3 "3: "
 set $WS4 "4: "
-set $WS5 "5: "
+set $WS5 "5: "
 set $WS6 "6: "
 set $WS7 "7: "
 set $WS8 "8: "
 set $WS9 "9: "
-set $WS10 "10: "
+set $WS10 "10: "
 
 # monitors
 set $Mon1 HDMI-A-0
@@ -142,6 +143,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 #"9: "
 #"10: "
 # workspace assignment
+workspace $WS0 output $Mon1
 workspace $WS1 output $Mon1
 workspace $WS2 output $Mon1
 workspace $WS3 output $Mon1
@@ -154,6 +156,7 @@ workspace $WS9 output $Mon1
 workspace $WS10 output $Mon1
 
 # switch to workspace
+bindsym $Mod+grave workspace $WS0
 bindsym $Mod+1 workspace $WS1
 bindsym $Mod+2 workspace $WS2
 bindsym $Mod+3 workspace $WS3
@@ -189,6 +192,7 @@ bindsym $Mod+Shift+Mod1+l exec i3-msg move workspace to output right
 bindsym $Mod+BackSpace workspace back_and_forth
 
 # move focused container to workspace, focus workspace
+bindsym $Mod+Shift+Mod1+grave move container to workspace $WS0; workspace $WS0
 bindsym $Mod+Shift+Mod1+1 move container to workspace $WS1; workspace $WS1
 bindsym $Mod+Shift+Mod1+2 move container to workspace $WS2; workspace $WS2
 bindsym $Mod+Shift+Mod1+3 move container to workspace $WS3; workspace $WS3
@@ -201,6 +205,7 @@ bindsym $Mod+Shift+Mod1+9 move container to workspace $WS9; workspace $WS9
 bindsym $Mod+Shift+Mod1+0 move container to workspace $WS10; workspace $WS10
 
 # move focused container to workspace, don't focus workspace
+bindsym $Mod+Shift+grave move container to workspace $WS0
 bindsym $Mod+Shift+1 move container to workspace $WS1
 bindsym $Mod+Shift+2 move container to workspace $WS2
 bindsym $Mod+Shift+3 move container to workspace $WS3
@@ -333,26 +338,29 @@ bindsym $Mod+Control+Shift+minus gaps outer all     minus 5
 for_window [class="(?i)(?:qt5ct|pinentry)"] floating enable, focus
 for_window [class="(?i)(?:thunar|mousepad|xterm|alacritty)"] focus
 
+#"~: "
 #"1: "
 #"2: "
 #"3: "
 #"4: "
 #"6: "
-#"5: "
+#"5: "
 #"7: "
 #"8: "
 #"9: "
-#"10: "
+#"10: "
 # Assign Applications to specific workspace
 # get class with xprop
 assign [class="(?i)(?:firefox)"] → $WS2
 assign [class="(?i)(?:thunar)"]  → $WS3
 assign [class="(?i)(?:mousepad)"]   → $WS4
-assign [class="(?i)(?:alacritty|xterm)"] → $WS1
+#assign [class="(?i)(?:alacritty|xterm)"] → $WS1
 assign [class="(?i)(?:vmware)"] → $WS6
 assign [class="(?i)(?:TelegramDesktop)"] → $WS7
+assign [class="(?i)(?:gitkraken)"] → $WS5
 assign [class="(?i)(?:standard notes)"] → $WS8
-assign [class="(?i)(?:tilix)"] → $WS10
+assign [class="(?i)(?:steam)"] → $WS10
+assign [class="(?i)(?:jetbrains-clion)"] → $WS4
 
 # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
