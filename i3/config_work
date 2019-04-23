@@ -57,6 +57,7 @@ set $down j
 set $left h
 set $right l
 
+set $WS0 "~: "
 set $WS1 "1: "
 set $WS2 "2: "
 set $WS3 "3: "
@@ -141,17 +142,19 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 ###########          Workspace Bindings          ###############
 ################################################################
 
-#"1: "
+#"~: "
+#"1: "
 #"2: "
-#"3: "
+#"3: "
 #"4: "
-#"5: "
+#"5: "
 #"6: "
 #"7: "
-#"8: "
+#"8: "
 #"9: "
 #"10: "
 # workspace assignment
+workspace $WS0 output $Mon2
 workspace $WS1 output $Mon2
 workspace $WS2 output $Mon2
 workspace $WS3 output $Mon2
@@ -164,6 +167,7 @@ workspace $WS9 output $Mon3
 workspace $WS10 output $Mon3
 
 # switch to workspace
+bindsym $Mod+grave workspace $WS0
 bindsym $Mod+1 workspace $WS1
 bindsym $Mod+2 workspace $WS2
 bindsym $Mod+3 workspace $WS3
@@ -196,6 +200,7 @@ bindsym $Mod+BackSpace workspace back_and_forth
 
 
 # move focused container to workspace, focus workspace
+bindsym $Mod+Shift+Mod1+grave move container to workspace $WS0; workspace $WS0
 bindsym $Mod+Shift+Mod1+1 move container to workspace $WS1; workspace $WS1
 bindsym $Mod+Shift+Mod1+2 move container to workspace $WS2; workspace $WS2
 bindsym $Mod+Shift+Mod1+3 move container to workspace $WS3; workspace $WS3
@@ -208,6 +213,7 @@ bindsym $Mod+Shift+Mod1+9 move container to workspace $WS9; workspace $WS9
 bindsym $Mod+Shift+Mod1+0 move container to workspace $WS10; workspace $WS10
 
 # move focused container to workspace, don't focus workspace
+bindsym $Mod+Shift+grave move container to workspace $WS0
 bindsym $Mod+Shift+1 move container to workspace $WS1
 bindsym $Mod+Shift+2 move container to workspace $WS2
 bindsym $Mod+Shift+3 move container to workspace $WS3
