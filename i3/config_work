@@ -24,7 +24,7 @@ client.background       $bg
 for_window [class="^.*"] border pixel 2, title_format "<b> %class >> %title </b>"
 
 # gaps
-gaps inner 15
+gaps inner 5
 gaps outer 5
 
 # font
@@ -61,7 +61,7 @@ set $WS1 "1: "
 set $WS2 "2: "
 set $WS3 "3: "
 set $WS4 "4: "
-set $WS5 "5: "
+set $WS5 "5: "
 set $WS6 "6: "
 set $WS7 "7: "
 set $WS8 "8: "
@@ -360,6 +360,7 @@ assign [class="(?i)(?:thunar)"]  → $WS3
 assign [class="(?i)(?:mousepad)"]   → $WS4
 #assign [class="(?i)(?:alacritty|xterm)"] → $WS1
 assign [class="(?i)(?:jetbrains-clion)"] → $WS4
+assign [class="(?i)(?:gitkraken)"] → $WS5
 assign [class="(?i)(?:vmware)"] → $WS6
 assign [class="(?i)(?:TelegramDesktop)"] → $WS7
 assign [class="(?i)(?:standard notes)"] → $WS8
