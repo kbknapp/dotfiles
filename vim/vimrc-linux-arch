@@ -9,7 +9,7 @@
 scriptencoding utf8
 
 " Arch defaults
-runtime! archlinux.vim
+"runtime! archlinux.vim
 
 " system clipboard (requires +clipboard)
 set clipboard^=unnamed,unnamedplus
@@ -31,6 +31,10 @@ call vundle#begin()
 " Must come first
 Plugin 'VundleVim/Vundle.vim'
 
+" ----- Color Schemes ----
+
+Plugin 'nightsense/cosmic_latte'
+
 " ----- Main Plugins -----
 
 " Ctrl+P Fuzzy Matching Files
@@ -41,7 +45,7 @@ Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = "<c-p>"
 nnoremap <C-p> :CtrlPMixed<CR>
 nnoremap <C-m> :CtrlPMRU<CR>
-nnoremap <C-b> :CtrlPBuffer<CR>
+"nnoremap <C-b> :CtrlPBuffer<CR>
 
 " Visualize your Undo Tree
 "     -> :GundoToggle           See Undo Tree
@@ -51,6 +55,9 @@ nnoremap <C-u> :GundoToggle<CR>
 " persist (g)undo tree between sessions
 set undofile
 set undolevels=100
+if has('python3')
+    let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
+endif
 
 " File Explorer
 "     -> :NERDTreeToggle        See File Tree
@@ -78,6 +85,14 @@ Plugin 'tpope/vim-surround'
 
 " Repeat all commands with . not just native
 Plugin 'tpope/vim-repeat'
+
+" Tagbar
+Plugin 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
+
+" Syntax Checking
+Plugin 'scrooloose/syntastic'
 
 " Better pattern matching, includes 3 plugins
 "     -> COERCION
@@ -109,6 +124,9 @@ Plugin 'airblade/vim-gitgutter'
 
 " ----- Rust Plugins -----
 Plugin 'rust-lang/rust.vim'
+" Run rustfmt on save
+let g:rustfmt_autosave = 1
+
 "Plugin 'racer-rust/vim-racer'
 
 " enable all plugins, required by Vundel
@@ -135,7 +153,10 @@ let g:netrw_browse_split = 3
 
 " ------ leader mapping ------
 
-let g:mapleader = "\<Space>"
+let mapleader = ","
+let maplocalleader = ","
+
+"let g:mapleader = "\<Space>"
 
 " ------ enable additional features ------
 
@@ -152,11 +173,16 @@ syntax enable
 set linebreak breakindent
 set list listchars=tab:>>,trail:~
 
+" ------- Colors ----------
+
 " midnight, night, or day
-let g:jinx_theme = 'midnight'
+"let g:jinx_theme = 'midnight'
+
+set background=dark
 
 try
-    colorscheme jinx
+    "colorscheme jinx
+    colorscheme cosmic_latte
 catch
     colorscheme slate
 endtry
@@ -196,6 +222,14 @@ command! -nargs=1 B :call <SID>bufferselect("<args>")
 command! W execute 'silent w !sudo tee % >/dev/null' | edit!
 
 " ------ basic maps ------
+
+" y uses PRIMARY clipboard
+" Y uses CLIPBOARD
+" " Same for p and P
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
 
 nmap <leader>so :source $MYVIMRC
 nmap <leader>vr :e $MYVIMRC
@@ -430,6 +464,12 @@ function! <SID>ranger()
     redraw!
 endfunction
 
+" ==================================================
+" === Show Path of current buffer in status line ===
+" ==================================================
+
+set statusline+=%F
+
 " ===============================================================
 " ================ Use Ripgrep with Ctrl-P  =====================
 " ===============================================================
@@ -450,7 +490,7 @@ endif
 " and Racer auto-complete
 "let g:racer_cmd = "~/.bin/racer"
 "let $RUST_SRC_PATH="/usr/local/src/rust/src"
-let g:racer_cmd = "~/.cargo/bin/racer"
+"let g:racer_cmd = "~/.cargo/bin/racer"
 
 " ===============================================================
 " ================ Filetype Specific ============================
@@ -462,6 +502,7 @@ autocmd FileType rust nmap gs <Plug>(rust-def-split)
 autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
 autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 
+" ---- Rusty Tags
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
@@ -475,3 +516,8 @@ autocmd BufRead,BufNewFile   *.rs setlocal colorcolumn=99
 " ------------- Help Files --------------
 " Allow 'q' to quit help documents
 autocmd FileType help nmap q :q<cr>
+
+" ------------- Auto cd Into Current Dir of File ------
+
+" Can mess with CtrlP by not showing all files
+"autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
