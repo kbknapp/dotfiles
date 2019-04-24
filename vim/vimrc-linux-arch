@@ -41,11 +41,13 @@ Plugin 'nightsense/cosmic_latte'
 "     -> <c-p> / :CtrlP [dir]    Fuzzy Match Files
 "     -> :CtrlPBuffer            Search Buffers
 "     -> :CtrlPMixed             Files, Buffers, and MRU
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
+Plugin  'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = "<c-p>"
 nnoremap <C-p> :CtrlPMixed<CR>
 nnoremap <C-m> :CtrlPMRU<CR>
 "nnoremap <C-b> :CtrlPBuffer<CR>
+"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target'
 
 " Visualize your Undo Tree
 "     -> :GundoToggle           See Undo Tree
@@ -475,7 +477,7 @@ set statusline+=%F
 " ===============================================================
 
 if executable('rg')
-  let g:ctrlp_user_command = 'rg --files %s'
+  let g:ctrlp_user_command = 'rg --files --glob=!target/ %s'
   let g:ctrlp_use_caching = 0
   let g:ctrlp_working_path_mode = 'ra'
   let g:ctrlp_switch_buffer = 'et'
