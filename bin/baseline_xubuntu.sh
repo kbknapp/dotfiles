@@ -2,7 +2,7 @@
 
 set -e
 
-mkdir -pv $HOME/{.bin,bin,.local/bin,.build,Projects,.tmp}
+mkdir -pv "${HOME}/{.bin,bin,.local/bin,.build,Projects,.tmp}"
 
 # Install Deps and Software
 sudo apt install -y \
@@ -27,7 +27,7 @@ if [ ! -d "${HOME}/.dotfiles" ]; then
 fi
 
 # change the default shell
-sudo chsh -s $(which zsh) kevin
+sudo chsh -s "$(command -v zsh)" kevin
 
 # Install Rust
 if [ ! -d "${HOME}/.cargo" ]; then
@@ -35,20 +35,21 @@ if [ ! -d "${HOME}/.cargo" ]; then
 fi
 
 # Set default Rust toolchain
-source $HOME/.cargo/env
+# shellcheck source=../../.cargo/env
+source "${HOME}/.cargo/env"
 rustup default nightly
 
 pip install --user rtv
 
 # Load Tilix settings
-dconf load /com/gexperts/Tilix/ < $HOME/.dotfiles/tilix/tilix.dconf
+dconf load /com/gexperts/Tilix/ < "${HOME}/.dotfiles/tilix/tilix.dconf"
 
 # Flatpaks
-bash $HOME/.dotfiles/flatpak/install_flathub
-bash $HOME/.dotfiles/flatpak/install_apps
+bash "${HOME}/.dotfiles/flatpak/install_flathub"
+bash "${HOME}/.dotfiles/flatpak/install_apps"
 
 # Rust Apps
-bash $HOME/.dotfiles/rust/cargo_install/install_apps
+bash "${HOME}/.dotfiles/rust/cargo_install/install_apps"
 
 # Snaps
 sudo snap install lxd
