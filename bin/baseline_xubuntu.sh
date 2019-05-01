@@ -19,6 +19,7 @@ sudo apt install -y \
     flatpak \
     snapd \
     dconf-cli \
+    shellcheck \
     build-essential gcc make pkg-config cmake automake libssl-dev
 
 # clone dotifles if they don't exist yet
