@@ -2,7 +2,12 @@
 
 set -e
 
-mkdir -pv "${HOME}/{.bin,bin,.local/bin,.build,Projects,.tmp}"
+mkdir -pv "${HOME}/.bin"
+mkdir -pv "${HOME}/bin"
+mkdir -pv "${HOME}/.local/bin"
+mkdir -pv "${HOME}/.build"
+mkdir -pv "${HOME}/.tmp"
+mkdir -pv "${HOME}/Projects"
 
 # Install Deps and Software
 sudo apt install -y \
@@ -45,11 +50,11 @@ pip install --user rtv
 dconf load /com/gexperts/Tilix/ < "${HOME}/.dotfiles/tilix/tilix.dconf"
 
 # Flatpaks
-bash "${HOME}/.dotfiles/flatpak/install_flathub"
-bash "${HOME}/.dotfiles/flatpak/install_apps"
+bash "${HOME}/.dotfiles/flathub/install_flathub"
+bash "${HOME}/.dotfiles/flathub/install_apps"
 
 # Rust Apps
-bash "${HOME}/.dotfiles/rust/cargo_install/install_apps"
+bash "${HOME}/.dotfiles/rust/cargo_install/install_apps" || true
 
 # Snaps
 sudo snap install lxd
@@ -57,4 +62,8 @@ sudo snap install freemind
 sudo snap install clion --classic
 
 # Remove software we don't care about
-sudo apt remove thunderbird fonts-noto-cjk
+sudo apt remove -y thunderbird fonts-noto-cjk yelp-xsl yelp gnome-mines gnome-sudoku 
+sudo apt autoremove -y
+
+sudo apt update
+sudo apt upgrade -y
