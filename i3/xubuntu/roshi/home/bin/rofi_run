@@ -93,7 +93,7 @@ for arg in "$@"; do
                 *Lock) i3lock-fancy ;;
                 *Reboot) systemctl reboot ;;
                 *Shutdown) systemctl -i poweroff ;;
-                *Logout) session-logout || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
+                *Logout) i3-msg exit || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
             esac
             ;;
         *)
