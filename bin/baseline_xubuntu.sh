@@ -25,6 +25,7 @@ sudo apt install -y \
     snapd \
     dconf-cli \
     shellcheck \
+    ranger \
     build-essential gcc make pkg-config cmake automake libssl-dev
 
 # clone dotifles if they don't exist yet
