@@ -358,3 +358,88 @@ sudo sed -i '0,/enabled=0/s/enabled=0/enabled=1/g' /etc/yum.repos.d/fedora-modul
 
 #The user needs to reboot to apply all changes.
 echo "Please Reboot" && exit 0
+
+###
+## WIP
+###
+#
+#sudo dnf remove xfburn-0.5.5-4.fc30.x86_64 geany-libgeany-1.34.1-3.fc30.x86_64 geany-1.34.1-3.fc30.x86_64 claws-mail-plugins-tnef-3.17.3-4.fc30.x86_64 claws-mail-plugins-att-remover-3.17.3-4.fc30.x86_64 claws-mail-plugins-mailmbox-3.17.3-4.fc30.x86_64 claws-mail-plugins-rssyl-3.17.3-4.fc30.x86_64 claws-mail-3.17.3-4.fc30.x86_64 claws-mail-plugins-attachwarner-3.17.3-4.fc30.x86_64 claws-mail-plugins-newmail-3.17.3-4.fc30.x86_64 claws-mail-plugins-pgp-3.17.3-4.fc30.x86_64 claws-mail-plugins-archive-3.17.3-4.fc30.x86_64 claws-mail-plugins-spam-report-3.17.3-4.fc30.x86_64 claws-mail-plugins-smime-3.17.3-4.fc30.x86_64 claws-mail-plugins-fetchinfo-3.17.3-4.fc30.x86_64 claws-mail-plugins-notification-3.17.3-4.fc30.x86_64 claws-mail-plugins-vcalendar-3.17.3-4.fc30.x86_64 pidgin-2.13.0-9.fc30.x86_64 asunder-2.9.3-5.fc30.x86_64 parole-1.0.1-4.fc30.x86_64 pragha-1.3.3-15.fc30.x86_64 abiword-3.0.2-20.fc30.x86_64 libabiword-3.0.2-20.fc30.x86_64 gnumeric-1.12.44-5.fc30.x86_64
+#
+#sudo dnf update
+#
+#sudo dnf install vim-enhanced vim-X11 git zsh pkg-config @development-tools meld snapd flatpak curl
+#sudo chsh -s $(which zsh) kevin
+#git clone https://github.com/kbknapp/dotfiles .dotfiles
+#
+## FiraCode Fonts
+#sudo dnf copr enable evana/fira-code-fonts
+#sudo dnf install fira-code-fonts
+#sudo dnf install fedora-workstation-repositories
+#sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#sudo dnf groupupdate multimedia
+#sudo dnf groupupdate sound-and-video
+#sudo dnf install rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted
+#sudo dnf install vlc
+#
+## Rust
+#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+#source $HOME/.cargo/env
+#rustup default nightly
+#rustup component add rls
+#rustup component add clippy rustfmt
+#
+#mkdir -pv {.build,Projects,.tmp,.local/bin,.bin,bin}
+#
+## Alacritty
+#sudo dnf install cmake gcc g++ freetype-devel expat-devel libxcb-devel
+#cd .build/
+#git clone https://github.com/jwilm/alacritty
+#cd alacritty/
+#
+## i3-gaps
+#sudo dnf install libxcb-devel xcb-util-keysyms-devel xcb-util-devel xcb-util-wm-devel xcb-util-xrm-devel yajl-devel libXrandr-devel startup-notification-devel libev-devel xcb-util-cursor-devel libXinerama-devel libxkbcommon-devel libxkbcommon-x11-devel pcre-devel pango-devel git gcc automake i3status i3lock
+#git clone https://www.github.com/Airblader/i3 i3-gaps && cd i3-gaps
+#autoreconf --force --install
+#rm -rf build
+#mkdir build
+#cd build/
+#../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+#make -j16
+#sudo make install
+#sudo dnf install -y cmake @development-tools gcc-c++ i3-ipc jsoncpp-devel alsa-lib-devel wireless-tools-devel libmpdclient-devel libcurl-devel cairo-devel xcb-proto xcb-util-devel xcb-util-wm-devel xcb-util-image-devel
+#
+## Polybar
+#cd ../..
+#git clone --recursive https://github.com/jaagr/polybar
+#cd polybar/
+#./build.sh 
+#sudo dnf search libpulse
+#sudo dnf search pulseaudio-libs
+#sudo dnf search pulseaudio-libs-devel
+#sudo dnf install pulseaudio-libs-devel
+#./build.sh --help
+#./build.sh -f
+#
+## rofi/compton
+#sudo dnf copr enable yaroslav/i3desktop
+#sudo dnf install compton rofi
+#
+## i3lock-fancy
+#cd ..
+#git clone https://github.com/meskarune/i3lock-fancy.git
+#cd i3lock-fancy/
+#sudo make install
+#
+## Vim
+#cd ~/.dotfiles/
+#vimx +PluginInstall +qall
+#
+## KSuperKey
+#cd .build
+#sudo dnf install git gcc make libX11-devel libXtst-devel pkgconfig
+#cd ksuperkey
+#make 
+#sudo make install
+#
+## Nitrogen
+#sudo dnf install nitrogen
