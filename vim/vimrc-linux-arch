@@ -9,7 +9,7 @@
 scriptencoding utf8
 
 " Arch defaults
-"runtime! archlinux.vim
+runtime! archlinux.vim
 
 " system clipboard (requires +clipboard)
 set clipboard^=unnamed,unnamedplus
@@ -299,6 +299,17 @@ nnoremap <silent> <Leader>- :tabedit <C-R>=expand("%:p:h")<CR><CR>
 nnoremap _ <C-W>s<C-W><Down>
 nnoremap <Bar> <C-W>v<C-W><Right>
 
+" Auto Close Pairs
+inoremap " ""<left>
+"inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+inoremap ) <right>
+inoremap ] <right>
+inoremap } <right>
 
 " ------ autocmd ------
 

@@ -1,0 +1,62 @@
+#!/bin/zsh
+
+# catch non-zsh and non-interactive shells
+[[ $- == *i* && $ZSH_VERSION ]] && SHELL=/usr/bin/zsh || return 0
+
+# set some defaults
+export MANWIDTH=90
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=$HOME/.zsh_history
+
+# path to the framework root directory
+SIMPL_ZSH_DIR=$HOME/.zsh
+
+# add ~/bin to the path if not already, the -U flag means 'unique'
+typeset -U path=($HOME/bin "${path[@]:#}")
+
+# used internally by zsh for loading themes and completions
+typeset -U fpath=("$SIMPL_ZSH_DIR/"{completion,themes} $fpath)
+
+# initialize the prompt
+autoload -U promptinit && promptinit
+
+# source shell configuration files
+for f in "$SIMPL_ZSH_DIR"/{settings,plugins}/*?.zsh; do
+    . "$f" 2>/dev/null
+done
+
+# uncomment these lines to disable the multi-line prompt
+# add user@host, and remove the unicode line-wrap characters
+
+# PROMPT_LNBR1=''
+# PROMPT_MULTILINE=''
+# PROMPT_USERFMT='%n%f@%F{red}%m'
+# PROMPT_ECODE="%(?,,%F{red}%? )"
+
+# load the prompt last
+prompt simpl
+
+# system info and AL ascii art
+al-info
+
+export PATH=$HOME/bin:$HOME/.bin:$HOME/.local/bin:$PATH
+
+# Rust(lang) Settings
+source $HOME/.cargo/env
+export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src/
+
+# git settings
+alias gl='git log --graph --all --oneline --decorate'
+alias gc='git commit -m'
+alias clone='git clone'
+alias gb='git checkout'
+alias gpo='git push origin'
+
+# Flathub fix
+export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
+
+export PATH=$PATH:$HOME/.local/bin
+fpath+=~/.zsh/completion
+compinit -U
+
