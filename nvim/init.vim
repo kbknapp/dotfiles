@@ -169,6 +169,12 @@ endif
 if executable('rg')
 	set grepprg=rg\ --no-heading\ --vimgrep
 	set grepformat=%f:%l:%c:%m
+
+	" Use Ripgrep with Ctrl-P
+	let g:ctrlp_user_command = 'rg --files %s'
+	let g:ctrlp_use_caching = 0
+	let g:ctrlp_working_path_mode = 'ra'
+	let g:ctrlp_switch_buffer = 'et'
 endif
 
 " Linter
@@ -202,6 +208,10 @@ let g:ale_sign_hint = "➤"
 nnoremap <silent> K :ALEHover<CR>
 nnoremap <silent> gd :ALEGoToDefinition<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+" Enable faster viewport scrolling
+nnoremap <C-e> 8<C-e>
+nnoremap <C-y> 8<C-y>
 
 " Mirror CLion for tags and jumps
 nnoremap <C-b> <C-]>
@@ -457,16 +467,25 @@ imap <F1> <Esc>
 nnoremap <leader>r :call <SID>ranger()<CR>
 
 " Auto Close Pairs
-inoremap " ""<left>
-"inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-inoremap ) <right>
-inoremap ] <right>
-inoremap } <right>
+inoremap {<CR> {<CR>}<C-o>O
+inoremap {      {}<Left>
+inoremap {{     {
+inoremap {}     {}
+inoremap        (  ()<Left>
+inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
+" function! ConditionalPairMap(open, close)
+"   let line = getline('.')
+"   let col = col('.')
+"   if col < col('$') || stridx(line, a:close, col + 1) != -1
+"     return a:open
+"   else
+"     return a:open . a:close . repeat("\<left>", len(a:close))
+"   endif
+" endf
+" inoremap <expr> ( ConditionalPairMap('(', ')')
+" inoremap <expr> { ConditionalPairMap('{', '}')
+" inoremap <expr> [ ConditionalPairMap('[', ']')
 
 
 " =============================================================================
