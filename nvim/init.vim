@@ -28,6 +28,34 @@ Plug 'w0rp/ale'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 
+" Ctrl+P Fuzzy Matching Files
+"     -> <c-p> / :CtrlP [dir]    Fuzzy Match Files
+"     -> :CtrlPBuffer            Search Buffers
+"     -> :CtrlPMixed             Files, Buffers, and MRU
+"Plugin 'kien/ctrlp.vim'
+Plug  'ctrlpvim/ctrlp.vim'
+let g:ctrlp_map = "<c-p>"
+nnoremap <C-p> :CtrlPMixed<CR>
+nnoremap <C-m> :CtrlPMRU<CR>
+"nnoremap <C-b> :CtrlPBuffer<CR>
+"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target'
+
+" Visualize your Undo Tree
+"     -> :GundoToggle           See Undo Tree
+Plug 'sjl/gundo.vim'
+"nnoremap <F5> :GundoToggle<CR>
+nnoremap <C-u> :GundoToggle<CR>
+" persist (g)undo tree between sessions
+set undofile
+set undolevels=100
+if has('python3')
+    let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
+endif
+
+" files
+Plug 'scrooloose/nerdtree'
+map <C-n> :NERDTreeToggle<CR>
+
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -39,10 +67,35 @@ Plug 'junegunn/fzf.vim'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 
+" Comment or UN-Comment Code
+"     -> gcc                  Comment or uncomment line(s)
+Plug 'vim-scripts/tComment'
+nnoremap <C-/> gcc
+
+" Better surround support
+"     -> cs"'     "Hello"->'Hello'
+"     -> ysiw[   'Hello'->[Hello]
+"     -> ds[     [Hello]->Hello
+Plug 'tpope/vim-surround'
+
+" Repeat all commands with . not just native
+Plug 'tpope/vim-repeat'
+
+" Tagbar
+Plug 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
+
 " Completion plugins
 Plug 'ncm2/ncm2-bufword'
 "Plug 'ncm2/ncm2-tmux'
 Plug 'ncm2/ncm2-path'
+"
+" ----- Git Plugins -----
+Plug 'tpope/vim-fugitive'
+
+" +,-,~ in gutter
+Plug 'airblade/vim-gitgutter'
 
 " Syntactic language support
 Plug 'cespare/vim-toml'
@@ -149,6 +202,10 @@ let g:ale_sign_hint = "➤"
 nnoremap <silent> K :ALEHover<CR>
 nnoremap <silent> gd :ALEGoToDefinition<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+" Mirror CLion for tags and jumps
+nnoremap <C-b> <C-]>
+nnoremap <C-BS> <C-O>
 
 " Open hotkeys
 map <C-p> :Files<CR>
@@ -399,6 +456,18 @@ imap <F1> <Esc>
 " open ranger as a file chooser using the function below
 nnoremap <leader>r :call <SID>ranger()<CR>
 
+" Auto Close Pairs
+inoremap " ""<left>
+"inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+inoremap ) <right>
+inoremap ] <right>
+inoremap } <right>
+
 
 " =============================================================================
 " # Autocommands
@@ -434,6 +503,11 @@ autocmd BufRead *.xlsx.axlsx set filetype=ruby
 
 " Script plugins
 autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
+
+" ---- Rusty Tags
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
 
 " open ranger as a file chooser
 function! <SID>ranger()
