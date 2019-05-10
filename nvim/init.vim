@@ -67,6 +67,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 
+" Completion plugins
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-path'
+
 " Comment or UN-Comment Code
 "     -> gcc                  Comment or uncomment line(s)
 Plug 'vim-scripts/tComment'
@@ -191,7 +196,7 @@ let g:ale_rust_rls_config = {
 		\ 'clippy_preference': 'on'
 	\ }
 	\ }
-let g:ale_rust_rls_toolchain = ''
+let g:ale_rust_rls_toolchain = 'nightly'
 let g:ale_linters = {'rust': ['rls']}
 highlight link ALEWarningSign Todo
 highlight link ALEErrorSign WarningMsg
@@ -237,6 +242,11 @@ let g:rust_clip_command = 'xclip -selection clipboard'
 "let g:racer_cmd = "/usr/bin/racer"
 "let g:racer_experimental_completer = 1
 let $RUST_SRC_PATH = systemlist("rustc --print sysroot")[0] . "/lib/rustlib/src/rust/src"
+
+noremap <leader>rc :Cargo check<CR>
+noremap <leader>rb :Cbuild<CR>
+noremap <leader>rt :Ctest<CR>
+noremap <leader>rr :Cbuild --release<CR>
 
 " Completion
 autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -368,7 +378,7 @@ set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 " # Keyboard shortcuts
 " =============================================================================
 " ; as :
-nnoremap ; :
+"nnoremap ; :
 
 " Ctrl+c and Ctrl+j as Esc
 inoremap <C-j> <Esc>
@@ -457,7 +467,7 @@ noremap <leader>m ct_
 noremap <leader>n ct-
 
 " M to make
-noremap M :!make -k -j4<cr>
+"noremap M :!make -k -j4<cr>
 
 " I can type :help on my own, thanks.
 map <F1> <Esc>
