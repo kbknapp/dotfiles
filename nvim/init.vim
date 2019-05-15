@@ -62,15 +62,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Semantic language support
-"Plug 'phildawes/racer'
-"Plug 'racer-rust/vim-racer'
+Plug 'phildawes/racer'
+Plug 'racer-rust/vim-racer'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
-
-" Completion plugins
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-path'
 
 " Comment or UN-Comment Code
 "     -> gcc                  Comment or uncomment line(s)
@@ -105,7 +100,7 @@ Plug 'airblade/vim-gitgutter'
 " Syntactic language support
 Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
-"Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
 Plug 'dag/vim-fish'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
