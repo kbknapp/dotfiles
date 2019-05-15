@@ -14,7 +14,9 @@ fi
 
 BUILD_DIR=$HOME/.build
 NPROC=4
-DOT_HOME=$HOME/.dotfiles/i3/xubuntu/"${MACHINE}"/home
+DOT_I3_XUBUNTU=$HOME/.dotfiles/i3/xubuntu/
+COMMON_HOME="${DOT_I3_XUBUNTU}/common/home"
+MACHINE_HOME="${DOT_I3_XUBUNTU}/${MACHINE}/home"
 
 sudo apt install -y git
 
@@ -30,8 +32,23 @@ sudo apt install -y \
     arandr \
     rofi \
     nitrogen \
-    i3status i3lock i3lock-fancy compton \
+    i3status i3lock i3lock-fancy \
     libxtst-dev libx11-dev libxtst-dev libcairo2-dev libxcb1-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-shape0-dev libxcb-xkb-dev pkg-config python-xcbgen xcb-proto libxcb-xrm-dev libasound2-dev libmpdclient-dev libiw-dev libcurl4-openssl-dev libpulse-dev libxcb-composite0-dev xcb libxcb-ewmh2 libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev 
+
+# Use an active fork of Compton
+sudo apt install libev-libevent-dev libdbus-1-dev libgl1-mesa-dev \
+  libgl2-mesa-dev libxcb-present-dev libxcb-sync-dev libxcb-damage0-dev \
+  xcb-damage0-dev libx11-xcb-dev libev libev-dev uthash-dev libxdg-basedir-dev \
+  libconfig-dev meson
+
+cd "${BUILD_DIR}"
+git clone https://github.com/yshui/compton
+cd compton/
+meson --buildtype=release . build
+ninja -C build
+sudo ninja -C build install
+
+cp "${COMMON_HOME}/.config/compton.conf" "${HOME}/.config"
 
 # Set default Rust toolchain
 # shellcheck source=../../bin/baseline_xubuntu.sh
@@ -68,16 +85,17 @@ make
 sudo make install
 
 # Copy all configs
-cp -r "${DOT_HOME}"/.config "${HOME}"/
+cp -r "${COMMON_HOME}"/.config "${HOME}"/
+cp -r "${MACHINE_HOME}"/.config "${HOME}"/
 
 # Fonts
   # This download is huge, 1.8G (instead we just get the few fonts we need)
   #git clone https://github.com/ryanoasis/nerd-fonts ${BUILD_DIR}/nerd-fonts
   #cd ${BUILD_DIR}/nerd-fonts
   #./install.sh
-cp -r "${DOT_HOME}"/.local/share/fonts "${HOME}"/.local/share
+cp -r "${MACHINE_HOME}"/.local/share/fonts "${HOME}"/.local/share
 fc-cache -f -v
 
 # Install Missing ArchLabs Scripts
-cp -r "${DOT_HOME}"/bin "${HOME}"
+cp -r "${COMMON_HOME}"/bin "${HOME}"
 
