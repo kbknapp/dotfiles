@@ -25,6 +25,7 @@ sudo apt install -y \
     snapd \
     dconf-cli \
     shellcheck \
+    neovim \
     ranger \
     build-essential gcc make pkg-config cmake automake libssl-dev
 
@@ -45,6 +46,20 @@ fi
 # shellcheck source=../../.cargo/env
 source "${HOME}/.cargo/env"
 rustup default nightly
+
+# vim with Vundle
+cp "${HOME}/.dotfiles/vim/vimrc-linux" "${HOME}/.vimrc"
+mkdir -p "${HOME}/.vim/bundle"
+git clone https://github.com/VundleVim/Vundle.vim "${HOME}/.vim/bundle"
+vim +PluginInstall +qall
+
+# NeoVIM with Plug
+cp "${HOME}/.dotfiles/vim/vimrc-linux" "${HOME}/.vimrc"
+mkdir -p "${HOME}/.config/nvim"
+cp "${HOME}/.dotfiles/nvim/init.vim" "${HOME}/.config/nvim/"
+cp "${HOME}/.dotfiles/vim/vimrc-linux" "${HOME}/.vimrc"
+curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim +PlugInstall +qall
 
 pip install --user rtv
 

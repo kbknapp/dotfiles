@@ -68,15 +68,18 @@ for arg in "$@"; do
                 -hide-scrollbar
             ;;
         -b|--browser)
-            hash surfraw &>/dev/null ||
-                { echo "Requires 'surfraw' installed"; exit 1; }
-
-            surfraw -browser="$BROWSER" "$(sr -elvi | awk -F'-' '{print $1}' |
-                sed '/:/d' | awk '{$1=$1};1' |
-                rofi -hide-scrollbar -kb-row-select 'Tab' \
-                -kb-row-tab 'Control+space' -dmenu \
-                -mesg 'Tab for Autocomplete' -i -p 'Web Search' \
-                -padding 50 -line-padding 4)"
+            # hash surfraw &>/dev/null ||
+            #     { echo "Requires 'surfraw' installed"; exit 1; }
+            #
+            echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Web Search:' \
+                 -padding 50 -line-padding 4 \
+		    | xargs -I{} xdg-open https://www.google.com/search?q={}
+            # surfraw -browser="$BROWSER" "$(sr -elvi | awk -F'-' '{print $1}' |
+            #     sed '/:/d' | awk '{$1=$1};1' |
+            #     rofi -hide-scrollbar -kb-row-select 'Tab' \
+            #     -kb-row-tab 'Control+space' -dmenu \
+            #     -mesg 'Tab for Autocomplete' -i -p 'Web Search' \
+            #     -padding 50 -line-padding 4)"
             ;;
         -l|--logout)
             if grep -q 'exec startx' $HOME/.*profile; then
@@ -93,7 +96,7 @@ for arg in "$@"; do
                 *Lock) i3lock-fancy ;;
                 *Reboot) systemctl reboot ;;
                 *Shutdown) systemctl -i poweroff ;;
-                *Logout) i3-msg exit || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
+                *Logout) session-logout || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
             esac
             ;;
         *)

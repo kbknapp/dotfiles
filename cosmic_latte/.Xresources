@@ -1,24 +1,62 @@
-! Base colors
-*.foreground:  #E1E1E1
-*.background:  #1c2023
-*.cursorColor: #778899
+#define black_normal #202a31
+#define red___normal #c17b8d
+#define green_normal #7d9761
+#define gold__normal #b28761
+#define blue__normal #5496bd
+#define mgnta_normal #9b85bb
+#define cyan__normal #459d90
+#define white_normal #abb0c0
+#define black_bright #898f9e
+#define red___bright #c17b8d
+#define green_bright #7d9761
+#define gold__bright #b28761
+#define blue__bright #5496bd
+#define mgnta_bright #9b85bb
+#define cyan__bright #459d90
+#define white_bright #c5cbdb
 
-*.color0:  #1c2023
-*.color1:  #bf616a
-*.color2:  #a3be8c
-*.color3:  #ebcb8b
-*.color4:  #8fa1b3
-*.color5:  #b48ead
-*.color6:  #96b5b4
-*.color7:  #E1E1E1
-*.color8:  #919ba0
-*.color9:  #bf616a
-*.color10: #a3be8c
-*.color11: #ebcb8b
-*.color12: #8fa1b3
-*.color13: #b48ead
-*.color14: #96b5b4
-*.color15: #c0c5ce
+*background:  black_normal
+*foreground:  white_normal
+*cursorColor: white_bright
+
+*color0:      black_normal
+*color1:      red___normal
+*color2:      green_normal
+*color3:      gold__normal
+*color4:      blue__normal
+*color5:      mgnta_normal
+*color6:      cyan__normal
+*color7:      white_normal
+*color8:      black_bright
+*color9:      red___bright
+*color10:     green_bright
+*color11:     gold__bright
+*color12:     blue__bright
+*color13:     mgnta_bright
+*color14:     cyan__bright
+*color15: white_bright
+
+! Base colors
+!*.foreground:  #E1E1E1
+!*.background:  #1c2023
+!*.cursorColor: #778899
+!
+!*.color0:  #1c2023
+!*.color1:  #bf616a
+!*.color2:  #a3be8c
+!*.color3:  #ebcb8b
+!*.color4:  #8fa1b3
+!*.color5:  #b48ead
+!*.color6:  #96b5b4
+!*.color7:  #E1E1E1
+!*.color8:  #919ba0
+!*.color9:  #bf616a
+!*.color10: #a3be8c
+!*.color11: #ebcb8b
+!*.color12: #8fa1b3
+!*.color13: #b48ead
+!*.color14: #96b5b4
+!*.color15: #c0c5ce
 
 ! Rofi
 rofi.font: monospace 12
