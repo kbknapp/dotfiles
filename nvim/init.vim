@@ -353,10 +353,10 @@ set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 "nnoremap ; :
 
 " Ctrl+c and Ctrl+j as Esc
-inoremap <C-j> <Esc>
-vnoremap <C-j> <Esc>
-inoremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
+"inoremap <C-j> <Esc>
+"vnoremap <C-j> <Esc>
+"inoremap <C-c> <Esc>
+"vnoremap <C-c> <Esc>
 
 " Suspend with Ctrl+f
 inoremap <C-f> :sus<cr>
@@ -425,9 +425,6 @@ nmap <silent> <C-g> :close<cr>
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 
-" <leader>= reformats current tange
-nnoremap <leader>= :'<,'>RustFmtRange<cr>
-
 " <leader>, shows/hides hidden characters
 nnoremap <leader>, :set invlist<cr>
 
@@ -447,6 +444,25 @@ imap <F1> <Esc>
 
 " open ranger as a file chooser using the function below
 nnoremap <leader>r :call <SID>ranger()<CR>
+
+function! <SID>ranger()
+    let l:temp = tempname()
+    execute 'silent !xterm -e ranger --choosefiles='.shellescape(l:temp).' $PWD'
+    if !filereadable(temp)
+        redraw!
+        return
+    endif
+    let l:names = readfile(l:temp)
+    if empty(l:names)
+        redraw!
+        return
+    endif
+    execute 'edit '.fnameescape(l:names[0])
+    for l:name in l:names[1:]
+        execute 'argadd '.fnameescape(l:name)
+    endfor
+    redraw!
+endfunction
 
 " Auto Close Pairs
 inoremap {<CR> {<CR>}<C-o>O
