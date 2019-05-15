@@ -2,6 +2,110 @@
 
 set -e
 
+NAME=baseline
+VER="0.1"
+
+_I3=0
+_STEAM=0
+_FISH=0
+_DEFAULT_FISH=0
+_ZSH=0
+_DEFAULT_ZSH=0
+_NEOVIM=0
+_VIM=0
+_RUST=0
+_ALACRITTY=0
+_B_ALACRITTY=0
+
+function print_help() {
+	cat << EOF
+baseline - a script to setup a common work environment
+
+OPTIONS:
+    --help      show this message
+    --version	show version information
+
+COMPONENTS:
+    -a|--all	install ALL below
+    --vim       install vim
+    --neovim    install neovim
+    --steam     install steam
+    --fish      install fish shell
+    --zsh       install zsh shell
+    --i3	install i3
+    --rust      install Rust
+    --alacritty install alacritty
+
+ACTIONS:
+    --fish-default	make fish the default shell (conflicts with --zsh-default)
+    --zsh-default	make fish the default shell (conflicts with --fish-default)
+    --build-alacritty	build alacritty from source (requires --rust, implies --alacritty)
+
+EOF
+}
+
+for arg in "$@"; do
+    case $arg in
+        -h|--help)
+            print_help
+            exit 0
+            ;;
+        -v|--version)
+            echo -e "$NAME -- v$VER"
+            exit 0
+            ;;
+        --vim)
+	    _VIM=1
+            ;;
+        --neovim)
+	    _NEOVIM=1
+            ;;
+        --steam)
+	    _STEAM=1
+            ;;
+        --steam)
+	    _STEAM=1
+            ;;
+        --fish)
+	    _FISH=1
+            ;;
+        --zsh)
+	    _ZSH=1
+            ;;
+        --fish-default)
+	    _FISH_DEFAULT=1
+            ;;
+        --zsh-default)
+	    _ZSH_DEFAULT=1
+            ;;
+        --i3)
+	    _I3=1
+            ;;
+        --rust)
+	    _RUST=1
+            ;;
+        --build-alacritty)
+	    _RUST=1
+	    _B_ALACRITTY=1
+	    _ALACRITTY=1
+            ;;
+        -a|--all)
+		_I3=1
+		_STEAM=1
+		_FISH=1
+		_ZSH=1
+		_NEOVIM=1
+		_VIM=1
+		_RUST=1
+		_ALACRITTY=1
+            ;;
+        *)
+            printf "\nOption does not exist: %s\n\n" "$arg"
+            exit 2
+	    ;;
+    esac
+done
+
 mkdir -pv "${HOME}/.bin"
 mkdir -pv "${HOME}/bin"
 mkdir -pv "${HOME}/.local/bin"
@@ -11,12 +115,10 @@ mkdir -pv "${HOME}/Projects"
 
 # Install Deps and Software
 sudo apt install -y \
-    zsh \
     fonts-font-awesome fonts-firacode \
     curl \
     zsh \
     git \
-    vim-gtk \
     python-pip \
     vlc \
     tilix \
@@ -25,7 +127,6 @@ sudo apt install -y \
     snapd \
     dconf-cli \
     shellcheck \
-    neovim \
     ranger \
     build-essential gcc make pkg-config cmake automake libssl-dev
 
@@ -34,32 +135,62 @@ if [ ! -d "${HOME}/.dotfiles" ]; then
     git clone https://github.com/kbknapp/dotfiles .dotfiles
 fi
 
-# change the default shell
-sudo chsh -s "$(command -v zsh)" kevin
+# vim handling
+if [ $_VIM == 1 ]; then
+	sudo apt install -y vim-gtk
+	cp "${HOME}/.dotfiles/vim/vimrc-linux" "${HOME}/.vimrc"
+	mkdir -p "${HOME}/.vim/bundle"
+	git clone https://github.com/VundleVim/Vundle.vim "${HOME}/.vim/bundle"
+	vim +PluginInstall +qall
+fi
+if [ $_NEOVIM == 1 ]; then
+	sudo apt install -y neovim 
+	cp -r "${HOME}/.dotfiles/nvim/" "${HOME}/.config/"
+	curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	nvim +PlugInstall +qall
 
-# Install Rust
-if [ ! -d "${HOME}/.cargo" ]; then
-    curl https://sh.rustup.rs -sSf | sh
 fi
 
-# Set default Rust toolchain
-# shellcheck source=../../.cargo/env
-source "${HOME}/.cargo/env"
-rustup default nightly
+# Shell Handling
+if [ $_ZSH == 1 ]; then
+    sudo apt install -y zsh
+    git clone https://github.com/robbyrussell/oh-my-zsh "${HOME}/.oh-my-zsh"
+    if [ $_ZSH_DEFAULT == 1]; then
+	# change the default shell
+	sudo chsh -s "$(command -v zsh)" kevin
+    fi
+fi
+if [ $_FISH == 1 ]; then
+    sudo apt install -y fish
+    if [ $_FISH_DEFAULT == 1]; then
+	# change the default shell
+	sudo chsh -s "$(command -v fish)" kevin
+    fi
+fi
 
-# vim with Vundle
-cp "${HOME}/.dotfiles/vim/vimrc-linux" "${HOME}/.vimrc"
-mkdir -p "${HOME}/.vim/bundle"
-git clone https://github.com/VundleVim/Vundle.vim "${HOME}/.vim/bundle"
-vim +PluginInstall +qall
 
-# NeoVIM with Plug
-cp "${HOME}/.dotfiles/vim/vimrc-linux" "${HOME}/.vimrc"
-mkdir -p "${HOME}/.config/nvim"
-cp "${HOME}/.dotfiles/nvim/init.vim" "${HOME}/.config/nvim/"
-cp "${HOME}/.dotfiles/vim/vimrc-linux" "${HOME}/.vimrc"
-curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-nvim +PlugInstall +qall
+if [ $_RUST == 1 ]; then
+	# Install Rust
+	if [ ! -d "${HOME}/.cargo" ]; then
+	    curl https://sh.rustup.rs -sSf | sh
+	fi
+
+	# Set default Rust toolchain
+	# shellcheck source=../../.cargo/env
+	source "${HOME}/.cargo/env"
+	rustup default nightly
+
+	# Rust Apps
+	bash "${HOME}/.dotfiles/rust/cargo_install/install_apps" || true
+
+	if [ $_B_ALACRITTY == 1 ]; then
+		cd "${BUILD_DIR}"
+		git clone https://github.com/jwilm/alacritty
+		cd alacritty
+		cargo build --release
+		cp target/release/alacritty "${HOME}/.local/bin"
+	fi
+fi
 
 pip install --user rtv
 
@@ -70,13 +201,17 @@ dconf load /com/gexperts/Tilix/ < "${HOME}/.dotfiles/tilix/tilix.dconf"
 bash "${HOME}/.dotfiles/flathub/install_flathub"
 bash "${HOME}/.dotfiles/flathub/install_apps"
 
-# Rust Apps
-bash "${HOME}/.dotfiles/rust/cargo_install/install_apps" || true
-
 # Snaps
 sudo snap install lxd
 sudo snap install freemind
 sudo snap install clion --classic
+
+if [ $_STEAM == 1 ]; then
+	echo "currently --steam doesn't do anything"
+fi
+if [ $_I3 == 1 ]; then
+	echo "currently --i3 doesn't do anything"
+fi
 
 # Remove software we don't care about
 sudo apt remove -y thunderbird fonts-noto-cjk yelp-xsl yelp gnome-mines gnome-sudoku 
