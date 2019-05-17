@@ -198,6 +198,7 @@ let g:ale_sign_hint = "➤"
 
 nmap <silent> <leader>aj :ALENext<cr>
 nmap <silent> <leader>ak :ALEPrevious<cr>
+nmap <silent> <leader>al :ALELint<cr>
 nnoremap <silent> K :ALEHover<CR>
 nnoremap <silent> gd :ALEGoToDefinition<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
@@ -568,3 +569,9 @@ noremap <leader>rr :Cbuild --release<CR>
 if has('nvim')
 	runtime! plugin/python_setup.vim
 endif
+" Load all plugins now.
+" Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
