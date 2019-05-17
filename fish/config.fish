@@ -4,8 +4,8 @@ set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin
 
 # Exa
 if command -v exa > /dev/null
-	abbr ls 'exa'
-	abbr tree 'exa -T'
+	abbr -a ls 'exa'
+	abbr -a tree 'exa -T'
 	abbr -a l 'exa'
 	abbr -a ls 'exa'
 	abbr -a ll 'exa -l'
@@ -16,18 +16,22 @@ else
 	abbr -a lll 'ls -la'
 end
 
+# bat
+if command -v bat > /dev/null
+	abbr -a cat 'bat'
+end
 
-alias vim='nvim'
+abbr -a vim 'nvim'
 
 # git settings
-abbr gl 'git log --graph --all --oneline --decorate'
-abbr gpo 'git push origin'
-abbr gst 'git status'
+abbr -a gl 'git log --graph --all --oneline --decorate'
+abbr -a gpo 'git push origin'
+abbr -a gst 'git status'
 function ggpull
     git pull origin (git branch | grep \* | awk '{print $2}')
 end
 
-abbr mkdir 'mkdir -pv'
+abbr -a mkdir 'mkdir -pv'
 
 # Go
 set -gx PATH /usr/local/go/bin $PATH
@@ -112,3 +116,4 @@ function fish_greeting
 
 	get_rand_todos
 end
+
