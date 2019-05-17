@@ -78,6 +78,7 @@ set $Mon2 HDMI-A-0
 exec_always --no-startup-id al-polybar-session
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id xrdb -load ~/.Xresources
+exec_always --no-startup-id al-compositor --restart
 
 # If you have a numpad you may want to enable this
 exec_always --no-startup-id numlockx on
