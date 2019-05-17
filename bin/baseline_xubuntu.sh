@@ -137,14 +137,14 @@ fi
 
 # vim handling
 if [ $_VIM == 1 ]; then
-	sudo apt install -y vim-gtk
+	sudo apt install -y vim-gtk exuberant-ctags
 	cp "${HOME}/.dotfiles/vim/vimrc-linux" "${HOME}/.vimrc"
 	mkdir -p "${HOME}/.vim/bundle"
 	git clone https://github.com/VundleVim/Vundle.vim "${HOME}/.vim/bundle"
 	vim +PluginInstall +qall
 fi
 if [ $_NEOVIM == 1 ]; then
-	sudo apt install -y neovim 
+	sudo apt install -y neovim exuberant-ctags
 	cp -r "${HOME}/.dotfiles/nvim/" "${HOME}/.config/"
 	curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	nvim +PlugInstall +qall
