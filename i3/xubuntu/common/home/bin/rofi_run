@@ -21,7 +21,9 @@ usage()
 
      -l,--logout        System logout dialog
 
-     -b,--browser       Browser search by keyword (requires surfraw)
+     -b,--browser       Browser search by keyword
+
+     --rust		Search Rust documentation online
 
      -q,--qalculate     Persistant calculator dialog (requires libqalculate)
 
@@ -68,18 +70,14 @@ for arg in "$@"; do
                 -hide-scrollbar
             ;;
         -b|--browser)
-            # hash surfraw &>/dev/null ||
-            #     { echo "Requires 'surfraw' installed"; exit 1; }
-            #
             echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Web Search:' \
                  -padding 50 -line-padding 4 \
 		    | xargs -I{} xdg-open https://www.google.com/search?q={}
-            # surfraw -browser="$BROWSER" "$(sr -elvi | awk -F'-' '{print $1}' |
-            #     sed '/:/d' | awk '{$1=$1};1' |
-            #     rofi -hide-scrollbar -kb-row-select 'Tab' \
-            #     -kb-row-tab 'Control+space' -dmenu \
-            #     -mesg 'Tab for Autocomplete' -i -p 'Web Search' \
-            #     -padding 50 -line-padding 4)"
+            ;;
+        --rust)
+            echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Web Search:' \
+                 -padding 50 -line-padding 4 \
+		    | xargs -I{} xdg-open https://doc.rust-lang.org/std/?search={}
             ;;
         -l|--logout)
             if grep -q 'exec startx' $HOME/.*profile; then
