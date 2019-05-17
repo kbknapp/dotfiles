@@ -2,6 +2,8 @@ fish_vi_key_bindings
 
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin
 
+abbr -a lsblk 'lsblk -e7'
+
 # Exa
 if command -v exa > /dev/null
 	abbr -a ls 'exa'
