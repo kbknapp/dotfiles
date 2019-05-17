@@ -23,5 +23,6 @@ cargo install \
   mdbook \
   just \
   rusty-tags \
+  racer \
   tokei
 
