@@ -1,0 +1,22 @@
+image: ubuntu
+tasks:
+  install_deps:
+    command: |
+        apt-get update
+        apt-get install --yes git gcc make pkg-config libxtst-dev libx11-dev
+
+  clone_repo:
+    dependencies:
+      - install_deps
+    command: git clone https://github.com/hanschen/ksuperkey.git 
+
+  build:
+    output_paths:
+      - ksuperkey/ksuperkey
+      - ksuperkey/Makefile
+    dependencies:
+      - install_deps
+      - clone_repo
+    command: |
+      cd ksuperkey
+      make
