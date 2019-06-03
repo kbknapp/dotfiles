@@ -91,6 +91,7 @@ exec --no-startup-id xfsettingsd
 exec --no-startup-id i3-msg workspace $WS1
 exec_always --no-startup-id al-compositor --start
 exec flatpak run org.telegram.desktop
+exec flatpak run org.signal.Signal
 exec firefox
 
 # run always
@@ -100,7 +101,7 @@ exec_always --no-startup-id al-compositor --restart
 bindsym Mod1+F1 exec --no-startup-id rofi_run -r
 
 # Setup screens
-exec --no-startup-id xrandr --output DisplayPort-1 --mode 1680x1050 --pos 0x0 --rotate normal --output DisplayPort-0 --primary --mode 1680x1050 --pos 1680x0 --rotate normal --output eDP --mode 1920x1080 --pos 3360x488 --rotate normal --output DisplayPort-2 --off --output VGA-0 --off
+exec_always --no-startup-id xrandr --output DisplayPort-1 --mode 1920x1080 --pos 3840x0 --rotate normal --output DisplayPort-0 --mode 1920x1080 --pos 1920x0 --rotate normal --output eDP --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-2 --off --output VGA-0 --off
 
 ###########################################################
 #############         Bindings           ##################
@@ -156,15 +157,15 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 #"9: "
 #"10: "
 # workspace assignment
-workspace $WS0 output $Mon2
-workspace $WS1 output $Mon2
+workspace $WS0 output $Mon1
+workspace $WS1 output $Mon1
 workspace $WS2 output $Mon2
 workspace $WS3 output $Mon2
-workspace $WS4 output $Mon2
+workspace $WS4 output $Mon1
 workspace $WS5 output $Mon2
-workspace $WS6 output $Mon1
+workspace $WS6 output $Mon3
 workspace $WS7 output $Mon1
-workspace $WS8 output $Mon1
+workspace $WS8 output $Mon2
 workspace $WS9 output $Mon3
 workspace $WS10 output $Mon3
 
@@ -371,6 +372,7 @@ assign [class="(?i)(?:jetbrains-clion)"] → $WS4
 assign [class="(?i)(?:gitkraken)"] → $WS5
 assign [class="(?i)(?:vmware)"] → $WS6
 assign [class="(?i)(?:TelegramDesktop)"] → $WS7
+assign [class="(?i)(?:Signal)"] → $WS7
 assign [class="(?i)(?:standard notes)"] → $WS8
 assign [class="(?i)(?:tilix)"] → $WS10
 

@@ -11,6 +11,14 @@ if [ -z "${MACHINE}" ]; then
     exit 1
 fi
 
+# Deps?
+#
+# libxtst-dev libx11-dev libxtst-dev  \
+#    libxcb-image0-dev \
+#   libxcb-randr0-dev libxcb-shape0-dev  \
+#   libxcb-composite0-devb \
+#   libxcb-ewmh2 libxcb-randr0-dev libev-dev libxcb-xinerama0-dev \
+
 
 BUILD_DIR=$HOME/.build
 NPROC=4
@@ -27,19 +35,13 @@ fi
 
 bash "${HOME}"/.dotfiles/bin/baseline_xubuntu.sh
 
-# Install Deps and Software
-sudo apt install -y \
-    arandr \
-    rofi \
-    nitrogen \
-    i3status i3lock i3lock-fancy \
-    libxtst-dev libx11-dev libxtst-dev libcairo2-dev libxcb1-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-shape0-dev libxcb-xkb-dev pkg-config python-xcbgen xcb-proto libxcb-xrm-dev libasound2-dev libmpdclient-dev libiw-dev libcurl4-openssl-dev libpulse-dev libxcb-composite0-dev xcb libxcb-ewmh2 libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev 
-
 # Use an active fork of Compton
 sudo apt install libev-libevent-dev libdbus-1-dev libgl1-mesa-dev \
-  libgl2-mesa-dev libxcb-present-dev libxcb-sync-dev libxcb-damage0-dev \
-  xcb-damage0-dev libx11-xcb-dev libev libev-dev uthash-dev libxdg-basedir-dev \
-  libconfig-dev meson
+  libxcb-present-dev libxcb-sync-dev libxcb-damage0-dev \
+  libx11-xcb-dev libev-dev uthash-dev libxdg-basedir-dev \
+  libconfig-dev libxcb-render-util0-dev libxcb-composite0-dev \
+  libxcb-image0-dev libxcb-xinerama0-dev libpixman-1-dev \
+  libpcre3-dev meson
 
 cd "${BUILD_DIR}"
 git clone https://github.com/yshui/compton
@@ -56,12 +58,24 @@ source "${HOME}"/.cargo/env
 rustup default nightly
 
 # Install Alacritty
+sudo apt install -y libfreetype6-dev
 git clone https://github.com/jwilm/alacritty "${BUILD_DIR}"/alacritty
 cd "${BUILD_DIR}"/alacritty
 cargo build --release
 cp target/release/alacritty "${HOME}"/.local/bin
 
 # i3-gaps
+# Install Deps and Software
+sudo apt install -y \
+    arandr \
+    rofi \
+    nitrogen \
+    i3status i3lock i3lock-fancy autoconf pkg-config \
+    libstartup-notification0-dev libxcb-xkb-dev libxcb-util-dev \
+    libxcb-cursor-dev libxcb-keysyms1-dev libxcb-icccm4-dev \
+    libxcb-xrm-dev libxkbcommon-x11-dev libxkbcommon-dev \
+    libyajl-dev libcairo2-dev libpango1.0-dev 
+     
 mkdir -pv "${BUILD_DIR}"
 git clone https://github.com/Airblader/i3 "${BUILD_DIR}"/i3-gaps
 cd "${BUILD_DIR}"/i3-gaps/
@@ -74,9 +88,14 @@ make -j"${NPROC}"
 sudo make install
 
 # Polybar
+sudo apt install -y \
+	libasound2-dev libcurl4-openssl-dev libmpdclient-dev \
+	libiw-dev libpulse-dev xcb-proto xcb libxcb-ewmh-dev \
+	python-xcbgen 
+
 git clone https://github.com/jaagr/polybar "${BUILD_DIR}"/polybar
 cd "${BUILD_DIR}"/polybar/
-./build.sh
+./build.sh -f -g --all-features
 
 # KSuperkey
 git clone https://github.com/hanschen/ksuperkey.git "${BUILD_DIR}"/ksuperkey
