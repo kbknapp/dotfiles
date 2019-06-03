@@ -2,6 +2,10 @@ fish_vi_key_bindings
 
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin
 
+set -gx FONTCONFIG_PATH /etc/fonts
+
+set -gx PATH $HOME/.local/bin $HOME/bin $PATH
+
 abbr -a lsblk 'lsblk -e7'
 
 # Exa
