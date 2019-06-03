@@ -1,0 +1,28 @@
+image: ubuntu
+tasks:
+  install_deps:
+    command: |
+        apt-get update
+        apt-get install --yes git wget
+
+  clone_repo:
+    dependencies:
+      - install_deps
+    command: git clone https://github.com/sachaos/todoist
+
+  install_go:
+    dependencies:
+      - install_deps
+    command: |
+      wget https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz
+      tar xzf go1.12.5.linux-amd64.tar.gz
+
+  build:
+    output_paths:
+      - todoist/todoist
+    dependencies:
+      - clone_repo
+      - install_go
+    command: |
+      cd todoist
+      ../go/bin/go build
