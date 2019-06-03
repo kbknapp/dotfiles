@@ -121,11 +121,11 @@ sudo apt install -y \
     git \
     python-pip \
     vlc \
-    tilix \
     git \
     flatpak \
     snapd \
     dconf-cli \
+    fzf \
     shellcheck \
     ranger \
     build-essential gcc make pkg-config cmake automake libssl-dev
