@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+
+# al-tint2zen: a ArchLabs tint2 selection and switcher script
+# Copyright (C) 2015 damo <damo@bunsenlabs.org>
+# Copyright (C) 2017 Nathaniel Maia <natemaia10@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+########################################################################
+
+# check for required programs
+if ! hash tint2 zenity read find &>/dev/null; then
+    echo "[ERROR]: Missing Commands. It is required to install 'tint2' 'zenity' 'findutils' 'readline'"
+    exit 1
+fi
+
+# loop over WMS until we get a match
+# This should be pretty failsafe, first checking wmctrl
+# otherwise falling back to other more common means of getting WM name
+window_Managers=(bspwm i3 openbox xfce awesome)
+for i in ${window_Managers[@]}; do
+    if [[ "$(wmctrl -m | grep -i name | awk '{print tolower($2)}')" == "$i" ]]; then
+        WM=$i && break
+    elif [[ "$(xprop -root -notype | grep "WM_NAME =" | tr -d '"' | awk '{print tolower($3)}')" == "$i" ]]; then
+        WM=$i && break
+    elif [[ "$(awk '{print tolower($0)}' <<< $XDG_CURRENT_DESKTOP)" == "$i" ]]; then
+        WM=$i && break
+    fi
+done
+
+# Set global variables after WM loop
+TITLE="ArchLabs Tint2 Manager"
+ICON="--window-icon=/usr/share/icons/hicolor/256x256/apps/al-hello-logo.png"
+CONFPATH="$HOME/.config/tint2"
+USAGE="USAGE: [OPTIONS] [SESSIONFILE]
+\n\t-z, --session\tUse entered SESSIONFILE rather than default
+\t-h, --help\tPrint this usage message and exit
+\nWith no command argument, the script uses the current WM session file
+\n\t\t'$CONFPATH/sessions/$WM-sessionfile'
+\nTo start session at login, add the following line to autostart:
+\tsleep 1; al-tint2-session &"
+FILES=($(find $CONFPATH -maxdepth 4 -type f))
+
+# If $WM is set, set sessionfile to $WM-sessionfile
+# Otherwise default to just sessionfile
+# NOTE: this will get overwritten if passed a sessionfile
+if [[ $WM ]]; then
+    SESSIONFILE="$CONFPATH/sessions/$WM-sessionfile"
+else
+    SESSIONFILE="$CONFPATH/sessions/sessionfile"
+fi
+
+# Check 1st arg, if help, echo help message
+# When trying to set session, test that $2 is set
+# If it is, set SESSIONFILE to $2 otherwise exit error
+case $1 in
+    -h|-H|--help)
+        echo -e "$USAGE" && exit 0
+        ;;
+    -z|*session)
+        if [[ $2 ]]; then
+            SESSIONFILE="$2"
+        else
+            echo "Invalid Session.. Exiting" && exit 2
+        fi
+esac
+
+if ! [ -d "$CONFPATH" ] && [ -d "/etc/skel/.config/tint2" ]; then
+    cp -rf /etc/skel/.config/tint2 $HOME/.config/
+elif ! [ -d "$CONFPATH" ]; then
+    mkdir -p "$CONFPATH"
+fi
+
+if [[ "$(pidof tint2)" ]]; then
+    TEMPFILE=$(mktemp --tmpdir tint2.XXXX)
+    while read pid cmd; do
+        if [[ ${cmd%% *} = tint2 ]]; then
+            echo "$(awk '{print $NF}' <<< $cmd)" >> $TEMPFILE
+        fi
+    done <<< "$(pgrep -a tint2)"
+fi
+
+for f in ${FILES[@]}; do
+    NAME=$(basename "$f")
+    if [[ $NAME = *tintrc ]] || grep -q "panel_monitor" "$f"; then
+        if [[ -e $TEMPFILE ]] && grep -q "$f" "$TEMPFILE"; then
+            LIST="$LIST TRUE $NAME"
+        else
+            LIST="$LIST FALSE $NAME"
+        fi
+    fi
+done
+
+
+setup_Session() {
+    mkdir -p $CONFPATH/sessions; echo -e "# Tint2 $WM Sessionfile
+    \n# DO NO edit this file, it will be overwritten by al-tint2zen\n# Make a custom sessionfile instead and use -z or --session FILE option
+    \n# To load session at startup use the following line\n\n# al-tint2-session &\n" > $SESSIONFILE
+    for name in ${ANSWER[@]}; do
+        for file in ${FILES[@]}; do
+            if grep -q "$file" $SESSIONFILE; then continue; fi
+            if [[ $(basename "$file") == $name ]]; then echo -e "$file" >> $SESSIONFILE; fi
+        done
+    done
+
+    while [[ $(pidof tint2) ]]; do pkill tint2; sleep 0.2; done
+    while read -r c; do
+        if [[ "$c" =~ ^#.*$ ]] || [[ "$c" =~ '^[ \t]*$' ]] || [[ "$c" == "" ]] || ! [ -f "$c" ]; then continue; fi
+        tint2 -c "$c" &>/dev/null &
+    done < $SESSIONFILE
+    if hash al-compositor &>/dev/null; then al-compositor --restart; fi
+}
+
+
+# Run main selection dialog
+while ! [[ $ANSWER ]]; do
+    ANSWER=$(zenity $ICON --list --title="$TITLE" --text="<big><b>Select Tint2 Panels to Launch</b></big>
+                          \nRunning panels will be checkmarked\nTo stop a running panel:\n\n\tUn-checkmark it and press Ok" \
+                              --checklist --width=350 --height=400 --multiple --column="Select" \
+                              --column="Tint2" $LIST --separator=" ")
+    if [[ $? == 1 ]]; then
+        ANSWER="None"; exit 0
+    elif ! [[ $ANSWER ]]; then
+        SURE=$(zenity $ICON --title="$TITLE" --question --width=300 --height=150 --cancel-label="Go Back" \
+                      --text="<big><b>No Panels Selected</b></big>\n\nClose all running panels and exit?" &>/dev/null)
+        if [[ $? == 1 ]]; then
+            unset ANSWER && continue
+        else
+            while [[ $(pidof tint2) ]]; do pkill tint2; sleep 0.2; done
+            > $SESSIONFILE; ANSWER="None"
+        fi
+    else
+        setup_Session
+    fi
+    if [[ -e $TEMPFILE ]]; then rm -f $TEMPFILE; fi
+done
+
+exit 0

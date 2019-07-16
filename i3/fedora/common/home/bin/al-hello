@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+
+## al-hello: a post install script written for ArchLabs
+## Copyright 2017 Nathaniel Maia <natemaia10@gmail.com>
+
+## This main script, to be placed somewhere on the PATH
+
+
+# source first lib file
+# this MUST be done first to get access to the draw_box and create_Dialog functions
+if [ -f "/usr/lib/archlabs/common/al-hello-lib" ]; then
+    source "/usr/lib/archlabs/common/al-hello-lib"
+else
+    echo -e "[ERROR]:\tThis program requires /usr/lib/archlabs/common/al-hello-lib to work properly"
+    exit 1
+fi
+
+# clear logfile
+echo "" > "$LOG"
+
+# Remove itself from autostart
+if [ -e "$HOME/.config/openbox/autostart" ] && grep -q 'al-hello' "$HOME/.config/openbox/autostart"; then
+    sed -i '/al-hello/d' "$HOME/.config/openbox/autostart"
+fi
+
+clear
+echo -e "\n\n\n\t\t\t      ${b} _   _ _____ _     _     ___
+\t\t\t      | | | | ____| |   | |   / _ \\
+\t\t\t      | |_| |  _| | |   | |  | | | |
+\t\t\t      |  _  | |___| |___| |__| |_| |
+\t\t\t      |_| |_|_____|_____|_____\___/ \n${reg}
+\t\t        Hi${b} ${USER} ${reg}, Welcome to ArchLabs Linux! ${b}:)${reg}\n"
+draw_box $R $C $H $W $col; sleep 1; read -n1 -rsp $'\n\tPress Any Key to Continue...\n'
+
+while ! [[ "$(ping -c1 8.8.8.8)" ]]; do
+    clear; echo -e "\n\n\n\t${red}Please Connect to a Network Before Continuing${reg}"
+    draw_box $R $C 8 $W $col; sleep 1.5; clear
+done
+
+create_Dialog upd "Would you like to update the system & mirrorlist (recommended)"
+if grep -q '[yY1]' <<< "$upd"; then
+    clear; sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+    clear; echo -e "\n\n\n\tCurrent mirrorlist backed up as /etc/pacman.d/mirrorlist.backup
+    \n\n\tUpdating the mirrorlist please wait, this will take a minute\n"
+    draw_box $R $C $H $W $col
+    sudo reflector --score 120 --fastest 20 --sort rate --save /etc/pacman.d/mirrorlist
+    clear; echo -e "\n\n\n\tMirrorlist optimized for fastest mirrors
+    \n\n\tYou can refresh the mirrorlist anytime with the alias ${red}mirrors${reg}\n"
+    draw_box $R $C $H $W $col; sleep 1; read -n1 -rsp $'\n\tPress Any Key to Continue...\n'
+    clear; sudo pacman -Syyu --noconfirm
+fi
+
+# Source lib files again after updating
+if [ -f "/usr/lib/archlabs/common/al-hello-lib" ]; then
+    source "/usr/lib/archlabs/common/al-hello-lib"
+else
+    echo -e "[ERROR]:\tThis program requires /usr/lib/archlabs/common/al-hello-lib to work properly"
+    exit 1
+fi
+if [ -f "/usr/lib/archlabs/common/al-hello-installation" ]; then
+    source "/usr/lib/archlabs/common/al-hello-installation"
+else
+    echo -e "[ERROR]:\tThis program requires /usr/lib/archlabs/common/al-hello-installation to work properly"
+    exit 1
+fi
+
+
+# This must be called first to start
+# the questions as to what were doing
+main_Dialogs
+
+if grep -q '[yY1]' <<< "$btooth"; then
+    setup_Bluetooth
+fi
+
+if grep -q '[yY1]' <<< "$printer"; then
+    setup_Printer
+fi
+
+if grep -q '[yY1]' <<< "$defaults"; then
+    setup_Default_Packages
+fi
+
+if grep -q '[yY1]' <<< "$swp"; then
+    setup_Swapfile
+fi
+
+if grep -q '[1-4]' <<< "$window_manager"; then
+    setup_Window_Manager
+fi
+
+# Call this after all dialogs and setups
+install_Selected_Packages
+
+# Nvidia Drivers... Call this last as to not conflict with other package managers installing
+if ! [ -z "${NV}" ]; then
+    create_Dialog nvd "${g}Nvidia Graphics Detected.${reg}\tWant to install drivers"
+    if grep -q '[yY1]' <<< "$nvd"; then
+        nvidia-easy-install
+    fi
+fi
+
+clear
+echo -e "\n\n\n\tSetup Complete!!\n\n\n\tPress Any Key to Reboot or Ctrl + c to exit..."
+draw_box $R $C $H $W $col; sleep 1
+read -n1 -rsp $'\n\n'
+systemctl reboot
+
+exit 0
