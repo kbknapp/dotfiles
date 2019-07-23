@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# al-tint2restart: a script to restart all tint2 instances
+# Copyright (C) 2015 damo <damo@bunsenlabs.org>
+# Copyright (C) 2015-2016 John Crawley <john@bunsenlabs.org>
+# Borrowed with love and modified by the ArchLabs boys.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+HELP='al-tint2-restart a script to restart all running instances of tint2
+\nOptions:\n\t-h --help\tshow this message and exit\n\nNo other options are supported'
+case $1 in
+    -h|--help)
+        echo -e "$HELP"; exit 0
+esac
+
+if ! [[ $(pidof tint2) ]]; then echo "No tint2 processes found"; exit 0; fi
+
+declare -A commands # associative array
+while read -r pid cmd; do
+    if [[ ${cmd%% *} = tint2 ]]; then
+        kill "$pid"
+        commands[$cmd]=1 # duplicate commands will be launched only once
+    fi
+done <<< "$(pgrep -a tint2)"
+
+sleep 1
+while read -r pid cmd; do
+    if [[ ${cmd%% *} = tint2 ]]; then
+        kill -KILL "$pid"
+        commands[$cmd]=1
+    fi
+done <<< "$(pgrep -a tint2)"
+
+sleep 1
+for i in "${!commands[@]}"; do
+    (setsid $i &)
+    sleep 0.1
+done
+
+
+exit 0

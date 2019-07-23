@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+
+# al-kb-pipemenu - an Openbox pipemenu for displaying keybinds
+# Copyright (C) 2015 damo    <damo@bunsenlabs.org>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# NB The keybinds in the menu are clickable, except for the Openbox
+# commands, which just exit the menu
+# al-kb is used to parse rc.xml and send the output to a textfile
+
+#	Renamed and Rewritten for ArchLabs and zenity
+
+HELP='\tal-kb-pipemenu an Openbox Pipe Menu for displaying keybinds
+\tIt should normally be called from an openbox menu.
+\nOptions (usually passed from the menu):
+\t-h --help   show this message
+\t--keybinds  display keybindings defined in rc.xml as a menu
+\t(The keybinds in the menu are clickable, except for the Openbox
+\tcommands, which just exit the menu.)
+\t--rcedit    backup and edit rc.xml
+\nIf al-keyboard-pipemenu is called with no options (the usual method),
+it will output an xml openbox pipemenu for displaying keybindings.
+\tNOTE: Some of the functionality of this pipemenu depends on the script
+/usr/bin/al-kb which is provided by the package "archlabs-utilities"'
+case "$@" in
+    -h|--help)
+        echo -e "$HELP"
+        exit 0
+esac
+
+AL_COMMON_LIBDIR="/usr/lib/archlabs/common"
+USR_CFG_DIR="$HOME/.config/openbox"
+KBSCRIPT="al-kb"
+RCPATH="$USR_CFG_DIR/rc.xml"
+KBTEXT="$USR_CFG_DIR/kbinds.txt"
+
+if ! . "$AL_COMMON_LIBDIR/al-include.cfg" 2> /dev/null; then
+    echo $"Error: Failed to locate al-include.cfg in $AL_COMMON_LIBDIR" >&2
+    exit 1
+fi
+# test if al-kb exists in path
+if ! type "$KBSCRIPT" &>/dev/null; then
+    menuStart
+    menuSeparator "$KBSCRIPT is not available. Try installing ArchLabs-utilities."
+    menuEnd
+    exit 1
+fi
+
+if [[ $1 = '--rcedit' ]]; then # "Backup & Edit rc.xml" is chosen in menu
+    # backup rc.xml first
+    NOW=$(date +"%Y%m%d-%H%M")
+    RCBKP="$RCPATH.$NOW"
+    cp "$RCPATH" "$RCBKP"
+    if hash exo-open &>/dev/null; then
+        exo-open "$RCPATH"        # open rc.xml in default editor
+    else
+        termite -e "$EDITOR $RCPATH"
+    fi
+    exit 0
+fi
+
+if [[ $1 = '--keybinds' ]]; then
+    # run script to write kbinds.txt, suppress terminal output
+    "$KBSCRIPT" > /dev/null
+    menuStart
+    menuSeparator "Openbox window commands"
+    while read -r a b c; do      # write out Openbox commands (not clickable)
+        if [[ "$a" = "o" ]]; then
+            curItem=$(printf "%-20s %s" "$b" "$c")
+            menuItem "$curItem" "echo >/dev/null 2>&1"
+        fi
+    done < "$KBTEXT"
+
+    menuSeparator
+    menuSeparator "Run commands"
+    while read -r a b c; do      # write out 'Run' commands (clickable)
+        if [[ "$a" = "x" ]]; then
+            curItem=$(printf "%-20s %s" "$b" "$c")
+            menuItem "$curItem" "$c"
+        fi
+    done < "$KBTEXT"
+    menuEnd
+    exit 0
+fi
+
+# pipemenu
+menuStart
+    menuItem "Backup and Edit rc.xml" "al-kb-pipemenu --rcedit"
+    menuSeparator
+    menuItem "Display Keybinds in window" "al-kb --gui"
+    echo '        <menu execute="al-kb-pipemenu --keybinds" id="Display keybinds" label="Display Keybinds in menu"/>'
+menuEnd
+
+exit 0
