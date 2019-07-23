@@ -163,9 +163,9 @@ function! LightlineFilename()
 endfunction
 
 " from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
-if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
-endif
+" if executable('ag')
+" 	set grepprg=ag\ --nogroup\ --nocolor
+" endif
 if executable('rg')
 	set grepprg=rg\ --no-heading\ --vimgrep
 	set grepformat=%f:%l:%c:%m
@@ -345,7 +345,7 @@ set shortmess+=c " don't give |ins-completion-menu| messages.
 " Show those damn hidden characters
 " Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•
 set nolist
-set listchars=nbsp:¬,extends:»,precedes:«,trail:•
+set listchars=tab:>-,eol:¶,nbsp:¬,extends:»,precedes:«,trail:•
 
 " =============================================================================
 " # Keyboard shortcuts
@@ -472,7 +472,7 @@ inoremap {{     {
 inoremap {}     {}
 inoremap        (  ()<Left>
 inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
 " function! ConditionalPairMap(open, close)
 "   let line = getline('.')
@@ -557,7 +557,7 @@ let g:rust_clip_command = 'xclip -selection clipboard'
 "let g:racer_experimental_completer = 1
 let $RUST_SRC_PATH = systemlist("rustc --print sysroot")[0] . "/lib/rustlib/src/rust/src"
 
-noremap <leader>rc :Cargo check<CR>
+noremap <leader>rc :!RUSTFLAGS='-Awarnings' cargo check<CR>
 noremap <leader>rb :Cbuild<CR>
 noremap <leader>rt :Ctest<CR>
 noremap <leader>rr :Cbuild --release<CR>
