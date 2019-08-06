@@ -1,0 +1,56 @@
+image: ubuntu:18.04
+tasks:
+  update:
+    command: apt-get update
+
+  install_deps:
+    dependencies:
+      - update
+    command: |
+        apt-get install --yes build-essential git meson libev-libevent-dev \
+        libdbus-1-dev libgl1-mesa-dev libxcb-present-dev \
+        libxcb-sync-dev libxcb-damage0-dev libx11-xcb-dev uthash-dev \
+        libxdg-basedir-dev libconfig-dev libxcb-render-util0-dev \
+        libxcb-composite0-dev libxcb-image0-dev libxcb-xinerama0-dev \
+        libpixman-1-dev libpcre3-dev libev-dev
+
+  clone_repo:
+    dependencies:
+      - install_deps
+    command: git clone https://github.com/yshui/compton
+
+  configure:
+    dependencies:
+      - clone_repo
+    command: |
+      cd compton
+      meson --buildtype=release . build
+
+  build:
+    dependencies:
+      - configure
+    command: |
+      cd compton
+      ninja -C build
+
+  make_target_root:
+    command: |
+      mkdir -p target_root
+
+  install:
+    dependencies:
+      - configure
+      - make_target_root
+    command: |
+      cd compton
+      DESTDIR=/scratch/target_root ninja -C build install
+
+  package:
+    output_paths:
+      - compton-6-rc1-1_target_root.tar.gz
+    dependencies:
+      - install
+      - build
+    command: |
+      cd target_root/
+      tar czpf ../compton-6-rc1-1_target_root.tar.gz ./*
