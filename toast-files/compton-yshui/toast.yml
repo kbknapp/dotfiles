@@ -3,11 +3,17 @@ tasks:
   update:
     command: apt-get update
 
+  install_build_tools:
+    dependencies:
+      - update
+    command: |
+        apt-get install --yes build-essential git meson 
+
   install_deps:
     dependencies:
       - update
     command: |
-        apt-get install --yes build-essential git meson libev-libevent-dev \
+        apt-get install --yes libev-libevent-dev \
         libdbus-1-dev libgl1-mesa-dev libxcb-present-dev \
         libxcb-sync-dev libxcb-damage0-dev libx11-xcb-dev uthash-dev \
         libxdg-basedir-dev libconfig-dev libxcb-render-util0-dev \
@@ -16,12 +22,13 @@ tasks:
 
   clone_repo:
     dependencies:
-      - install_deps
+      - install_build_tools
     command: git clone https://github.com/yshui/compton
 
   configure:
     dependencies:
       - clone_repo
+      - install_deps
     command: |
       cd compton
       meson --buildtype=release . build

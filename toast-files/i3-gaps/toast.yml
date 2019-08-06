@@ -1,23 +1,35 @@
 image: ubuntu:18.04
 tasks:
-  install_deps:
+  update:
     command: |
-        apt-get update
-        apt-get install --yes build-essential i3status i3lock i3lock-fancy \
-        autoconf pkg-config libstartup-notification0-dev libxcb-xkb-dev \
+      apt-get update
+
+  install_build_tools:
+    dependencies: 
+      - update
+    command: |
+        apt-get install --yes build-essential autoconf pkg-config git 
+
+  install_deps:
+    dependencies: 
+      - update
+    command: |
+        apt-get install --yes i3status i3lock i3lock-fancy \
+        libstartup-notification0-dev libxcb-xkb-dev \
         libxcb-util-dev libxcb-cursor-dev libxcb-keysyms1-dev libxcb-icccm4-dev \
         libxcb-xrm-dev libxkbcommon-x11-dev libxkbcommon-dev libyajl-dev \
-        libcairo2-dev libpango1.0-dev git libxcb-xinerama0-dev libev-dev \
+        libcairo2-dev libpango1.0-dev libxcb-xinerama0-dev libev-dev \
         libxcb-randr0-dev libxcb-shape0-dev
 
   clone_repo:
     dependencies:
-      - install_deps
+      - install_build_tools
     command: git clone https://github.com/Airblader/i3
 
   configure:
     dependencies:
       - clone_repo
+      - install_deps
     command: |
       cd i3
       autoreconf --force --install

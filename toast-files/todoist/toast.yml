@@ -1,8 +1,13 @@
-image: ubuntu
+image: ubuntu:18.04
 tasks:
-  install_deps:
+  update:
     command: |
         apt-get update
+
+  install_deps:
+    dependencies:
+      - update
+    command: |
         apt-get install --yes git wget
 
   clone_repo:
