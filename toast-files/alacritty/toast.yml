@@ -1,0 +1,25 @@
+image: ubuntu
+tasks:
+  install_deps:
+    command: |
+        apt-get update
+        apt-get install --yes build-essential curl git cmake pkg-config \
+          libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3
+        curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path \
+          --default-toolchain nightly
+
+  clone_repo:
+    dependencies:
+      - install_deps
+    command: git clone https://github.com/jwilm/alacritty
+
+  build:
+    output_paths:
+      - alacritty/target/release/alacritty
+    dependencies:
+      - clone_repo
+      - install_deps
+    command: |
+      source ~/.cargo/env
+      cd alacritty
+      cargo build --release
