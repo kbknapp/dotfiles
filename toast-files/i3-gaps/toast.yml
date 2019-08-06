@@ -1,0 +1,56 @@
+image: ubuntu:18.04
+tasks:
+  install_deps:
+    command: |
+        apt-get update
+        apt-get install --yes build-essential i3status i3lock i3lock-fancy \
+        autoconf pkg-config libstartup-notification0-dev libxcb-xkb-dev \
+        libxcb-util-dev libxcb-cursor-dev libxcb-keysyms1-dev libxcb-icccm4-dev \
+        libxcb-xrm-dev libxkbcommon-x11-dev libxkbcommon-dev libyajl-dev \
+        libcairo2-dev libpango1.0-dev git libxcb-xinerama0-dev libev-dev \
+        libxcb-randr0-dev libxcb-shape0-dev
+
+  clone_repo:
+    dependencies:
+      - install_deps
+    command: git clone https://github.com/Airblader/i3
+
+  configure:
+    dependencies:
+      - clone_repo
+    command: |
+      cd i3
+      autoreconf --force --install
+      rm -rf build/
+      mkdir -p build/
+      cd build/
+      ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+
+  build:
+    dependencies:
+      - configure
+    command: |
+      cd i3/build/
+      make
+
+  make_target_root:
+    command: |
+      mkdir -p target_root
+
+  install:
+    dependencies:
+      - configure
+      - make_target_root
+    command: |
+      cd i3/build/
+      make DESTDIR=/scratch/target_root install
+
+  package:
+    output_paths:
+      - i3-gaps-4.16.1-1_target_root.tar.gz
+    dependencies:
+      - install
+      - build
+    command: |
+      cd target_root/
+      tar czpf ../i3-gaps-4.16.1-1_target_root.tar.gz ./*
