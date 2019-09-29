@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+
+#   ArchLabs Conky selection and switcher script
+#   Original concept by damo <damo@bunsenlabs.org> for BunsenLabs Linux, April 2015
+#   Beta tested and stamped "zen" by <Sector11>
+#   Rewritten by Nathaniel Maia for ArchLabs, December 2017
+#
+########################################################################
+
+CPATH="$HOME/.config/conky"
+SFILE="$CPATH/conky-sessionfile"
+SESSIONS="$CPATH/saved-sessions"    # to be used by a pipemenu
+DEFAULT="$CPATH/AL-Default.conkyrc"
+USAGE="\vUSAGE:\tal-conkyzen [OPTION]...FILES
+\v\tWith no command option the script runs the gui
+\v\t-h,--help   : this USAGE help
+\t-f,--file   : FILEPATH : specify file to save session to
+\t-z          : Run gui filename entry dialog for new saved session
+\v\tWhen the dialog opens, any running conkys will be checkmarked.
+\tClick \"OK\" and all running conkys are stopped, and all
+\tcheckmarked conkys are started.
+\v\tTo stop a conky just uncheck it, and \"OK\"
+\vEXAMPLES:\n\n\tSave session to a new saved-session file with:
+\v\t\tal-conkyzen -f sessionfile-name
+\v\tTo start the default conky session at login
+\tadd the following line to autostart:
+\v\tsleep 2 && al-conky-session --autostart &\v"
+QUESTION="zenity --question --window-icon=/usr/share/icons/hicolor/256x256/apps/al-hello-logo.png"
+TITLE="ArchLabs Conky Manager"
+ICON="--window-icon=/usr/share/icons/hicolor/256x256/apps/al-hello-logo.png"
+FILES=("$(find "$CPATH" -maxdepth 4 -type f)")
+
+
+########################### Find Conkys
+
+if ! hash conky read find &>/dev/null; then
+    echo -e "\n[ERROR]: This script requires the following be installed
+    \n\t\t'conky'\t  'findutils'\t'readline'" && exit 2
+fi
+
+if ! [[ -d $CPATH ]] && [[ -d /etc/skel/.config/conky ]]; then
+    cp -rf /etc/skel/.config/conky "$HOME/.config/"
+elif ! [[ -d $CPATH ]]; then
+    mkdir -p "$CPATH"
+fi
+
+if [[ "$(pidof conky)" ]]; then
+    TEMPFILE=$(mktemp --tmpdir conky.XXXX)
+    while read -r line; do
+        echo "$line" >> "$TEMPFILE"
+    done <<< "$(pgrep -a conky)"
+fi
+
+for f in "${FILES[@]}"; do
+    NAME=$(basename "$f")
+    if [[ $NAME = *conkyrc ]] || [[ $NAME = *conky ]]; then
+        if [[ -e $TEMPFILE ]] && grep -q "$f" "$TEMPFILE"; then
+            LIST="$LIST TRUE $NAME"
+        else
+            LIST="$LIST FALSE $NAME"
+        fi
+    fi
+done
+
+############################ Functions
+
+write_Sessions() {
+    SFILE="$CPATH/$1"
+    echo "sessionfile= $SFILE"
+    if ! [[ -f $SESSIONS ]]; then echo -n > "$SESSIONS"; fi
+    if grep -qx "$SFILE" "$SESSIONS"; then
+        if [[ $2 = "-z" ]]; then
+            $QUESTION --title="Conky sessionfile" $ICON --width=250 --height=100 \
+                      --text="<big>Filename already in use</big>\n\nOverwrite it?" &>/dev/null
+            if [[ $? == 1 ]]; then exit 0; fi
+        else
+            echo "Session was previously saved with the same name. Overwrite it? (y|N)"
+            read -r ans
+            if ! grep -q '[yY]' <<< "$ans"; then exit 0; fi
+        fi
+    else
+        cp "$SESSIONS" "$SESSIONS.bkp"
+        echo "$SFILE" >> "$SESSIONS"
+    fi
+}
+
+choose_Conkys() {
+    while ! [[ "$ANSWER" ]]; do
+        ANSWER=$(zenity $ICON --list --title="$TITLE" --separator=" " \
+                     --text="<big>Session will be saved to:</big>\n\n <b>$SFILE</b>\n" \
+                     --checklist --width=450 --height=500 --multiple \
+                     --column="Select" --column="Conky Name" $LIST)
+        if [[ $? == 1 ]]; then
+            if [[ -f $SESSIONS.bkp ]]; then mv "$SESSIONS.bkp" "$SESSIONS"; fi
+            ANSWER="None"
+        elif ! [[ "$ANSWER" ]]; then
+            $QUESTION --title="$TITLE" --width=250 --height=100 \
+                      --text="<big>No Conky Selected</big>\n\nClose all running Conkys and exit?" \
+                      --cancel-label="Go Back" &>/dev/null
+            if [[ $? = 1 ]]; then
+                if [[ -f $SESSIONS.bkp ]]; then mv $SESSIONS.bkp $SESSIONS; fi
+                unset ANSWER
+            else
+                if [[ "$(pidof conky)" ]]; then killall conky; fi
+                ANSWER="None"
+            fi
+        else
+            echo -n > "$SFILE"
+            if [[ $(pidof conky) ]]; then killall conky; fi
+            for n in "${ANSWER[@]}"; do
+                for f in "${FILES[@]}"; do
+                    if [[ $(basename "$f") = "$n" ]]; then
+                        echo -e "conky -c $f & sleep 0.5" >> "$SFILE"
+                        conky -c "$f"; sleep 0.1; break
+                    fi
+                done
+            done
+        fi
+        if [[ -e $TEMPFILE ]]; then rm -f "$TEMPFILE"; fi
+    done
+}
+
+#########################  Check args and run gui
+
+case $1 in
+    -h|--help)
+        echo -e "$USAGE"
+        exit 0
+        ;;
+    -f|--files)
+        if [[ "$2" ]]; then
+            SFILE="$2"
+            write_Sessions "$SFILE"
+        else
+            echo -e "\n\tNo saved-session file specified!\n\n$USAGE1"; exit 2
+        fi
+        ;;
+    -z)
+        ENTRY=$(zenity $ICON --entry --width=350 --height=200 --title="Save Conky sessionfile" \
+                       --entry-text="New Session Name" --text="File to be saved in\n\n$CPATH/\n")
+        if [[ $? == 1 ]]; then exit 0; fi
+        if [[ -z $ENTRY ]]; then
+            zenity --info $ICON --title="Conky sessionfile" --width=200 --height=100 \
+                   --text="No File Specified Exiting..." &>/dev/null && exit 1
+        else
+            write_Sessions "$ENTRY" "-z"
+        fi
+esac
+
+choose_Conkys
+
+exit 0

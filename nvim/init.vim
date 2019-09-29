@@ -21,6 +21,8 @@ call plug#begin()
 Plug 'ciaranm/securemodelines'
 Plug 'vim-scripts/localvimrc'
 Plug 'justinmk/vim-sneak'
+Plug 'kshenoy/vim-signature'
+Plug 'schickling/vim-bufonly'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'

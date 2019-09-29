@@ -24,5 +24,51 @@ cargo install \
   just \
   rusty-tags \
   racer \
+  toast \
   tokei
 
+# To Try:
+# dust
+# lsd
+# dutree
+# dua-cli
+# diffr: diff
+# hors: howdoi for programming
+# starship: shell prompt
+# mdcat: cat for markdown
+# sd: sed
+# topgrade: upgrade everything
+# bingrep, 
+# procs (=ps), 
+# strace-analyzer, 
+# mprober, 
+# battop, 
+# gptman, 
+# process-viewer (ps gui)
+# xcp (=cp)
+# rm-improved, 
+# broot (=interactive tree)
+# lolcate-rs (=locate)
+# tree-rs (=tree in rust)
+# dupe-krill (file deduplicator)
+# xcompress
+# hunter (=ranger in rust)
+# ruplacer, 
+# fastmod (=both are find and replace tools), 
+# amber, 
+# tabwriter, 
+# xv (hex viewer)
+# runiq (=uniq), 
+# jql (json), 
+# xsv (csv), 
+# fst (finite state transducer)
+# ttdl (todo list)
+# genact (activity generator), 
+# tealdeer (tldr in rust)
+# tin-summer (=sn)
+# diskus, 
+# dua-cli, 
+# dirstat-rs,
+# dust
+# sear: signed and encrypted archive
+# snifflue:  tcpdump/wireshark
