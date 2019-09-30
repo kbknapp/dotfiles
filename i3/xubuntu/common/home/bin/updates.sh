@@ -6,7 +6,8 @@ NOTIFY_ICON=/usr/share/icons/gnome/32x32/apps/system-software-update.png
 
 get_total_updates()
 {
-    UPDATES=$(checkupdates 2>/dev/null | wc -l)
+    UPDATES=$(apt list --upgradeable 2>/dev/null | wc -l)
+    ((UPDATES--))
 }
 
 while true; do
