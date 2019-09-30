@@ -1,3 +1,7 @@
+# Ubuntu Deps
+# sudo apt install clang llvm llvm-dev cmake pkg-config libssl-dev
+
+# Cargo Plugins
 cargo install \
   cargo-outdated \
   cargo-tree \
@@ -11,64 +15,83 @@ cargo install \
   cargo-audit \
   cargo-update \
   cargo-count \
-  clog-cli \
-  exa \
-  hyperfine \
-  fd-find \
-  ripgrep \
-  skim \
-  hexyl \
-  cw \
-  bat \
-  mdbook \
-  just \
-  rusty-tags \
-  racer \
-  toast \
-  tokei
 
-# To Try:
-# dust
-# lsd
-# dutree
-# dua-cli
-# diffr: diff
-# hors: howdoi for programming
-# starship: shell prompt
-# mdcat: cat for markdown
-# sd: sed
-# topgrade: upgrade everything
-# bingrep, 
-# procs (=ps), 
-# strace-analyzer, 
-# mprober, 
-# battop, 
-# gptman, 
-# process-viewer (ps gui)
-# xcp (=cp)
-# rm-improved, 
-# broot (=interactive tree)
-# lolcate-rs (=locate)
-# tree-rs (=tree in rust)
-# dupe-krill (file deduplicator)
-# xcompress
+# Dev tools
+cargo install \
+  amber         `# Code Search and Replace` \
+  clog-cli      `# Change Log` \
+  racer         `# Rust completion support` \
+  rusty-tags    `# tags support` \
+  just          `# modern make` \
+  tokei         `# Fast Line Count`
+
+# Utils and Clones of Common Tools
+cargo install \
+  exa           `# fancy ls` \
+  fd-find       `# modern find` \
+  ripgrep       `# modern grep` \
+  cw            `# wc clone` \
+  bat           `# pretty cat` \
+  lsd           `# fancy ls` \
+  diffr         `# diff clone` \
+  sd            `# sed clone` \
+  procs         `# ps clone` \
+  xcp           `# cp clone` \
+  rm-improved   \
+  tree-rs       `# tree clone ` \
+  runiq         `# uniq clone` \
+
+# Directory and Disk Usage Stats
+cargo install \
+  du-dust       `# du clone` \
+  diskus        `# Disk Usage info` \
+  dutree        `# du clone` \
+  tin-summer    `# sn`
+  dua-cli       \
+  dirstat-rs
+
+# Additional Tools
+cargo install \
+  hyperfine     `# Benchmarking` \
+  skim          `# fzf clone` \
+  mdbook        `# write books in MD` \
+  toast         `# Build using Docker` \
+  starship      `# shell prompt` \
+  mdcat         `# cat for markdown` \
+  topgrade      `# upgrade everything` \
+  bingrep       \
+  strace-analyzer,
+  mprober       `# Kernel prob utility` \
+  battop        `# Battery Top` \
+  gptman        \
+  broot         `# interactive tree` \
+  dupe-krill    `# file deduplicator` \
+  xcompress     `# Compression utility` \
+  ruplacer      `# find and replace` \
+  fastmod       `# find and replace` \
+  ttdl          `# todo list` \
+  genact        `# activity generator` \
+  tealdeer      `# tldr`
+
+# Data handling
+cargo install \
+  jql           `# json handling` \
+  xsv           `# csv handling` \
+  hexyl         `# Hex Viewer` \
+
+# Keep eye on:
+# cargo install \
+#   xv            `# hex viewer` \
+
+# Not Working Deps:
+# sudo apt install libgstreamer1.0-dev
+# sudo apt install libqt5gstreamer-dev
+# sudo apt install libncursesw5-dev
+#
+# Not Working
+#
 # hunter (=ranger in rust)
-# ruplacer, 
-# fastmod (=both are find and replace tools), 
-# amber, 
-# tabwriter, 
-# xv (hex viewer)
-# runiq (=uniq), 
-# jql (json), 
-# xsv (csv), 
-# fst (finite state transducer)
-# ttdl (todo list)
-# genact (activity generator), 
-# tealdeer (tldr in rust)
-# tin-summer (=sn)
-# diskus, 
-# dua-cli, 
-# dirstat-rs,
-# dust
+# process-viewer (ps gui)
+# lolcate-rs (=locate)
 # sear: signed and encrypted archive
 # snifflue:  tcpdump/wireshark
