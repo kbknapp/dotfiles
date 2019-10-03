@@ -24,6 +24,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'kshenoy/vim-signature'
 Plug 'schickling/vim-bufonly'
 Plug 'bitc/vim-bad-whitespace'
+Plug 'kbknapp/badWords'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
