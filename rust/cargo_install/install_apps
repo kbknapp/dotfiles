@@ -14,7 +14,7 @@ cargo install \
   cargo-thanks \
   cargo-audit \
   cargo-update \
-  cargo-count \
+  cargo-count
 
 # Dev tools
 cargo install \
@@ -39,7 +39,7 @@ cargo install \
   xcp           `# cp clone` \
   rm-improved   \
   tree-rs       `# tree clone ` \
-  runiq         `# uniq clone` \
+  runiq         `# uniq clone`
 
 # Directory and Disk Usage Stats
 cargo install \
@@ -77,7 +77,7 @@ cargo install \
 cargo install \
   jql           `# json handling` \
   xsv           `# csv handling` \
-  hexyl         `# Hex Viewer` \
+  hexyl         `# Hex Viewer`
 
 # Keep eye on:
 # cargo install \
