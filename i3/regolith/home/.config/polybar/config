@@ -1,0 +1,23 @@
+;=====================================================
+;     File Includes
+;=====================================================
+
+[section/base]
+include-file = /home/kevin/.config/polybar/master.conf
+include-file = /home/kevin/.config/polybar/modules.conf
+
+
+;=====================================================
+;     i3 Bars
+;=====================================================
+
+[bar/i3-bar]
+inherit = bar/master
+
+; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
+monitor =
+
+modules-left   = i3 menu
+modules-center = clock
+modules-right  = ${env:POLYBAR_MODULES: coreuse system-cpu-freq temperature memory battery volume}
+

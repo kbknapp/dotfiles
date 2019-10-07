@@ -2,7 +2,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# This defines which key super maps to on your keyboard.  
+# This defines which key super maps to on your keyboard.
 # Alt key is Mod1, and Windows key is Mod4
 set $mod Mod4
 set $alt Mod1
@@ -14,10 +14,11 @@ set $i3xrocks_config /etc/regolith/i3xrocks/config
 set $compton_config /etc/regolith/compton/config
 
 # path to terminal. Override this to specify a custom terminal.
-set $terminal_path /usr/bin/st
+set $terminal_path /usr/bin/alacritty
 
 # Color values are defined in ~/.Xresources-regolith
 # These are the labels which define each i3 workspace.
+set_from_resource $ws0  i3-wm.workspace.01.name "0"
 set_from_resource $ws1  i3-wm.workspace.01.name "1"
 set_from_resource $ws2  i3-wm.workspace.02.name "2"
 set_from_resource $ws3  i3-wm.workspace.03.name "3"
@@ -58,6 +59,15 @@ set_from_resource $rofiTheme rofi.theme "regolith-theme"
 bindsym $mod+space exec rofi -show drun -theme $rofiTheme
 bindsym $mod+Shift+space exec rofi -show run -theme $rofiTheme
 bindsym $mod+Ctrl+space exec rofi -show window -theme $rofiTheme
+# Logout/lock
+bindsym $Mod+x exec --no-startup-id rofi_run -l
+# Translate
+bindsym $mod+t          exec --no-startup-id rofi_run --en-es
+bindsym $mod+$alt+t     exec --no-startup-id rofi_run --es-en
+# Rust Docs Search
+bindsym $mod+u          exec --no-startup-id rofi_run --rust
+# Browser Search
+bindsym $Mod+w          exec --no-startup-id rofi_run -b
 
 # change focus
 bindsym $mod+Left focus left
@@ -109,12 +119,13 @@ bindsym $mod+Shift+question exec --no-startup-id /usr/bin/conky-toggle
 bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+Shift+t focus mode_toggle
+#bindsym $mod+Shift+t focus mode_toggle
 
 # toggle tabbed mode
 #bindsym $mod+t layout toggle tabbed splith splitv
 
 # move to workspace
+bindsym $mod+grave workspace $ws0
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -141,6 +152,7 @@ bindsym $mod+Shift+Tab workspace prev
 bindsym $mod+BackSpace workspace back_and_forth
 
 # move focused container to workspace
+bindsym $mod+Shift+grave move container to workspace $ws0
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -162,7 +174,8 @@ bindsym $mod+Shift+Ctrl+8 move container to workspace $ws18
 bindsym $mod+Shift+Ctrl+9 move container to workspace $ws19
 
 # move focused container to workspace, move to workspace
-bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1  
+bindsym $mod+$alt+grave move container to workspace $ws0; workspace $ws0
+bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1
 bindsym $mod+$alt+2 move container to workspace $ws2; workspace $ws2
 bindsym $mod+$alt+3 move container to workspace $ws3; workspace $ws3
 bindsym $mod+$alt+4 move container to workspace $ws4; workspace $ws4
@@ -188,29 +201,14 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
-# Logout of session
-bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
-
-# Reboot computer
-bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
-
-# Power off computer
-bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
-
-# lock the screen
-bindsym $mod+Escape exec gnome-screensaver-command --lock
-
-# put the system to sleep
-bindsym $mod+Shift+s exec systemctl suspend
-
 # shortcuts for common system configuration tasks
 bindsym $mod+c exec gnome-control-center
-bindsym $mod+w exec gnome-control-center wifi
-bindsym $mod+b exec gnome-control-center bluetooth
-bindsym $mod+d exec gnome-control-center display
-bindsym $mod+n exec gnome-control-center network
-bindsym $mod+p exec gnome-control-center power
-bindsym $mod+s exec gnome-control-center sound
+#bindsym $mod+w exec gnome-control-center wifi
+#bindsym $mod+b exec gnome-control-center bluetooth
+#bindsym $mod+d exec gnome-control-center display
+#bindsym $mod+n exec gnome-control-center network
+#bindsym $mod+p exec gnome-control-center power
+#bindsym $mod+s exec gnome-control-center sound
 
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
@@ -263,7 +261,7 @@ set_from_resource $focused_inactive.color.border i3-wm.client.focused_inactive.c
 set_from_resource $focused_inactive.color.background i3-wm.client.focused_inactive.color.background "#073642"
 set_from_resource $focused_inactive.color.text i3-wm.client.focused_inactive.color.text "#839496"
 set_from_resource $focused_inactive.color.indicator i3-wm.client.focused_inactive.color.indicator "#073642"
-set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border 
+set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border
 
 set_from_resource $unfocused.color.border i3-wm.client.unfocused.color.border "#002b36"
 set_from_resource $unfocused.color.background i3-wm.client.unfocused.color.background "#073642"
@@ -289,7 +287,7 @@ client.urgent           $urgent.color.border               $urgent.color.backgro
 popup_during_fullscreen smart
 
 # window focus follows your mouse movements as the mouse crosses window borders
-focus_follows_mouse no
+focus_follows_mouse yes
 
 set_from_resource $i3-wm.bar.background.color i3-wm.bar.background.color "#002b36"
 set_from_resource $i3-wm.bar.statusline.color i3-wm.bar.statusline.color "#93a1a1"
@@ -350,14 +348,14 @@ exec --no-startup-id /usr/bin/xeventbind resolution /usr/bin/wallpaper-refresh
 
 # Assign Applications to specific workspace
 # get class with xprop
-assign [class="(?i)(?:firefox)"] → $WS2
-assign [class="(?i)(?:org.gnome.Nautilus)"]  → $WS3
-assign [class="(?i)(?:jetbrains-clion)"] → $WS4
-assign [class="(?i)(?:gitkraken)"] → $WS5
-assign [class="(?i)(?:vmware)"] → $WS6
-assign [class="(?i)(?:TelegramDesktop)"] → $WS7
-assign [class="(?i)(?:Signal)"] → $WS7
-assign [class="(?i)(?:standard notes)"] → $WS8
+assign [class="(?i)(?:firefox)"] → $ws2
+assign [class="(?i)(?:org.gnome.Nautilus)"]  → $ws3
+assign [class="(?i)(?:jetbrains-clion)"] → $ws4
+assign [class="(?i)(?:gitkraken)"] → $ws5
+assign [class="(?i)(?:vmware)"] → $ws6
+assign [class="(?i)(?:TelegramDesktop)"] → $ws7
+assign [class="(?i)(?:Signal)"] → $ws7
+assign [class="(?i)(?:standard notes)"] → $ws8
 
 # # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
@@ -365,3 +363,20 @@ for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
 
 popup_during_fullscreen smart
 
+# Polybar
+exec_always --no-startup-id /usr/bin/al-polybar-session
+
+# Logout of session
+bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
+
+# Reboot computer
+bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
+
+# Power off computer
+bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
+
+# lock the screen
+bindsym $mod+Escape exec gnome-screensaver-command --lock
+
+# put the system to sleep
+bindsym $mod+Ctrl+Shift+s exec systemctl suspend
