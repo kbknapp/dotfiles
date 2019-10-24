@@ -449,6 +449,10 @@ noremap <leader>n ct-
 " I can type :help on my own, thanks.
 map <F1> <Esc>
 imap <F1> <Esc>
+" More Esc maps to help with minimal keebs
+:imap jj <Esc>
+:imap kj <Esc>
+:imap jk <Esc>
 
 " open ranger as a file chooser using the function below
 nnoremap <leader>r :call <SID>ranger()<CR>
