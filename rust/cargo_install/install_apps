@@ -46,7 +46,7 @@ cargo install \
   du-dust       `# du clone` \
   diskus        `# Disk Usage info` \
   dutree        `# du clone` \
-  tin-summer    `# sn`
+  tin-summer    `# sn` \
   dua-cli       \
   dirstat-rs
 
@@ -60,7 +60,7 @@ cargo install \
   mdcat         `# cat for markdown` \
   topgrade      `# upgrade everything` \
   bingrep       \
-  strace-analyzer,
+  strace-analyzer \
   mprober       `# Kernel prob utility` \
   battop        `# Battery Top` \
   gptman        \
