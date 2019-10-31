@@ -25,6 +25,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'schickling/vim-bufonly'
 Plug 'bitc/vim-bad-whitespace'
 Plug 'kbknapp/badWords'
+Plug 'godlygeek/tabular'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
@@ -449,10 +450,6 @@ noremap <leader>n ct-
 " I can type :help on my own, thanks.
 map <F1> <Esc>
 imap <F1> <Esc>
-" More Esc maps to help with minimal keebs
-:imap jj <Esc>
-:imap kj <Esc>
-:imap jk <Esc>
 
 " open ranger as a file chooser using the function below
 nnoremap <leader>r :call <SID>ranger()<CR>
