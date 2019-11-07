@@ -18,7 +18,6 @@ set $terminal_path /usr/bin/alacritty
 
 # Color values are defined in ~/.Xresources-regolith
 # These are the labels which define each i3 workspace.
-set_from_resource $ws0  i3-wm.workspace.01.name "0"
 set_from_resource $ws1  i3-wm.workspace.01.name "1"
 set_from_resource $ws2  i3-wm.workspace.02.name "2"
 set_from_resource $ws3  i3-wm.workspace.03.name "3"
@@ -59,15 +58,6 @@ set_from_resource $rofiTheme rofi.theme "regolith-theme"
 bindsym $mod+space exec rofi -show drun -theme $rofiTheme
 bindsym $mod+Shift+space exec rofi -show run -theme $rofiTheme
 bindsym $mod+Ctrl+space exec rofi -show window -theme $rofiTheme
-# Logout/lock
-bindsym $Mod+x exec --no-startup-id rofi_run -l
-# Translate
-bindsym $mod+t          exec --no-startup-id rofi_run --en-es
-bindsym $mod+$alt+t     exec --no-startup-id rofi_run --es-en
-# Rust Docs Search
-bindsym $mod+u          exec --no-startup-id rofi_run --rust
-# Browser Search
-bindsym $Mod+w          exec --no-startup-id rofi_run -b
 
 # change focus
 bindsym $mod+Left focus left
@@ -91,19 +81,14 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# move workspaces left or right
-bindsym $Mod+Shift+Mod1+h exec i3-msg move workspace to output left
-bindsym $Mod+Shift+Mod1+l exec i3-msg move workspace to output right
+# move workspaces to outputs
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Down move workspace to output down
+bindsym $mod+Ctrl+Shift+Up move workspace to output up
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
 
 # toggle split orientation
-bindsym $alt+Tab layout toggle tabbed split
-
-# Split directions
-bindsym $Mod+g split h
-bindsym $Mod+v split v
-bindsym $Mod+Shift+t layout tabbed
-bindsym $Mod+Shift+s layout stacking
-bindsym $Mod+Shift+g layout toggle split
+bindsym $mod+Shift+Backspace split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -119,13 +104,12 @@ bindsym $mod+Shift+question exec --no-startup-id /usr/bin/conky-toggle
 bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-#bindsym $mod+Shift+t focus mode_toggle
+bindsym $mod+$alt+t focus mode_toggle
 
 # toggle tabbed mode
-#bindsym $mod+t layout toggle tabbed splith splitv
+bindsym $mod+t layout toggle tabbed splith splitv
 
 # move to workspace
-bindsym $mod+grave workspace $ws0
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -149,10 +133,8 @@ bindsym $mod+Ctrl+9 workspace $ws19
 # cycle across workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
-bindsym $mod+BackSpace workspace back_and_forth
 
 # move focused container to workspace
-bindsym $mod+Shift+grave move container to workspace $ws0
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -174,7 +156,6 @@ bindsym $mod+Shift+Ctrl+8 move container to workspace $ws18
 bindsym $mod+Shift+Ctrl+9 move container to workspace $ws19
 
 # move focused container to workspace, move to workspace
-bindsym $mod+$alt+grave move container to workspace $ws0; workspace $ws0
 bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1
 bindsym $mod+$alt+2 move container to workspace $ws2; workspace $ws2
 bindsym $mod+$alt+3 move container to workspace $ws3; workspace $ws3
@@ -251,7 +232,7 @@ gaps outer 0
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on
 
-set_from_resource $focused.color.border i3-wm.client.focused.color.border "#E34923"
+set_from_resource $focused.color.border i3-wm.client.focused.color.border "#002b36"
 set_from_resource $focused.color.background i3-wm.client.focused.color.background "#586e75"
 set_from_resource $focused.color.text i3-wm.client.focused.color.text "#fdf6e3"
 set_from_resource $focused.color.indicator i3-wm.client.focused.color.indicator "#268bd2"
@@ -346,6 +327,8 @@ exec --no-startup-id /usr/bin/unclutter -b
 # Refresh wallpaper on screen resolution change
 exec --no-startup-id /usr/bin/xeventbind resolution /usr/bin/wallpaper-refresh
 
+### kbknapp Addtions
+
 # Assign Applications to specific workspace
 # get class with xprop
 assign [class="(?i)(?:firefox)"] → $ws2
@@ -354,8 +337,6 @@ assign [class="(?i)(?:jetbrains-clion)"] → $ws4
 assign [class="(?i)(?:gitkraken)"] → $ws5
 assign [class="(?i)(?:vmware)"] → $ws6
 assign [class="(?i)(?:TelegramDesktop)"] → $ws7
-assign [class="(?i)(?:MailSpring)"] → $ws10
-assign [class="(?i)(?:steam)"] → $ws9
 assign [class="(?i)(?:Signal)"] → $ws7
 assign [class="(?i)(?:standard notes)"] → $ws8
 
@@ -383,8 +364,28 @@ bindsym $mod+Escape exec gnome-screensaver-command --lock
 # put the system to sleep
 bindsym $mod+Ctrl+Shift+s exec systemctl suspend
 
-# move the currently focused window to the scratchpad
-bindsym $mod+Ctrl+s move scratchpad
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+s scratchpad show
+# Logout/lock
+bindsym $Mod+x exec --no-startup-id rofi_run -l
+# Translate
+bindsym $mod+e          exec --no-startup-id rofi_run --en-es
+bindsym $mod+$alt+e     exec --no-startup-id rofi_run --es-en
+# Rust Docs Search
+bindsym $mod+u          exec --no-startup-id rofi_run --rust
+# Browser Search
+bindsym $Mod+w          exec --no-startup-id rofi_run -b
+
+# move workspaces left or right
+bindsym $Mod+Shift+Mod1+h exec i3-msg move workspace to output left
+bindsym $Mod+Shift+Mod1+l exec i3-msg move workspace to output right
+
+# toggle split orientation
+bindsym $alt+Tab layout toggle tabbed split
+
+# Split directions
+bindsym $Mod+g split h
+bindsym $Mod+v split v
+bindsym $Mod+Shift+t layout tabbed
+bindsym $Mod+Shift+s layout stacking
+bindsym $Mod+Shift+g layout toggle split
+
+bindsym $mod+BackSpace workspace back_and_forth
