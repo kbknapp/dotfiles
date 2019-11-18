@@ -90,6 +90,7 @@ Plug 'tpope/vim-repeat'
 " Tagbar
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
+nmap <leader>T :TagbarToggle<CR>
 
 " Markdown
 Plug 'mzlogin/vim-markdown-toc'
@@ -217,7 +218,9 @@ nnoremap <C-y> 8<C-y>
 
 " Mirror CLion for tags and jumps
 nnoremap <C-b> <C-]>
-nnoremap <C-BS> <C-O>
+" C-BS doesn't work in Terminal VIM: https://vim.fandom.com/wiki/Map_Ctrl-Backspace_to_delete_previous_word
+"nnoremap <C-BS> <C-O>
+nnoremap <C-\> <C-O>
 
 " Open hotkeys
 map <C-p> :Files<CR>
@@ -499,6 +502,10 @@ inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\
 " =============================================================================
 " # Autocommands
 " =============================================================================
+
+" Rust-tags support
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
 " Prevent accidental writes to buffers that shouldn't be edited
 autocmd BufRead *.orig set readonly
