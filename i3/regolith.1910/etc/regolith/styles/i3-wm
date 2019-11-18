@@ -10,6 +10,7 @@
 #define code_glyph 
 #define files_glyph 
 #define home_glyph 
+#define notes_glyph 
 #define mail_glyph 
 #define steam_glyph 
 
@@ -60,13 +61,13 @@ i3-wm.client.urgent.color.child_border:
 #define WORKSPACE_NAME(INDEX, FONT, COLOR, GLYPH) INDEX:<span font_desc=FONT> INDEX </span><span foreground=COLOR>GLYPH</span>
 
 i3-wm.workspace.01.name: WORKSPACE_NAME(1, glyph_font, QUOTE(color_blue), term_glyph)
-i3-wm.workspace.02.name: WORKSPACE_NAME(2, glyph_font, QUOTE(color_cyan), web_glyph)
+i3-wm.workspace.02.name: WORKSPACE_NAME(2, glyph_font, QUOTE(color_orange), web_glyph)
 i3-wm.workspace.03.name: WORKSPACE_NAME(3, glyph_font, QUOTE(color_green), files_glyph)
 i3-wm.workspace.04.name: WORKSPACE_NAME(4, glyph_font, QUOTE(color_yellow), code_glyph)
 i3-wm.workspace.05.name: WORKSPACE_NAME(5, glyph_font, QUOTE(color_orange), git_glyph)
 i3-wm.workspace.06.name: WORKSPACE_NAME(6, glyph_font, QUOTE(color_red), vm_glyph)
 i3-wm.workspace.07.name: WORKSPACE_NAME(7, glyph_font, QUOTE(color_magenta), chat_glyph)
-i3-wm.workspace.08.name: WORKSPACE_NAME(8, glyph_font, QUOTE(color_violet), notes_glyph)
+i3-wm.workspace.08.name: WORKSPACE_NAME(8, glyph_font, QUOTE(color_yellow), notes_glyph)
 i3-wm.workspace.09.name: WORKSPACE_NAME(9, glyph_font, QUOTE(color_base1), mail_glyph)
 i3-wm.workspace.10.name: WORKSPACE_NAME(10, glyph_font, QUOTE(color_blue), steam_glyph)
 i3-wm.workspace.11.name: WORKSPACE_NAME(11, glyph_font, QUOTE(color_cyan), home_glyph)
