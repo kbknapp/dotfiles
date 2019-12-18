@@ -2,7 +2,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# This defines which key super maps to on your keyboard.
+# This defines which key super maps to on your keyboard.  
 # Alt key is Mod1, and Windows key is Mod4
 set $mod Mod4
 set $alt Mod1
@@ -11,7 +11,7 @@ set $alt Mod1
 set $i3xrocks_config /etc/regolith/i3xrocks/config
 
 # compton config file
-set $compton_config /etc/regolith/compton/config
+#set $compton_config /etc/regolith/compton/config
 
 # path to terminal. Override this to specify a custom terminal.
 set $terminal_path /usr/bin/alacritty
@@ -81,14 +81,8 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# move workspaces to outputs
-bindsym $mod+Ctrl+Shift+Left move workspace to output left
-bindsym $mod+Ctrl+Shift+Down move workspace to output down
-bindsym $mod+Ctrl+Shift+Up move workspace to output up
-bindsym $mod+Ctrl+Shift+Right move workspace to output right
-
 # toggle split orientation
-bindsym $mod+Shift+Backspace split toggle
+bindsym $mod+Shift+BackSpace split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -102,9 +96,6 @@ bindsym $mod+Shift+question exec --no-startup-id /usr/bin/conky-toggle
 
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+$alt+t focus mode_toggle
 
 # toggle tabbed mode
 bindsym $mod+t layout toggle tabbed splith splitv
@@ -156,7 +147,7 @@ bindsym $mod+Shift+Ctrl+8 move container to workspace $ws18
 bindsym $mod+Shift+Ctrl+9 move container to workspace $ws19
 
 # move focused container to workspace, move to workspace
-bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1  
 bindsym $mod+$alt+2 move container to workspace $ws2; workspace $ws2
 bindsym $mod+$alt+3 move container to workspace $ws3; workspace $ws3
 bindsym $mod+$alt+4 move container to workspace $ws4; workspace $ws4
@@ -182,14 +173,20 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
+# Logout of session
+bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
+
+# Reboot computer
+bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
+
+# Power off computer
+bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
+
+# lock the screen
+bindsym $mod+Escape exec gnome-screensaver-command --lock
+
 # shortcuts for common system configuration tasks
 bindsym $mod+c exec gnome-control-center
-#bindsym $mod+w exec gnome-control-center wifi
-#bindsym $mod+b exec gnome-control-center bluetooth
-#bindsym $mod+d exec gnome-control-center display
-#bindsym $mod+n exec gnome-control-center network
-#bindsym $mod+p exec gnome-control-center power
-#bindsym $mod+s exec gnome-control-center sound
 
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
@@ -242,7 +239,7 @@ set_from_resource $focused_inactive.color.border i3-wm.client.focused_inactive.c
 set_from_resource $focused_inactive.color.background i3-wm.client.focused_inactive.color.background "#073642"
 set_from_resource $focused_inactive.color.text i3-wm.client.focused_inactive.color.text "#839496"
 set_from_resource $focused_inactive.color.indicator i3-wm.client.focused_inactive.color.indicator "#073642"
-set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border
+set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border 
 
 set_from_resource $unfocused.color.border i3-wm.client.unfocused.color.border "#002b36"
 set_from_resource $unfocused.color.background i3-wm.client.unfocused.color.background "#073642"
@@ -315,22 +312,16 @@ bar {
 
 # Run programs when i3 starts
 
-# Start the composite manager
-exec --no-startup-id compton -f --config $compton_config
-
 # Launch the shortcut Conky window on first login
 exec --no-startup-id /usr/bin/regolith-ftue
 
 # Hide the mouse pointer if unused for a duration
 exec --no-startup-id /usr/bin/unclutter -b
 
-# Refresh wallpaper on screen resolution change
-exec --no-startup-id /usr/bin/xeventbind resolution /usr/bin/wallpaper-refresh
-
 ### kbknapp Addtions
-
-# Assign Applications to specific workspace
-# get class with xprop
+#
+## Assign Applications to specific workspace
+## get class with xprop
 assign [class="(?i)(?:firefox)"] → $ws2
 assign [class="(?i)(?:org.gnome.Nautilus)"]  → $ws3
 assign [class="(?i)(?:jetbrains-clion)"] → $ws4
@@ -339,6 +330,10 @@ assign [class="(?i)(?:vmware)"] → $ws6
 assign [class="(?i)(?:TelegramDesktop)"] → $ws7
 assign [class="(?i)(?:Signal)"] → $ws7
 assign [class="(?i)(?:standard notes)"] → $ws8
+assign [class="(?i)(?:mailspring)"] → $ws9
+assign [class="(?i)(?:mullvad)"] → $ws10
+assign [class="(?i)(?:privateinternetaccess)"] → $ws10
+assign [class="(?i)(?:steam)"] → $ws10
 
 # # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
@@ -348,18 +343,6 @@ popup_during_fullscreen smart
 
 # Polybar
 exec_always --no-startup-id /usr/bin/al-polybar-session
-
-# Logout of session
-bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
-
-# Reboot computer
-bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
-
-# Power off computer
-bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
-
-# lock the screen
-bindsym $mod+Escape exec gnome-screensaver-command --lock
 
 # put the system to sleep
 bindsym $mod+Ctrl+Shift+s exec systemctl suspend
