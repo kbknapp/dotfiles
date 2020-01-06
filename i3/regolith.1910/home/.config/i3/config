@@ -1,0 +1,68 @@
+# path to terminal. Override this to specify a custom terminal.
+set $terminal_path /usr/bin/alacritty
+
+# move workspaces to outputs
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Down move workspace to output down
+bindsym $mod+Ctrl+Shift+Up move workspace to output up
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
+
+# toggle split orientation
+bindsym $mod+Shift+Backspace split toggle
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+### kbknapp Addtions
+
+# Assign Applications to specific workspace
+# get class with xprop
+assign [class="(?i)(?:firefox)"] → $ws2
+assign [class="(?i)(?:org.gnome.Nautilus)"]  → $ws3
+assign [class="(?i)(?:jetbrains-clion)"] → $ws4
+assign [class="(?i)(?:gitkraken)"] → $ws5
+assign [class="(?i)(?:vmware)"] → $ws6
+assign [class="(?i)(?:TelegramDesktop)"] → $ws7
+assign [class="(?i)(?:Signal)"] → $ws7
+assign [class="(?i)(?:standard notes)"] → $ws8
+assign [class="(?i)(?:privateinternetaccess)"] → $ws11
+assign [class="(?i)(?:steam)"] → $ws10
+assign [class="(?i)(?:mailspring)"] → $ws9
+
+# # focus, floating, & sticky
+for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
+for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
+
+popup_during_fullscreen smart
+
+# Polybar
+exec_always --no-startup-id /usr/bin/al-polybar-session
+
+# lock the screen
+bindsym $mod+Escape exec gnome-screensaver-command --lock
+
+# Logout/lock
+bindsym $Mod+x exec --no-startup-id rofi_run -l
+# Translate
+bindsym $mod+e          exec --no-startup-id rofi_run --en-es
+bindsym $mod+$alt+e     exec --no-startup-id rofi_run --es-en
+# Rust Docs Search
+bindsym $mod+u          exec --no-startup-id rofi_run --rust
+# Browser Search
+bindsym $Mod+w          exec --no-startup-id rofi_run -b
+
+# move workspaces left or right
+bindsym $Mod+Shift+Mod1+h exec i3-msg move workspace to output left
+bindsym $Mod+Shift+Mod1+l exec i3-msg move workspace to output right
+
+# toggle split orientation
+bindsym $alt+Tab layout toggle tabbed split
+
+# Split directions
+bindsym $Mod+g split h
+bindsym $Mod+v split v
+bindsym $Mod+Shift+t layout tabbed
+bindsym $Mod+Shift+s layout stacking
+bindsym $Mod+Shift+g layout toggle split
+
+bindsym $mod+BackSpace workspace back_and_forth
