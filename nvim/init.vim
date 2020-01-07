@@ -111,7 +111,6 @@ Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
 Plug 'dag/vim-fish'
-Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 " Colorscheme
