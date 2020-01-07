@@ -15,6 +15,9 @@ cargo install \
   cargo-audit \
   cargo-update \
   cargo-expand \
+  cargo-deny \
+  cargo-license \
+  cargo-lichking \
   cargo-count
 
 # Dev tools
@@ -72,6 +75,8 @@ cargo install \
   fastmod       `# find and replace` \
   ttdl          `# todo list` \
   genact        `# activity generator` \
+  grex          `# regex builder` \
+  bandwhich     `# bandwidth monitor` \
   tealdeer      `# tldr`
 
 # Data handling
