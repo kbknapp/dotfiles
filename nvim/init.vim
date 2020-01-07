@@ -68,7 +68,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Semantic language support
-Plug 'phildawes/racer'
 Plug 'racer-rust/vim-racer'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
