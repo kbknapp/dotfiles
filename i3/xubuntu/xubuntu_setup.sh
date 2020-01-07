@@ -74,8 +74,8 @@ sudo apt install -y \
     libstartup-notification0-dev libxcb-xkb-dev libxcb-util-dev \
     libxcb-cursor-dev libxcb-keysyms1-dev libxcb-icccm4-dev \
     libxcb-xrm-dev libxkbcommon-x11-dev libxkbcommon-dev \
-    libyajl-dev libcairo2-dev libpango1.0-dev 
-     
+    libyajl-dev libcairo2-dev libpango1.0-dev
+
 mkdir -pv "${BUILD_DIR}"
 git clone https://github.com/Airblader/i3 "${BUILD_DIR}"/i3-gaps
 cd "${BUILD_DIR}"/i3-gaps/
@@ -91,7 +91,9 @@ sudo make install
 sudo apt install -y \
 	libasound2-dev libcurl4-openssl-dev libmpdclient-dev \
 	libiw-dev libpulse-dev xcb-proto xcb libxcb-ewmh-dev \
-	python-xcbgen 
+	python-xcbgen libcairo2-dev libxcb-composite0-dev \
+  libxcb-randr0-dev libxcb-image0-dev libxcb-icccm4-dev \
+  libxcb-util0-dev
 
 git clone https://github.com/jaagr/polybar "${BUILD_DIR}"/polybar
 cd "${BUILD_DIR}"/polybar/
