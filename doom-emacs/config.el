@@ -6,8 +6,8 @@
 
 ;; These are used for a number of things, particularly for GPG configuration,
 ;; some email clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Kevin K."
+      user-mail-address "kbknapp@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -49,9 +49,16 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq projectile-project-search-path '("~/Projects/"))
+(setq
+ projectile-project-search-path '("~/Projects/"))
 
 (after! org
   (map! :map org-mode-map
         :n "M-j" #'org-metadown
         :n "M-k" #'org-metaup))
+
+(setq org-directory "~/org")
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+
+(map! :leader
+      :desc "Open org-mode" "oo" #'org-mode)
