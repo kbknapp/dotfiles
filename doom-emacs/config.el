@@ -59,6 +59,7 @@
 
 (setq org-directory "~/org")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq tab-stop-list (number-sequence 4 200 4))
 
 (map! :leader
       :desc "Open org-mode" "oo" #'org-mode)
