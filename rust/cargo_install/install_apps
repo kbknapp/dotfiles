@@ -83,7 +83,8 @@ cargo install \
 cargo install \
   jql           `# json handling` \
   xsv           `# csv handling` \
-  hexyl         `# Hex Viewer`
+  hexyl         `# Hex Viewer` \
+  hx            `# Hex Viewer`
 
 # Keep eye on:
 # cargo install \
