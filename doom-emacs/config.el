@@ -63,3 +63,5 @@
 
 (map! :leader
       :desc "Open org-mode" "oo" #'org-mode)
+(map! :leader
+      :desc "Deadgrep" "/" #'deadgrep)
