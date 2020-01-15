@@ -59,8 +59,7 @@ source $HOME/.config/zsh-abbrev-alias/abbrev-alias.plugin.zsh
 
 # User configuration
 
-export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:$HOME/.bin
+export PATH=/usr/local/bin:$HOME/.bin:$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -117,3 +116,19 @@ abbrev-alias -g tree='exa -T'
 abbrev-alias -g vim='nvim.043'
 abbrev-alias -g nvim='nvim.043'
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source /home/kevin/.config/broot/launcher/bash/br
+
+# ZLE and broot don't play nicely so we launch `alacritty` and communicate with
+# it over a temp file to get broot's output
+addbr() {
+  tmp_file=$(mktemp) # We'll use this file to communicate with the alacritty process
+  cwd=$(pwd)
+  alacritty -e /bin/sh -c "cd ${cwd} && broot -o ${tmp_file}"
+  broot_out=$(< ${tmp_file} && rm ${tmp_file})
+  RBUFFER=${broot_out}${RBUFFER}
+}
+zle -N addbr
+bindkey '^B' addbr # Bind functionality to Ctrl-B
