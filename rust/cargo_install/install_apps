@@ -77,6 +77,7 @@ cargo install \
   genact        `# activity generator` \
   grex          `# regex builder` \
   bandwhich     `# bandwidth monitor` \
+  ffsend	`# firefox send from cli` \
   tealdeer      `# tldr`
 
 # Data handling
