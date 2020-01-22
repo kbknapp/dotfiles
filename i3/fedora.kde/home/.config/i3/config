@@ -359,7 +359,7 @@ popup_during_fullscreen smart
 bindsym $mod+Ctrl+Shift+s exec systemctl suspend
 
 # Logout/lock
-bindsym $Mod+x exec --no-startup-id rofi_run -l --theme $rofi_theme
+bindsym $mod+x exec --no-startup-id rofi_run -l --theme $rofi_theme
 # Translate
 bindsym $mod+e          exec --no-startup-id rofi_run --en-es --theme $rofi_theme
 bindsym $mod+$alt+e     exec --no-startup-id rofi_run --es-en --theme $rofi_theme
@@ -368,20 +368,20 @@ bindsym $mod+d          exec --no-startup-id rofi_run --rust --theme $rofi_theme
 # Clipboard
 bindsym $mod+p          exec --no-startup-id rofi_run -c --theme $rofi_theme
 # Browser Search
-bindsym $Mod+w          exec --no-startup-id rofi_run -b --theme $rofi_theme
+bindsym $mod+w          exec --no-startup-id rofi_run -b --theme $rofi_theme
 
 # move workspaces left or right
-bindsym $Mod+Shift+Mod1+h exec i3-msg move workspace to output left
-bindsym $Mod+Shift+Mod1+l exec i3-msg move workspace to output right
+bindsym $mod+Shift+mod1+h exec i3-msg move workspace to output left
+bindsym $mod+Shift+mod1+l exec i3-msg move workspace to output right
 
 # toggle split orientation
 bindsym $alt+Tab layout toggle tabbed split
 
 # Split directions
-bindsym $Mod+g split h
-bindsym $Mod+v split v
-bindsym $Mod+Shift+t layout tabbed
-bindsym $Mod+Shift+s layout stacking
-bindsym $Mod+Shift+g layout toggle split
+bindsym $mod+g split h
+bindsym $mod+v split v
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+g layout toggle split
 
 bindsym $mod+BackSpace workspace back_and_forth
