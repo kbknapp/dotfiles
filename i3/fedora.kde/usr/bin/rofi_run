@@ -87,7 +87,7 @@ for arg in "$@"; do
 		    | xargs -I{} xdg-open https://www.google.com/search?q={}
             ;;
         --rust)
-            echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Web Search:' \
+            echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Rust Docs Search:' \
                  -padding 50 -line-padding 4 \
 		    | xargs -I{} xdg-open https://doc.rust-lang.org/std/?search={}
             ;;

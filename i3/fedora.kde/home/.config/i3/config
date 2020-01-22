@@ -185,7 +185,7 @@ bindsym $mod+Shift+r restart
 #bindsym $mod+Escape exec gnome-screensaver-command --lock
 
 # shortcuts for common system configuration tasks
-#bindsym $mod+c exec gnome-control-center
+bindsym $mod+c exec systemsettings5
 
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
@@ -365,6 +365,8 @@ bindsym $mod+e          exec --no-startup-id rofi_run --en-es --theme $rofi_them
 bindsym $mod+$alt+e     exec --no-startup-id rofi_run --es-en --theme $rofi_theme
 # Rust Docs Search
 bindsym $mod+d          exec --no-startup-id rofi_run --rust --theme $rofi_theme
+# Clipboard
+bindsym $mod+p          exec --no-startup-id rofi_run -c --theme $rofi_theme
 # Browser Search
 bindsym $Mod+w          exec --no-startup-id rofi_run -b --theme $rofi_theme
 
