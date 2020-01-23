@@ -16,7 +16,7 @@ sudo dnf install -y @development-tools @virtualization emacs exfat-utils ffmpeg 
 sudo dnf install xorg-x11-drv-nvidia akmod-nvidia xorg-x11-drv-nvidia-cuda vulkan xorg-x11-drv-nvidia-cuda-libs vdpauinfo libva-vdpau-driver libva-utils
 
 # Libs for i3 etc.
-sudo dnf install -y libX11-devel libXtst-devel pulseaudio-libs-devel jsoncpp-devel alsa-lib-devel wireless-tools-devel libmpdclient-devel libcurl-devel cairo-devel xcb-proto xcb-util-devel xcb-util-wm-devel xcb-util-image-devel libxcb-devel xcb-util-keysyms-devel xcb-util-devel xcb-util-wm-devel xcb-util-xrm-devel yajl-devel libXrandr-devel startup-notification-devel libev-devel xcb-util-cursor-devel libXinerama-devel libxkbcommon-devel libxkbcommon-x11-devel pcre-devel pango-devel uthash-devel libX11-devel libXcomposite-devel libXfixes-devel libXdamage-devel libXrender-devel libXext-devel libXrandr-devel libXinerama-devel libconfig-devel pcre-devel libdrm-devel mesa-libGL-devel dbus-devel asciidoc desktop-file-utils uthash-devel libxdg-basedir-develfontconfig-devel freetype-devel
+sudo dnf install -y libX11-devel libXtst-devel pulseaudio-libs-devel jsoncpp-devel alsa-lib-devel wireless-tools-devel libmpdclient-devel libcurl-devel cairo-devel xcb-proto xcb-util-devel xcb-util-wm-devel xcb-util-image-devel libxcb-devel xcb-util-keysyms-devel xcb-util-devel xcb-util-wm-devel xcb-util-xrm-devel yajl-devel libXrandr-devel startup-notification-devel libev-devel xcb-util-cursor-devel libXinerama-devel libxkbcommon-devel libxkbcommon-x11-devel pcre-devel pango-devel uthash-devel libX11-devel libXcomposite-devel libXfixes-devel libXdamage-devel libXrender-devel libXext-devel libXrandr-devel libXinerama-devel libconfig-devel pcre-devel libdrm-devel mesa-libGL-devel dbus-devel asciidoc desktop-file-utils uthash-devel libxdg-basedir-devel fontconfig-devel freetype-devel
 
 # Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -27,7 +27,7 @@ rustup component add rust-src
 cd ~/.build/
 for REPO in {https://github.com/jwilm/alacritty,https://github.com/meskarune/i3lock-fancy.git,https://github.com/hanschen/ksuperkey,https://github.com/Airblader/i3,https://github.com/jaagr/polybar,https://github.com/yshui/compton}; do git clone --recursive $REPO; done
 
-cd ~/.build/i3-gaps/ && \
+cd ~/.build/i3/ && \
 	autoreconf --force --install && \
 	mkdir -p build \
 	&& \
@@ -55,16 +55,14 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.g
 cp -r ~/.dotfiles/nvim/ ~/.config/
 nvim +PlugInstall +qall
 
-cd ~/.build/alacritty/
-sudo dnf install 
-cargo build --release
-sudo cp target/release/alacritty /usr/bin
+cd ~/.build/alacritty/ && \
+	cargo build --release && \
+	sudo cp target/release/alacritty /usr/bin
 
 cp -r ~/.dotfiles/alacritty/ ~/.config/
 
 sudo dnf clean all
 sudo dnf upgrade --best --allowerasing
-sudo dnf upgrade
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -74,3 +72,6 @@ git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 cp ~/.dotfiles/doom-emacs/* ~/.doom.d/
 ~/.emacs.d/bin/doom sync
 ~/.emacs.d/bin/doom build
+
+cd ~/.config
+git clone https://github.com/momo-lab/zsh-abbrev-alias
