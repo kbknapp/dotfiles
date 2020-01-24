@@ -319,7 +319,7 @@ exec --no-startup-id /usr/bin/unclutter -b
 exec_always --no-startup-id feh --bg-fill /home/kevin/Pictures/wallpapers/wall.jpeg
 
 # Start compton
-exec --no-startup-id picom -f --config $picom_config
+exec_always --no-startup-id picom -f --config /home/kevin/.config/picom/config
 
 ### kbknapp Addtions
 #
