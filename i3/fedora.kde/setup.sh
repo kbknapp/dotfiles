@@ -10,7 +10,7 @@ sudo dnf install -y fedora-workstation-repositories rpmfusion-free-release-taint
 sudo dnf groupupdate multimedia sound-and-video
 sudo dnf config-manager --set-enabled rpmfusion-nonfree-nvidia-driver
 
-sudo dnf install -y @development-tools @virtualization emacs exfat-utils ffmpeg fuse-exfat fuse-sshfs lm_sensors openssh-askpass p7zip p7zip-plugins pv python3-devel unar virt-top virt-manager arc-theme youtube-dl adobe-source-code-pro-fonts gitg meld tig exfat-utils fuse-exfat fuse-sshfs lm_sensors 'mozilla-fira-*' pv gvfs-smb gvfs-fuse gvfs-nfs util-linux-user vlc podman wavemon neovim python3-neovim ansible adobe-source-code-pro-fonts borgbackup iotop nload vim-enhanced zsh zsh-syntax-highlighting cockpit cockpit-bridge libguestfs-tools guestfs-browser ncdu flatpak gcc make fzf llvm clang pkgconfig arandr rofi cmake gcc-c++ automake i3status meson xfsprogs
+sudo dnf install -y @development-tools @virtualization emacs exfat-utils ffmpeg fuse-exfat fuse-sshfs lm_sensors openssh-askpass p7zip p7zip-plugins pv python3-devel unar virt-top virt-manager arc-theme youtube-dl adobe-source-code-pro-fonts gitg meld tig exfat-utils fuse-exfat fuse-sshfs lm_sensors 'mozilla-fira-*' pv gvfs-smb gvfs-fuse gvfs-nfs util-linux-user vlc podman wavemon neovim python3-neovim ansible adobe-source-code-pro-fonts borgbackup iotop nload vim-enhanced zsh zsh-syntax-highlighting cockpit cockpit-bridge libguestfs-tools guestfs-browser ncdu flatpak gcc make fzf llvm clang pkgconfig arandr rofi cmake gcc-c++ automake i3status meson xfsprogs feh
 
 # nVidia
 sudo dnf install xorg-x11-drv-nvidia akmod-nvidia xorg-x11-drv-nvidia-cuda vulkan xorg-x11-drv-nvidia-cuda-libs vdpauinfo libva-vdpau-driver libva-utils
