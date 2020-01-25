@@ -10,7 +10,7 @@ sudo dnf install -y fedora-workstation-repositories rpmfusion-free-release-taint
 sudo dnf groupupdate multimedia sound-and-video
 sudo dnf config-manager --set-enabled rpmfusion-nonfree-nvidia-driver
 
-sudo dnf install -y @development-tools @virtualization emacs exfat-utils ffmpeg fuse-exfat fuse-sshfs lm_sensors openssh-askpass p7zip p7zip-plugins pv python3-devel unar virt-top virt-manager arc-theme youtube-dl adobe-source-code-pro-fonts gitg meld tig exfat-utils fuse-exfat fuse-sshfs lm_sensors 'mozilla-fira-*' pv gvfs-smb gvfs-fuse gvfs-nfs util-linux-user vlc podman wavemon neovim python3-neovim ansible adobe-source-code-pro-fonts borgbackup iotop nload vim-enhanced zsh zsh-syntax-highlighting cockpit cockpit-bridge libguestfs-tools guestfs-browser ncdu flatpak gcc make fzf llvm clang pkgconfig arandr rofi cmake gcc-c++ automake i3status meson xfsprogs feh
+sudo dnf install -y @development-tools @virtualization emacs  ffmpeg fuse-exfat  lm_sensors openssh-askpass p7zip p7zip-plugins pv python3-devel unar virt-top virt-manager arc-theme youtube-dl  gitg meld tig exfat-utils  fuse-sshfs lm_sensors 'mozilla-fira-*' pv gvfs-smb gvfs-fuse gvfs-nfs util-linux-user vlc podman wavemon neovim python3-neovim ansible adobe-source-code-pro-fonts borgbackup iotop nload vim-enhanced zsh zsh-syntax-highlighting cockpit cockpit-bridge libguestfs-tools guestfs-browser ncdu flatpak gcc make fzf llvm clang pkgconfig arandr rofi cmake gcc-c++ automake i3status meson xfsprogs feh
 
 # nVidia
 sudo dnf install xorg-x11-drv-nvidia akmod-nvidia xorg-x11-drv-nvidia-cuda vulkan xorg-x11-drv-nvidia-cuda-libs vdpauinfo libva-vdpau-driver libva-utils
@@ -25,7 +25,7 @@ rustup default nightly
 rustup component add rust-src
 
 cd ~/.build/
-for REPO in {https://github.com/jwilm/alacritty,https://github.com/meskarune/i3lock-fancy.git,https://github.com/hanschen/ksuperkey,https://github.com/Airblader/i3,https://github.com/jaagr/polybar,https://github.com/yshui/compton}; do git clone --recursive $REPO; done
+for REPO in {https://github.com/jwilm/alacritty,https://github.com/meskarune/i3lock-fancy.git,https://github.com/hanschen/ksuperkey,https://github.com/Airblader/i3,https://github.com/jaagr/polybar,https://github.com/yshui/picom}; do git clone --recursive $REPO; done
 
 cd ~/.build/i3/ && \
 	autoreconf --force --install && \
@@ -44,7 +44,7 @@ cd ~/.build/ksuperkey/ && \
 cd ~/.build/polybar/ && \
 	./build.sh --all-features -g -f 
 
-cd ~/.build/compton/ && \
+cd ~/.build/picom/ && \
 	git submodule update --init --recursive && \
 	meson --buildtype=release . build && \
 	ninja -C build && \
