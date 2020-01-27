@@ -1,4 +1,7 @@
-sudo dnf install git 
+sudo dnf remove kmail kontact kmahjongg konversation ktorrent kmines kget korganizer kamoso juk falkon akregator k3b kaddressbook calligra-core kpat
+
+sudo dnf install git
+
 git clone https://github.com/kbknapp/dotfiles .dotfiles
 
 mkdir -pv {.build,Projects,.tmp,.local/bin,.bin,bin}
@@ -75,3 +78,4 @@ cp ~/.dotfiles/doom-emacs/* ~/.doom.d/
 
 cd ~/.config
 git clone https://github.com/momo-lab/zsh-abbrev-alias
+
