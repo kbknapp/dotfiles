@@ -1,17 +1,14 @@
-# i3 config file (v4) for Regolith Desktop Environment
+# i3 config file for the Regolith Desktop Environment
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# This defines which key super maps to on your keyboard.  
+# This defines which key super maps to on your keyboard.
 # Alt key is Mod1, and Windows key is Mod4
 set $mod Mod4
 set $alt Mod1
 
-# i3xrocks config file
+# i3xrocks config file. Override this for custom status indicators on the bar.
 set $i3xrocks_config /etc/regolith/i3xrocks/config
-
-# compton config file
-#set $compton_config /etc/regolith/compton/config
 
 # path to terminal. Override this to specify a custom terminal.
 set $terminal_path /usr/bin/alacritty
@@ -81,91 +78,98 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+# move workspaces to outputs
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Down move workspace to output down
+bindsym $mod+Ctrl+Shift+Up move workspace to output up
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
+
 # toggle split orientation
 bindsym $mod+Shift+BackSpace split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change gaps interactively
-bindsym $mod+minus gaps inner current minus 6
-bindsym $mod+plus gaps inner current plus 6
-
 # show/hide keybindings
-bindsym $mod+Shift+question exec --no-startup-id /usr/bin/conky-toggle
+bindsym $mod+Shift+question exec --no-startup-id /usr/bin/remontoire-toggle
 
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
+bindsym $mod+Ctrl+m move to scratchpad
+bindsym $mod+Ctrl+a scratchpad show
+
+# change focus between tiling / floating windows
+#bindsym $mod+t focus mode_toggle
 
 # toggle tabbed mode
 bindsym $mod+t layout toggle tabbed splith splitv
 
-# move to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
-bindsym $mod+Ctrl+1 workspace $ws11
-bindsym $mod+Ctrl+2 workspace $ws12
-bindsym $mod+Ctrl+3 workspace $ws13
-bindsym $mod+Ctrl+4 workspace $ws14
-bindsym $mod+Ctrl+5 workspace $ws15
-bindsym $mod+Ctrl+6 workspace $ws16
-bindsym $mod+Ctrl+7 workspace $ws17
-bindsym $mod+Ctrl+8 workspace $ws18
-bindsym $mod+Ctrl+9 workspace $ws19
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+bindsym $mod+Ctrl+1 workspace number $ws11
+bindsym $mod+Ctrl+2 workspace number $ws12
+bindsym $mod+Ctrl+3 workspace number $ws13
+bindsym $mod+Ctrl+4 workspace number $ws14
+bindsym $mod+Ctrl+5 workspace number $ws15
+bindsym $mod+Ctrl+6 workspace number $ws16
+bindsym $mod+Ctrl+7 workspace number $ws17
+bindsym $mod+Ctrl+8 workspace number $ws18
+bindsym $mod+Ctrl+9 workspace number $ws19
 
 # cycle across workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
-bindsym $mod+Shift+Ctrl+1 move container to workspace $ws11
-bindsym $mod+Shift+Ctrl+2 move container to workspace $ws12
-bindsym $mod+Shift+Ctrl+3 move container to workspace $ws13
-bindsym $mod+Shift+Ctrl+4 move container to workspace $ws14
-bindsym $mod+Shift+Ctrl+5 move container to workspace $ws15
-bindsym $mod+Shift+Ctrl+6 move container to workspace $ws16
-bindsym $mod+Shift+Ctrl+7 move container to workspace $ws17
-bindsym $mod+Shift+Ctrl+8 move container to workspace $ws18
-bindsym $mod+Shift+Ctrl+9 move container to workspace $ws19
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+Ctrl+1 move container to workspace number $ws11
+bindsym $mod+Shift+Ctrl+2 move container to workspace number $ws12
+bindsym $mod+Shift+Ctrl+3 move container to workspace number $ws13
+bindsym $mod+Shift+Ctrl+4 move container to workspace number $ws14
+bindsym $mod+Shift+Ctrl+5 move container to workspace number $ws15
+bindsym $mod+Shift+Ctrl+6 move container to workspace number $ws16
+bindsym $mod+Shift+Ctrl+7 move container to workspace number $ws17
+bindsym $mod+Shift+Ctrl+8 move container to workspace number $ws18
+bindsym $mod+Shift+Ctrl+9 move container to workspace number $ws19
 
 # move focused container to workspace, move to workspace
-bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1  
-bindsym $mod+$alt+2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+$alt+3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+$alt+4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+$alt+5 move container to workspace $ws5; workspace $ws5
-bindsym $mod+$alt+6 move container to workspace $ws6; workspace $ws6
-bindsym $mod+$alt+7 move container to workspace $ws7; workspace $ws7
-bindsym $mod+$alt+8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+$alt+9 move container to workspace $ws9; workspace $ws9
-bindsym $mod+$alt+0 move container to workspace $ws10; workspace $ws10
-bindsym $mod+$alt+Ctrl+1 move container to workspace $ws11; workspace $ws11
-bindsym $mod+$alt+Ctrl+2 move container to workspace $ws12; workspace $ws12
-bindsym $mod+$alt+Ctrl+3 move container to workspace $ws13; workspace $ws13
-bindsym $mod+$alt+Ctrl+4 move container to workspace $ws14; workspace $ws14
-bindsym $mod+$alt+Ctrl+5 move container to workspace $ws15; workspace $ws15
-bindsym $mod+$alt+Ctrl+6 move container to workspace $ws16; workspace $ws16
-bindsym $mod+$alt+Ctrl+7 move container to workspace $ws17; workspace $ws17
-bindsym $mod+$alt+Ctrl+8 move container to workspace $ws18; workspace $ws18
-bindsym $mod+$alt+Ctrl+9 move container to workspace $ws19; workspace $ws19
+bindsym $mod+$alt+1 move container to workspace number $ws1; workspace number $ws1  
+bindsym $mod+$alt+2 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+$alt+3 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+$alt+4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+$alt+5 move container to workspace number $ws5; workspace number $ws5
+bindsym $mod+$alt+6 move container to workspace number $ws6; workspace number $ws6
+bindsym $mod+$alt+7 move container to workspace number $ws7; workspace number $ws7
+bindsym $mod+$alt+8 move container to workspace number $ws8; workspace number $ws8
+bindsym $mod+$alt+9 move container to workspace number $ws9; workspace number $ws9
+bindsym $mod+$alt+0 move container to workspace number $ws10; workspace number $ws10
+bindsym $mod+$alt+Ctrl+1 move container to workspace number $ws11; workspace number $ws11
+bindsym $mod+$alt+Ctrl+2 move container to workspace number $ws12; workspace number $ws12
+bindsym $mod+$alt+Ctrl+3 move container to workspace number $ws13; workspace number $ws13
+bindsym $mod+$alt+Ctrl+4 move container to workspace number $ws14; workspace number $ws14
+bindsym $mod+$alt+Ctrl+5 move container to workspace number $ws15; workspace number $ws15
+bindsym $mod+$alt+Ctrl+6 move container to workspace number $ws16; workspace number $ws16
+bindsym $mod+$alt+Ctrl+7 move container to workspace number $ws17; workspace number $ws17
+bindsym $mod+$alt+Ctrl+8 move container to workspace number $ws18; workspace number $ws18
+bindsym $mod+$alt+Ctrl+9 move container to workspace number $ws19; workspace number $ws19
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -174,19 +178,37 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # Logout of session
-bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
+#bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
 
 # Reboot computer
-bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
+#bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
 
 # Power off computer
-bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
+#bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
 
 # lock the screen
-bindsym $mod+Escape exec gnome-screensaver-command --lock
+#bindsym $mod+Escape exec gnome-screensaver-command --lock
+
+# put the system to sleep
+#bindsym $mod+Shift+s exec systemctl suspend
 
 # shortcuts for common system configuration tasks
 bindsym $mod+c exec gnome-control-center
+#bindsym $mod+d exec gnome-control-center display
+#bindsym $mod+w exec gnome-control-center wifi
+#bindsym $mod+Shift+n exec nautilus
+bindsym $mod+n exec /usr/share/rofication/rofication-gui.py
+
+# i3-snapshot for load/save current layout
+bindsym $mod+comma  exec /usr/bin/i3-snapshot -o > /tmp/i3-snapshot 
+bindsym $mod+period exec /usr/bin/i3-snapshot -c < /tmp/i3-snapshot
+
+# Toggle bar visibility
+bindsym $mod+i bar mode toggle
+
+# Cause Settings app to float above tiled windows
+floating_maximum_size -1 x -1
+for_window [class="Gnome-control-center"] floating enable
 
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
@@ -211,6 +233,12 @@ mode "Resize Mode" {
         bindsym Shift+j resize shrink height 12 px or 12 ppt
         bindsym Shift+l resize grow width 12 px or 12 ppt
 
+        # change gaps interactively
+        bindsym minus gaps inner current minus 6
+        bindsym plus gaps inner current plus 6
+        bindsym Shift+minus gaps inner current minus 12
+        bindsym Shift+plus gaps inner current plus 12
+
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -222,13 +250,14 @@ bindsym $mod+r mode "Resize Mode"
 new_window pixel 1
 new_float pixel 1
 
-# Gaps (i3-gaps)
+# Specify the distance between windows in pixels. (i3-gaps)
 gaps inner 5
 gaps outer 0
 
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on
 
+# Create variables from Xresources for i3's look.
 set_from_resource $focused.color.border i3-wm.client.focused.color.border "#002b36"
 set_from_resource $focused.color.background i3-wm.client.focused.color.background "#586e75"
 set_from_resource $focused.color.text i3-wm.client.focused.color.text "#fdf6e3"
@@ -239,7 +268,7 @@ set_from_resource $focused_inactive.color.border i3-wm.client.focused_inactive.c
 set_from_resource $focused_inactive.color.background i3-wm.client.focused_inactive.color.background "#073642"
 set_from_resource $focused_inactive.color.text i3-wm.client.focused_inactive.color.text "#839496"
 set_from_resource $focused_inactive.color.indicator i3-wm.client.focused_inactive.color.indicator "#073642"
-set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border 
+set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border
 
 set_from_resource $unfocused.color.border i3-wm.client.unfocused.color.border "#002b36"
 set_from_resource $unfocused.color.background i3-wm.client.unfocused.color.background "#073642"
@@ -267,6 +296,7 @@ popup_during_fullscreen smart
 # window focus follows your mouse movements as the mouse crosses window borders
 focus_follows_mouse yes
 
+# Create variables from Xresources for i3bars's look.
 set_from_resource $i3-wm.bar.background.color i3-wm.bar.background.color "#002b36"
 set_from_resource $i3-wm.bar.statusline.color i3-wm.bar.statusline.color "#93a1a1"
 set_from_resource $i3-wm.bar.separator.color i3-wm.bar.separator.color "#268bd2"
@@ -288,8 +318,9 @@ set_from_resource $i3-wm.bar.workspace.urgent.background.color i3-wm.bar.workspa
 set_from_resource $i3-wm.bar.workspace.urgent.text.color i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
 
 set_from_resource $i3-wm.bar.font i3-wm.bar.font "pango:Source Code Pro Medium 13, FontAwesome 13"
+font $i3-wm.bar.font
 
-# Configure the bar
+# The bar configuration
 bar {
   font $i3-wm.bar.font
   separator_symbol " "
@@ -310,18 +341,27 @@ bar {
   }
 }
 
-# Run programs when i3 starts
+# The following exec calls run programs in the background when i3 starts.
 
-# Launch the shortcut Conky window on first login
+# Start the installed regolith-compositor
+exec --no-startup-id /usr/share/regolith-compositor/init
+
+# Start Rofication for notifications
+exec --no-startup-id /usr/share/rofication/rofication-daemon.py
+
+# Launch first time user experience script
 exec --no-startup-id /usr/bin/regolith-ftue
 
 # Hide the mouse pointer if unused for a duration
 exec --no-startup-id /usr/bin/unclutter -b
 
+# Refresh wallpaper on screen resolution change
+exec --no-startup-id /usr/bin/xeventbind resolution /usr/bin/wallpaper-refresh
+
 ### kbknapp Addtions
-#
-## Assign Applications to specific workspace
-## get class with xprop
+
+# Assign Applications to specific workspace
+# get class with xprop
 assign [class="(?i)(?:firefox)"] → $ws2
 assign [class="(?i)(?:org.gnome.Nautilus)"]  → $ws3
 assign [class="(?i)(?:jetbrains-clion)"] → $ws4
@@ -330,10 +370,6 @@ assign [class="(?i)(?:vmware)"] → $ws6
 assign [class="(?i)(?:TelegramDesktop)"] → $ws7
 assign [class="(?i)(?:Signal)"] → $ws7
 assign [class="(?i)(?:standard notes)"] → $ws8
-assign [class="(?i)(?:mailspring)"] → $ws9
-assign [class="(?i)(?:mullvad)"] → $ws10
-assign [class="(?i)(?:privateinternetaccess)"] → $ws10
-assign [class="(?i)(?:steam)"] → $ws10
 
 # # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
@@ -344,6 +380,18 @@ popup_during_fullscreen smart
 # Polybar
 exec_always --no-startup-id /usr/bin/al-polybar-session
 
+# Logout of session
+bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
+
+# Reboot computer
+bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
+
+# Power off computer
+bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
+
+# lock the screen
+bindsym $mod+Escape exec gnome-screensaver-command --lock
+
 # put the system to sleep
 bindsym $mod+Ctrl+Shift+s exec systemctl suspend
 
@@ -353,7 +401,7 @@ bindsym $Mod+x exec --no-startup-id rofi_run -l
 bindsym $mod+e          exec --no-startup-id rofi_run --en-es
 bindsym $mod+$alt+e     exec --no-startup-id rofi_run --es-en
 # Rust Docs Search
-bindsym $mod+u          exec --no-startup-id rofi_run --rust
+bindsym $mod+d          exec --no-startup-id rofi_run --rust
 # Browser Search
 bindsym $Mod+w          exec --no-startup-id rofi_run -b
 
