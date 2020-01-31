@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 NAME=$(basename "$0")
-VER="0.5"
+VER="0.6"
+THEME=
 
 usage()
 {
@@ -9,29 +10,23 @@ usage()
 
  USAGE:  $NAME [OPTIONS]
 
- OPTIONS:
+ FLAGS:
 
      -h,--help          Display this message
-
      -v,--version       Display script version
-
-     -r,--run           Application launcher
-
-     -w,--window        Switch between windows
-
-     -l,--logout        System logout dialog
-
      -b,--browser       Browser search by keyword
-
-     --rust		Search Rust documentation online
-
-     -q,--qalculate     Persistant calculator dialog (requires libqalculate)
-
      -c,--clipboard     Select previous clipboard entries (requires greenclip)
+     -l,--logout        System logout dialog
+     -q,--qalculate     Persistant calculator dialog (requires libqalculate)
+     -r,--run           Application launcher
+     -w,--window        Switch between windows
+        --en-es		Translate EN to ES via Google
+        --es-en		Translate ES to EN via Google
+        --rust		Search Rust documentation online
 
-     --en-es		Translate EN to ES via Google
+ OPTIONS:
 
-     --es-en		Translate ES to EN via Google
+     --theme <name>     Theme file to use (in ~/.config/rofi/<name>.rasi)
 
 
   Without any options the run dialog will be opened.
@@ -39,7 +34,31 @@ usage()
 EOF
 }
 
+args=( "$@" )
+SKIP=0
 for arg in "$@"; do
+    if [[ "$SKIP" == 1 ]]; then
+	SKIP=0
+	continue
+    fi
+    case $arg in
+        --theme)
+            shift
+	    shift
+            SKIP=1
+	    THEME="-theme $1"
+	    ;;
+        *)
+	    continue
+	    ;;
+    esac
+done
+SKIP=0
+for arg in "${args[@]}"; do
+    if [[ "$SKIP" == 1 ]]; then
+	SKIP=0
+	continue
+    fi
     case $arg in
         -h|--help)
             usage
@@ -50,12 +69,15 @@ for arg in "$@"; do
             exit 0
             ;;
         -r|--run)
+	    # -drun-icon-theme "ArchLabs-Light"
             rofi -modi run,drun -show drun -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar \
-                -show-icons -drun-icon-theme "ArchLabs-Light"
+                -show-icons "$THEME"
+	    break
             ;;
         -w|--window)
-            rofi -modi window -show window -hide-scrollbar -padding 50 -line-padding 4
+            rofi -modi window -show window -hide-scrollbar -padding 50 -line-padding 4 "$THEME"
+	    break
             ;;
         -q|--qalculate)
             hash qalc &>/dev/null ||
@@ -63,7 +85,8 @@ for arg in "$@"; do
 
             rofi -modi "calc:qalc +u8 -nocurrencies" -padding 50 \
                 -show "calc:qalc +u8 -nocurrencies" -line-padding 4 \
-                -hide-scrollbar
+                -hide-scrollbar "$THEME"
+	    break
             ;;
         -c|--clipboard)
             hash greenclip &>/dev/null ||
@@ -71,37 +94,42 @@ for arg in "$@"; do
 
             rofi -modi "clipboard:greenclip print" -padding 50 \
                 -line-padding 4 -show "clipboard:greenclip print" \
-                -hide-scrollbar
+                -hide-scrollbar "$THEME"
+	    break
             ;;
         -b|--browser)
             echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Web Search:' \
-                 -padding 50 -line-padding 4 \
+                 -padding 50 -line-padding 4 "$THEME" \
 		    | xargs -I{} xdg-open https://www.google.com/search?q={}
+	    break
             ;;
         --rust)
-            echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Web Search:' \
-                 -padding 50 -line-padding 4 \
+            echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Rust Docs Search:' \
+                 -padding 50 -line-padding 4 "$THEME" \
 		    | xargs -I{} xdg-open https://doc.rust-lang.org/std/?search={}
+	    break
             ;;
         --en-es)
             echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Translate EN to ES:' \
-                 -padding 50 -line-padding 4 \
+                 -padding 50 -line-padding 4 "$THEME" \
 		    | xargs -I{} xdg-open 'https://translate.google.com/#view=home&op=translate&sl=en&tl=es&text={}'
+	    break
             ;;
         --es-en)
             echo "" | rofi -dmenu -hide-scrollbar -dmenu -i -p 'Translate ES to EN:' \
-                 -padding 50 -line-padding 4 \
+                 -padding 50 -line-padding 4 "$THEME" \
 		    | xargs -I{} xdg-open 'https://translate.google.com/#view=home&op=translate&sl=es&tl=en&text={}'
+	    break
             ;;
         -l|--logout)
             if grep -q 'exec startx' $HOME/.*profile; then
                 ANS="$(rofi -sep "|" -dmenu -i -p 'System' -width 20 \
                     -hide-scrollbar -line-padding 4 -padding 20 \
-                    -lines 3 <<< " Lock| Reboot| Shutdown")"
+                    -lines 3 "$THEME" <<< " Lock| Reboot| Shutdown")"
             else
                 ANS="$(rofi -sep "|" -dmenu -i -p 'System' -width 20 \
                     -hide-scrollbar -line-padding 4 -padding 20 \
-                    -lines 4 <<< " Lock| Logout| Reboot| Shutdown")"
+                    -lines 4 "$THEME" <<< " Lock| Logout| Reboot| Shutdown")"
             fi
 
             case "$ANS" in
@@ -110,13 +138,18 @@ for arg in "$@"; do
                 *Shutdown) systemctl -i poweroff ;;
                 *Logout) session-logout || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
             esac
+	    break
             ;;
+        --theme)
+		shift
+		SKIP=1
+		continue
+	    ;;
         *)
             printf "\nOption does not exist: %s\n\n" "$arg"
             exit 2
+	    ;;
     esac
 done
-
-(( $# == 0 )) && "$0" -r
 
 exit 0

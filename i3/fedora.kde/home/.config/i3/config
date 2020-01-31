@@ -11,7 +11,7 @@ set $alt Mod1
 #set $i3xrocks_config /etc/regolith/i3xrocks/config
 
 # compton config file
-#set $compton_config /etc/regolith/compton/config
+set $picom_config /home/kevin/.config/picom/config
 
 # path to terminal. Override this to specify a custom terminal.
 set $terminal_path /usr/bin/alacritty
@@ -252,7 +252,6 @@ set_from_resource $urgent.color.text i3-wm.client.urgent.color.text "#fdf6e3"
 set_from_resource $urgent.color.indicator i3-wm.client.urgent.color.indicator "#002b36"
 set_from_resource $urgent.color.child_border i3-wm.client.urgent.color.child_border
 
-
 # Window Border color
 # class                 border                             background                         text                               indicator                          child_border
 client.focused          $focused.color.border              $focused.color.background          $focused.color.text                $focused.color.indicator           $focused.color.child_border
@@ -317,6 +316,11 @@ bar {
 # Hide the mouse pointer if unused for a duration
 exec --no-startup-id /usr/bin/unclutter -b
 
+exec_always --no-startup-id feh --bg-fill /home/kevin/Pictures/wallpapers/wall.jpeg
+
+# Start compton
+exec_always --no-startup-id picom -f --config /home/kevin/.config/picom/config
+
 ### kbknapp Addtions
 #
 ## Assign Applications to specific workspace
@@ -343,8 +347,7 @@ for_window [class="Kmix"] floating enable; border none
 for_window [class="Klipper"] floating enable; border none
 for_window [class="Plasmoidviewer"] floating enable; border none
 #for_window [class="(?i)*nextcloud*"] floating disable
-for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px, no_focus 
-
+for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 650px, move down 450px, no_focus 
 
 # # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
