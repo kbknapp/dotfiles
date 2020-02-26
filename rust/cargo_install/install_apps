@@ -78,6 +78,7 @@ cargo install \
   grex          `# regex builder` \
   bandwhich     `# bandwidth monitor` \
   ffsend	`# firefox send from cli` \
+  bottom        `# top like tui` \
   tealdeer      `# tldr`
 
 # Data handling
