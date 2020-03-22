@@ -78,8 +78,12 @@ cargo install \
   grex          `# regex builder` \
   bandwhich     `# bandwidth monitor` \
   ffsend	`# firefox send from cli` \
-  bottom        `# top like tui` \
   tealdeer      `# tldr`
+
+# Top like programs
+cargo install -f --git https://github.com/cjbassi/ytop ytop
+cargo install \
+  bottom        `# top like tui`
 
 # Data handling
 cargo install \
