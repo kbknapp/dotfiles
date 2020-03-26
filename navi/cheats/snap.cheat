@@ -1,0 +1,9 @@
+% snap
+
+# List channels of <SNAP>
+snap info <SNAP>
+
+# Upgrade to a particular channel of <SNAP>
+sudo snap refresh <SNAP> --channel=<CHANNEL>
+
+$ CHANNEL: snap info ${SNAP} | grep -A9999 -e '^channels:' | grep -ve '^channels:\|^installed:' | awk '{print $1}' | grep -oe '[^ :]*'
