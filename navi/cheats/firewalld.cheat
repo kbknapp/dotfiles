@@ -1,0 +1,13 @@
+% firewalld, firewall-cmd
+
+# Add/Accept port range permanently
+sudo firewall-cmd --zone=<ZONE> --permanent --add-port=<START_PORT>-<END_PORT>/<PROTO>
+
+# Add/Accept single specific port permanently
+sudo firewall-cmd --zone=<ZONE> --permanent --add-port=<PORT>/<PROTO>
+
+$ ZONE: firewall-cmd --get-zones | tr ' ' '\n'
+$ START_PORT: echo {0..65535} | tr ' ' '\n'
+$ END_PORT: echo {0..65535} | tr ' ' '\n'
+$ PORT: echo {0..65535} | tr ' ' '\n'
+$ PROTO: echo 'tcp udp' | tr ' ' '\n'
