@@ -1,0 +1,9 @@
+% dnf
+
+# Disable repository
+sudo dnf config-manager --set-disabled <EXISTING_REPO>
+
+# Add repository
+sudo dnf config-manager --add-repo <REPOSITORY>
+
+$ EXISTING_REPO: dnf repolist | awk '{print $1}'
