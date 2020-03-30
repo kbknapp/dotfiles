@@ -1,0 +1,4 @@
+% awk
+
+# if else example
+awk '{if ($1 == "yes") print "--permanent"; else print ""; }'
