@@ -9,16 +9,36 @@ sudo zypper ar -cfp 89 http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_T
 sudo zypper ar -f http://packman.inode.at/suse/openSUSE_Tumbleweed/ packman
 sudo zypper ar -f http://opensuse-guide.org/repo/openSUSE_Tumbleweed/ libdvdcss
 sudo zypper ref
-sudo zypper install -f libxine2-codecs ffmpeg-4  dvdauthor gstreamer-plugins-bad gstreamer-plugins-bad-orig-addon gstreamer-plugins-base  gstreamer-plugins-good gstreamer-plugins-good-extra gstreamer-plugins-libav gstreamer-plugins-ugly gstreamer-plugins-ugly-orig-addon vlc smplayer x264 x265 vlc-codecs vlc-codec-gstreamer ogmtools libavcodec58 gstreamer-plugins-vaapi
+sudo zypper install --allow-vendor-change -f libxine2-codecs ffmpeg-4  dvdauthor gstreamer-plugins-bad \
+  gstreamer-plugins-bad-orig-addon gstreamer-plugins-base  gstreamer-plugins-good \
+  gstreamer-plugins-good-extra gstreamer-plugins-libav gstreamer-plugins-ugly \
+  gstreamer-plugins-ugly-orig-addon vlc smplayer x264 x265 vlc-codecs \
+  vlc-codec-gstreamer ogmtools libavcodec58 gstreamer-plugins-vaapi
 
-zypper dup --from packman --allow-vendor-change
+sudo zypper dup --from packman --allow-vendor-change
 
-sudo zypper install emacs exfat-utils ffmpeg fuse-exfat p7zip pv python3-devel unar  gitg meld tig exfat-utils fuse-exfat lm_sensors wavemon neovim python3-neovim iotop nload vim-enhanced zsh ncdu flatpak fzf llvm clang pkgconfig rofi i3status meson xfsprogs feh cmake
+# Nvidia
+sudo zypper addrepo --refresh https://download.nvidia.com/opensuse/tumbleweed NVIDIA
+sudo zypper install x11-video-nvidiaG05
 
-sudo zypper install libX11-devel libXtst-devel jsoncpp-devel libmpdclient-devel libcurl-devel cairo-devel  xcb-util-devel xcb-util-wm-devel xcb-util-image-devel libxcb-devel xcb-util-keysyms-devel xcb-util-devel xcb-util-wm-devel xcb-util-xrm-devel libXrandr-devel startup-notification-devel libev-devel xcb-util-cursor-devel libXinerama-devel libxkbcommon-devel libxkbcommon-x11-devel pcre-devel pango-devel uthash-devel libX11-devel libXcomposite-devel libXfixes-devel libXdamage-devel libXrender-devel libXext-devel libXrandr-devel libXinerama-devel libconfig-devel pcre-devel libdrm-devel Mesa-libGL-devel  desktop-file-utils uthash-devel libxdg-basedir-devel fontconfig-devel freetype-devel libyajl-devel dbus-1-devel
+sudo zypper install emacs exfat-utils ffmpeg fuse-exfat p7zip pv python3-devel \
+  unar gitg meld tig exfat-utils fuse-exfat wavemon neovim python3-neovim iotop \
+  nload vim-enhanced ncdu flatpak fzf llvm clang pkgconfig rofi i3status meson \
+  xfsprogs feh cmake
+
+sudo zypper install libX11-devel libXtst-devel jsoncpp-devel libmpdclient-devel \
+  libcurl-devel cairo-devel  xcb-util-devel xcb-util-wm-devel xcb-util-image-devel \
+  libxcb-devel xcb-util-keysyms-devel xcb-util-devel xcb-util-wm-devel \
+  xcb-util-xrm-devel libXrandr-devel startup-notification-devel libev-devel \
+  xcb-util-cursor-devel libXinerama-devel libxkbcommon-devel libxkbcommon-x11-devel \
+  pcre-devel pango-devel uthash-devel libX11-devel libXcomposite-devel \
+  libXfixes-devel libXdamage-devel libXrender-devel libXext-devel libXrandr-devel \
+  libXinerama-devel libconfig-devel pcre-devel libdrm-devel Mesa-libGL-devel  \
+  desktop-file-utils uthash-devel libxdg-basedir-devel fontconfig-devel \
+  freetype-devel libyajl-devel dbus-1-devel
 
 # No target:
-# pulseaudio-libs-devel wireless-tools-devel xcb-proto
+# pulseaudio-libs-devel wireless-tools-devel xcb-proto lm_sensors
 # alsa-lib-devel
 
 # Contains about 2,500 texlive deps
@@ -83,12 +103,12 @@ git clone https://github.com/momo-lab/zsh-abbrev-alias
 
 # Powerlevel10k
 sudo zypper install zsh
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-cp .dotfiles/p10k/.p10k.zsh ~
-sudo chsh -s $(which zsh) kevin
 git clone https://github.com/robbyrussell/oh-my-zsh .oh-my-zsh
-cp .dotfiles/zsh/zshrc-linux-p10k .zshrc
-git clone https://github.com/momo-lab/zsh-abbrev-alias
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${HOME}/.oh-my-zsh/themes/powerlevel10k
+cp .dotfiles/p10k/.p10k.zsh ${HOME}
+sudo chsh -s $(which zsh) kevin
+cp ${HOME}/.dotfiles/zsh/zshrc-linux-p10k .zshrc
+git clone https://github.com/momo-lab/zsh-abbrev-alias ${HOME}/.config/
 
 
 # Snapd
@@ -103,4 +123,39 @@ sudo systemctl enable snapd.apparmor
 sudo systemctl start snapd.apparmor
 
 # Snaps
-sudo snap install mailspring
+sudo snap install mailspring lxd
+sudo usermod -aG lxd kevin
+sudo snap install clion --classic
+
+sudo cp ~/.dotfiles/i3/opensuse/etc/* /etc/
+
+bash ${HOME}/.dotfiles/flathub/install_apps
+
+# Intel-undervolt
+cd .build/
+git clone https://github.com/kitsunyan/intel-undervolt
+cd intel-undervolt/
+./configure --enable-systemd && make && sudo make install
+sudo cp ${HOME}/.dotfiles/intel-undervolt/intel-undervolt.conf /etc/
+sudo systemctl enable intel-undervolt
+
+cp .dotfiles/i3/common/home/.xprofile .
+cp .dotfiles/i3/common/home/.Xresources .
+
+cp -r common/home/.local/* ~/.local/
+cp -r common/home/.config/* ~/.config/
+sudo cp common/usr/bin/rofi_run /usr/bin
+cp -r opensuse/home/.config/* ~/.config/
+sudo cp -r opensuse/usr/bin/i3-kde.sh /usr/bin
+
+# Common apps
+sudo zypper install transmission-qt
+sudo zypper install docker docker-compose
+sudo usermod -aG docker kevin
+
+
+sudo zypper install openssl-devel
+bash .dotfiles/rust/cargo_install/install_apps 
+
+# Set Hostname
+sudo hostnamectl set-hostname buu
