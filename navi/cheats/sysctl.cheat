@@ -1,0 +1,19 @@
+% sysctl, security
+
+# Block ICMP pings
+echo 'net.ipv4.icmp_echo_ignore_all = 1' | sudo tee -a /etc/sysctl.conf
+
+# Allow Packet Forwarding (/proc)
+echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf
+
+# Apply system configuration
+sudo sysctl -p
+
+% /proc, security
+
+# Block ICMP pings (/proc)
+echo 1 | sudo tee /proc/sys/net/ipv4/icmp_echo_ignore_all
+
+# Allow Packet Forwarding (/proc)
+echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward
+
