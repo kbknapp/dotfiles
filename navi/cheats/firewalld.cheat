@@ -1,13 +1,89 @@
 % firewalld, firewall-cmd
 
-# Add/Accept port range permanently
-sudo firewall-cmd --zone=<ZONE> --permanent --add-port=<START_PORT>-<END_PORT>/<PROTO>
+# Get the state of firewalld
+sudo firewall-cmd --state
 
-# Add/Accept single specific port permanently
-sudo firewall-cmd --zone=<ZONE> --permanent --add-port=<PORT>/<PROTO>
+# List available zones
+sudo firewall-cmd --get-zones
+
+# List zones used by network interfaces
+sudo firewall-cmd --get-active-zones
+
+# List default zone
+sudo firewall-cmd --get-default-zone
+
+# List zone configuration
+sudo firewall-cmd --zone=<ZONE> --list-all
+
+# Add/Accept port range
+sudo firewall-cmd --zone=<ZONE> --add-port=<START_PORT>-<END_PORT>/<PROTO>
+
+# Add/Accept single specific port
+sudo firewall-cmd --zone=<ZONE> --add-port=<PORT>/<PROTO>
+
+# Add a service to a zone
+sudo firewall-cmd --zone=<ZONE> --add-service=<SERVICE>
+
+# Remove a service to a zone
+sudo firewall-cmd --zone=<ZONE> --remove-service=<SERVICE>
+
+# Add an IP Set
+sudo firewall-cmd --new-ipset=<NAME> --type=<IPSET_TYPE>
+
+# Get a list of IP sets
+sudo firewall-cmd --get-ipsets
+
+# Get information on IP sets
+sudo firewall-cmd --info-ipset=<IPSET>
+
+# Add an entry to an IP Set
+sudo firewall-cmd --ipset=<IPSET> --add-entry=<IP>
+
+# Get entries from an IP Set
+sudo firewall-cmd --ipset=<IPSET> --get-entries
+
+# Drop all IPs part of an IP Set
+sudo firewall-cmd --zone=drop --add-source=ipset:<IPSET>
+
+# Add all IPs from <FILE> to IP Set
+sudo firewall-cmd --ipset=<IPSET> --add-entries-from-file=<FILE>
+
+# Remove all IPs from <FILE> to IP Set
+sudo firewall-cmd --ipset=<IPSET> --remove-entries-from-file=<FILE>
+
+# Forward traffic from one port to another
+sudo firewall-cmd --zone=<ZONE> --add-forward-port=port=<PORT>:proto=<PROTO>:toport=<TO_PORT>
+
+# Forward traffic from one server to another
+sudo firewall-cmd --zone=<ZONE> --add-forward-port=port=<PORT>:proto=<PROTO>:toaddr=<IP>
+
+# Query lockdown status (can apps make changes to firewall)
+sudo firewall-cmd --query-lockdown
+
+# Turn on/enable lockdown mode
+sudo sed -i 's/^#Lockdown/Lockdown/' /etc/firewalld/firewalld.conf ; sudo sed -i 's/^Lockdown=no/Lockdown=yes/' /etc/firewalld/firewalld.conf 
+
+# Turn off/disable lockdown mode
+sudo sed -i 's/^#Lockdown/Lockdown/' /etc/firewalld/firewalld.conf ; sudo sed -i 's/^Lockdown=yes/Lockdown=no/' /etc/firewalld/firewalld.conf
+
+# Query panic mode
+sudo firewall-cmd --query-panic
+
+# Enable panic mode (DISALBE ALL CONNECTIONS)
+sudo firewall-cmd --panic-on
+
+# Disable panic mode
+sudo firewall-cmd --panic-off
+
+# Reload configuration
+sudo firewall-cmd --reload
 
 $ ZONE: firewall-cmd --get-zones | tr ' ' '\n'
 $ START_PORT: echo {0..65535} | tr ' ' '\n'
 $ END_PORT: echo {0..65535} | tr ' ' '\n'
 $ PORT: echo {0..65535} | tr ' ' '\n'
+$ TO_PORT: echo {0..65535} | tr ' ' '\n'
 $ PROTO: echo 'tcp udp' | tr ' ' '\n'
+$ SERVICE: find /usr/lib/firewalld/services -type f -name "*.xml" -exec basename {} \; | xargs -I{} sh -c 'printf "%s\n" "${0%.*}"' {}
+$ IPSET_TYPE: echo 'hash:ip'
+$ IPSET: firewall-cmd --get-ipsets | tr ' ' '\n'
