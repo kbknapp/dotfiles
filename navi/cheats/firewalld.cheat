@@ -4,13 +4,13 @@
 sudo firewall-cmd --state
 
 # List available zones
-sudo firewall-cmd --get-zones
+firewall-cmd --get-zones
 
 # List zones used by network interfaces
-sudo firewall-cmd --get-active-zones
+firewall-cmd --get-active-zones
 
 # List default zone
-sudo firewall-cmd --get-default-zone
+firewall-cmd --get-default-zone
 
 # List zone configuration
 sudo firewall-cmd --zone=<ZONE> --list-all
@@ -27,11 +27,14 @@ sudo firewall-cmd --zone=<ZONE> --add-service=<SERVICE>
 # Remove a service to a zone
 sudo firewall-cmd --zone=<ZONE> --remove-service=<SERVICE>
 
+# List available services
+firewall-cmd --get-services
+
 # Add an IP Set
 sudo firewall-cmd --new-ipset=<NAME> --type=<IPSET_TYPE>
 
 # Get a list of IP sets
-sudo firewall-cmd --get-ipsets
+firewall-cmd --get-ipsets
 
 # Get information on IP sets
 sudo firewall-cmd --info-ipset=<IPSET>
@@ -40,7 +43,7 @@ sudo firewall-cmd --info-ipset=<IPSET>
 sudo firewall-cmd --ipset=<IPSET> --add-entry=<IP>
 
 # Get entries from an IP Set
-sudo firewall-cmd --ipset=<IPSET> --get-entries
+firewall-cmd --ipset=<IPSET> --get-entries
 
 # Drop all IPs part of an IP Set
 sudo firewall-cmd --zone=drop --add-source=ipset:<IPSET>
