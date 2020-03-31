@@ -109,11 +109,10 @@ function main {
 	echo "############################"
 	echo "## Kustom Baseline v${_VER}"
 	echo "############################"
-	echo
 
   source ./common/00_pre.sh
   # shellcheck disable=1090
-  for s in ./common/[0-9_]*; do
+  for s in ./common/*; do
     [[ -e $s ]] || break
     # don't resource 00_ scripts
     S_NAME=$(basename $s)
@@ -126,21 +125,22 @@ function main {
   f_get_os
   f_get_de
 
+  f_get_common_components
+
   for s in $(find ./${_OS}/ -maxdepth 1 -type f); do
     [[ -e $s ]] || break
     S_NAME=$(basename $s)
     source "$s"
   done
 
-  f_get_common_components
+  f_os_pre
+  f_get_os_components
 
   for COM in ${_COMPONENTS[@]}; do
 	  f_${COM}_main
   done
 
-  f_get_os_components
-
-  for COM in ${_COMPONENTS[@]}; do
+  for COM in ${_OS_COMPONENTS[@]}; do
 	  f_${COM}_main
   done
 
