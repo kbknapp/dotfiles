@@ -23,7 +23,7 @@ function f_get_common_components() {
        build_tools "Built Tools" on \
        rm_unneeded "Remove Unneeded" on \
        misc_small "Misc Small Tools" on \
-       rust_appsl "Compile Rust Apps" on \
+       rust_apps "Compile Rust Apps" on \
        flatpak_apps "FlatPak Apps" on \
        steam "Steam" off \
        nvidia "Nvidia" on \
