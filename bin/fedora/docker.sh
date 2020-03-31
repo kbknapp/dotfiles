@@ -5,5 +5,4 @@ function f_docker_main() {
 
     sudo dnf install moby-engine docker-compose
     sudo usermod -aG docker ${SCRIPT_RUN_USER}
-    
 }

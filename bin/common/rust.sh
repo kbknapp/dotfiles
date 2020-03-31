@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function f_rust_apps_common() {
+    f_out "Compiling and installing Rust applications"
+    
+    source ~/.dotfiles/rust/cargo_install/install_apps
+}
+
 function f_rust_main {
     f_check_prog "curl"
 
