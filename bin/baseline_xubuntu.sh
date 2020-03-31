@@ -17,32 +17,6 @@ _RUST=0
 _ALACRITTY=0
 _B_ALACRITTY=0
 
-function print_help() {
-	cat << EOF
-baseline - a script to setup a common work environment
-
-OPTIONS:
-    --help      show this message
-    --version	show version information
-
-COMPONENTS:
-    -a|--all	install ALL below
-    --vim       install vim
-    --neovim    install neovim
-    --steam     install steam
-    --fish      install fish shell
-    --zsh       install zsh shell
-    --i3	install i3
-    --rust      install Rust
-    --alacritty install alacritty
-
-ACTIONS:
-    --fish-default	make fish the default shell (conflicts with --zsh-default)
-    --zsh-default	make fish the default shell (conflicts with --fish-default)
-    --build-alacritty	build alacritty from source (requires --rust, implies --alacritty)
-
-EOF
-}
 
 for arg in "$@"; do
     case $arg in
