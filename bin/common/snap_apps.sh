@@ -32,3 +32,20 @@ function f_freemind_main() {
 
     sudo snap install freemind
 }
+
+function f_snap_apps_main() {
+    local _SNAP_COMPONENTS
+
+    _SNAP_COMPONENTS=$(dialog --checklist "Which Snap Apps?" 400 400 4 \
+       lxd "LXD" on \
+       clion Clion on \
+       mailspring Mailspring on \
+       freemind FreeMind on \
+        --output-fd 1)
+
+    readonly _SNAP_COMPONENTS
+
+    for COM in ${_SNAP_COMPONENTS[@]}; do
+        f_${COM}_main
+    done
+}

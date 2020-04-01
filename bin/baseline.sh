@@ -151,10 +151,15 @@ function main {
   done
 
   f_get_de_components
+  f_de_pre
    
   for COM in ${_DE_COMPONENTS[@]}; do
 	  f_${COM}_main
   done
+
+  f_de_post
+  f_os_post
+  f_post_main
 }
 
 LOGFILE="./${_NAME}-$(hostname --short)-$(date +%Y%m%d).log"
