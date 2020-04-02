@@ -25,8 +25,8 @@ function f_check_bash() {
 function f_check_prog() {
     local prog
     prog=$1
-    
-  if ! command -v "${prog}"; then
+
+  if ! command -v "${prog}" >/dev/null; then
     f_err_out "this script requires the program '${prog}'"
     f_exit 1
   fi
