@@ -7,7 +7,7 @@ function f_intel_undervolt_main() {
     f_out "Compiling and setting up Intel Undervolt"
 
     cd ~/.build/
-    git clone https://github.com/kitsunyan/intel-undervolt
+    git clone https://github.com/kitsunyan/intel-undervolt || true
     cd intel-undervolt/
     ./configure --enable-systemd
     make

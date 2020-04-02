@@ -7,7 +7,7 @@ function f_ksuperkey_main() {
 
     f_out "Compiling and installing KSuperKey"
     cd ~/.build/
-    git clone --recurisve https://github.com/hanschen/ksuperkey
+    git clone --recursive https://github.com/hanschen/ksuperkey || true
     cd ~/.build/ksuperkey/
     make 
     sudo make install

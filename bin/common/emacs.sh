@@ -5,7 +5,7 @@ function f_emacs_common() {
 
     f_out "Setting up Doom-Emacs"
 
-    git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+    git clone https://github.com/hlissner/doom-emacs ~/.emacs.d || true
     ~/.emacs.d/bin/doom install
 
     cp ~/.dotfiles/doom-emacs/* ~/.doom.d/
