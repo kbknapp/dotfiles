@@ -133,21 +133,21 @@ function main {
     source "$s"
   done
 
+  for s in ./${_OS}/${_DE}/*; do
+    [[ -e $s ]] || break
+    S_NAME=$(basename $s)
+    source "$s"
+  done
+
   f_os_pre
   f_get_os_components
-
-  for COM in ${_COMPONENTS[@]}; do
-	  f_${COM}_main
-  done
 
   for COM in ${_OS_COMPONENTS[@]}; do
 	  f_${COM}_main
   done
 
-  for s in ./${_OS}/${_DE}/*; do
-    [[ -e $s ]] || break
-    S_NAME=$(basename $s)
-    source "$s"
+  for COM in ${_COMPONENTS[@]}; do
+	  f_${COM}_main
   done
 
   f_get_de_components
