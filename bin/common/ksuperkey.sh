@@ -9,8 +9,8 @@ function f_ksuperkey_main() {
     cd ~/.build/
     git clone --recursive https://github.com/hanschen/ksuperkey || true
     cd ~/.build/ksuperkey/
-    make 
+    make
     sudo make install
-    
+
     cd
 }

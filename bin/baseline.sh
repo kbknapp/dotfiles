@@ -152,7 +152,7 @@ function main {
 
   f_get_de_components
   f_de_pre
-   
+
   for COM in ${_DE_COMPONENTS[@]}; do
 	  f_${COM}_main
   done

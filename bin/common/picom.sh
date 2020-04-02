@@ -8,11 +8,11 @@ function f_picom_main() {
     f_out "Compiling and installing Picom"
 
     cd ~/.build/
-    cd ~/.build/picom/ 
-    git submodule update --init --recursive 
-    meson --buildtype=release . build 
-    ninja -C build 
     git clone --recursive https://github.com/yshui/picom || true
+    cd ~/.build/picom/
+    git submodule update --init --recursive
+    meson --buildtype=release . build
+    ninja -C build
     sudo ninja -C build install
 }
 

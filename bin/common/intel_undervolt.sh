@@ -3,7 +3,7 @@
 function f_intel_undervolt_main() {
     f_check_prog "git"
     f_check_prog "make"
-    
+
     f_out "Compiling and setting up Intel Undervolt"
 
     cd ~/.build/
