@@ -11,7 +11,7 @@ function f_rust_main {
 
     f_out "Installing and setting up Rust"
 
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     source ~/.cargo/env
     rustup default nightly
     rustup component add rust-src

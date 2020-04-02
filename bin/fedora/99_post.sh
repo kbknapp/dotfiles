@@ -1,8 +1,8 @@
 #!/bin/bash
 
-function f_fedora_post_main() {
+function f_os_post() {
     f_out "Finishing up Fedora Install"
 
     sudo dnf clean all
-    sudo dnf upgrade --best --allowerasing
+    sudo dnf upgrade -y --best --allowerasing
 }
