@@ -155,6 +155,8 @@ function main {
 
   for COM in ${_DE_COMPONENTS[@]}; do
 	  f_${COM}_main
+    # @TODO Test if function exists
+    f_${COM}_post || true
   done
 
   f_de_post
