@@ -2,6 +2,8 @@
 
 function f_i3_gaps_main() {
     f_check_prog "git"
+    f_check_prog "make"
+
     f_out "Compiling and Installing i3-gaps"
 
     cd ~/.build/
