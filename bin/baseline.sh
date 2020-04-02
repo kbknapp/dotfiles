@@ -159,7 +159,7 @@ function main {
 
   f_de_post
   f_os_post
-  f_post_main
+  f_post
 }
 
 LOGFILE="./${_NAME}-$(hostname --short)-$(date +%Y%m%d).log"

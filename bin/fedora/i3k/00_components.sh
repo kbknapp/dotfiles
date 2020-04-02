@@ -6,7 +6,7 @@ function f_get_de_components() {
        ksuperkey "KSuperKey" on \
        picom "Picom" on \
        polybar "Polybar" off \
-       rm_unneeded_kde "Remove Unneeded KDE Apps" on \
+       rm_unneeded_i3k "Remove Unneeded KDE Apps" on \
         --output-fd 1)
     clear
 
