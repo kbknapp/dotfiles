@@ -83,6 +83,7 @@ function f_flatpak_apps_main() {
        telegram "Telegram" on \
        riot "Riot" off \
         --output-fd 1)
+    clear
 
     readonly _FP_APPS
 

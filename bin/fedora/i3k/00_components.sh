@@ -8,6 +8,7 @@ function f_get_de_components() {
        polybar "Polybar" off \
        rm_unneeded_kde "Remove Unneeded KDE Apps" on \
         --output-fd 1)
+    clear
 
     readonly _DE_COMPONENTS
 }

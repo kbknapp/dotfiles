@@ -5,6 +5,7 @@ function f_get_os_components() {
        rpm_fusion "RPM Fusion" on \
        podman "Podman" on \
         --output-fd 1)
+    clear
 
     readonly _OS_COMPONENTS
 }

@@ -34,6 +34,7 @@ function f_get_common_components() {
        docker "Docker" on \
        snap_apps "Snap Apps" on \
         --output-fd 1)
+    clear
 
     readonly _COMPONENTS
 }

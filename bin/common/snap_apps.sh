@@ -42,6 +42,7 @@ function f_snap_apps_main() {
        mailspring Mailspring on \
        freemind FreeMind on \
         --output-fd 1)
+    clear
 
     readonly _SNAP_COMPONENTS
 

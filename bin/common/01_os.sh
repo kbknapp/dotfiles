@@ -17,6 +17,7 @@ function f_get_os() {
         opensuse OpenSUSE off \
         arch Arch off \
         --output-fd 1)
+    clear
 
     f_validate_os || (f_err_out "${_OS} is unsupported at this time" && f_exit 1)
     readonly _OS
