@@ -21,6 +21,7 @@ function f_clion_main() {
 
     f_out "Installing Clion"
 
+    sudo ln -s /var/lib/snapd/snap /snap
     sudo snap install clion --classic
 }
 
