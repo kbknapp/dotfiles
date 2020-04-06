@@ -1,3 +1,58 @@
+% nmap
+
+# Scan single IP or Host
+nmap <IP>
+
+# Scan IP Range
+nmap <NET>/<CIDR>
+
+# Scan IPs from a list in a file
+nmap -iL <PATH>
+
+# Scan a single port
+nmap -p <PORT> <TGT>
+
+# Scan a port range
+nmap -p <START_PORT>-<END_PORT <TGT>
+
+# Scan 100 most common ports
+nmap -F <TGT>
+
+# Scan all 65535 ports
+nmap -p- <TGT>
+
+# Scan using TCP connect
+nmap -sT <TGT>
+
+# Scan using TCP SYN (Default)
+namp -sS <TGT>
+
+# Scan UDP Ports
+nmap -sU -p <PORTS> <TGT>
+
+# Scan selected ports, ignore discovery
+nmap -Pn -F <TGT>
+
+# Detect OS and Services
+nmap -A <TGT>
+
+# Standard Service Detection
+nmap -sV <TGT>
+
+# More Aggressive Service Detection
+nmap -sV --version-intensity 5 <TGT>
+
+# Less aggressive banner grabbing service detection
+nmap -sV --version-intensity 0 <TGT>
+
+# Find information about an IP
+nmap --scripts=asn-query,whois,ip-geolocation-maxmind <TGT>
+
+$ CIDR: echo {1-32} | tr ' ' '\n'
+$ PORT: echo {0..65535} | tr ' ' '\n'
+$ START_PORT: echo {0..65535} | tr ' ' '\n'
+$ END_PORT: echo {0..65535} | tr ' ' '\n'
+
 % nmap, ncat, nc, netcat
 
 # UDP Echo server
