@@ -1,0 +1,9 @@
+% nmap, ncat, nc, netcat
+
+# UDP Echo server
+ncat -e /bin/cat -k -u -l <PORT>
+
+# TCP Echo server
+ncat -e /bin/cat -k -l <PORT>
+
+$ PORT: echo {0..65535} | tr ' ' '\n'
