@@ -45,6 +45,7 @@ cargo install \
   xcp           `# cp clone` \
   rm-improved   \
   tree-rs       `# tree clone ` \
+  rargs		`# xargs and awk type tool` \
   runiq         `# uniq clone`
 
 # Directory and Disk Usage Stats
