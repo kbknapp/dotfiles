@@ -81,6 +81,8 @@ cargo install \
   grex          `# regex builder` \
   bandwhich     `# bandwidth monitor` \
   ffsend	`# firefox send from cli` \
+  pastel        `# Get color info in your terminal` \
+  miniserve     `# Mini HTTP server` \
   tealdeer      `# tldr`
 
 # Top like programs
