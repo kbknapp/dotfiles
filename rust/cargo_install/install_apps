@@ -1,3 +1,5 @@
+# Fedora Deps
+# sudo dnf install clang llvm llvm-devel cmake pkg-config openssl-devel
 # Ubuntu Deps
 # sudo apt install clang llvm llvm-dev cmake pkg-config libssl-dev
 
