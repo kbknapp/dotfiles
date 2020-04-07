@@ -12,6 +12,7 @@ _DEBUG=0
 _COLOR=1
 SCRIPT_RUN_USER=
 DID_ERR=0
+INSTALL_CMD=
 
 # Options Set Through Use
 _OS=

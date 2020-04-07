@@ -3,7 +3,7 @@
 function f_flatpak_main() {
     f_out "Installing and setting up Flatpak"
 
-    sudo zypper install -y flatpak 
+    $INSTALL_CMD flatpak 
 
     f_flatpak_common
 }
