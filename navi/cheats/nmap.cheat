@@ -48,7 +48,7 @@ nmap -sV --version-intensity 0 <TGT>
 # Find information about an IP
 nmap --scripts=asn-query,whois,ip-geolocation-maxmind <TGT>
 
-$ CIDR: echo {1-32} | tr ' ' '\n'
+$ CIDR: echo {1..32} | tr ' ' '\n'
 $ PORT: echo {0..65535} | tr ' ' '\n'
 $ START_PORT: echo {0..65535} | tr ' ' '\n'
 $ END_PORT: echo {0..65535} | tr ' ' '\n'
