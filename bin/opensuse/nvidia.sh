@@ -5,5 +5,5 @@ function f_nvidia_main {
 
     sudo zypper addrepo --refresh https://download.nvidia.com/opensuse/tumbleweed NVIDIA
     sudo zypper ref
-    sudo zypper install x11-video-nvidiaG05
+    sudo zypper install -y x11-video-nvidiaG05
 }
