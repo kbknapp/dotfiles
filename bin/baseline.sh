@@ -144,20 +144,33 @@ function main {
   f_get_os_components
 
   for COM in ${_OS_COMPONENTS[@]}; do
-	  f_${COM}_main
+      if type f_${COM}_main; then
+          f_${COM}_main
+      else
+	  f_out "${COM} isn't supported with this OS/DE combo"
+      fi
   done
 
   for COM in ${_COMPONENTS[@]}; do
-	  f_${COM}_main
+      if type f_${COM}_main; then
+          f_${COM}_main
+      else
+	  f_out "${COM} isn't supported with this OS/DE combo"
+      fi
   done
 
   f_get_de_components
   f_de_pre
 
   for COM in ${_DE_COMPONENTS[@]}; do
-	  f_${COM}_main
-    # @TODO Test if function exists
-    f_${COM}_post || true
+      if type f_${COM}_main; then
+          f_${COM}_main
+      else
+	  f_out "${COM} isn't supported with this OS/DE combo"
+      fi
+      if type f_${COM}_post; then
+          f_${COM}_post
+      fi
   done
 
   f_de_post
