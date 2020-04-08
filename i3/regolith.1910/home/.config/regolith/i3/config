@@ -380,6 +380,8 @@ popup_during_fullscreen smart
 # Polybar
 exec_always --no-startup-id /usr/bin/al-polybar-session
 
+exec_always --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
+
 # Logout of session
 bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
 
