@@ -26,7 +26,8 @@ function f_get_common_components() {
        rm_unneeded "Remove Unneeded" on \
        flameshot "Flameshot" on \
        misc_small "Misc Small Tools" on \
-       nvidia "Nvidia" on \
+       nvidia "Nvidia" off \
+       amdgpu "AMD GPU" off \
        alacritty "Alacritty" on \
        docker "Docker" on \
        flatpak "Flatpak" on \
