@@ -30,6 +30,7 @@ function f_get_common_components() {
        amdgpu "AMD GPU" off \
        alacritty "Alacritty" on \
        docker "Docker" on \
+       rtv "Reddit Terminal Viewer" on \
        flatpak "Flatpak" on \
        flatpak_apps "FlatPak Apps" on \
        snapd "Snapd" on \
