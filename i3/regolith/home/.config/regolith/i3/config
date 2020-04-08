@@ -185,7 +185,6 @@ bindsym $mod+Shift+f floating toggle
 
 ## Modify // Move to Scratchpad // <><Ctrl> m ##
 bindsym $mod+Ctrl+m move to scratchpad
-bindsym $mod+Ctrl+a scratchpad show
 
 ## Modify // Tile/Float Focus Toggle // <><Shift> t ##
 bindsym $mod+Shift+t focus mode_toggle
@@ -293,11 +292,11 @@ bindsym $mod+c exec $i3-wm.program.settings
 
 ## Modify // Display Settings // <> d ##
 set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center display
-bindsym $mod+d exec $i3-wm.program.display
+#bindsym $mod+d exec $i3-wm.program.display
 
 ## Modify // Wifi Settings // <> w ##
 set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center wifi
-bindsym $mod+w exec $i3-wm.program.wifi
+#bindsym $mod+w exec $i3-wm.program.wifi
 
 ## Modify // Bluetooth Settings // <> b ##
 set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center bluetooth
@@ -553,21 +552,6 @@ exec_always --no-startup-id /usr/bin/al-polybar-session
 
 exec_always --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
 
-# Logout of session
-bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
-
-# Reboot computer
-bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
-
-# Power off computer
-bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
-
-# lock the screen
-bindsym $mod+Escape exec gnome-screensaver-command --lock
-
-# put the system to sleep
-bindsym $mod+Ctrl+Shift+s exec systemctl suspend
-
 # Logout/lock
 bindsym $Mod+x exec --no-startup-id rofi_run -l
 # Translate
@@ -583,13 +567,10 @@ bindsym $Mod+Shift+Mod1+h exec i3-msg move workspace to output left
 bindsym $Mod+Shift+Mod1+l exec i3-msg move workspace to output right
 
 # toggle split orientation
-bindsym $alt+Tab layout toggle tabbed split
+bindsym $alt+Tab layout toggle tabbed stacking split
 
 # Split directions
 bindsym $Mod+g split h
 bindsym $Mod+v split v
-bindsym $Mod+Shift+t layout tabbed
-bindsym $Mod+Shift+s layout stacking
-bindsym $Mod+Shift+g layout toggle split
 
 bindsym $mod+BackSpace workspace back_and_forth
