@@ -3,9 +3,8 @@
 function f_de_post() {
     f_out "Finalizing i3 (Gnome) Setup"
 
-    for COM in ${_DE_COMPONENTS[@]}; do
-        if type f_${COM}_post; then
-            f_${COM}_post
-        fi
-    done
+    sudo cp ~/.dotfiles/i3/common/usr/bin/* /usr/bin
+    cp -r ~/.dotfiles/i3/common/home/.local/* ~/.local
+    cp -r ~/.dotfiles/i3/common/home/.config/* ~/.config/
+    cp -r ~/.dotfiles/i3/regolith/home/.config/* ~/.config/
 }
