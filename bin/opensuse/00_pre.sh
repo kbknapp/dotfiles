@@ -5,7 +5,7 @@ function f_os_pre() {
 
     INSTALL_CMD='sudo zypper install -y'
 
-    for s in ../rpm_common/*; do
+    for s in ./rpm_common/*; do
         [[ -e $s ]] || break
         S_NAME=$(basename $s)
         source "$s"

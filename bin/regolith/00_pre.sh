@@ -5,7 +5,7 @@ function f_os_pre() {
 
     INSTALL_CMD='sudo apt-get install -y'
 
-    for s in ../apt_common/*; do
+    for s in ./apt_common/*; do
         [[ -e $s ]] || break
         S_NAME=$(basename $s)
         source "$s"
