@@ -46,7 +46,7 @@ function f_validate_de() {
 }
 
 function f_get_de() {
-    _DE=$(dialog --radiolist "Which DE?" 200 200 4 \
+    _DE=$(dialog --radiolist "Which DE?" 200 200 6 \
         gnome Gnome off \
         kde KDE off \
         xfce XFCE off \
