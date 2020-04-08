@@ -19,5 +19,5 @@ monitor =
 
 modules-left   = i3 menu
 modules-center = clock
-modules-right  = ${env:POLYBAR_MODULES: coreuse system-cpu-frequency temperature memory battery network volume}
+modules-right  = ${env:POLYBAR_MODULES: coreuse system-cpu-frequency temperature memory battery volume}
 
