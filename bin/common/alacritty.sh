@@ -1,6 +1,9 @@
 #!/bin/bash
 
 function f_alacritty_common() {
+    if [ -e ~/.cargo/env ]; then
+	    source ~/.cargo/env
+    fi
     f_check_prog "cargo"
     f_check_prog "git"
 

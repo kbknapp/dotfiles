@@ -1,5 +1,16 @@
 #!/bin/bash
 
+function f_qemu_main() {
+    f_check_prog "snap"
+
+    f_out "Installing Mailspring"
+
+    sudo snap install qemu-virgil --edge
+    sudo snap connect qemu-virgil:kvm
+    sudo snap connect qemu-virgil:raw-usb
+    sudo snap connect qemu-virgil:removable-media
+}
+
 function f_mailspring_main() {
     f_check_prog "snap"
 
@@ -21,7 +32,9 @@ function f_clion_main() {
 
     f_out "Installing Clion"
 
-    sudo ln -s /var/lib/snapd/snap /snap
+    if [ ! -e /snap ]; then
+	    sudo ln -s /var/lib/snapd/snap /snap
+    fi
     sudo snap install clion --classic
 }
 
@@ -37,11 +50,12 @@ function f_freemind_main() {
 function f_snap_apps_main() {
     local _SNAP_COMPONENTS
 
-    _SNAP_COMPONENTS=$(dialog --checklist "Which Snap Apps?" 400 400 4 \
+    _SNAP_COMPONENTS=$(dialog --checklist "Which Snap Apps?" 400 400 5 \
        lxd "LXD" on \
        clion Clion on \
        mailspring Mailspring on \
-       freemind FreeMind on \
+       freemind FreeMind off \
+       qemu "QEMU-Virgil" on \
         --output-fd 1)
     clear
 

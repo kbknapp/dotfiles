@@ -2,7 +2,7 @@
 
 function f_validate_os() {
     case "${_OS}" in
-        ubuntu|fedora|opensuse)
+        ubuntu|fedora|opensuse|regolith)
             return 0
             ;;
         *)
@@ -13,6 +13,7 @@ function f_validate_os() {
 function f_get_os() {
     _OS=$(dialog --radiolist "Which OS Family?" 200 200 4 \
         ubuntu Ubuntu on \
+        regolith Regolith on \
         fedora Fedora off \
         opensuse OpenSUSE off \
         arch Arch off \

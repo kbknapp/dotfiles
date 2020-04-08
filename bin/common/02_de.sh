@@ -2,6 +2,16 @@
 
 function f_validate_de() {
     case "${_OS}" in
+        regolith)
+            case "${_DE}" in
+                i3g)
+                    return 0
+                ;;
+                *)
+                    return 1
+                ;;
+            esac
+            ;;
         ubuntu)
             case "${_DE}" in
                 gnome|kde|xfce|i3x|i3g)

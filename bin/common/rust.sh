@@ -1,6 +1,11 @@
 #!/bin/bash
 
 function f_rust_apps_common() {
+   if [ -e ~/.cargo/env ]; then
+        source ~/.cargo/env
+    fi
+    f_check_prog "cargo"
+
     f_out "Compiling and installing Rust applications"
 
     source ~/.dotfiles/rust/cargo_install/install_apps
