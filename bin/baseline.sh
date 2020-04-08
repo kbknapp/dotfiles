@@ -144,18 +144,30 @@ function main {
   f_get_os_components
 
   for COM in ${_OS_COMPONENTS[@]}; do
+      if type f_${COM}_pre; then
+          f_${COM}_pre
+      else
       if type f_${COM}_main; then
           f_${COM}_main
       else
-	  f_out "${COM} isn't supported with this OS/DE combo"
+          f_out "${COM} isn't supported with this OS/DE combo"
+      fi
+      if type f_${COM}_post; then
+          f_${COM}_post
       fi
   done
 
   for COM in ${_COMPONENTS[@]}; do
+      if type f_${COM}_pre; then
+          f_${COM}_pre
+      else
       if type f_${COM}_main; then
           f_${COM}_main
       else
-	  f_out "${COM} isn't supported with this OS/DE combo"
+          f_out "${COM} isn't supported with this OS/DE combo"
+      fi
+      if type f_${COM}_post; then
+          f_${COM}_post
       fi
   done
 
@@ -163,10 +175,13 @@ function main {
   f_de_pre
 
   for COM in ${_DE_COMPONENTS[@]}; do
+      if type f_${COM}_pre; then
+          f_${COM}_pre
+      else
       if type f_${COM}_main; then
           f_${COM}_main
       else
-	  f_out "${COM} isn't supported with this OS/DE combo"
+          f_out "${COM} isn't supported with this OS/DE combo"
       fi
       if type f_${COM}_post; then
           f_${COM}_post
