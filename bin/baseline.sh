@@ -146,7 +146,7 @@ function main {
   for COM in ${_OS_COMPONENTS[@]}; do
       if type f_${COM}_pre; then
           f_${COM}_pre
-      else
+      fi
       if type f_${COM}_main; then
           f_${COM}_main
       else
@@ -160,7 +160,7 @@ function main {
   for COM in ${_COMPONENTS[@]}; do
       if type f_${COM}_pre; then
           f_${COM}_pre
-      else
+      fi
       if type f_${COM}_main; then
           f_${COM}_main
       else
@@ -177,7 +177,7 @@ function main {
   for COM in ${_DE_COMPONENTS[@]}; do
       if type f_${COM}_pre; then
           f_${COM}_pre
-      else
+      fi
       if type f_${COM}_main; then
           f_${COM}_main
       else
