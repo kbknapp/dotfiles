@@ -86,7 +86,7 @@ cargo install \
   tealdeer      `# tldr`
 
 # Top like programs
-cargo install -f --git https://github.com/cjbassi/ytop ytop
+cargo install --git https://github.com/cjbassi/ytop ytop
 cargo install \
   bottom        `# top like tui`
 
@@ -108,8 +108,8 @@ cargo install \
 #
 # Not Working
 #
-# hunter (=ranger in rust)
-# process-viewer (ps gui)
-# lolcate-rs (=locate)
+# hunter (=ranger in rust) (missing gstreamer-1.0)
+# process-viewer (ps gui) (not found)
+# lolcate-rs (=locate) (rust error)
 # sear: signed and encrypted archive
-# snifflue:  tcpdump/wireshark
+# snifflue:  tcpdump/wireshark (missing seccomp)
