@@ -24,7 +24,17 @@ function f_validate_de() {
             ;;
         fedora)
             case "${_DE}" in
-                gnome|kde|xfce|i3x|i3k)
+                i3k)
+                    return 0
+                    ;;
+                *)
+                    return 1
+                    ;;
+            esac
+            ;;
+        manjaro)
+            case "${_DE}" in
+                i3k)
                     return 0
                     ;;
                 *)

@@ -2,7 +2,7 @@
 
 function f_validate_os() {
     case "${_OS}" in
-        ubuntu|fedora|opensuse|regolith)
+        fedora|opensuse|regolith|manjaro)
             return 0
             ;;
         *)
@@ -11,15 +11,15 @@ function f_validate_os() {
     esac
 }
 function f_get_os() {
-    _OS=$(dialog --radiolist "Which OS Family?" 200 200 4 \
-        ubuntu Ubuntu on \
+    _OS=$(dialog --radiolist "Which OS Family?" 200 200 5 \
         regolith Regolith on \
         fedora Fedora off \
+        manjaro Manjaro off \
         opensuse OpenSUSE off \
-        arch Arch off \
+        ubuntu Ubuntu off \
         --output-fd 1)
     clear
 
-    f_validate_os || (f_err_out "${_OS} is unsupported at this time" && f_exit 1)
+    f_validate_os || (clear; f_err_out "${_OS} is unsupported at this time" && f_exit 1)
     readonly _OS
 }
