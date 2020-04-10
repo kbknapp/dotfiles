@@ -129,13 +129,13 @@ function f_rust_apps_common() {
         --output-fd 1)
     clear
 
-    cargo install "$_CARGO_PLUGINS[@]" || true
-    cargo install "$_RUST_DEV_TOOLS[@]" || true
-    cargo install "$_RUST_CORE_TOOLS[@]" || true
-    cargo install "$_RUST_DISK_TOOLS[@]" || true
-    cargo install "$_RUST_MISC_TOOLS[@]" || true
-    cargo install "$_RUST_TOP_TOOLS[@]" || true
-    cargo install "$_RUST_DATA_TOOLS[@]" || true
+    cargo install $_CARGO_PLUGINS || true
+    cargo install $_RUST_DEV_TOOLS || true
+    cargo install $_RUST_CORE_TOOLS || true
+    cargo install $_RUST_DISK_TOOLS || true
+    cargo install $_RUST_MISC_TOOLS || true
+    cargo install $_RUST_TOP_TOOLS || true
+    cargo install $_RUST_DATA_TOOLS || true
 }
 
 function f_rust_main {
