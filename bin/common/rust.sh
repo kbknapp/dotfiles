@@ -32,13 +32,13 @@ function f_rust_apps_common() {
     _CARGO_PLUGINS=$(dialog --checklist "Which cargo plugins?" 400 400 15 \
 	  "cargo-outdated" "" on \
 	  "cargo-tree" "" on \
-	  "cargo-modules" "" on \
+	  "cargo-modules" "" off \
 	  "cargo-cache" "" on \
 	  "cargo-graph" "" on \
 	  "cargo-edit" "" on \
 	  "cargo-geiger" "" on \
 	  "cargo-bloat" "" on \
-	  "cargo-thanks" "" on \
+	  "cargo-thanks" "" off \
 	  "cargo-audit" "" on \
 	  "cargo-update" "" on \
 	  "cargo-expand" "" on \
