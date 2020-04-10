@@ -3,7 +3,7 @@
 # Exit on error
 set -e
 
-_VER="0.3.0"
+_VER="0.4.0"
 _NAME=$(basename "${0}")
 
 # CLI OPTIONS
