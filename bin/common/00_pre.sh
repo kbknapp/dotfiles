@@ -45,17 +45,6 @@ function f_check_programs() {
   f_check_prog "dialog"
 }
 
-# function f_check_ubuntu() {
-#   f_verb_out "(PRE) checking Ubuntu"
-#   lsb_release -i | grep 'Ubuntu' >/dev/null 2>&1
-
-#   # shellcheck disable=SC2181
-#   if [[ "$?" != 0 ]]; then
-#     f_err_out "This script requires Ubuntu."
-#     f_exit 1
-#   fi
-# }
-
 function f_dbg_out() {
   local IDENT
   local MSG
