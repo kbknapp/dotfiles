@@ -1,28 +1,28 @@
 #!/bin/bash
 
 function f_rust_apps_common() {
-# Fedora Deps
-#   sudo dnf install clang llvm llvm-devel cmake pkg-config openssl-devel
-# Ubuntu Deps
-#   sudo apt install clang llvm llvm-dev cmake pkg-config libssl-dev
-#
-# Keep eye on:
-#   xv            `# hex viewer` \
-#
-# Not Working Deps:
-#   sudo apt install libgstreamer1.0-dev
-#   sudo apt install libqt5gstreamer-dev
-#   sudo apt install libncursesw5-dev
-#
-# Not Working:
-#   hunter (=ranger in rust) (missing gstreamer-1.0)
-#   process-viewer (ps gui) (not found)
-#   lolcate-rs (=locate) (rust error)
-#   sear: signed and encrypted archive
-#   snifflue:  tcpdump/wireshark (missing seccomp)
-#   cargo install --git https://github.com/cjbassi/ytop ytop
+	# Fedora Deps
+	#   sudo dnf install clang llvm llvm-devel cmake pkg-config openssl-devel
+	# Ubuntu Deps
+	#   sudo apt install clang llvm llvm-dev cmake pkg-config libssl-dev
+	#
+	# Keep eye on:
+	#   xv            `# hex viewer` \
+	#
+	# Not Working Deps:
+	#   sudo apt install libgstreamer1.0-dev
+	#   sudo apt install libqt5gstreamer-dev
+	#   sudo apt install libncursesw5-dev
+	#
+	# Not Working:
+	#   hunter (=ranger in rust) (missing gstreamer-1.0)
+	#   process-viewer (ps gui) (not found)
+	#   lolcate-rs (=locate) (rust error)
+	#   sear: signed and encrypted archive
+	#   snifflue:  tcpdump/wireshark (missing seccomp)
+	#   cargo install --git https://github.com/cjbassi/ytop ytop
 
-   if [ -e ~/.cargo/env ]; then
+    if [ -e ~/.cargo/env ]; then
         source ~/.cargo/env
     fi
     f_check_prog "cargo"
@@ -49,14 +49,13 @@ function f_rust_apps_common() {
         --output-fd 1)
     clear
 
-
     _RUST_DEV_TOOLS=$(dialog --checklist "Which Rust Dev Tools?" 400 400 15 \
 	  "amber" "Code Search and Replace" on \
-	  "clog-cli" "Change Log" on \    
-	  "racer" "Rust completion support" on \ 
-	  "rusty-tags" "tags support" on \ 
-	  "just" "modern make" on \     
-	  "tokei" "Fast Line Count" on \ 
+	  "clog-cli" "Change Log" on \
+	  "racer" "Rust completion support" on \
+	  "rusty-tags" "tags support" on \
+	  "just" "modern make" on \
+	  "tokei" "Fast Line Count" on \
         --output-fd 1)
     clear
 
@@ -77,12 +76,13 @@ function f_rust_apps_common() {
 	  "runiq" "uniq clone" on \
         --output-fd 1)
     clear
+
     _RUST_DISK_TOOLS=$(dialog --checklist "Which Rust disk tools?" 400 400 15 \
 	  "du-dust" "du clone" on \
 	  "diskus"  "Disk Usage info" on \
 	  "dutree"  "du clone" on \
 	  "tin-summer" "sn" on \
-	  "dua-cli" "" on       \
+	  "dua-cli" "" on \
 	  "dirstat-rs" "" on \
         --output-fd 1)
     clear
