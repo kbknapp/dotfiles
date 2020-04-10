@@ -144,29 +144,29 @@ function main {
   f_get_os_components
 
   for COM in ${_OS_COMPONENTS[@]}; do
-      if type f_${COM}_pre; then
+      if type f_${COM}_pre 2>/dev/null; then
           f_${COM}_pre
       fi
-      if type f_${COM}_main; then
+      if type f_${COM}_main 2>/dev/null; then
           f_${COM}_main
       else
           f_out "${COM} isn't supported with this OS/DE combo"
       fi
-      if type f_${COM}_post; then
+      if type f_${COM}_post 2>/dev/null; then
           f_${COM}_post
       fi
   done
 
   for COM in ${_COMPONENTS[@]}; do
-      if type f_${COM}_pre; then
+      if type f_${COM}_pre 2>/dev/null; then
           f_${COM}_pre
       fi
-      if type f_${COM}_main; then
+      if type f_${COM}_main 2>/dev/null; then
           f_${COM}_main
       else
           f_out "${COM} isn't supported with this OS/DE combo"
       fi
-      if type f_${COM}_post; then
+      if type f_${COM}_post 2>/dev/null; then
           f_${COM}_post
       fi
   done
@@ -175,15 +175,15 @@ function main {
   f_de_pre
 
   for COM in ${_DE_COMPONENTS[@]}; do
-      if type f_${COM}_pre; then
+      if type f_${COM}_pre 2>/dev/null; then
           f_${COM}_pre
       fi
-      if type f_${COM}_main; then
+      if type f_${COM}_main 2>/dev/null; then
           f_${COM}_main
       else
           f_out "${COM} isn't supported with this OS/DE combo"
       fi
-      if type f_${COM}_post; then
+      if type f_${COM}_post 2>/dev/null; then
           f_${COM}_post
       fi
   done
