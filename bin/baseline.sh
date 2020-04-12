@@ -20,6 +20,7 @@ _DE=
 _COMPONENTS=
 _OS_COMPONENTS=
 _DE_COMPONENTS=
+_OS_COMPONENTS_FIRST=true
 
 readonly SELF=${0##*/}
 declare -A COLORS=(
@@ -101,6 +102,22 @@ for arg in "$@"; do
   esac
 done
 
+function f_os_components() {
+  for COM in ${_OS_COMPONENTS[@]}; do
+      if type f_${COM}_pre 2>/dev/null; then
+          f_${COM}_pre
+      fi
+      if type f_${COM}_main 2>/dev/null; then
+          f_${COM}_main
+      else
+          f_out "${COM} isn't supported with this OS/DE combo"
+      fi
+      if type f_${COM}_post 2>/dev/null; then
+          f_${COM}_post
+      fi
+  done
+}
+
 function main {
   # CLI Vars
   readonly _VERBOSE
@@ -143,19 +160,9 @@ function main {
   f_os_pre
   f_get_os_components
 
-  for COM in ${_OS_COMPONENTS[@]}; do
-      if type f_${COM}_pre 2>/dev/null; then
-          f_${COM}_pre
-      fi
-      if type f_${COM}_main 2>/dev/null; then
-          f_${COM}_main
-      else
-          f_out "${COM} isn't supported with this OS/DE combo"
-      fi
-      if type f_${COM}_post 2>/dev/null; then
-          f_${COM}_post
-      fi
-  done
+  if $_OS_COMPONENTS_FIRST ;then
+	  f_os_components
+  fi
 
   for COM in ${_COMPONENTS[@]}; do
       if type f_${COM}_pre 2>/dev/null; then
@@ -170,6 +177,10 @@ function main {
           f_${COM}_post
       fi
   done
+
+  if ! $_OS_COMPONENTS_FIRST ;then
+	  f_os_components
+  fi
 
   f_get_de_components
   f_de_pre
