@@ -1,0 +1,6 @@
+% find
+
+# Exclude dir from results
+find <ROOT_DIR> -type <TYPE> \( ! -name "<ROOT_DIR>/<EXCLUDE_DIR>/*" \) 
+
+$ TYPE: echo 'f d' | tr ' ' '\n'
