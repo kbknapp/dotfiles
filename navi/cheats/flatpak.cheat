@@ -1,0 +1,4 @@
+% flatpak,flathub
+
+# Removed unused/orphan runtimes
+flatpak remove --unused
