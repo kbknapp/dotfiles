@@ -316,7 +316,7 @@ bar {
 # Hide the mouse pointer if unused for a duration
 exec --no-startup-id /usr/bin/unclutter -b
 
-exec_always --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
+exec --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
 
 # Start compton
 exec_always --no-startup-id picom -f --config /home/kevin/.config/picom/config
