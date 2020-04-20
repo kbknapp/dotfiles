@@ -30,22 +30,23 @@ function f_rust_apps_common() {
     f_out "Compiling and installing Rust applications"
 
     _CARGO_PLUGINS=$(dialog --checklist "Which cargo plugins?" 400 400 15 \
-	  "cargo-outdated" "" on \
+	  "cargo-outdated" "Display out of date dependencies" on \
 	  "cargo-tree" "" on \
 	  "cargo-modules" "" off \
 	  "cargo-cache" "" on \
-	  "cargo-graph" "" on \
-	  "cargo-edit" "" on \
-	  "cargo-geiger" "" on \
+	  "cargo-graph" "Generate dependency graphs" on \
+	  "cargo-edit" "Edit dependencies from the CLI" on \
+	  "cargo-geiger" "Unsafe statistics about deps" on \
 	  "cargo-bloat" "" on \
-	  "cargo-thanks" "" off \
-	  "cargo-audit" "" on \
-	  "cargo-update" "" on \
-	  "cargo-expand" "" on \
+	  "cargo-thanks" "Star your deps" off \
+	  "cargo-audit" "Security Notifications" on \
+	  "cargo-update" "Update cargo-install'ed binaries" on \
+	  "cargo-expand" "Expand macros" on \
 	  "cargo-deny" "" on \
 	  "cargo-license" "" on \
-	  "cargo-lichking" "" on \
-	  "cargo-count" "" off \
+	  "cargo-lichking" "Display license info for deps" on \
+	  "cargo-count" "Count lines of code" off \
+	  "cargo-call-stack" "Generate Call Graphs" on \
         --output-fd 1)
     clear
 
