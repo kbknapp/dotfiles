@@ -57,6 +57,7 @@ function f_rust_apps_common() {
 	  "rusty-tags" "tags support" on \
 	  "just" "modern make" on \
 	  "tokei" "Fast Line Count" on \
+	  "sccache" "Cache Build Artifacts" on \
         --output-fd 1)
     clear
 
