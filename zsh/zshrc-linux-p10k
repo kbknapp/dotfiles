@@ -87,35 +87,34 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export EDITOR=nvim.043
+export EDITOR=nvim
 export TERM="xterm-256color"
 
 fpath+=~/.zfunc
 compinit -U
 
 # git settings
-abbrev-alias -g gl='git log --graph --all --oneline --decorate'
-abbrev-alias -g gpo='git push origin'
+abbrev-alias gl='git log --graph --all --oneline --decorate'
+abbrev-alias gpo='git push origin'
 
 # Rust(lang) Settings
 source $HOME/.cargo/env
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 export DYLD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$DYLD_LIBRARY_PATH
+export RUSTC_WRAPPER=sccache
 
 # exa is a ls replacement written in Rust
-abbrev-alias -g ls='exa'
-abbrev-alias -g lsa='exa -a'
-abbrev-alias -g ll='exa -bghHliS'
-abbrev-alias -g lla='exa -bghaHliS'
-abbrev-alias -g tree='exa -T'
+abbrev-alias ls='exa'
+abbrev-alias lsa='exa -a'
+abbrev-alias ll='exa -bghHliS'
+abbrev-alias lla='exa -bghaHliS'
+abbrev-alias tree='exa -T'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # NeoVim
-abbrev-alias -g vim='nvim.043'
 abbrev-alias -g nvim='nvim.043'
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
