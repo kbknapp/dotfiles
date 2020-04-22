@@ -3,7 +3,6 @@
 source $HOME/.cargo/env
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 export DYLD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$DYLD_LIBRARY_PATH
-alias cb='cargo build'
-alias cbr='cb --release'
-alias cba='cc && cu && cbr'
+# If sccache is installed (cargo install sccache)
+#export RUST_WRAPPER=sccache
 
