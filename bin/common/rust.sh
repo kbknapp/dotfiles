@@ -29,6 +29,11 @@ function f_rust_apps_common() {
 
     f_out "Compiling and installing Rust applications"
 
+    _RUST_WRAPPERS=$(dialog --checklist "Which Rust Wrappers?" 400 400 15 \
+	  "sccache" "Cache Build Artifacts" on \
+        --output-fd 1)
+    clear
+
     _CARGO_PLUGINS=$(dialog --checklist "Which cargo plugins?" 400 400 15 \
 	  "cargo-outdated" "Display out of date dependencies" on \
 	  "cargo-tree" "" on \
@@ -57,7 +62,6 @@ function f_rust_apps_common() {
 	  "rusty-tags" "tags support" on \
 	  "just" "modern make" on \
 	  "tokei" "Fast Line Count" on \
-	  "sccache" "Cache Build Artifacts" on \
         --output-fd 1)
     clear
 
@@ -131,6 +135,13 @@ function f_rust_apps_common() {
         --output-fd 1)
     clear
 
+    cargo install $_RUST_WRAPPERS || true
+    # If sccache was installed we need to set the env vars
+    # so that all the other cargo-installed and built packages
+    # take advantage of it
+    if [[ " ${_RUST_WRAPPERS[@]} " =~ " sccache " ]]; then
+      export RUSTC_WRAPPER=sccache
+    fi
     cargo install $_CARGO_PLUGINS || true
     cargo install $_RUST_DEV_TOOLS || true
     cargo install $_RUST_CORE_TOOLS || true
