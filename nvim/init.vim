@@ -67,6 +67,9 @@ Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+" Rust
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Semantic language support
 Plug 'racer-rust/vim-racer'
 Plug 'ncm2/ncm2'
@@ -534,6 +537,31 @@ autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
 
 " Flag bad whitespace
 au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" Rust Language Support"
+" For custom commenting functions.
+let b:Comment="//"
+let b:EndComment=""
+
+" Four space indents.
+runtime! include/spacing/four.vim
+
+" Make syntax highlighting more efficient.
+syntax sync fromstart
+
+" Always run rustfmt is applicable and always use stable.
+let g:rustfmt_autosave_if_config_present = 1
+let g:rustfmt_command = "rustfmt +stable"
+
+" Make CTRL-T work correctly with goto-definition.
+setlocal tagfunc=CocTagFunc
+
+nmap <Leader>gt <Plug>(coc-type-definition)
+nmap <Leader>gre <Plug>(coc-references)
+nmap <Leader>grn <Plug>(coc-rename)
+nmap <Leader>gd <Plug>(coc-diagnostic-info)
+nmap <Leader>gp <Plug>(coc-diagnostic-prev)
+nmap <Leader>gn <Plug>(coc-diagnostic-next)
 
 " =============================================================================
 " # Footer
