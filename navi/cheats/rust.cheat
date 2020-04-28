@@ -1,0 +1,7 @@
+% rustc, cargo, clippy
+
+# See all uses of unsafe in crate dep graph
+env RUSTFLAGS="-Funsafe-code --cap-lints=warn" cargo check -vv --message-format=json-diagnostic-rendered-ansi 2>/dev/null | grep '^\{' | jq -r 'select(.message?.code?.code? == "unsafe_code").message?.rendered?'
+
+# See all panics in crate dep graph
+cargo clippy -vv --message-format=json-diagnostic-rendered-ansi -- -Fclippy::panic --cap-lints=warn 2>/dev/null | grep '^\{' | jq -r 'select(.message?.code?.code? == "clippy::panic").message?.rendered?'
