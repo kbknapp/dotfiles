@@ -1,37 +1,13 @@
-% selinux, ausearch
+% selinux, semodule, semanage
 
-# List SELinux errors since <TIME>
-sudo ausearch -m avc -ts <TIME>
+# Query SELinux Status
+getenforce
 
-# List all SELinux errors
-sudo ausearch -m avc
+# Set SELinux to permissive mode
+sudo setenforce 0
 
-# List all SELinux errors for a particular component
-sudo ausearch -m avc -c <COM>
-
-# List SELinux errors for a particular component since <TIME>
-sudo ausearch -m avc -c <COM> -ts <TIME>
-
-# List components with errors
-sudo ausearch -m avc |  grep --only-matching -P 'comm="\K\w+-?\w+' | sort | uniq -d
-
-# Create an allow type enforcement from SELinux errors for a component
-sudo ausearch -m avc -c <COM> | audit2allow -m <COM> > <COM>.te
-
-# Create an allow type enforcement from all errors since <TIME>
-sudo ausearch -m avc -ts <TIME> | audit2allow -m <MOD> < <MOD>.te
-
-# Create an allow type enforcement from all errors with word <WORD>
-sudo ausearch -m avc | grep -i <WORD> | audit2allow -m <MOD> > <MOD>.te
-
-# Create an allow policy package from SELinux errors for a component
-sudo ausearch -m avc -c <COM> | audit2allow -M <COM>
-
-# Create an allow policy package from all errors since <TIME>
-sudo ausearch -m avc -ts <TIME> | audit2allow -M <MODULE>
-
-# Create an allow policy package from all errors with word <WORD>
-sudo ausearch -m avc | grep -i <WORD> | audit2allow -M <MODULE>
+# Set SELinux to enforcing mode
+sudo setenforce 1
 
 # Compile a type enforcement into a policy module
 sudo checkmodule -M -m <TE_MODULE> -o <MOD>.mod
@@ -42,8 +18,70 @@ sudo semodule_package -o <P_MOD> -m <MOD>.pp
 # Load a policy package file
 sudo semodule -i <POLICY_PKG>
 
+# List contexts
+sudo semanage fcontext -l
+
+# Change the type context of a file
+sudo semanage fcontext -a -t <TYPE_CTX> <ABS_PATH> && \
+  sudo restorecon -v $ABS_PATH
+
+# List recent file context changes
+find /etc/selinux/targeted/contexts/ -name "*.local" | xargs -I{} cat {}
+
+# Delete asigned context of file and restore default
+sudo semanage fcontext -d <ABS_PATH> && \
+  sudo restorecon -v $ABS_PATH
+
+# List contexts of currently running processes
+ps -eZ
+
+# Temporary non-persistent context change
+sudo chcon -t <TYPE_CTX> <ABS_PATH>
+
+# List booleans
+sudo semanage boolean -l
+
+# Change boolean value
+sudo setsebool -P <BOOLEAN> <BOOL_STATE>
+
+# Check for incorrect file contexts
+sudo matchpathcon -V <ABS_PATH>
+
+# List restricted ports and protocols
+sudo semanage port -l
+
+# Add port to type context
+sudo semanage port -a -t <PORT_TYPE_CTX> -p <PROTO> <PORT>
+
+# Remove port to type context
+sudo semanage port -d -t <PORT_TYPE_CTX> -p <PROTO> <PORT>
+
+# Add/set domain type context to permissive mode
+sudo semanage permissive -a <TYPE_CTX>
+
+# Remove domain type context to permissive mode
+sudo semanage permissive -d <TYPE_CTX>
+
+# Remove permissive mode from all domains
+sudo semodule -d permissivedomains
+
+# List modules
+sudo semodule -l
+
+# Look for failed login attempts
+sudo ausearch -m USER_LOGIN -sv no
+
+# More detailed information about SELinux Alerts
+sudo sealert -a /var/log/audit/audit.log
+
 $ COM: sudo ausearch -m avc |  grep --only-matching -P 'comm="\K\w+-?\w+' | sort | uniq -d
 $ POLICY_PKG: find ${PWD} -type f -name "*.pp"
 $ TE_MOD: find ${PWD} -type f -name "*.te"
 $ P_MOD: find ${PWD} -type f -name "*.mod"
 $ TIME: echo 'now recent boot today yesterday this-week week-ago this-month this-year' | tr ' ' '\n'
+$ TYPE_CTX: sudo semanage fcontext -l | awk '{print $4}' | awk -F: '{print $3}' | sort | uniq -d
+$ BOOLEAN: sudo semanage boolean -l | awk '{print $1}'
+$ BOOL_STATE: echo 'on off' | tr ' ' '\n'
+$ PORT_TYPE_CTX: sudo semanage port -l | awk '{print $1}'
+$ PROTO: echo 'tcp udp' | tr ' ' '\n'
+$ PORT: echo {1..65536} | tr ' ' '\n'

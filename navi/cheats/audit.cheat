@@ -1,0 +1,40 @@
+% ausearch, auditctl, auditd
+
+# List SELinux errors since <TIME>
+sudo ausearch -m avc -ts <TIME>
+
+# List all SELinux errors
+sudo ausearch -m avc
+
+# List all SELinux errors for a particular component
+sudo ausearch -m avc -c <COM>
+
+# List SELinux errors for a particular component since <TIME>
+sudo ausearch -m avc -c <COM> -ts <TIME>
+
+# List components with errors
+sudo ausearch -m avc |  grep --only-matching -P 'comm="\K\w+-?\w+' | sort | uniq -d
+
+# Create an allow type enforcement from SELinux errors for a component
+sudo ausearch -m avc -c <COM> | audit2allow -m <COM> > <COM>.te
+
+# Create an allow type enforcement from all errors since <TIME>
+sudo ausearch -m avc -ts <TIME> | audit2allow -m <MOD> < <MOD>.te
+
+# Create an allow type enforcement from all errors with word <WORD>
+sudo ausearch -m avc | grep -i <WORD> | audit2allow -m <MOD> > <MOD>.te
+
+# Create an allow policy package from SELinux errors for a component
+sudo ausearch -m avc -c <COM> | audit2allow -M <COM>
+
+# Create an allow policy package from all errors since <TIME>
+sudo ausearch -m avc -ts <TIME> | audit2allow -M <MODULE>
+
+# Create an allow policy package from all errors with word <WORD>
+sudo ausearch -m avc | grep -i <WORD> | audit2allow -M <MODULE>
+
+$ COM: sudo ausearch -m avc |  grep --only-matching -P 'comm="\K\w+-?\w+' | sort | uniq -d
+$ POLICY_PKG: find ${PWD} -type f -name "*.pp"
+$ TE_MOD: find ${PWD} -type f -name "*.te"
+$ P_MOD: find ${PWD} -type f -name "*.mod"
+$ TIME: echo 'now recent boot today yesterday this-week week-ago this-month this-year' | tr ' ' '\n'
