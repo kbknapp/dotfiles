@@ -1,0 +1,7 @@
+% cryptsetup, luks
+
+# Encrypt a mountpoint
+cryptsetup --verify-passphrase luksFormat /dev/mapper/<VG>-<LV>
+
+# Open an encrypted a mountpoint
+cryptsetup luksOpen /dev/mapper/<VG>-<LV> <MOUNT>
