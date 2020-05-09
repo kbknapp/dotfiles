@@ -62,6 +62,7 @@ function f_rust_apps_common() {
 	  "racer" "Rust completion support" on \
 	  "rusty-tags" "tags support" on \
 	  "just" "modern make" on \
+	  "gitui" "A TUI for git" on \
 	  "tokei" "Fast Line Count" on \
         --output-fd 1)
     clear
