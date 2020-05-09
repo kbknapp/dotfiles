@@ -51,6 +51,7 @@ function f_rust_apps_common() {
 	  "cargo-license" "" on \
 	  "cargo-lichking" "Display license info for deps" on \
 	  "cargo-count" "Count lines of code" off \
+	  "cargo-sweep" "Clean out old build artifacts" off \
 	  "cargo-call-stack" "Generate Call Graphs" on \
         --output-fd 1)
     clear
