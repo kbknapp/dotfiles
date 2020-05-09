@@ -100,24 +100,24 @@ function f_rust_apps_common() {
 	  "skim"           "fzf clone" on \
 	  "mdbook"         "write books in MD" on \
 	  "toast"          "Build using Docker" on \
-	  "starship"       "shell prompt" on \
+	  "starship"       "shell prompt" off \
 	  "mdcat"          "cat for markdown" on \
 	  "topgrade"       "upgrade everything" on \
-	  "bingrep" "" on \
+	  "bingrep"        "" on \
 	  "strace-analyzer" "" on \
 	  "mprober"        "Kernel prob utility" on \
 	  "battop"         "Battery Top" on \
-	  "gptman" "" on \
+	  "gptman"         "" on \
 	  "broot"          "interactive tree" on \
 	  "dupe-krill"    "file deduplicator" on \
 	  "xcompress"      "Compression utility" on \
 	  "ruplacer"       "find and replace" on \
 	  "fastmod"        "find and replace" on \
 	  "ttdl"           "todo list" on \
-	  "genact"         "activity generator" on \
+	  "genact"         "activity generator" off \
 	  "grex"           "regex builder" on \
 	  "bandwhich"      "bandwidth monitor" on \
-	  "ffsend" 	"firefox send from cli" on \
+	  "ffsend" 	       "firefox send from cli" on \
 	  "pastel"         "Get color info in your terminal" on \
 	  "miniserve"      "Mini HTTP server" on \
 	  "tealdeer"       "tldr" on \
