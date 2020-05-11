@@ -1,0 +1,9 @@
+% seccomp
+
+# Check if SECCOMP is available
+grep SECCOMP /boot/config-$(uname -r)
+
+# Check SECCOMP mode of a Process PID
+grep -i seccomp /proc/<PID>/status
+
+$ PID: ps aux | awk '{print $2}'
