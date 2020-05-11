@@ -96,6 +96,18 @@ nmap <leader>T :TagbarToggle<CR>
 
 " Markdown
 Plug 'mzlogin/vim-markdown-toc'
+Plug 'plasticboy/vim-markdown'
+Plug 'junegunn/goyo.vim'
+" Configuration for vim-markdown
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_math = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_autowrite = 1
+let g:vim_markdown_edit_url_in = 'tab'
+let g:vim_markdown_follow_anchor = 1
 
 " Completion plugins
 Plug 'ncm2/ncm2-bufword'
@@ -113,7 +125,6 @@ Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
 Plug 'dag/vim-fish'
-Plug 'plasticboy/vim-markdown'
 
 " Colorscheme
 Plug 'nightsense/cosmic_latte'
@@ -562,6 +573,14 @@ nmap <Leader>grn <Plug>(coc-rename)
 nmap <Leader>gd <Plug>(coc-diagnostic-info)
 nmap <Leader>gp <Plug>(coc-diagnostic-prev)
 nmap <Leader>gn <Plug>(coc-diagnostic-next)
+
+" Markdown Help
+autocmd FileType markdown set cursorline
+autocmd FileType markdown set conceallevel=2
+autocmd FileType markdown set linebreak
+autocmd FileType markdown setlocal scrolloff=12
+autocmd FileType markdown setlocal spell spelllang=en_us
+autocmd FileType markdown Goyo
 
 " =============================================================================
 " # Footer
