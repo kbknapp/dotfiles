@@ -39,7 +39,8 @@ function f_rust_apps_common() {
 	  "cargo-tree" "" on \
 	  "cargo-modules" "" off \
 	  "cargo-cache" "" on \
-	  "cargo-graph" "Generate dependency graphs" on \
+	  "cargo-graph" "Generate dependency graphs" off \
+	  "cargo-deps" "Generate dependency graphs" off \
 	  "cargo-edit" "Edit dependencies from the CLI" on \
 	  "cargo-geiger" "Unsafe statistics about deps" on \
 	  "cargo-bloat" "" on \
@@ -47,7 +48,7 @@ function f_rust_apps_common() {
 	  "cargo-audit" "Security Notifications" on \
 	  "cargo-update" "Update cargo-install'ed binaries" on \
 	  "cargo-expand" "Expand macros" on \
-	  "cargo-deny" "" on \
+	  "cargo-deny" "Dep graph lints" on \
 	  "cargo-license" "" on \
 	  "cargo-lichking" "Display license info for deps" on \
 	  "cargo-count" "Count lines of code" off \
