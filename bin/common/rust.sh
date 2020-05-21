@@ -104,6 +104,7 @@ function f_rust_apps_common() {
 	  "starship"       "shell prompt" off \
 	  "mdcat"          "cat for markdown" on \
 	  "topgrade"       "upgrade everything" on \
+	  "handlr"         "xdg-utils alternative" on \
 	  "bingrep"        "" on \
 	  "strace-analyzer" "" on \
 	  "mprober"        "Kernel prob utility" on \
