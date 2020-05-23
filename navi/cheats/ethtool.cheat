@@ -1,0 +1,9 @@
+% ethtool, network
+
+# Display network statistics for NIC
+ethtool -S <NIC>
+
+# Blink the LED of NIC
+ethtool -p <NIC>
+
+$ NIC: ifconfig | grep -oe '^[^ ]*:' | grep -oe '[^:]*'
