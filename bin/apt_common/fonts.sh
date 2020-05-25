@@ -3,5 +3,6 @@
 function f_fonts_main() {
     f_out "Installing fonts"
 
-    $INSTALL_CMD fonts-firacode fonts-source-code-pro-ttf fonts-font-awesome
+    # 20.04 does not have fonts-source-code-pro-ttf
+    $INSTALL_CMD fonts-firacode fonts-font-awesome
 }
