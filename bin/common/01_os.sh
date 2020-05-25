@@ -2,7 +2,7 @@
 
 function f_validate_os() {
     case "${_OS}" in
-        fedora|opensuse|regolith|manjaro)
+        fedora|opensuse|regolith|manjaro|ubuntu)
             return 0
             ;;
         *)

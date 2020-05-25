@@ -14,7 +14,7 @@ function f_validate_de() {
             ;;
         ubuntu)
             case "${_DE}" in
-                gnome|kde|xfce|i3x|i3g)
+                gnome|kde|xfce|i3x|i3g|i3k)
                     return 0
                 ;;
                 *)
