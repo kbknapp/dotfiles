@@ -3,6 +3,6 @@
 function f_os_post() {
     f_out "Finishing up Regolith Install"
 
-    sudo apt upgrade -y
-    sudo apt autoremove -y
+    sudo apt-get upgrade -y
+    sudo apt-get autoremove -y
 }
