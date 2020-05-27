@@ -9,7 +9,7 @@ function f_alacritty_common() {
 
     f_out "Compiling alacritty"
     cd ~/.build/
-    git clone https://github.com/jwilm/alacritty || true
+    git clone https://github.com/alacritty/alacritty || true
     cd alacritty
 
     cargo build --release

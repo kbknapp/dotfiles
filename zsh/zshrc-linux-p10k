@@ -101,7 +101,9 @@ abbrev-alias gpo='git push origin'
 source $HOME/.cargo/env
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 export DYLD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$DYLD_LIBRARY_PATH
-export RUSTC_WRAPPER=sccache
+if command -v sccache 2>/dev/null ; then
+	export RUSTC_WRAPPER=sccache
+fi
 
 # exa is a ls replacement written in Rust
 abbrev-alias ls='exa'
@@ -112,9 +114,6 @@ abbrev-alias tree='exa -T'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# NeoVim
-abbrev-alias -g nvim='nvim.043'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
