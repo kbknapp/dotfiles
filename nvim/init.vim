@@ -129,6 +129,12 @@ Plug 'dag/vim-fish'
 " Colorscheme
 Plug 'nightsense/cosmic_latte'
 
+" Vimwiki
+Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [{'path': '~/Projects/vimwiki/',
+	             \ 'path_html': '~/Projects/vimwiki_html',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
+
 call plug#end()
 
 if has('nvim')
