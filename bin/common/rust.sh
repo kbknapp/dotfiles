@@ -34,11 +34,12 @@ function f_rust_apps_common() {
         --output-fd 1)
     clear
 
-    _CARGO_PLUGINS=$(dialog --checklist "Which cargo plugins?" 400 400 15 \
+    _CARGO_PLUGINS=$(dialog --checklist "Which cargo plugins?" 400 400 19 \
 	  "cargo-outdated" "Display out of date dependencies" on \
 	  "cargo-tree" "" on \
 	  "cargo-modules" "" off \
 	  "cargo-cache" "" on \
+	  "cargo-crev" "Dependency Audit and Review" on \
 	  "cargo-graph" "Generate dependency graphs" off \
 	  "cargo-deps" "Generate dependency graphs" off \
 	  "cargo-edit" "Edit dependencies from the CLI" on \
