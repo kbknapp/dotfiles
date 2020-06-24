@@ -1,0 +1,7 @@
+% network,netstat
+
+# Display status of known routes
+netstat -r
+
+# Display network statistics
+netstat -s
