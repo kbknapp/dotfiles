@@ -45,6 +45,7 @@ function f_rust_apps_common() {
 	  "cargo-edit" "Edit dependencies from the CLI" on \
 	  "cargo-geiger" "Unsafe statistics about deps" on \
 	  "cargo-bloat" "" on \
+	  "cargo-udeps" "Find unused deps" on \
 	  "cargo-thanks" "Star your deps" off \
 	  "cargo-audit" "Security Notifications" on \
 	  "cargo-update" "Update cargo-install'ed binaries" on \
