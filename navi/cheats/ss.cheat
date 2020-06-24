@@ -1,0 +1,20 @@
+% ss,network
+
+# Filter connections by state
+ss -<IP_PROTO> state <STATE>
+
+# Filter connections by specific address
+ss <SRC_DST> <IP>
+
+# Show listening connections (tcp/udp) (with process)
+ss -plunt
+
+# Show listening and established connections (tcp/udp) (with process)
+ss -plunta
+
+# Show network summary
+ss -s
+
+$ STATE: echo 'established syn-sent syn-recv fin-wait-1 fin-wait-2 time-wait closed close-wait last-ack listening closing all connected synchronized bucket syn-recv big' | tr ' ' '\n'
+$ IP_PROTO: echo '4 6' | tr ' ' '\n'
+$ SRC_DST: echo 'src dst' | tr ' ' '\n'
