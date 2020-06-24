@@ -34,3 +34,8 @@ ifconfig \
 
 # Find external, public IP address
 dig +short myip.opendns.com @resolver1.opendns.com
+
+% network,ip
+
+# Show interface link statistics
+ip -s link
