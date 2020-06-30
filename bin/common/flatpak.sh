@@ -70,6 +70,14 @@ function f_riot_main() {
     flatpak install -y flathub im.riot.Riot
 }
 
+function f_flatseal_main() {
+    f_check_prog "flatpak"
+
+    f_out "Installing Flatseal"
+
+   flatpak install -y flathub com.github.tchx84.Flatseal
+}
+
 function f_flatpak_apps_main() {
     local _FP_APPS
 
@@ -82,6 +90,7 @@ function f_flatpak_apps_main() {
        signal "Signal" on \
        telegram "Telegram" on \
        riot "Riot" off \
+       flatseal "Flatseal" on \
         --output-fd 1)
     clear
 
