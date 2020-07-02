@@ -68,6 +68,7 @@ function f_rust_apps_common() {
 	  "gitui" "A TUI for git" on \
 	  "git-absorb" "Auto fixup and rebase in git" on \
 	  "tokei" "Fast Line Count" on \
+	  "watchexec" "Run command on file change" on \
         --output-fd 1)
     clear
 
