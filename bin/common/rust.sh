@@ -20,7 +20,6 @@ function f_rust_apps_common() {
 	#   lolcate-rs (=locate) (rust error)
 	#   sear: signed and encrypted archive
 	#   snifflue:  tcpdump/wireshark (missing seccomp)
-	#   cargo install --git https://github.com/cjbassi/ytop ytop
 
     if [ -e ~/.cargo/env ]; then
         source ~/.cargo/env
@@ -37,6 +36,7 @@ function f_rust_apps_common() {
     _CARGO_PLUGINS=$(dialog --checklist "Which cargo plugins?" 400 400 19 \
 	  "cargo-outdated" "Display out of date dependencies" on \
 	  "cargo-tree" "" on \
+	  "cargo-about" "more info about deps" on \
 	  "cargo-modules" "" off \
 	  "cargo-cache" "" on \
 	  "cargo-crev" "Dependency Audit and Review" on \
@@ -143,6 +143,13 @@ function f_rust_apps_common() {
         --output-fd 1)
     clear
 
+    _RUST_TOOLS_GIT=$(dialog --checklist "Which Rust from git repos?" 400 400 25 \
+	  "cjbassi/ytop"       "top like TUI" on \
+	  "denisidoro/navi"    "command search" on \
+	  "getzola/zola"       "static site generator" on \
+        --output-fd 1)
+    clear
+
     cargo install $_RUST_WRAPPERS || true
     # If sccache was installed we need to set the env vars
     # so that all the other cargo-installed and built packages
@@ -157,6 +164,10 @@ function f_rust_apps_common() {
     cargo install $_RUST_MISC_TOOLS || true
     cargo install $_RUST_TOP_TOOLS || true
     cargo install $_RUST_DATA_TOOLS || true
+
+    for TOOL in "${_RUST_TOOLS_GIT[@]}"; do
+      cargo install --git https://github.com/"${TOOL}"
+    done
 }
 
 function f_rust_main {
