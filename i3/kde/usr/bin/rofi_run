@@ -136,7 +136,7 @@ for arg in "${args[@]}"; do
                 *Lock) i3lock-fancy ;;
                 *Reboot) systemctl reboot ;;
                 *Shutdown) systemctl -i poweroff ;;
-                *Logout) session-logout || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
+                *Logout) session-logout || loginctl terminate-user "$USER" || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
             esac
 	    break
             ;;
