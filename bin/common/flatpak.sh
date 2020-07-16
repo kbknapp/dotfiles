@@ -1,9 +1,11 @@
 #!/bin/bash
 
+FLATPAK_INSTALL_CMD='flatpak install --user -y'
+
 function f_flatpak_common() {
     f_out "Installing flathub"
 
-    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 function f_git_kraken_main() {
@@ -11,7 +13,7 @@ function f_git_kraken_main() {
 
     f_out "Installing GitKraken"
 
-    flatpak install -y flathub com.axosoft.GitKraken
+    $FLATPAK_INSTALL_CMD flathub com.axosoft.GitKraken
 }
 
 function f_discord_main() {
@@ -19,7 +21,7 @@ function f_discord_main() {
 
     f_out "Installing Discord"
 
-    flatpak install -y flathub com.discordapp.Discord
+    flatpak install --user -y flathub com.discordapp.Discord
 }
 
 function f_dropbox_main() {
@@ -27,7 +29,7 @@ function f_dropbox_main() {
 
     f_out "Installing Dropbox"
 
-    flatpak install -y flathub com.dropbox.Client
+    flatpak install --user -y flathub com.dropbox.Client
 }
 
 function f_slack_main() {
@@ -35,7 +37,7 @@ function f_slack_main() {
 
     f_out "Installing Slack"
 
-    flatpak install -y flathub com.slack.Slack
+    $FLATPAK_INSTALL_CMD flathub com.slack.Slack
 }
 
 function f_code_main() {
@@ -43,7 +45,7 @@ function f_code_main() {
 
     f_out "Installing Visual Studio Code"
 
-    flatpak install -y flathub com.visualstudio.code.oss
+    $FLATPAK_INSTALL_CMD flathub com.visualstudio.code.oss
 }
 
 function f_signal_main() {
@@ -51,7 +53,7 @@ function f_signal_main() {
 
     f_out "Installing Signal"
 
-    flatpak install -y flathub org.signal.Signal
+    $FLATPAK_INSTALL_CMD flathub org.signal.Signal
 }
 
 function f_telegram_main() {
@@ -59,7 +61,7 @@ function f_telegram_main() {
 
     f_out "Installing Telegram"
 
-    flatpak install -y flathub org.telegram.desktop
+    $FLATPAK_INSTALL_CMD flathub org.telegram.desktop
 }
 
 function f_riot_main() {
@@ -67,7 +69,7 @@ function f_riot_main() {
 
     f_out "Installing Riot"
 
-    flatpak install -y flathub im.riot.Riot
+    $FLATPAK_INSTALL_CMD flathub im.riot.Riot
 }
 
 function f_flatseal_main() {
@@ -75,7 +77,7 @@ function f_flatseal_main() {
 
     f_out "Installing Flatseal"
 
-   flatpak install -y flathub com.github.tchx84.Flatseal
+   $FLATPAK_INSTALL_CMD flathub com.github.tchx84.Flatseal
 }
 
 function f_flatpak_apps_main() {
@@ -100,5 +102,3 @@ function f_flatpak_apps_main() {
         f_${APP}_main
     done
 }
-
-
