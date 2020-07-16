@@ -13,6 +13,9 @@ env:
   TERM: xterm-256color
 
 window:
+  # Allow terminal applications to change Alacritty's window title.
+  dynamictitle: true
+
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -102,7 +105,7 @@ font:
     #style: Italic
 
   # Point size
-  size: 9.0
+  size: 12.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -212,9 +215,9 @@ colors:
   #
   indexed_colors: []
 
-# Visual Bell
+# Bell
 #
-# Any time the BEL code is received, Alacritty "rings" the visual bell. Once
+# Any time the BEL code is received, Alacritty "rings" the bell. Once
 # rung, the terminal background will be set to white and transition back to the
 # default background color. You can control the rate of this transition by
 # setting the `duration` property (represented in milliseconds). You can also
@@ -232,8 +235,8 @@ colors:
 #   - EaseOutCirc
 #   - Linear
 #
-# Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+# Specifying a `duration` of `0` will disable the bell.
+bell:
   animation: EaseOutExpo
   duration: 0
   color: '0xffffff'
@@ -299,9 +302,6 @@ selection:
 
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: false
-
-# Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
 
 cursor:
   # Cursor style
