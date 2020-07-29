@@ -1,0 +1,10 @@
+% kde,plasma
+
+# Send notification from command line
+notify-send "<MSG>"
+
+# Send notification upon command success
+while true; do sleep <SECS>; sh -c "<CMD>" 2>&1 >/dev/null && { notify-send "<NAME> complete" && break }; done &
+
+# Send notification upon command failure
+while true; do sleep <SECS>; sh -c "<CMD>" 2>&1 >/dev/null || { notify-send "<NAME> complete" && break }; done &
