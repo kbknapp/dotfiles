@@ -126,6 +126,7 @@ function f_rust_apps_common() {
 	  "ffsend" 	       "firefox send from cli" on \
 	  "pastel"         "Get color info in your terminal" on \
 	  "miniserve"      "Mini HTTP server" on \
+	  "wasm-pack"      "" on \
 	  "tealdeer"       "tldr" on \
         --output-fd 1)
     clear
