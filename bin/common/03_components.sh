@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function f_get_common_components() {
-    _COMPONENTS=$(dialog --checklist "Which Common Components?" 400 400 32 \
+    _COMPONENTS=$(dialog --checklist "Which Common Components?" 400 400 36 \
        home_dirs "Common Home Dirs" on \
        curl "curl" on \
        git "git" on \
