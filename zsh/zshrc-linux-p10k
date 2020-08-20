@@ -101,8 +101,8 @@ abbrev-alias gpo='git push origin'
 source $HOME/.cargo/env
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 export DYLD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$DYLD_LIBRARY_PATH
-if command -v sccache 2>/dev/null ; then
-	export RUSTC_WRAPPER=sccache
+if command -v sccache 2>&1 >/dev/null ; then
+  export RUSTC_WRAPPER=sccache
 fi
 
 # exa is a ls replacement written in Rust
