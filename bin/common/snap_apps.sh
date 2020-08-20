@@ -51,11 +51,11 @@ function f_snap_apps_main() {
     local _SNAP_COMPONENTS
 
     _SNAP_COMPONENTS=$(dialog --checklist "Which Snap Apps?" 400 400 5 \
-       lxd "LXD" on \
-       clion Clion on \
+       lxd "LXD" off \
+       clion Clion off \
        mailspring Mailspring on \
        freemind FreeMind off \
-       qemu "QEMU-Virgil" on \
+       qemu "QEMU-Virgil" off \
         --output-fd 1)
     clear
 
