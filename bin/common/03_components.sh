@@ -3,6 +3,7 @@
 function f_get_common_components() {
     _COMPONENTS=$(dialog --checklist "Which Common Components?" 400 400 36 \
        home_dirs "Common Home Dirs" on \
+       vscode "VSCode" on \
        curl "curl" on \
        git "git" on \
        build_tools "Built Tools" on \

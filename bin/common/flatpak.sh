@@ -88,7 +88,7 @@ function f_flatpak_apps_main() {
        discord "Discord" on \
        dropbox "Dropbox" off \
        slack "Slack" off \
-       code "Visual Studio Code" on \
+       code "Visual Studio Code" off \
        signal "Signal" on \
        telegram "Telegram" on \
        riot "Riot" off \
