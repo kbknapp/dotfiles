@@ -352,6 +352,9 @@ for_window [class="Plasmoidviewer"] floating enable; border none
 #for_window [class="(?i)*nextcloud*"] floating disable
 for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 650px, move down 450px, no_focus 
 
+# fix notification focusing
+no_focus [class="plasmashell" window_type="notification"]
+
 # # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
 for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
