@@ -167,7 +167,7 @@ function f_rust_apps_common() {
     cargo install $_RUST_DATA_TOOLS || true
 
     for TOOL in "${_RUST_TOOLS_GIT[@]}"; do
-      cargo install --git https://github.com/"${TOOL}"
+      cargo install --git https://github.com/${TOOL} || true
     done
 }
 
