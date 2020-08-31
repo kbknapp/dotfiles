@@ -6,6 +6,7 @@ function f_flatpak_common() {
     f_out "Installing flathub"
 
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 function f_git_kraken_main() {
@@ -21,7 +22,7 @@ function f_discord_main() {
 
     f_out "Installing Discord"
 
-    flatpak install --user -y flathub com.discordapp.Discord
+    $FLATPAK_INSTALL_CMD flathub com.discordapp.Discord
 }
 
 function f_dropbox_main() {
@@ -29,7 +30,7 @@ function f_dropbox_main() {
 
     f_out "Installing Dropbox"
 
-    flatpak install --user -y flathub com.dropbox.Client
+    $FLATPAK_INSTALL_CMD flathub com.dropbox.Client
 }
 
 function f_slack_main() {
