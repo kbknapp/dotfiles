@@ -1,9 +1,0 @@
-% find
-
-# Exclude dir from results
-find <ROOT_DIR> -type <TYPE> \( ! -name "<ROOT_DIR>/<EXCLUDE_DIR>/*" \) 
-
-# Delete empty directories
-find <ROOT_DIR> -type d -empty -delete
-
-$ TYPE: echo 'f d' | tr ' ' '\n'

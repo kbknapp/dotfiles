@@ -1,4 +1,0 @@
-% nextcloud, snap
-
-# Turn off NextCloud maintenance mode
-sudo nextcloud.occ maintenance:mode --off

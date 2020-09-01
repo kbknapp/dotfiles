@@ -1,4 +1,0 @@
-% strace
-
-# Display systemcalls for a process
-sudo strace --summary-only --quiet --follow-forks <PROC>
