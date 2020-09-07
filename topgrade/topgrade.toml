@@ -39,7 +39,8 @@ cleanup = true
 # Additional git repositories to pull
 repos = [
     "~/Projects/*/",
-    "~/.dotfiles/"
+    "~/.dotfiles/",
+    "~/Obsidian"
 ]
 
 # Don't pull the predefined git repos
