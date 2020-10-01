@@ -133,7 +133,7 @@ bindkey '^B' addbr # Bind functionality to Ctrl-B
 
 _call_navi() {
   local selected
-  if selected="$(printf "$(navi --print --path ${HOME}/.dotfiles/navi/cheats:${HOME}/Projects/bsi-navi-cheats </dev/tty)")"; then
+  if selected="$(printf "$(navi --print --path ${HOME}/Projects/navi-cheats/cheats:${HOME}/Projects/bsi-navi-cheats </dev/tty)")"; then
     LBUFFER="$selected"
   fi
   zle redisplay
