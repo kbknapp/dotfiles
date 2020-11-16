@@ -18,7 +18,16 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 14))
+(setq doom-font (font-spec :family "Fira Code" :size 14)
+      doom-variable-pitch-font (font-spec :family "Fira Code" :size 15)
+      doom-big-font (font-spec :family "Fira Code" :size 24))
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
+
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -61,7 +70,132 @@
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 (setq tab-stop-list (number-sequence 4 200 4))
 
+(setq shell-file-name "/usr/bin/zsh")
+
 (map! :leader
-      :desc "Open org-mode" "oo" #'org-mode)
+      :desc "Open org-mode" "oo" #'org-mode
+      :leader
+      :desc "Deadgrep" "/" #'deadgrep
+      :leader
+      :desc "List bookmarks"
+      "b L" #'list-bookmarks
+      :leader
+      :desc "Save current bookmarks to bookmark file"
+      "b w" #'bookmark-save)
+
+;; | COMMAND                                   | DESCRIPTION                                | KEYBINDING |
+;; |-------------------------------------------+--------------------------------------------+------------|
+;; | dired                                     | /Open dired file manager/                    | SPC d d    |
+;; | dired-jump                                | /Jump to current directory in dired/         | SPC d j    |
+;; | (in dired) peep-dired                     | /Toggle image previews within dired/         | SPC d p    |
+;; | (in dired) dired-view-file                | /View file in dired/                         | SPC d v    |
+;; | (in peep-dired-mode) peep-dired-next-file | /Move to next file in peep-dired-mode/       | j          |
+;; | (in peep-dired-mode) peep-dired-prev-file | /Move to previous file in peep-dired-mode/   | k          |
 (map! :leader
-      :desc "Deadgrep" "/" #'deadgrep)
+      :desc "Dired"
+      "d d" #'dired
+      :leader
+      :desc "Dired jump to current"
+      "d j" #'dired-jump
+      (:after dired
+        (:map dired-mode-map
+         :leader
+         :desc "Peep-dired image previews"
+         "d p" #'peep-dired
+         :leader
+         :desc "Dired view file"
+         "d v" #'dired-view-file)))
+(evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
+                                             (kbd "k") 'peep-dired-prev-file)
+(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+
+(setq display-line-numbers-type t)
+(map! :leader
+      :desc "Toggle truncate lines"
+      "t t" #'toggle-truncate-lines)
+
+
+(after! org
+  (map! :map org-mode-map
+        :n "M-j" #'org-metadown
+        :n "M-k" #'org-metaup)
+  (require 'org-bullets)  ; Nicer bullets in org-mode
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  (setq org-directory "~/Org/"
+        org-agenda-files '("~/Org/agenda.org")
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "
+        org-log-done 'time
+        org-journal-dir "~/Org/journal/"
+        org-journal-date-format "%B %d, %Y (%A)"
+        org-journal-file-format "%Y-%m-%d.org"
+        org-hide-emphasis-markers t
+        ;; ex. of org-link-abbrev-alist in action
+        ;; [[arch-wiki:Name_of_Page][Description]]
+        org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
+          '(("google" . "http://www.google.com/search?q=")
+            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+            ("ddg" . "https://duckduckgo.com/?q=")
+            ("wiki" . "https://en.wikipedia.org/wiki/"))
+        org-todo-keywords        ; This overwrites the default Doom org-todo-keywords
+          '((sequence
+             "TODO(t)"           ; A task that is ready to be tackled
+             "BLOG(b)"           ; Blog writing assignments
+             "GYM(g)"            ; Things to accomplish at the gym
+             "PROJ(p)"           ; A project that contains other tasks
+             "VIDEO(v)"          ; Video assignments
+             "WAIT(w)"           ; Something is holding up this task
+             "|"                 ; The pipe necessary to separate "active" states and "inactive" states
+             "DONE(d)"           ; Task has been completed
+             "CANCELLED(c)" )))) ; Task has been cancelled
+
+
+;; | COMMAND                          | DESCRIPTION                      | KEYBINDING |
+;; |----------------------------------+----------------------------------+------------|
+;; | copy-to-register                 | /Copy to register/                 | SPC r c    |
+;; | frameset-to-register             | /Frameset to register/             | SPC r f    |
+;; | insert-register                  | /Insert contents of register/      | SPC r i    |
+;; | jump-to-register                 | /Jump to register/                 | SPC r j    |
+;; | list-registers                   | /List registers/                   | SPC r l    |
+;; | number-to-register               | /Number to register/               | SPC r n    |
+;; | counsel-register                 | /Interactively choose a register/  | SPC r r    |
+;; | view-register                    | /View a register/                  | SPC r v    |
+;; | window-configuration-to-register | /Window configuration to register/ | SPC r w    |
+;; | increment-register               | /Increment register/               | SPC r +    |
+;; | point-to-register                | /Point to register/                | SPC r SPC  |
+
+(map! :leader
+      :desc "Copy to register"
+      "r c" #'copy-to-register
+      :leader
+      :desc "Frameset to register"
+      "r f" #'frameset-to-register
+      :leader
+      :desc "Insert contents of register"
+      "r i" #'insert-register
+      :leader
+      :desc "Jump to register"
+      "r j" #'jump-to-register
+      :leader
+      :desc "List registers"
+      "r l" #'list-registers
+      :leader
+      :desc "Number to register"
+      "r n" #'number-to-register
+      :leader
+      :desc "Interactively choose a register"
+      "r r" #'counsel-register
+      :leader
+      :desc "View a register"
+      "r v" #'view-register
+      :leader
+      :desc "Window configuration to register"
+      "r w" #'window-configuration-to-register
+      :leader
+      :desc "Increment register"
+      "r +" #'increment-register
+      :leader
+      :desc "Point to register"
+      "r SPC" #'point-to-register)
+
+
