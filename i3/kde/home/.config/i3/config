@@ -14,7 +14,7 @@ set $alt Mod1
 set $picom_config /home/kevin/.config/picom/config
 
 # path to terminal. Override this to specify a custom terminal.
-set $terminal_path /usr/bin/alacritty
+set $terminal_path /usr/bin/kitty
 
 # Color values are defined in ~/.Xresources-regolith
 # These are the labels which define each i3 workspace.
