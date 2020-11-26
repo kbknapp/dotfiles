@@ -11,7 +11,7 @@
 #only = ["system", "emacs"]
 
 # Do not ask to retry failed steps (default: false)
-no_retry = true
+#no_retry = true
 
 # Run inside tmux
 #run_in_tmux = true
@@ -32,22 +32,21 @@ no_retry = true
 #set_title = false
 
 # Cleanup temporary or old files
-cleanup = true
+#cleanup = true
 
 [git]
 #max_concurrency = 5
 # Additional git repositories to pull
 repos = [
     "~/Projects/*/",
-    "~/.dotfiles/",
-    "~/Obsidian"
+    "~/.dotfiles/"
 ]
 
 # Don't pull the predefined git repos
 #predefined_repos = false
 
 # Arguments to pass Git when pulling Repositories
-arguments = "--rebase --autostash"
+#arguments = "--rebase --autostash"
 
 #[composer]
 #self_update = true
@@ -57,8 +56,8 @@ arguments = "--rebase --autostash"
 #"Emacs Snapshot" = "rm -rf ~/.emacs.d/elpa.bak && cp -rl ~/.emacs.d/elpa ~/.emacs.d/elpa.bak"
 
 # Custom commands
-#[commands]
-#"Python Environment" = "~/dev/.env/bin/pip install -i https://pypi.python.org/simple -U --upgrade-strategy eager jupyter"
+[commands]
+"Standard Notes" = "wget -O ~/.local/bin/standard-notes.appimage -c https://github.com/$(wget -q https://github.com/standardnotes/desktop/releases -O - | grep \"standard-notes-.*-x86_64.AppImage\" | head -n 1 | cut -d '\"' -f 2)"
 
 #[brew]
 #greedy_cask = true
@@ -76,7 +75,7 @@ arguments = "--rebase --autostash"
 #accept_all_updates = false
 #open_remotes_in_new_terminal = true
 
-# Causes Topgrade to rename itself during the run to allow package managers
+# Causes Topgrade to rename itself during the run to allow package managers 
 # to upgrade it. Use this only if you installed Topgrade by using a package
 # manager such as Scoop to Cargo
 #self_rename = true
