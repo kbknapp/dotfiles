@@ -18,7 +18,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Fira Code" :size 14)
+(setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'medium)
       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15)
       doom-big-font (font-spec :family "Fira Code" :size 24))
 (after! doom-themes
@@ -70,7 +70,18 @@
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 (setq tab-stop-list (number-sequence 4 200 4))
 
-(setq shell-file-name "/usr/bin/zsh")
+(setq shell-file-name "/usr/bin/zsh"
+      eshell-aliases-file "~/.doom.d/aliases"
+      eshell-history-size 5000
+      eshell-buffer-maximum-lines 5000
+      eshell-hist-ignoredups t
+      eshell-scroll-to-bottom-on-input t
+      eshell-destroy-buffer-when-process-dies t
+      eshell-visual-commands'("bash" "fish" "htop" "ssh" "zsh")
+      vterm-max-scrollback 5000)
+(map! :leader
+      :desc "Counsel eshell history"
+      "e h" #'counsel-esh-history)
 
 (map! :leader
       :desc "Open org-mode" "oo" #'org-mode
