@@ -58,7 +58,7 @@ repos = [
 # Custom commands
 [commands]
 "Standard Notes" = "STANDARD_NOTES_LATEST=$(wget -q https://github.com/standardnotes/desktop/releases -O - | grep \"standard-notes-.*-x86_64.AppImage\" | head -n 1 | cut -d '\"' -f 2) && wget -O ~/.local/bin/$(echo $STANDARD_NOTES_LATEST | grep -oP '[^/]*$') -c https://github.com/${STANDARD_NOTES_LATEST}"
-"appimaged" = "APPIMAGED_LATEST=$(wget -q https://github.com/probonopd/go-appimage/releases -O - | grep \"appimaged-.*-x86_64.AppImage\" | head -n 1 | cut -d '\"' -f 2) && wget -O ~/.local/bin/$(echo $STANDARD_NOTES_LATEST | grep -oP '[^/]*$') -c https://github.com/${APPIMAGED_LATEST}"
+"appimaged" = "APPIMAGED_LATEST=$(wget -q https://github.com/probonopd/go-appimage/releases -O - | grep \"appimaged-.*-x86_64.AppImage\" | head -n 1 | cut -d '\"' -f 2) && wget -O ~/.local/bin/$(echo $APPIMAGED_LATEST | grep -oP '[^/]*$') -c https://github.com/${APPIMAGED_LATEST}"
 
 #[brew]
 #greedy_cask = true
