@@ -57,7 +57,7 @@ repos = [
 
 # Custom commands
 [commands]
-"Standard Notes" = "wget -O ~/.local/bin/standard-notes.appimage -c https://github.com/$(wget -q https://github.com/standardnotes/desktop/releases -O - | grep \"standard-notes-.*-x86_64.AppImage\" | head -n 1 | cut -d '\"' -f 2)"
+"Standard Notes" = "STANDARD_NOTES_LATEST=$(wget -q https://github.com/standardnotes/desktop/releases -O - | grep \"standard-notes-.*-x86_64.AppImage\" | head -n 1 | cut -d '\"' -f 2) && wget -O ~/.local/bin/$(echo $STANDARD_NOTES_LATEST | grep -oP '[^/]*$') -c https://github.com/${STANDARD_NOTES_LATEST}"
 
 #[brew]
 #greedy_cask = true
