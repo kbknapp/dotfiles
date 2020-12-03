@@ -210,3 +210,8 @@
       "r SPC" #'point-to-register)
 
 
+(after! rustic
+        (setq rustic-lsp-server 'lsp))
+
+(add-hook 'before-save-hook (lambda () (when (eq 'rust-mode major-mode)
+                                           (lsp-format-buffer))))

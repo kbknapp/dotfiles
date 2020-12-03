@@ -51,3 +51,4 @@
 (package! toml)
 (package! deadgrep)
 (package! org-bullets)
+(package! lsp-mode)
