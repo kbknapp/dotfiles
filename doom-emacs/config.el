@@ -211,7 +211,7 @@
 
 
 (after! rustic
-        (setq rustic-lsp-server 'lsp))
+        (setq rustic-lsp-server 'rust-analyzer))
 
 (add-hook 'before-save-hook (lambda () (when (eq 'rust-mode major-mode)
                                            (lsp-format-buffer))))
