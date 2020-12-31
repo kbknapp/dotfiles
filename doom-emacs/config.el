@@ -92,7 +92,16 @@
       "b L" #'list-bookmarks
       :leader
       :desc "Save current bookmarks to bookmark file"
-      "b w" #'bookmark-save)
+      "b w" #'bookmark-save
+      (:prefix-map ("g m" . "smerge")
+        :leader
+        :desc "Keep Upper" "u" #'smerge-keep-upper
+        :leader
+        :desc "Keep Lower" "l" #'smerge-keep-lower
+        :leader
+        :desc "Keep Base" "b" #'smerge-keep-base
+        :leader
+        :desc "Keep All" "a" #'smerge-keep-all))
 
 ;; | COMMAND                                   | DESCRIPTION                                | KEYBINDING |
 ;; |-------------------------------------------+--------------------------------------------+------------|
