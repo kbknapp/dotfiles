@@ -80,19 +80,18 @@
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "zsh")
       vterm-max-scrollback 5000)
 (map! :leader
-      :desc "Counsel eshell history"
-      "e h" #'counsel-esh-history)
+      (:prefix-map ("e" . "eshell")
+       :leader
+       :desc "Counsel eshell history" "h" #'counsel-esh-history))
 
 (map! :leader
-      :desc "Open org-mode" "oo" #'org-mode
+      :desc "Open org-mode" "o o" #'org-mode
       :leader
       :desc "Deadgrep" "/" #'deadgrep
       :leader
-      :desc "List bookmarks"
-      "b L" #'list-bookmarks
+      :desc "List bookmarks" "b L" #'list-bookmarks
       :leader
-      :desc "Save current bookmarks to bookmark file"
-      "b w" #'bookmark-save
+      :desc "Save current bookmarks to bookmark file" "b w" #'bookmark-save
       (:prefix-map ("g m" . "smerge")
         :leader
         :desc "Keep Upper" "u" #'smerge-keep-upper
@@ -112,19 +111,15 @@
 ;; | (in peep-dired-mode) peep-dired-next-file | /Move to next file in peep-dired-mode/       | j          |
 ;; | (in peep-dired-mode) peep-dired-prev-file | /Move to previous file in peep-dired-mode/   | k          |
 (map! :leader
-      :desc "Dired"
-      "d d" #'dired
-      :leader
-      :desc "Dired jump to current"
-      "d j" #'dired-jump
-      (:after dired
-        (:map dired-mode-map
-         :leader
-         :desc "Peep-dired image previews"
-         "d p" #'peep-dired
-         :leader
-         :desc "Dired view file"
-         "d v" #'dired-view-file)))
+      (:prefix-map ("d" . "dired")
+       :leader
+       :desc "Dired" "d" #'dired
+       :leader
+       :desc "Dired jump to current" "j" #'dired-jump
+       :leader
+       :desc "Peep-dired image previews" "p" #'peep-dired
+       :leader
+       :desc "Dired view file" "v" #'dired-view-file))
 (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
                                              (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
@@ -133,7 +128,6 @@
 (map! :leader
       :desc "Toggle truncate lines"
       "t t" #'toggle-truncate-lines)
-
 
 (after! org
   (map! :map org-mode-map
@@ -185,38 +179,29 @@
 ;; | point-to-register                | /Point to register/                | SPC r SPC  |
 
 (map! :leader
-      :desc "Copy to register"
-      "r c" #'copy-to-register
-      :leader
-      :desc "Frameset to register"
-      "r f" #'frameset-to-register
-      :leader
-      :desc "Insert contents of register"
-      "r i" #'insert-register
-      :leader
-      :desc "Jump to register"
-      "r j" #'jump-to-register
-      :leader
-      :desc "List registers"
-      "r l" #'list-registers
-      :leader
-      :desc "Number to register"
-      "r n" #'number-to-register
-      :leader
-      :desc "Interactively choose a register"
-      "r r" #'counsel-register
-      :leader
-      :desc "View a register"
-      "r v" #'view-register
-      :leader
-      :desc "Window configuration to register"
-      "r w" #'window-configuration-to-register
-      :leader
-      :desc "Increment register"
-      "r +" #'increment-register
-      :leader
-      :desc "Point to register"
-      "r SPC" #'point-to-register)
+      (:prefix-map ("r" . "register")
+       :leader
+       :desc "Copy to register" "c" #'copy-to-register
+       :leader
+       :desc "Frameset to register" "f" #'frameset-to-register
+       :leader
+       :desc "Insert contents of register" "i" #'insert-register
+       :leader
+       :desc "Jump to register" "j" #'jump-to-register
+       :leader
+       :desc "List registers" "l" #'list-registers
+       :leader
+       :desc "Number to register" "n" #'number-to-register
+       :leader
+       :desc "Interactively choose a register" "r" #'counsel-register
+       :leader
+       :desc "View a register" "v" #'view-register
+       :leader
+       :desc "Window configuration to register" "w" #'window-configuration-to-register
+       :leader
+       :desc "Increment register" "+" #'increment-register
+       :leader
+       :desc "Point to register" "SPC" #'point-to-register))
 
 
 (after! rustic
