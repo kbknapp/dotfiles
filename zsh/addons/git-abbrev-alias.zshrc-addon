@@ -1,0 +1,8 @@
+# git settings
+if [[ "$USE_ABBREV_ALIAS" == 1 ]]; then
+	abbrev-alias gl='git log --graph --all --oneline --decorate'
+	abbrev-alias gpo='git push origin'
+	abbrev-alias gcm='git commit -m'
+	abbrev-alias gcam='git commit -am'
+fi
+

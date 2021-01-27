@@ -1,8 +1,9 @@
-
 # Rust(lang) Settings
 source $HOME/.cargo/env
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 export DYLD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$DYLD_LIBRARY_PATH
-# If sccache is installed (cargo install sccache)
-#export RUST_WRAPPER=sccache
+# Use sccache
+if command -v sccache 2>&1 >/dev/null ; then
+  export RUSTC_WRAPPER=sccache
+fi
 

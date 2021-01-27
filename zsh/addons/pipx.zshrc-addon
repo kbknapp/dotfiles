@@ -1,0 +1,5 @@
+
+# pipx completions
+eval "$(register-python-argcomplete pipx)"
+# pipx Created by `userpath` on 2021-01-26 15:11:28
+export PATH="$PATH:/mnt/storage/home/.local/bin"

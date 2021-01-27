@@ -1,0 +1,2 @@
+# fzf the Fuzzy Finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
