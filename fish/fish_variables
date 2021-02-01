@@ -17,8 +17,12 @@ SETUVAR _fish_abbr_cat:bat
 SETUVAR _fish_abbr_egrep:egrep\x20\x2d\x2dcolor\x3dauto
 SETUVAR _fish_abbr_fgrep:fgrep\x20\x2d\x2dcolor\x3dauto
 SETUVAR _fish_abbr_fixpacman:sudo\x20rm\x20/var/lib/pacman/db\x2elck
+SETUVAR _fish_abbr_gl:git\x20log\x20\x2d\x2dgraph\x20\x2d\x2dall\x20\x2d\x2doneline\x20\x2d\x2ddecorate
+SETUVAR _fish_abbr_gpo:git\x20push\x20origin
+SETUVAR _fish_abbr_gpom:git\x20push\x20origin\x20master
 SETUVAR _fish_abbr_grep:grep\x20\x2d\x2dcolor\x3dauto
 SETUVAR _fish_abbr_grubup:sudo\x20update\x2dgrub
+SETUVAR _fish_abbr_gst:git\x20status
 SETUVAR _fish_abbr_hw:hwinfo\x20\x2d\x2dshort
 SETUVAR _fish_abbr_l_2E_:exa\x20\x2da\x20\x7c\x20egrep\x20\x27\x5e\x5c\x2e\x27
 SETUVAR _fish_abbr_ll:exa\x20\x2dl\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
@@ -62,6 +66,7 @@ SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrbl
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
+SETUVAR fish_greeting:Welcome\x20to\x20fish\x2c\x20the\x20friendly\x20interactive\x20shell
 SETUVAR fish_key_bindings:fish_vi_key_bindings
 SETUVAR fish_pager_color_completion:\x1d
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow

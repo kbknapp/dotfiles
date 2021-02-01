@@ -1,6 +1,7 @@
 # git settings
 abbr -a gl 'git log --graph --all --oneline --decorate'
 abbr -a gpo 'git push origin'
+abbr -a gpom 'git push origin master'
 abbr -a gst 'git status'
 
 function ggpull
