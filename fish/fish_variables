@@ -1,6 +1,44 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export FZF_DEFAULT_OPTS:\x2d\x2dheight\x1e50\x25\x1e\x2d\x2dmargin\x1e1
+SETUVAR FZF_DISABLE_KEYBINDINGS:0
+SETUVAR FZF_LEGACY_KEYBINDINGS:1
+SETUVAR FZF_PREVIEW_DIR_CMD:ls
+SETUVAR FZF_PREVIEW_FILE_CMD:head\x20\x2dn\x2010
+SETUVAR FZF_TMUX_HEIGHT:40\x25
 SETUVAR __fish_initialized:3100
+SETUVAR _fish_abbr__2E_2E_:cd\x20\x2e\x2e
+SETUVAR _fish_abbr__2E_2E_2E_:cd\x20\x2e\x2e/\x2e\x2e
+SETUVAR _fish_abbr__2E_2E_2E_2E_:cd\x20\x2e\x2e/\x2e\x2e/\x2e\x2e
+SETUVAR _fish_abbr__2E_2E_2E_2E_2E_:cd\x20\x2e\x2e/\x2e\x2e/\x2e\x2e/\x2e\x2e
+SETUVAR _fish_abbr__2E_2E_2E_2E_2E_2E_:cd\x20\x2e\x2e/\x2e\x2e/\x2e\x2e/\x2e\x2e/\x2e\x2e
+SETUVAR _fish_abbr_aup:pamac\x20upgrade\x20\x2d\x2daur
+SETUVAR _fish_abbr_cat:bat
+SETUVAR _fish_abbr_egrep:egrep\x20\x2d\x2dcolor\x3dauto
+SETUVAR _fish_abbr_fgrep:fgrep\x20\x2d\x2dcolor\x3dauto
+SETUVAR _fish_abbr_fixpacman:sudo\x20rm\x20/var/lib/pacman/db\x2elck
+SETUVAR _fish_abbr_grep:grep\x20\x2d\x2dcolor\x3dauto
+SETUVAR _fish_abbr_grubup:sudo\x20update\x2dgrub
+SETUVAR _fish_abbr_hw:hwinfo\x20\x2d\x2dshort
+SETUVAR _fish_abbr_l_2E_:exa\x20\x2da\x20\x7c\x20egrep\x20\x27\x5e\x5c\x2e\x27
+SETUVAR _fish_abbr_ll:exa\x20\x2dl\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
+SETUVAR _fish_abbr_lla:exa\x20\x2dla\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
+SETUVAR _fish_abbr_ls:exa\x20\x2da\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
+SETUVAR _fish_abbr_lt:exa\x20\x2daT\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
+SETUVAR _fish_abbr_mirror:sudo\x20reflector\x20\x2d\x2dcountry\x20us\x20\x2df\x2030\x20\x2dl\x2030\x20\x2d\x2dnumber\x2010\x20\x2d\x2dverbose\x20\x2d\x2dsave\x20/etc/pacman\x2ed/mirrorlist
+SETUVAR _fish_abbr_mirrora:sudo\x20reflector\x20\x2d\x2dcountry\x20us\x20\x2d\x2dlatest\x2050\x20\x2d\x2dnumber\x2020\x20\x2d\x2dsort\x20age\x20\x2d\x2dsave\x20/etc/pacman\x2ed/mirrorlist
+SETUVAR _fish_abbr_mirrord:sudo\x20reflector\x20\x2d\x2dcountry\x20us\x20\x2d\x2dlatest\x2050\x20\x2d\x2dnumber\x2020\x20\x2d\x2dsort\x20delay\x20\x2d\x2dsave\x20/etc/pacman\x2ed/mirrorlist
+SETUVAR _fish_abbr_mirrors:sudo\x20reflector\x20\x2d\x2dcountry\x20us\x20\x2d\x2dlatest\x2050\x20\x2d\x2dnumber\x2020\x20\x2d\x2dsort\x20score\x20\x2d\x2dsave\x20/etc/pacman\x2ed/mirrorlist
+SETUVAR _fish_abbr_mkdir:mkdir\x20\x2dpv
+SETUVAR _fish_abbr_psmem:ps\x20auxf\x20\x7c\x20sort\x20\x2dnr\x20\x2dk\x204
+SETUVAR _fish_abbr_psmem10:ps\x20auxf\x20\x7c\x20sort\x20\x2dnr\x20\x2dk\x204\x20\x7c\x20head\x20\x2d10
+SETUVAR _fish_abbr_tarnow:tar\x20\x2dacf\x20
+SETUVAR _fish_abbr_untar:tar\x20\x2dzxvf\x20
+SETUVAR _fish_abbr_vdir:vdir\x20\x2d\x2dcolor\x3dauto
+SETUVAR _fish_abbr_wget:wget\x20\x2dc\x20
+SETUVAR _fisher_PatrickF1_2F_fzf_2E_fish_files:/home/kevin/\x2econfig/fish/functions/__fzf_extract_var_info\x2efish\x1e/home/kevin/\x2econfig/fish/functions/__fzf_preview_file\x2efish\x1e/home/kevin/\x2econfig/fish/functions/__fzf_report_file_type\x2efish\x1e/home/kevin/\x2econfig/fish/functions/__fzf_search_current_dir\x2efish\x1e/home/kevin/\x2econfig/fish/functions/__fzf_search_git_log\x2efish\x1e/home/kevin/\x2econfig/fish/functions/__fzf_search_git_status\x2efish\x1e/home/kevin/\x2econfig/fish/functions/__fzf_search_history\x2efish\x1e/home/kevin/\x2econfig/fish/functions/__fzf_search_shell_variables\x2efish\x1e/home/kevin/\x2econfig/fish/conf\x2ed/fzf\x2efish
+SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/kevin/\x2econfig/fish/functions/fisher\x2efish\x1e/home/kevin/\x2econfig/fish/completions/fisher\x2efish
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ePatrickF1/fzf\x2efish
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:005fd7
@@ -24,8 +62,9 @@ SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrbl
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
-SETUVAR fish_key_bindings:fish_default_key_bindings
+SETUVAR fish_key_bindings:fish_vi_key_bindings
 SETUVAR fish_pager_color_completion:\x1d
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_user_paths:/usr/local/sbin\x1e/usr/local/bin\x1e/usr/bin

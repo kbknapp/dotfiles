@@ -6,6 +6,7 @@ set fish_greeting
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin
 set -gx FONTCONFIG_PATH /etc/fonts
 set -gx PATH $HOME/.local/bin $PATH
+set --universal --export FZF_DEFAULT_OPTS --height 50% --margin 1
 
 ## Source .profile to apply its values
 source ~/.profile
@@ -175,13 +176,11 @@ if command -v bat > /dev/null
 	abbr -a cat 'bat'
 end
 
-source ~/.config/fish/addons/fzf.fish
 source ~/.config/fish/addons/arch_mirrors.fish
 source ~/.config/fish/addons/rust.fish
 
 ## Run paleofetch if session is interactive
 if status --is-interactive
    paleofetch
-   source ~/.config/fish/addons/greet.fish
-   fish_greeting # false false
+   #fish_greeting # false false
 end
