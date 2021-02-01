@@ -1,25 +1,173 @@
+## Set environment
+set TERM "xterm-256color"             
+set EDITOR "nvim"
+set VISUAL "kate"
+set fish_greeting
+set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin
+set -gx FONTCONFIG_PATH /etc/fonts
+set -gx PATH $HOME/.local/bin $PATH
+
+## Source .profile to apply its values
+source ~/.profile
+
+# Enable vi keybindings
 fish_vi_key_bindings
 
-set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin
+## Lambda theme https://github.com/hasanozgan/theme-lambda
+function fish_prompt
+  # Cache exit status
+  set -l last_status $status
 
-set -gx FONTCONFIG_PATH /etc/fonts
+  # Just calculate these once, to save a few cycles when displaying the prompt
+  if not set -q __fish_prompt_hostname
+    set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
+  end
+  if not set -q __fish_prompt_char
+    switch (id -u)
+      case 0
+	set -g __fish_prompt_char '#'
+      case '*'
+	set -g __fish_prompt_char (set_color F00; echo λ)
+    end
+  end
 
-set -gx PATH $HOME/.local/bin $HOME/bin $PATH
+  # Setup colors
+  #use extended color pallete if available
+#if [[ $terminfo[colors] -ge 256 ]]; then
+#    turquoise="%F{81}"
+#    orange="%F{166}"
+#    purple="%F{135}"
+#    hotpink="%F{161}"
+#    limegreen="%F{118}"
+#else
+#    turquoise="%F{cyan}"
+#    orange="%F{yellow}"
+#    purple="%F{magenta}"
+#    hotpink="%F{red}"
+#    limegreen="%F{green}"
+#fi
+  set -l normal (set_color normal)
+  set -l white (set_color FFFFFF)
+  set -l turquoise (set_color 5fdfff)
+  set -l orange (set_color df5f00)
+  set -l hotpink (set_color df005f)
+  set -l blue (set_color blue)
+  set -l limegreen (set_color 87ff00)
+  set -l purple (set_color af5fff)
+ 
+  # Configure __fish_git_prompt
+  set -g __fish_git_prompt_char_stateseparator ' '
+  set -g __fish_git_prompt_color 5fdfff
+  set -g __fish_git_prompt_color_flags df5f00
+  set -g __fish_git_prompt_color_prefix white
+  set -g __fish_git_prompt_color_suffix white
+  set -g __fish_git_prompt_showdirtystate true
+  set -g __fish_git_prompt_showuntrackedfiles true
+  set -g __fish_git_prompt_showstashstate true
+  set -g __fish_git_prompt_show_informative_status true 
 
-abbr -a lsblk 'lsblk -e7'
+  set -l current_user (whoami)
 
-# Exa
+  # Line 1
+  echo -n $white'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
+  __fish_git_prompt " (%s)"
+  echo
+
+  # Line 2
+  echo -n $white'╰'
+  # support for virtual env name
+  if set -q VIRTUAL_ENV
+      echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
+  end
+  echo -n $white'─'$__fish_prompt_char $normal
+end
+
+# Functions needed for !! and !$ https://github.com/oh-my-fish/plugin-bang-bang
+function __history_previous_command
+  switch (commandline -t)
+  case "!"
+    commandline -t $history[1]; commandline -f repaint
+  case "*"
+    commandline -i !
+  end
+end
+
+function __history_previous_command_arguments
+  switch (commandline -t)
+  case "!"
+    commandline -t ""
+    commandline -f history-token-search-backward
+  case "*"
+    commandline -i '$'
+  end
+end
+
+if [ $fish_key_bindings = fish_vi_key_bindings ];
+  bind -Minsert ! __history_previous_command
+  bind -Minsert '$' __history_previous_command_arguments
+else
+  bind ! __history_previous_command
+  bind '$' __history_previous_command_arguments
+end
+
+## Fish command history
+function history
+    builtin history --show-time='%F %T '
+end
+
+function backup --argument filename
+    cp $filename $filename.bak
+end
+
+## Copy DIR1 DIR2
+function copy
+    set count (count $argv | tr -d \n)
+    if test "$count" = 2; and test -d "$argv[1]"
+	set from (echo $argv[1] | trim-right /)
+	set to (echo $argv[2])
+        command cp -r $from $to
+    else
+        command cp $argv
+    end
+end
+
+## Useful aliases
+abbr -a aup "pamac upgrade --aur"
+abbr -a grubup "sudo update-grub"
+abbr -a fixpacman "sudo rm /var/lib/pacman/db.lck"
+abbr -a tarnow 'tar -acf '
+abbr -a untar 'tar -zxvf '
+abbr -a wget 'wget -c '
+abbr -a psmem 'ps auxf | sort -nr -k 4'
+abbr -a psmem10 'ps auxf | sort -nr -k 4 | head -10'
+#abbr -a upd 'sudo reflector --country us --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist && sudo pacman -Syu && fish_update_completions'
+abbr -a .. 'cd ..'
+abbr -a ... 'cd ../..'
+abbr -a .... 'cd ../../..'
+abbr -a ..... 'cd ../../../..'
+abbr -a ...... 'cd ../../../../..'
+#abbr -a dir 'dir --color=auto'
+abbr -a vdir 'vdir --color=auto'
+abbr -a grep 'grep --color=auto'
+abbr -a fgrep 'fgrep --color=auto'
+abbr -a egrep 'egrep --color=auto'
+abbr -a hw 'hwinfo --short'                                   #Hardware Info
+#abbr -a big "expac -H M '%m\t%n' | sort -h | nl"              #Sort installed packages according to size in MB (expac must be installed)
+
+## Import colorscheme from 'wal' asynchronously
+if type "wal" >> /dev/null 2>&1
+   cat ~/.cache/wal/sequences
+end
+
+abbr -a mkdir 'mkdir -pv'
+
 if command -v exa > /dev/null
-	abbr -a ls 'exa'
-	abbr -a tree 'exa -T'
-	abbr -a l 'exa'
-	abbr -a ls 'exa'
-	abbr -a ll 'exa -l'
-	abbr -a lll 'exa -la'
+  source ~/.config/fish/addons/exa.fish
 else
 	abbr -a l 'ls'
 	abbr -a ll 'ls -l'
 	abbr -a lll 'ls -la'
+	abbr -a lla='ls -la'
 end
 
 # bat
@@ -27,99 +175,13 @@ if command -v bat > /dev/null
 	abbr -a cat 'bat'
 end
 
-abbr -a vim 'nvim'
+source ~/.config/fish/addons/fzf.fish
+source ~/.config/fish/addons/arch_mirrors.fish
+source ~/.config/fish/addons/rust.fish
 
-# git settings
-abbr -a gl 'git log --graph --all --oneline --decorate'
-abbr -a gpo 'git push origin'
-abbr -a gst 'git status'
-function ggpull
-    git pull origin (git branch | grep \* | awk '{print $2}')
+## Run paleofetch if session is interactive
+if status --is-interactive
+   paleofetch
+   source ~/.config/fish/addons/greet.fish
+   fish_greeting # false false
 end
-
-abbr -a mkdir 'mkdir -pv'
-
-# Go
-set -gx PATH /usr/local/go/bin $PATH
-set -gx GOPATH ~/.golang
-set -gx PATH ~/.golang/bin $PATH
-
-## Rust
-
-# For RLS
-# https://github.com/fish-shell/fish-shell/issues/2456
-setenv LD_LIBRARY_PATH (rustc +nightly --print sysroot)"/lib:$LD_LIBRARY_PATH"
-setenv RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
-
-# Fzf
-if [ -e /usr/share/fish/functions/fzf_key_bindings.fish ]; and status --is-interactive
-	source /usr/share/fish/functions/fzf_key_bindings.fish
-end
-setenv FZF_DEFAULT_COMMAND 'fd --type file --follow'
-setenv FZF_CTRL_T_COMMAND 'fd --type file --follow'
-setenv FZF_DEFAULT_OPTS '--height 20%'
-
-
-# todo
-if type -q todoist ; and status --is-interactive
-	source ~/.config/fish/functions/todoist.fish
-end
-if type -q todoist ; and type -q fzf; and status --is-interactive
-	source ~/.config/fish/functions/fzf_todoist.fish
-	alias tdi fzf_todoist_item
-	alias tdp fzf_todoist_project
-	alias tdl fzf_todoist_labels
-	alias tdc fzf_todoist_close
-	alias tdd fzf_todoist_delete
-	alias todo get_rand_todos
-end
-
-function fish_greeting
-	echo
-	echo -e (uname -ro | awk '{print " \\\\e[1mOS: \\\\e[0;32m"$0"\\\\e[0m"}')
-	echo -e (uptime -p | sed 's/^up //' | awk '{print " \\\\e[1mUptime: \\\\e[0;32m"$0"\\\\e[0m"}')
-	echo -e (uname -n | awk '{print " \\\\e[1mHostname: \\\\e[0;32m"$0"\\\\e[0m"}')
-	echo -e " \\e[1mDisk usage:\\e[0m"
-	echo
-	echo -ne (\
-		df -l -h | grep -E 'dev/(xvda|sd|nvme|mapper)' | grep -v 'boot' | \
-		awk '{printf "\\\\t%s\\\\t%4s / %4s  %s\\\\n\n", $6, $3, $2, $5}' | \
-		sed -e 's/^\(.*\([8][5-9]\|[9][0-9]\)%.*\)$/\\\\e[0;31m\1\\\\e[0m/' -e 's/^\(.*\([7][5-9]\|[8][0-4]\)%.*\)$/\\\\e[0;33m\1\\\\e[0m/' | \
-		paste -sd ''\
-	)
-	echo
-
-	echo -e " \\e[1mNetwork:\\e[0m"
-	echo
-	# http://tdt.rocks/linux_network_interface_naming.html
-	echo -ne (\
-		ip addr show up scope global | \
-			grep -E ': <|inet' | \
-			sed \
-				-e 's/^[[:digit:]]\+: //' \
-				-e 's/: <.*//' \
-				-e 's/.*inet[[:digit:]]* //' \
-				-e 's/\/.*//'| \
-			awk 'BEGIN {i=""} /\.|:/ {print i" "$0"\\\n"; next} // {i = $0}' | \
-			sort | \
-			column -t | \
-			# public addresses are underlined for visibility \
-			sed 's/ \([^ ]\+\)$/ \\\e[4m\1/' | \
-			# private addresses are not \
-			sed 's/m\(\(10\.\|172\.\(1[6-9]\|2[0-9]\|3[01]\)\|192\.168\.\).*\)/m\\\e[24m\1/' | \
-			# unknown interfaces are cyan \
-			sed 's/^\( *[^ ]\+\)/\\\e[36m\1/' | \
-			# ethernet interfaces are normal \
-			sed 's/\(\(en\|em\|eth\)[^ ]* .*\)/\\\e[39m\1/' | \
-			# wireless interfaces are purple \
-			sed 's/\(wl[^ ]* .*\)/\\\e[35m\1/' | \
-			# wwan interfaces are yellow \
-			sed 's/\(ww[^ ]* .*\).*/\\\e[33m\1/' | \
-			sed 's/$/\\\e[0m/' | \
-			sed 's/^/\t/' \
-		)
-	echo
-
-	get_rand_todos
-end
-
