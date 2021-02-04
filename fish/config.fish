@@ -1,11 +1,12 @@
 ## Set environment
-set TERM "xterm-256color"             
+set TERM "xterm-256color"
 set EDITOR "nvim"
 set VISUAL "kate"
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin
 set -gx FONTCONFIG_PATH /etc/fonts
-set -gx PATH $HOME/.local/bin $PATH
+set -gx PATH "$HOME/.local/bin" "$PATH"
 set --universal --export FZF_DEFAULT_OPTS --height 50% --margin 1
+set -gx XDG_DATA_DIRS "$HOME/.local/.local/share/flatpak/exports/share" "$XDG_DATA_DIRS"
 
 ## Source .profile to apply its values
 source ~/.profile
@@ -74,7 +75,7 @@ function fish_prompt
   echo
 
   # Line 2
-  echo -n $white'╰'
+  echo -n $white'    ╰'
   # support for virtual env name
   if set -q VIRTUAL_ENV
       echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
@@ -167,7 +168,7 @@ else
 	abbr -a l 'ls'
 	abbr -a ll 'ls -l'
 	abbr -a lll 'ls -la'
-	abbr -a lla='ls -la'
+	abbr -a lla 'ls -la'
 end
 
 # bat
@@ -183,5 +184,5 @@ source ~/.config/fish/addons/git.fish
 if status --is-interactive
    paleofetch
    source ~/.config/fish/functions/greet.fish
-   #fish_greeting 
+   #fish_greeting
 end

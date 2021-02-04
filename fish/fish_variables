@@ -24,9 +24,11 @@ SETUVAR _fish_abbr_grep:grep\x20\x2d\x2dcolor\x3dauto
 SETUVAR _fish_abbr_grubup:sudo\x20update\x2dgrub
 SETUVAR _fish_abbr_gst:git\x20status
 SETUVAR _fish_abbr_hw:hwinfo\x20\x2d\x2dshort
+SETUVAR _fish_abbr_l:ls
 SETUVAR _fish_abbr_l_2E_:exa\x20\x2da\x20\x7c\x20egrep\x20\x27\x5e\x5c\x2e\x27
-SETUVAR _fish_abbr_ll:exa\x20\x2dl\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
-SETUVAR _fish_abbr_lla:exa\x20\x2dla\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
+SETUVAR _fish_abbr_ll:ls\x20\x2dl
+SETUVAR _fish_abbr_lla:ls\x20\x2dla
+SETUVAR _fish_abbr_lll:ls\x20\x2dla
 SETUVAR _fish_abbr_ls:exa\x20\x2da\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
 SETUVAR _fish_abbr_lt:exa\x20\x2daT\x20\x2d\x2dcolor\x3dalways\x20\x2d\x2dgroup\x2ddirectories\x2dfirst
 SETUVAR _fish_abbr_mirror:sudo\x20reflector\x20\x2d\x2dcountry\x20us\x20\x2df\x2030\x20\x2dl\x2030\x20\x2d\x2dnumber\x2010\x20\x2d\x2dverbose\x20\x2d\x2dsave\x20/etc/pacman\x2ed/mirrorlist
