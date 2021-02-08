@@ -347,6 +347,8 @@ assign [class="(?i)(?:Microsoft Teams - Preview)"] → $ws7
 assign [class="(?i)(?:TelegramDesktop)"] → $ws7
 assign [class="(?i)(?:Signal)"] → $ws7
 assign [class="(?i)(?:Element)"] → $ws7
+assign [class="(?i)(?:Zulip)"] → $ws7
+assign [class="(?i)(?:WhatsAppQT)"] → $ws7
 
 assign [class="(?i)(?:obsidian)"] → $ws8
 assign [class="(?i)(?:standard notes)"] → $ws8
