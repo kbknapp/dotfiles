@@ -329,17 +329,35 @@ exec_always --no-startup-id picom -f --config /home/kevin/.config/picom/config
 ## Assign Applications to specific workspace
 ## get class with xprop
 assign [class="(?i)(?:firefox)"] → $ws2
+assign [class="(?i)(?:vivaldi-stable)"] → $ws2
+
 assign [class="(?i)(?:org.gnome.Nautilus)"]  → $ws3
+assign [class="(?i)(?:dolphin)"]  → $ws3
+
 assign [class="(?i)(?:jetbrains-clion)"] → $ws4
+assign [class="(?i)(?:Emacs)"] → $ws4
+assign [class="(?i)(?:Code)"] → $ws4
+
 assign [class="(?i)(?:gitkraken)"] → $ws5
+
 assign [class="(?i)(?:vmware)"] → $ws6
+assign [class="(?i)(?:Anydesk)"] → $ws6
+
+assign [class="(?i)(?:Microsoft Teams - Preview)"] → $ws7
 assign [class="(?i)(?:TelegramDesktop)"] → $ws7
 assign [class="(?i)(?:Signal)"] → $ws7
+assign [class="(?i)(?:Element)"] → $ws7
+
+assign [class="(?i)(?:obsidian)"] → $ws8
 assign [class="(?i)(?:standard notes)"] → $ws8
+
 assign [class="(?i)(?:mailspring)"] → $ws9
+
 assign [class="(?i)(?:mullvad)"] → $ws10
-assign [class="(?i)(?:privateinternetaccess)"] → $ws10
 assign [class="(?i)(?:steam)"] → $ws10
+assign [class="(?i)(?:privateinternetaccess)"] → $ws10
+
+## Assign properties to specific window types
 for_window [title="Desktop — Plasma"] kill; floating enable; border none
 for_window [class="plasmashell"] floating enable;
 for_window [class="Plasma"] floating enable; border none
