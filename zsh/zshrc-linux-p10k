@@ -58,7 +58,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=/usr/local/bin:$HOME/.bin:$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -99,3 +98,55 @@ source $HOME/.dotfiles/zsh/addons/magit.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/p10k.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
 
+## History
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=1000000000
+SAVEHIST=1000000000
+# Treat the '!' character specially during expansion.
+setopt BANG_HIST
+# Write the history file in the ":start:elapsed;command" format.
+setopt EXTENDED_HISTORY
+# Write to the history file immediately, not when the shell exits.
+setopt INC_APPEND_HISTORY
+# Share history between all sessions.
+setopt SHARE_HISTORY
+# Expire duplicate entries first when trimming history.
+setopt HIST_EXPIRE_DUPS_FIRST
+# Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_DUPS
+# Delete old recorded entry if new entry is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS
+# Do not display a line previously found.
+setopt HIST_FIND_NO_DUPS
+# Don't record an entry starting with a space.
+setopt HIST_IGNORE_SPACE
+# Don't write duplicate entries in the history file.
+setopt HIST_SAVE_NO_DUPS
+# Remove superfluous blanks before recording entry.
+setopt HIST_REDUCE_BLANKS
+# Don't execute immediately upon history expansion.
+setopt HIST_VERIFY
+# Beep when accessing nonexistent history.
+setopt HIST_BEEP
+
+# Personal Configurations
+autoload -U colors && colors
+
+# tmux
+#if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#  tmux attach -t default || tmux new -s default
+#fi
+
+## Path Env Var
+function p() {
+  export PATH=$PATH:$1
+}
+p /usr/bin:/usr/local/bin
+p $HOME/.local/bin
+p $HOME/.emacs.d/bin
+p $HOME/.bin
+
+## WSL2
+#alias pbcopy='/mnt/c/Windows/System32/clip.exe'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
