@@ -80,11 +80,16 @@ Plug 'roxma/nvim-yarp'
 Plug 'vim-scripts/tComment'
 nnoremap <C-/> gcc
 
-" Better surround support
+" surround support
 "     -> cs"'     "Hello"->'Hello'
 "     -> ysiw[   'Hello'->[Hello]
 "     -> ds[     [Hello]->Hello
-Plug 'tpope/vim-surround'
+""Plug 'tpope/vim-surround'
+" surround support
+"     -> saiw(    foo -> (foo)
+"     -> sd(      (foo) -> foo
+"     -> sr({     (foo) -> {foo}
+Plug 'machakann/vim-sandwich'
 
 " Repeat all commands with . not just native
 Plug 'tpope/vim-repeat'
