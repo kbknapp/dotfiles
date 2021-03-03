@@ -52,7 +52,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git python sudo systemd zsh-autosuggestions)
+plugins=(vi-mode git python sudo systemd zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,7 +100,5 @@ source $HOME/.dotfiles/zsh/addons/magit.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/starship.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
 
+export GPG_TTY=$(tty)
 
-source /home/kevin/.config/broot/launcher/bash/br
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
