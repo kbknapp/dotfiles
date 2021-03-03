@@ -68,9 +68,9 @@ disabled = true
 
 # Prompt: param 2 └─
 [character]
-success_symbol = " [╰─⮚](bold green)"
-error_symbol = " [╰─✗ ⮚](bold red)"
-vicmd_symbol = "[ ╰─✎ ⮚](bold blue)"
+success_symbol = " [╰─➤](bold green)"
+error_symbol = " [╰─✗](bold red)"
+vicmd_symbol = "[ ╰─✎](bold blue)"
 use_symbol_for_status = true
 
 # SYMBOLS
