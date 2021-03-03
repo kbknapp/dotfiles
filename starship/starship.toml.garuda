@@ -2,14 +2,14 @@
 # First param ─┌
 [username]
 format = " [╭─$user]($style)@"
-style_user = "bold green"
-style_root = "bold green"
+style_user = "bold red"
+style_root = "bold red"
 show_always = true
 
 # Second param
 [hostname]
 format = "[$hostname]($style) in "
-style = "bold dimmed blue"
+style = "bold dimmed red"
 trim_at = "-"
 ssh_only = false
 disabled = false
@@ -68,9 +68,8 @@ disabled = true
 
 # Prompt: param 2 └─
 [character]
-success_symbol = " [╰─⮚](bold green)"
-error_symbol = " [╰─✗ ⮚](bold red)"
-vicmd_symbol = "[ ╰─✎ ⮚](bold blue)"
+success_symbol = " [╰─λ](bold red)"
+error_symbol = " [×](bold red)"
 use_symbol_for_status = true
 
 # SYMBOLS
@@ -78,7 +77,7 @@ use_symbol_for_status = true
 symbol = "🔴"
 format = '[\[$symbol$status_common_meaning$status_signal_name$status_maybe_int\]]($style)'
 map_symbol = true
-disabled = true
+disabled = false
 
 [aws]
 symbol = " "
