@@ -250,6 +250,8 @@ nnoremap <C-\> <C-O>
 " Open hotkeys
 map <C-p> :Files<CR>
 nmap <leader>; :Buffers<CR>
+nmap <leader>bp :bp<CR>
+nmap <leader>bn :bn<CR>
 
 " Quick-save
 nmap <leader>w :w<CR>
