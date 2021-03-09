@@ -133,10 +133,10 @@ Plug 'dag/vim-fish'
 Plug 'ghifarit53/tokyonight-vim'
 
 " Vimwiki
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/Projects/vimwiki/',
-	             \ 'path_html': '~/Projects/vimwiki_html',
-                     \ 'syntax': 'markdown', 'ext': '.md'}]
+"Plug 'vimwiki/vimwiki'
+"let g:vimwiki_list = [{'path': '~/Projects/vimwiki/',
+"	             \ 'path_html': '~/Projects/vimwiki_html',
+"                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 call plug#end()
 
