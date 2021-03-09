@@ -42,7 +42,7 @@ Plug  'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = "<c-p>"
 nnoremap <C-p> :CtrlPMixed<CR>
 nnoremap <C-m> :CtrlPMRU<CR>
-"nnoremap <C-b> :CtrlPBuffer<CR>
+nnoremap <leader>bb :CtrlPBuffer<CR>
 "let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target'
 
 " Visualize your Undo Tree
