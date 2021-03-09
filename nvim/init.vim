@@ -61,6 +61,8 @@ endif
 " files
 Plug 'scrooloose/nerdtree'
 map <C-n> :NERDTreeToggle<CR>
+" Better Buffer Close support (don't wipe out splits, etc.)
+Plug 'moll/vim-bbye'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
