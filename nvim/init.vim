@@ -129,7 +129,8 @@ Plug 'fatih/vim-go'
 Plug 'dag/vim-fish'
 
 " Colorscheme
-Plug 'nightsense/cosmic_latte'
+""Plug 'nightsense/cosmic_latte'
+Plug 'ghifarit53/tokyonight-vim'
 
 " Vimwiki
 Plug 'vimwiki/vimwiki'
@@ -155,8 +156,12 @@ if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
 endif
 
 " Colors
-set background=dark
-colorscheme cosmic_latte
+" set background=dark
+" colorscheme cosmic_latte
+set termguicolors
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+colorscheme tokyonight
 
 hi Normal ctermbg=NONE
 " Get syntax
