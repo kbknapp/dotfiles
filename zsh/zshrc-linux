@@ -80,6 +80,7 @@ source $HOME/.dotfiles/zsh/addons/abbrev-alias.zshrc-addon
 
 source $HOME/.dotfiles/zsh/addons/git-abbrev-alias.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/exa-abbrev-alias.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/cp-cow-abbrev-alias.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/rust.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/fzf.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/broot.zshrc-addon
