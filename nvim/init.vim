@@ -46,17 +46,13 @@ nnoremap <leader>bb :CtrlPBuffer<CR>
 "let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target'
 
 " Visualize your Undo Tree
-"     -> :GundoToggle           See Undo Tree
-Plug 'sjl/gundo.vim'
-"nnoremap <F5> :GundoToggle<CR>
-nnoremap <C-u> :GundoToggle<CR>
+"     -> :MundoToggle           See Undo Tree
+Plug 'simnalamburt/vim-mundo'
+"nnoremap <F5> :MundoToggle<CR>
+nnoremap <C-u> :MundoToggle<CR>
 " persist (g)undo tree between sessions
 set undofile
-set undolevels=100
-if has('python3')
-    let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
-endif
-
+set undodir=~/.tmp/undo
 
 " files
 Plug 'scrooloose/nerdtree'
