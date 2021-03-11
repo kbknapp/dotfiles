@@ -562,6 +562,8 @@ autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
 
 " Flag bad whitespace
 au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+au BufNewFile,BufRead *.rs setlocal colorcolumn=100
+au BufNewFile,BufRead *.py setlocal colorcolumn=80
 
 " Rust Language Support"
 " For custom commenting functions.
