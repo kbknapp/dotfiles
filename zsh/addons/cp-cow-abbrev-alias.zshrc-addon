@@ -1,0 +1,4 @@
+# exa is a ls replacement written in Rust
+if [[ "$USE_ABBREV_ALIAS" == 1 ]]; then
+	abbrev-alias cp='nocorrect cp --reflink=auto'
+fi
