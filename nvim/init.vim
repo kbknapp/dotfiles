@@ -60,6 +60,9 @@ map <C-n> :NERDTreeToggle<CR>
 " Better Buffer Close support (don't wipe out splits, etc.)
 Plug 'moll/vim-bbye'
 
+" Better window resizing with Ctrl+e"
+Plug 'simeji/winresizer'
+
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
