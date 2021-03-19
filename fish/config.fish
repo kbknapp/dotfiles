@@ -9,81 +9,46 @@ set --universal --export FZF_DEFAULT_OPTS --height 50% --margin 1
 set -gx XDG_DATA_DIRS "$HOME/.local/share/flatpak/exports/share" "$XDG_DATA_DIRS"
 set -gx GPG_TTY (tty)
 
-## Source .profile to apply its values
-source ~/.profile
+﻿## Set values
+# Hide welcome message
+set fish_greeting
+set VIRTUAL_ENV_DISABLE_PROMPT "1"
+set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+
+# Set settings for https://github.com/franciscolourenco/done
+set -U __done_min_cmd_duration 10000
+set -U __done_notification_urgency_level low
 
 # Enable vi keybindings
 fish_vi_key_bindings
 
-## Lambda theme https://github.com/hasanozgan/theme-lambda
-function fish_prompt
-  # Cache exit status
-  set -l last_status $status
+## Environment setup
+# Apply .profile
+source ~/.profile
 
-  # Just calculate these once, to save a few cycles when displaying the prompt
-  if not set -q __fish_prompt_hostname
-    set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
-  end
-  if not set -q __fish_prompt_char
-    switch (id -u)
-      case 0
-	set -g __fish_prompt_char '#'
-      case '*'
-	set -g __fish_prompt_char (set_color F00; echo λ)
+# Add ~/.local/bin to PATH
+if test -d ~/.local/bin
+    if not contains -- ~/.local/bin $PATH
+        set -p PATH ~/.local/bin
     end
-  end
+end
 
-  # Setup colors
-  #use extended color pallete if available
-#if [[ $terminfo[colors] -ge 256 ]]; then
-#    turquoise="%F{81}"
-#    orange="%F{166}"
-#    purple="%F{135}"
-#    hotpink="%F{161}"
-#    limegreen="%F{118}"
-#else
-#    turquoise="%F{cyan}"
-#    orange="%F{yellow}"
-#    purple="%F{magenta}"
-#    hotpink="%F{red}"
-#    limegreen="%F{green}"
-#fi
-  set -l normal (set_color normal)
-  set -l white (set_color FFFFFF)
-  set -l turquoise (set_color 5fdfff)
-  set -l orange (set_color df5f00)
-  set -l hotpink (set_color df005f)
-  set -l blue (set_color blue)
-  set -l limegreen (set_color 87ff00)
-  set -l purple (set_color af5fff)
- 
-  # Configure __fish_git_prompt
-  set -g __fish_git_prompt_char_stateseparator ' '
-  set -g __fish_git_prompt_color 5fdfff
-  set -g __fish_git_prompt_color_flags df5f00
-  set -g __fish_git_prompt_color_prefix white
-  set -g __fish_git_prompt_color_suffix white
-  set -g __fish_git_prompt_showdirtystate true
-  set -g __fish_git_prompt_showuntrackedfiles true
-  set -g __fish_git_prompt_showstashstate true
-  set -g __fish_git_prompt_show_informative_status true 
+# Add depot_tools to PATH
+if test -d ~/Applications/depot_tools
+    if not contains -- ~/Applications/depot_tools $PATH
+        set -p PATH ~/Applications/depot_tools
+    end
+end
 
   set -l current_user (whoami)
 
-  # Line 1
-  echo -n $white'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
-  __fish_git_prompt " (%s)"
-  echo
-
-  # Line 2
-  echo -n $white'    ╰'
-  # support for virtual env name
-  if set -q VIRTUAL_ENV
-      echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
-  end
-  echo -n $white'─'$__fish_prompt_char $normal
+## Starship prompt
+if status --is-interactive
+   source ("/usr/bin/starship" init fish --print-full-init | psub)
 end
 
+
+## Functions
 # Functions needed for !! and !$ https://github.com/oh-my-fish/plugin-bang-bang
 function __history_previous_command
   switch (commandline -t)
@@ -104,7 +69,7 @@ function __history_previous_command_arguments
   end
 end
 
-if [ $fish_key_bindings = fish_vi_key_bindings ];
+if [ "$fish_key_bindings" = fish_vi_key_bindings ];
   bind -Minsert ! __history_previous_command
   bind -Minsert '$' __history_previous_command_arguments
 else
@@ -112,7 +77,7 @@ else
   bind '$' __history_previous_command_arguments
 end
 
-## Fish command history
+# Fish command history
 function history
     builtin history --show-time='%F %T '
 end
@@ -121,7 +86,7 @@ function backup --argument filename
     cp $filename $filename.bak
 end
 
-## Copy DIR1 DIR2
+# Copy DIR1 DIR2
 function copy
     set count (count $argv | tr -d \n)
     if test "$count" = 2; and test -d "$argv[1]"
@@ -133,28 +98,67 @@ function copy
     end
 end
 
+
 ## Useful aliases
-abbr -a aup "pamac upgrade --aur"
-abbr -a grubup "sudo update-grub"
-abbr -a fixpacman "sudo rm /var/lib/pacman/db.lck"
-abbr -a tarnow 'tar -acf '
-abbr -a untar 'tar -zxvf '
-abbr -a wget 'wget -c '
-abbr -a psmem 'ps auxf | sort -nr -k 4'
-abbr -a psmem10 'ps auxf | sort -nr -k 4 | head -10'
-#abbr -a upd 'sudo reflector --country us --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist && sudo pacman -Syu && fish_update_completions'
-abbr -a .. 'cd ..'
-abbr -a ... 'cd ../..'
-abbr -a .... 'cd ../../..'
-abbr -a ..... 'cd ../../../..'
-abbr -a ...... 'cd ../../../../..'
-#abbr -a dir 'dir --color=auto'
-abbr -a vdir 'vdir --color=auto'
-abbr -a grep 'grep --color=auto'
-abbr -a fgrep 'fgrep --color=auto'
-abbr -a egrep 'egrep --color=auto'
-abbr -a hw 'hwinfo --short'                                   #Hardware Info
-#abbr -a big "expac -H M '%m\t%n' | sort -h | nl"              #Sort installed packages according to size in MB (expac must be installed)
+# Replace ls with exa
+alias ls='exa -al --color=always --group-directories-first --icons' # preferred listing
+alias la='exa -a --color=always --group-directories-first --icons'  # all files and dirs
+alias ll='exa -l --color=always --group-directories-first --icons'  # long format
+alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
+alias l.="exa -a | egrep '^\.'"                                     # show only dotfiles
+
+# Replace some more things with better alternatives
+alias cat='bat --style header --style rules --style snip --style changes --style header'
+[ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru --bottomup'
+
+# Common use
+alias aup="pamac upgrade --aur"
+alias grubup="sudo update-grub"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias tarnow='tar -acf '
+alias untar='tar -zxvf '
+alias wget='wget -c '
+alias rmpkg="sudo pacman -Rdd"
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias upd='sudo reflector --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist && sudo pacman -Syu && fish_update_completions && sudo updatedb'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias hw='hwinfo --short'                                   # Hardware Info
+alias big="expac -H M '%m\t%n' | sort -h | nl"              # Sort installed packages according to size in MB (expac must be installed)
+alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'			# List amount of -git packages
+
+# Get fastest mirrors 
+alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist" 
+alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist" 
+alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist" 
+alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist" 
+
+# Help people new to Arch
+alias apt='man pacman'
+alias apt-get='man pacman'
+alias helpme='cht.sh --shell'
+alias please='sudo'
+alias tb='nc termbin.com 9999'
+alias paru="paru --bottomup"
+
+# Cleanup orphaned packages
+alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
+
+# Get the error messages from journalctl
+alias jctl="journalctl -p 3 -xb"
+
+# Recent installed packages
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+
 
 ## Import colorscheme from 'wal' asynchronously
 if type "wal" >> /dev/null 2>&1
