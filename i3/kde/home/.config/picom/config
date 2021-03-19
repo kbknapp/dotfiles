@@ -63,9 +63,11 @@ glx-swap-method = "buffer-age";
 # Enabled client-side shadows on windows.
 shadow = true;
 # Don't draw shadows on DND windows.
-no-dnd-shadow = true;
+# DEPRECATED: Option `no-dnd-shadow` has been removed. Please use the wintype option `shadow` of `dnd` instead
+#no-dnd-shadow = true;
 # Avoid drawing shadows on dock/panel windows.
-no-dock-shadow = false;
+# DEPRECATED: Option `no-dock-shadow` has been removed. Please use the wintype option `shadow` of `dock` instead.
+#no-dock-shadow = false;
 # Zero the part of the shadow's mask behind the window. Fix some weirdness with ARGB windows.
 clear-shadow = true;
 # The blur radius for shadows. (default 12)
@@ -120,7 +122,6 @@ inactive-opacity = 1;
 active-opacity = 1;
 frame-opacity = 1;
 inactive-opacity-override = false;
-alpha-step = 0.06;
 
 # Dim inactive windows. (0.0 - 1.0)
 inactive-dim = 0.1;
@@ -196,7 +197,8 @@ vsync = "opengl-swc";
 # Reported to have no effect, though.
 dbe = false;
 # Painting on X Composite overlay window. Recommended.
-paint-on-overlay = true;
+# DEPRECATED: "paint-on-overlay" has been removed as an option, and the feature is enabled whenever possible
+#paint-on-overlay = true;
 
 # Limit compton to repaint at most once every 1 / refresh_rate second to boost performance.
 # This should not be used with --vsync drm/opengl/opengl-oml as they essentially does --sw-opti's job already,
