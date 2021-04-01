@@ -1,0 +1,4 @@
+# Open Emacs with current dir as a project
+alias ecdp='touch ./.projectile && emacsclient -a emacs -t .projectile && rm ./.projectile'
+# Open Emacs with current dir as a project
+alias ef='emacsclient -a emacs -t'
