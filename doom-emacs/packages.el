@@ -53,3 +53,4 @@
 (package! org-bullets)
 (package! lsp-mode)
 (package! jinja2-mode)
+(package! python-black)
