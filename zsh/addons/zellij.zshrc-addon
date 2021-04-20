@@ -1,0 +1,3 @@
+if ! pgrep zellij 2>&1 >/dev/null; then
+    zellij
+fi
