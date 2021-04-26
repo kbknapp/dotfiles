@@ -561,6 +561,21 @@ inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\
 " inoremap <expr> { ConditionalPairMap('{', '}')
 " inoremap <expr> [ ConditionalPairMap('[', ']')
 
+" Terminal Mode
+nnoremap <C-t> <Esc>:terminal<CR>
+inoremap <C-t> <Esc>:terminal<CR>
+nnoremap <leader>oe :terminal<CR>
+" Use ESC normally
+tnoremap <Esc> <C-\><C-n>
+tnoremap <leader>bp :bp<CR>
+tnoremap <leader>bk :Bwipeout!<CR>:e#<CR>
+" ALT+hkjl to navigate windows
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+" Simulate CTRL-r
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
 " =============================================================================
 " # Autocommands
