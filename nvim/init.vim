@@ -74,6 +74,11 @@ Plug 'junegunn/fzf.vim'
 
 " Rust
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mhinz/vim-crates'
+
+if has('nvim')
+  autocmd BufRead Cargo.toml call crates#toggle()
+endif
 
 " Semantic language support
 Plug 'racer-rust/vim-racer'
