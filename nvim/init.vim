@@ -221,6 +221,9 @@ endif
 
 " Linter
 " only lint on save
+set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_save = 1
@@ -237,12 +240,25 @@ let g:ale_sign_error = "✖"
 let g:ale_sign_warning = "⚠"
 let g:ale_sign_info = "i"
 let g:ale_sign_hint = "➤"
-
+let g:ale_sign_column_always = 1
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ 'rust': ['rustfmt'],
+\}
+inoremap <silent><expr><TAB>
+    \ pumvisible() ? “\<C-n>” : “\<TAB>”
+nmap <silent> <leader>acd :ALEGoToDefinition<CR>
+nmap <silent> <leader>acr :ALEFindReferences<CR>
 nmap <silent> <leader>aj :ALENext<cr>
 nmap <silent> <leader>ak :ALEPrevious<cr>
 nmap <silent> <leader>al :ALELint<cr>
+nmap <silent> <leader>aep <Plug>(ale_previous_wrap)
+nmap <silent> <leader>aen <Plug>(ale_next_wrap)
+nmap <silent> <leader>al <Plug>(ale_lint)
+nmap <silent> <leader>ad <Plug>(ale_detail)
+nmap <silent> <C-g> :close<cr>
 nnoremap <silent> K :ALEHover<CR>
-nnoremap <silent> gd :ALEGoToDefinition<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " Enable faster viewport scrolling
