@@ -413,6 +413,9 @@ set shortmess+=c " don't give |ins-completion-menu| messages.
 set nolist
 set listchars=tab:>-,eol:¶,nbsp:¬,extends:»,precedes:«,trail:•
 
+" Noevide Settings
+let g:neovide_cursor_vfx_mode = "railgun"
+
 " =============================================================================
 " # Keyboard shortcuts
 " =============================================================================
