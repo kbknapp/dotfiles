@@ -29,7 +29,7 @@ Plug 'godlygeek/tabular'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 
