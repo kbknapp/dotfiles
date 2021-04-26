@@ -273,9 +273,14 @@ nnoremap <C-\> <C-O>
 
 " Open hotkeys
 map <C-p> :Files<CR>
-nmap <leader>; :Buffers<CR>
+nmap <leader>bb :Buffers<CR>
 nmap <leader>bp :bp<CR>
 nmap <leader>bn :bn<CR>
+nmap <leader>bw :Bwipeout!<CR>
+nmap <leader>bk :Bdelete!<CR>
+nmap <leader>bW :wa :bufdo :Bwipeout!<CR>
+" Close all buffers but re-open the most recent...i.e. all but current one
+nmap <leader>bK :wa :%bdelete!<CR><C-O>:Bd#<CR>
 
 " Quick-save
 nmap <leader>w :w<CR>
@@ -421,6 +426,18 @@ set listchars=tab:>-,eol:¶,nbsp:¬,extends:»,precedes:«,trail:•
 "inoremap <C-c> <Esc>
 "vnoremap <C-c> <Esc>
 
+" Use ALT+hkjl to navigate windows"
+inoremap <A-h> <C-w>h
+inoremap <A-j> <C-w>j
+inoremap <A-k> <C-w>k
+inoremap <A-l> <C-w>l
+inoremap <A-c> <C-w>c
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+nnoremap <A-c> <C-w>c
+
 " Suspend with Ctrl+f
 inoremap <C-f> :sus<cr>
 vnoremap <C-f> :sus<cr>
@@ -474,16 +491,9 @@ inoremap <right> <nop>
 nnoremap <left> :bp<CR>
 nnoremap <right> :bn<CR>
 
-" Move by line
+" Move by visual line
 nnoremap j gj
 nnoremap k gk
-
-" Jump to next/previous error
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> L <Plug>(ale_lint)
-nmap <silent> <C-l> <Plug>(ale_detail)
-nmap <silent> <C-g> :close<cr>
 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
