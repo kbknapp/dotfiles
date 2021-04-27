@@ -59,7 +59,9 @@ repos = [
 [commands]
 "Standard Notes" = "STANDARD_NOTES_LATEST=$(wget -q https://github.com/standardnotes/desktop/releases -O - | grep \"standard-notes-.*-x86_64.AppImage\" | head -n 1 | cut -d '\"' -f 2) && wget -O ~/.local/bin/$(echo $STANDARD_NOTES_LATEST | grep -oP '[^/]*$') -c https://github.com/${STANDARD_NOTES_LATEST}"
 "appimaged" = "APPIMAGED_LATEST=$(wget -q https://github.com/probonopd/go-appimage/releases -O - | grep \"appimaged-.*-x86_64.AppImage\" | head -n 1 | cut -d '\"' -f 2) && wget -O ~/.local/bin/$(echo $APPIMAGED_LATEST | grep -oP '[^/]*$') -c https://github.com/${APPIMAGED_LATEST}"
-"Fish Completions" = "fish_update_completions"
+"rust-analyzer" = "cd ~/.build/rust-analyzer && git pull origin master && cargo xtask install"
+"i3-gaps" = "cd ~/.build/i3/build && git pull origin gaps-next && sudo -u kevin ninja && sudo ninja install"
+"picom" = "cd ~/.build/picom && git pull origin next && sudo -u kevin ninja -C build && sudo ninja -C build install"
 
 #[brew]
 #greedy_cask = true
@@ -71,6 +73,7 @@ repos = [
 #enable_tlmgr = true
 #emerge_sync_flags = "-q"
 #emerge_update_flags = "-uDNa --with-bdeps=y world"
+#redhat_distro_sync = false
 
 #[windows]
 # Manually select Windows updates
