@@ -18,19 +18,59 @@ function _help() {
         "-e, --exec, exec" "Run a specified color script by SCRIPT NAME or INDEX."
 }
 
+
+# ANSI Color -- use these variables to easily have different color
+#    and format output. Make sure to output the reset sequence after
+#    colors (f = foreground, b = background), and use the 'off'
+#    feature for anything you turn on.
+# Author: Ivo
+# Source: http://crunchbang.org/forums/viewtopic.php?pid=134749#p134749
+function initializeANSI() {
+  export esc=""
+
+  export blackf="${esc}[30m";   export redf="${esc}[31m";    export greenf="${esc}[32m"
+  export yellowf="${esc}[33m"   export bluef="${esc}[34m";   export purplef="${esc}[35m"
+  export cyanf="${esc}[36m";    export whitef="${esc}[37m";   export whitef="${esc}[37m"
+
+  export blackb="${esc}[40m";   export redb="${esc}[41m";    export greenb="${esc}[42m"
+  export yellowb="${esc}[43m"   export blueb="${esc}[44m";   export purpleb="${esc}[45m"
+  export cyanb="${esc}[46m";    export whiteb="${esc}[47m"
+
+  export boldon="${esc}[1m";    export boldoff="${esc}[22m"
+  export italicson="${esc}[3m"; export italicsoff="${esc}[23m"
+  export ulon="${esc}[4m";      export uloff="${esc}[24m"
+  export invon="${esc}[7m";     export invoff="${esc}[27m"
+
+  export reset="${esc}[0m"
+}
+
+function unsetANSI() {
+  unset esc;
+
+  unset blackf;   unset redf;    unset greenf;
+  unset yellowf;   unset bluef;   unset purplef;
+  unset cyanf;    unset whitef;   unset whitef;
+
+  unset blackb;   unset redb;    unset greenb;
+  unset yellowb;   unset blueb;   unset purpleb;
+  unset cyanb;    unset whiteb;
+
+  unset boldon;    unset boldoff;
+  unset italicson; unset italicsoff;
+  unset ulon;      unset uloff;
+  unset invon;     unset invoff;
+
+  unset reset;
+}
+
 function _list() {
     echo "There are "$($LS_CMD "${DIR_COLORSCRIPTS}" | wc -l)" installed color scripts:"
     echo "${list_colorscripts}"
 }
 
 function _random() {
-    # declare -i random_index=$RANDOM%$length_colorscripts
-    # [[ $random_index -eq 0 ]] && random_index=1
-    #
-    # random_colorscript="$(echo  "${list_colorscripts}" | sed -n ${random_index}p \
-    #     | tr -d ' ' | tr '\t' ' ' | cut -d ' ' -f 2)"
-    #echo "${random_colorscript}"
     cs=$(find "${DIR_COLORSCRIPTS}" -type f | shuf | head -1)
+    initializeANSI
     source "${cs}"
 }
 
