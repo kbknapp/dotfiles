@@ -4,7 +4,6 @@
 # Source: http://crunchbang.org/forums/viewtopic.php?pid=141044#p141044
 # Initializing mod by lolilolicon from Archlinux
 
-
 f=3 b=4
 for j in f b; do
   for i in {0..7}; do
@@ -16,8 +15,6 @@ rst=$'\e[0m'
 inv=$'\e[7m'
 
 cat << EOF
-
  $f1▀■▄ $f2▀■▄ $f3▀■▄ $f4▀■▄ $f5▀■▄ $f6▀■▄
   $bld$f1▀■▄ $f2▀■▄ $f3▀■▄ $f4▀■▄ $f5▀■▄ $f6▀■▄$rst
-
 EOF

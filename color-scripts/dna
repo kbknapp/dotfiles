@@ -15,7 +15,6 @@ rst=$'\e[0m'
 inv=$'\e[7m'
 
 cat << EOF
-
  $f1█-----$bld█  $rst$f2█-----$bld█$rst  $f3█-----$bld█$rst  $f4█-----$bld█$rst  $f5█-----$bld█$rst  $f6█-----$bld█$rst
   $f1█---$bld█$rst    $f2█---$bld█$rst    $f3█---$bld█$rst    $f4█---$bld█$rst    $f5█---$bld█$rst    $f6█---$bld█$rst
   $f1 █-$bld█$rst     $f2 █-$bld█$rst     $f3 █-$bld█$rst     $f4 █-$bld█$rst     $f5 █-$bld█$rst     $f6 █-$bld█$rst
@@ -29,9 +28,7 @@ cat << EOF
    $f1█-$bld█$rst      $f2█-$bld█$rst      $f3█-$bld█$rst      $f4█-$bld█$rst      $f5█-$bld█$rst      $f6█-$bld█$rst
   $f1█---$bld█$rst    $f2█---$bld█$rst    $f3█---$bld█$rst    $f4█---$bld█$rst    $f5█---$bld█$rst    $f6█---$bld█$rst
  $f1█-----$bld█  $rst$f2█-----$bld█$rst  $f3█-----$bld█$rst  $f4█-----$bld█$rst  $f5█-----$bld█$rst  $f6█-----$bld█$rst
-
 EOF
-
 
 #  $f1█---$bld█$rst    $f2█---$bld█$rst    $f3█---$bld█$rst    $f4█---$bld█$rst    $f5█---$bld█$rst    $f6█---$bld█$rst
 #  $f1 █-$bld█$rst     $f2 █-$bld█$rst     $f3 █-$bld█$rst     $f4 █-$bld█$rst     $f5 █-$bld█$rst     $f6 █-$bld█$rst

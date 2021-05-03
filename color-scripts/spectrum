@@ -18,4 +18,3 @@ done
 echo -en "\033[1;37m██"
 
 echo -e "\033[0m"
-echo
