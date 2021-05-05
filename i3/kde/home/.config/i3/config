@@ -1,4 +1,4 @@
-# i3 config file (v4) for Regolith Desktop Environment
+# i3 config file Based on v4 for Regolith Desktop Environment
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -6,9 +6,6 @@
 # Alt key is Mod1, and Windows key is Mod4
 set $mod Mod4
 set $alt Mod1
-
-# i3xrocks config file
-#set $i3xrocks_config /etc/regolith/i3xrocks/config
 
 # compton config file
 set $picom_config /home/kevin/.config/picom/config
@@ -93,9 +90,6 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+minus gaps inner current minus 6
 bindsym $mod+plus gaps inner current plus 6
 
-# show/hide keybindings
-#bindsym $mod+Shift+question exec --no-startup-id /usr/bin/conky-toggle
-
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
 
@@ -149,7 +143,7 @@ bindsym $mod+Shift+Ctrl+8 move container to workspace $ws18
 bindsym $mod+Shift+Ctrl+9 move container to workspace $ws19
 
 # move focused container to workspace, move to workspace
-bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1  
+bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1
 bindsym $mod+$alt+2 move container to workspace $ws2; workspace $ws2
 bindsym $mod+$alt+3 move container to workspace $ws3; workspace $ws3
 bindsym $mod+$alt+4 move container to workspace $ws4; workspace $ws4
@@ -174,18 +168,6 @@ bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# Logout of session
-#bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
-
-# Reboot computer
-#bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
-
-# Power off computer
-#bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
-
-# lock the screen
-#bindsym $mod+Escape exec gnome-screensaver-command --lock
 
 # shortcuts for common system configuration tasks
 bindsym $mod+c exec systemsettings5
@@ -241,7 +223,7 @@ set_from_resource $focused_inactive.color.border i3-wm.client.focused_inactive.c
 set_from_resource $focused_inactive.color.background i3-wm.client.focused_inactive.color.background "#121517"
 set_from_resource $focused_inactive.color.text i3-wm.client.focused_inactive.color.text "#839496"
 set_from_resource $focused_inactive.color.indicator i3-wm.client.focused_inactive.color.indicator "#121517"
-set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border 
+set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border
 
 set_from_resource $unfocused.color.border i3-wm.client.unfocused.color.border "#002b36"
 set_from_resource $unfocused.color.background i3-wm.client.unfocused.color.background "#121517"
@@ -313,9 +295,6 @@ bar {
 
 # Run programs when i3 starts
 
-# Launch the shortcut Conky window on first login
-#exec --no-startup-id /usr/bin/regolith-ftue
-
 # Hide the mouse pointer if unused for a duration
 exec --no-startup-id /usr/bin/unclutter -b
 
@@ -381,9 +360,6 @@ for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
 for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
 
 popup_during_fullscreen smart
-
-# Polybar
-#exec_always --no-startup-id /usr/bin/al-polybar-session
 
 # put the system to sleep
 bindsym $mod+Ctrl+Shift+s exec systemctl suspend
