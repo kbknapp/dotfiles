@@ -11,11 +11,11 @@ export XDG_CONFIG_HOME="$HOME/.config"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
 # restore the background
-nitrogen --restore &
+#nitrogen --restore &
 
 # keyring and polkit daemons
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-gnome-keyring-daemon --start --components=pkcs11 &
+#/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+#gnome-keyring-daemon --start --components=pkcs11 &
 
 # super alone simulates Alt-F1
 ksuperkey -e 'Super_L=Alt_L|F1' &
