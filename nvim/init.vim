@@ -229,7 +229,7 @@ if executable('rg')
 	set grepformat=%f:%l:%c:%m
 
 	" Use Ripgrep with Ctrl-P
-	let g:ctrlp_user_command = 'rg --files %s'
+	let g:ctrlp_user_command = 'rg --files %s --hidden --color=never --glob ""'
 	let g:ctrlp_use_caching = 0
 	let g:ctrlp_working_path_mode = 'ra'
 	let g:ctrlp_switch_buffer = 'et'
@@ -512,11 +512,12 @@ let g:neovide_cursor_vfx_mode = "railgun"
 " ; as :
 "nnoremap ; :
 
-" Ctrl+c and Ctrl+j as Esc
-"inoremap <C-j> <Esc>
-"vnoremap <C-j> <Esc>
-"inoremap <C-c> <Esc>
-"vnoremap <C-c> <Esc>
+" Use jj for escape
+inoremap jj <ESC>
+
+" Edit/Source the config
+nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim<CR>
+nnoremap <silent> <leader>sc :source ~/.config/nvim/init.vim<CR>
 
 " Use ALT+hkjl to navigate windows"
 inoremap <A-h> <C-w>h
@@ -548,12 +549,12 @@ set clipboard^=unnamed,unnamedplus
 noremap <leader>p :read !xsel --clipboard --output<cr>
 noremap <leader>c :w !xsel -ib<cr><cr>
 
-" <leader>s for Rg search
+" <leader>/ for Rg search
 noremap <leader>/ :Rg<space>
 let g:fzf_layout = { 'down': '~20%' }
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   'rg --column --hidden --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
@@ -567,21 +568,14 @@ command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
   \                               'options': '--tiebreak=index'}, <bang>0)
 
-
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
-" No arrow keys --- force yourself to use the home row
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-
-" Left and right can switch buffers
-nnoremap <left> :bp<CR>
-nnoremap <right> :bn<CR>
+" arrows can switch buffers/tabs
+nnoremap <left> :tp<CR>
+nnoremap <right> :tn<CR>
+nnoremap <up> :bp<CR>
+nnoremap <down> :bn<CR>
 
 " Move by visual line
 nnoremap j gj
