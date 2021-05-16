@@ -71,8 +71,22 @@ Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Rust
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+""" Rust
+"" CoC based
+""Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"" nvim-lsp based"
+Plug 'neovim/nvim-lspconfig'           " Common configuration
+Plug 'nvim-lua/lsp_extensions.nvim'    " type inlay hints, etc
+Plug 'hrsh7th/nvim-compe'              " Autcompletions
+Plug 'hrsh7th/vim-vsnip'               " Snippet handling
+Plug 'simrat39/rust-tools.nvim'
+
+" Optional dependencies
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" agnostic
 Plug 'mhinz/vim-crates'
 
 if has('nvim')
@@ -125,6 +139,9 @@ Plug 'ncm2/ncm2-path'
 "
 " ----- Git Plugins -----
 Plug 'tpope/vim-fugitive'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'TimUntersberger/neogit'
+nnoremap <silent> <leader>gg :Neogit<CR>
 
 " +,-,~ in gutter
 Plug 'airblade/vim-gitgutter'
@@ -289,11 +306,84 @@ let g:localvimrc_ask = 0
 
 " Completion
 autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
+" Better completion experience
+set completeopt=noinsert,menu,menuone,noselect
+" Avoid showing extra messages with completions
+set shortmess+=c
 " tab to select
 " and don't hijack my enter key
-inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
-inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")
+""inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
+""inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")
+
+" Code navigation shortcuts
+" as found in :help lsp
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>cd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" rust-analyzer does not yet support goto declaration
+" re-mapped `gd` to definition
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+"nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
+" Completion
+lua <<EOF
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    vsnip = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    spell = true;
+    tags = true;
+    snippets_nvim = true;
+  };
+}
+EOF
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" have a fixed column for the diagnostics to appear in
+" this removes the jitter when warnings/errors flow in
+set signcolumn=yes
+
+" Set updatetime for CursorHold
+" 300ms of no cursor movement to trigger CursorHold
+set updatetime=300
+" Show diagnostic popup on cursor hover
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+
+" Goto previous/next diagnostic warning/error
+nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
+" Enable type inlay hints
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
 " =============================================================================
 " # Editor settings
@@ -618,6 +708,85 @@ au BufNewFile,BufRead *.rs setlocal colorcolumn=100
 au BufNewFile,BufRead *.py setlocal colorcolumn=80
 
 " Rust Language Support"
+lua <<EOF
+local opts = {
+    tools = { -- rust-tools options
+        -- automatically set inlay hints (type hints)
+        -- There is an issue due to which the hints are not applied on the first
+        -- opened file. For now, write to the file to trigger a reapplication of
+        -- the hints or just run :RustSetInlayHints.
+        -- default: true
+        autoSetHints = true,
+
+        -- whether to show hover actions inside the hover window
+        -- this overrides the default hover handler
+        -- default: true
+        hover_with_actions = true,
+
+        runnables = {
+            -- whether to use telescope for selection menu or not
+            -- default: true
+            use_telescope = true
+
+            -- rest of the opts are forwarded to telescope
+        },
+
+        inlay_hints = {
+            -- wheter to show parameter hints with the inlay hints or not
+            -- default: true
+            show_parameter_hints = true,
+
+            -- prefix for parameter hints
+            -- default: "<-"
+            parameter_hints_prefix = "<-",
+
+            -- prefix for all the other hints (type, chaining)
+            -- default: "=>"
+            other_hints_prefix  = "=>",
+
+            -- whether to align to the lenght of the longest line in the file
+            max_len_align = false,
+
+            -- padding from the left if max_len_align is true
+            max_len_align_padding = 1,
+
+            -- whether to align to the extreme right or not
+            right_align = false,
+
+            -- padding from the right if right_align is true
+            right_align_padding = 7,
+        },
+
+        hover_actions = {
+            -- the border that is used for the hover window
+            -- see vim.api.nvim_open_win()
+            border = {
+              {"╭", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╮", "FloatBorder"},
+              {"│", "FloatBorder"},
+              {"╯", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╰", "FloatBorder"},
+              {"│", "FloatBorder"}
+            },
+        }
+    },
+
+    -- all the opts to send to nvim-lspconfig
+    -- these override the defaults set by rust-tools.nvim
+    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+    server = {}, -- rust-analyer options
+}
+
+require('rust-tools').setup(opts)
+EOF
+
+nnoremap <silent> <leader>cth :RustToggleInlayHints<CR>
+nnoremap <silent> <leader>cm :lua require'rust-tools.expand_macro'.expand_macro()<CR>
+nnoremap <silent> <leader>cr :RustRunnables<CR>
+nnoremap <silent> <leader>cha :RustHoverActions<CR>
+
 " For custom commenting functions.
 let b:Comment="//"
 let b:EndComment=""
@@ -633,14 +802,14 @@ let g:rustfmt_autosave_if_config_present = 1
 let g:rustfmt_command = "rustfmt +stable"
 
 " Make CTRL-T work correctly with goto-definition.
-setlocal tagfunc=CocTagFunc
+"setlocal tagfunc=CocTagFunc
 
-nmap <Leader>gt <Plug>(coc-type-definition)
-nmap <Leader>gre <Plug>(coc-references)
-nmap <Leader>grn <Plug>(coc-rename)
-nmap <Leader>gd <Plug>(coc-diagnostic-info)
-nmap <Leader>gp <Plug>(coc-diagnostic-prev)
-nmap <Leader>gn <Plug>(coc-diagnostic-next)
+" nmap <Leader>gt <Plug>(coc-type-definition)
+" nmap <Leader>gre <Plug>(coc-references)
+" nmap <Leader>grn <Plug>(coc-rename)
+" nmap <Leader>gd <Plug>(coc-diagnostic-info)
+" nmap <Leader>gp <Plug>(coc-diagnostic-prev)
+" nmap <Leader>gn <Plug>(coc-diagnostic-next)
 
 " Markdown Help
 autocmd FileType markdown set cursorline
