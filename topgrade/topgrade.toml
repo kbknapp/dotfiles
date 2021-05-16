@@ -62,6 +62,7 @@ repos = [
 "rust-analyzer" = "cd ~/.build/rust-analyzer && git pull origin master && cargo xtask install"
 "i3-gaps" = "cd ~/.build/i3/build && git pull origin gaps-next && sudo -u kevin ninja && sudo ninja install"
 "picom" = "cd ~/.build/picom && git pull origin next && sudo -u kevin ninja -C build && sudo ninja -C build install"
+"neovim_appimage" = "wget -q https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -O ~/.local/bin/nvim"
 
 #[brew]
 #greedy_cask = true
