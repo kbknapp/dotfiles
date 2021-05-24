@@ -26,6 +26,14 @@ Plug 'schickling/vim-bufonly'
 Plug 'bitc/vim-bad-whitespace'
 Plug 'kbknapp/badWords'
 Plug 'godlygeek/tabular'
+nnoremap <leader>t= :Tab /=<CR>
+vnoremap <leader>t= :Tab /=<CR>
+nnoremap <leader>t" :Tab /"<CR>
+vnoremap <leader>t" :Tab /"<CR>
+nnoremap <leader>t' :Tab /"<CR>
+vnoremap <leader>t' :Tab /"<CR>
+nnoremap <leader>t: :Tab /:\zs<CR>
+vnoremap <leader>t: :Tab /:\zs<CR>
 " Better window resizing with Ctrl+E"
 Plug 'simeji/winresizer'
 
