@@ -1,2 +1,2 @@
 # Magit
-alias magit='emacsclient -a emacs -e "(magit-status)"'
+alias magit='emacsclient -a emacs -e magit-status'

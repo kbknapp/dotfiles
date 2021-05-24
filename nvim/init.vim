@@ -146,10 +146,10 @@ Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 "
 " ----- Git Plugins -----
-Plug 'tpope/vim-fugitive'
+""Plug 'tpope/vim-fugitive'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'TimUntersberger/neogit'
-nnoremap <silent> <leader>gg :Neogit<CR>
+""Plug 'TimUntersberger/neogit'
+nnoremap <silent> <leader>gg :silent ! emacs -e magit-status &<CR>
 
 " +,-,~ in gutter
 Plug 'airblade/vim-gitgutter'
