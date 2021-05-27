@@ -25,6 +25,8 @@ Plug 'kshenoy/vim-signature'
 Plug 'schickling/vim-bufonly'
 Plug 'bitc/vim-bad-whitespace'
 Plug 'kbknapp/badWords'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 Plug 'godlygeek/tabular'
 nnoremap <leader>t= :Tab /=<CR>
 vnoremap <leader>t= :Tab /=<CR>
@@ -91,6 +93,7 @@ Plug 'hrsh7th/vim-vsnip'               " Snippet handling
 Plug 'simrat39/rust-tools.nvim'
 
 " Optional dependencies
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
@@ -147,7 +150,6 @@ Plug 'ncm2/ncm2-path'
 "
 " ----- Git Plugins -----
 ""Plug 'tpope/vim-fugitive'
-Plug 'nvim-lua/plenary.nvim'
 ""Plug 'TimUntersberger/neogit'
 nnoremap <silent> <leader>gg :silent ! emacs -e magit-status &<CR>
 
