@@ -50,11 +50,11 @@ Plug 'andymass/vim-matchup'
 "     -> :CtrlPBuffer            Search Buffers
 "     -> :CtrlPMixed             Files, Buffers, and MRU
 "Plugin 'kien/ctrlp.vim'
-Plug  'ctrlpvim/ctrlp.vim'
-let g:ctrlp_map = "<c-p>"
-nnoremap <C-p> :CtrlPMixed<CR>
-nnoremap <C-m> :CtrlPMRU<CR>
-nnoremap <leader>bb :CtrlPBuffer<CR>
+" Plug  'ctrlpvim/ctrlp.vim'
+" let g:ctrlp_map = "<c-p>"
+" nnoremap <C-p> :CtrlPMixed<CR>
+" nnoremap <C-m> :CtrlPMRU<CR>
+" nnoremap <leader>bb :CtrlPBuffer<CR>
 "let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target'
 
 " Visualize your Undo Tree
@@ -76,10 +76,9 @@ map <C-n> :NERDTreeToggle<CR>
 " Better Buffer Close support (don't wipe out splits, etc.)
 Plug 'moll/vim-bbye'
 
-" Fuzzy finder
 Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+""Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+""Plug 'junegunn/fzf.vim'
 
 """ Rust
 "" CoC based
@@ -96,6 +95,16 @@ Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>/ <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>bb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ft <cmd>Telescope tags<cr>
+nnoremap <leader>fm <cmd>Telescope marks<cr>
+nnoremap <leader>fr <cmd>Telescope registers<cr>
 
 " agnostic
 Plug 'mhinz/vim-crates'
@@ -298,8 +307,8 @@ nnoremap <C-b> <C-]>
 nnoremap <C-\> <C-O>
 
 " Open hotkeys
-map <C-p> :Files<CR>
-nmap <leader>bb :Buffers<CR>
+""map <C-p> :Files<CR>
+""nmap <leader>bb :Buffers<CR>
 nmap <leader>bp :bp<CR>
 nmap <leader>bn :bn<CR>
 nmap <leader>bw :Bwipeout!<CR>
@@ -560,23 +569,23 @@ noremap <leader>p :read !xsel --clipboard --output<cr>
 noremap <leader>c :w !xsel -ib<cr><cr>
 
 " <leader>/ for Rg search
-noremap <leader>/ :Rg<space>
-let g:fzf_layout = { 'down': '~20%' }
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --hidden --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-function! s:list_cmd()
-  let base = fnamemodify(expand('%'), ':h:.:S')
-  return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
-endfunction
-
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
-  \                               'options': '--tiebreak=index'}, <bang>0)
+" noremap <leader>/ :Rg<space>
+" let g:fzf_layout = { 'down': '~20%' }
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --hidden --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+"   \   <bang>0 ? fzf#vim#with_preview('up:60%')
+"   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+"   \   <bang>0)
+"
+" function! s:list_cmd()
+"   let base = fnamemodify(expand('%'), ':h:.:S')
+"   return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
+" endfunction
+"
+" command! -bang -nargs=? -complete=dir Files
+"   \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+"   \                               'options': '--tiebreak=index'}, <bang>0)
 
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
