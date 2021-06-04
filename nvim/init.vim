@@ -88,6 +88,7 @@ Plug 'airblade/vim-rooter'
 Plug 'neovim/nvim-lspconfig'           " Common configuration
 Plug 'nvim-lua/lsp_extensions.nvim'    " type inlay hints, etc
 Plug 'hrsh7th/nvim-compe'              " Autcompletions
+Plug 'nvim-lua/completion-nvim'
 Plug 'hrsh7th/vim-vsnip'               " Snippet handling
 Plug 'simrat39/rust-tools.nvim'
 
@@ -281,8 +282,14 @@ let g:ale_fixers = {
     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
     \ 'rust': ['rustfmt'],
 \}
-inoremap <silent><expr><TAB>
-    \ pumvisible() ? “\<C-n>” : “\<TAB>”
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" use <Tab> as trigger keys
+imap <Tab> <Plug>(completion_smart_tab)
+imap <S-Tab> <Plug>(completion_smart_s_tab)
+
 nmap <silent> <leader>acd :ALEGoToDefinition<CR>
 nmap <silent> <leader>acr :ALEFindReferences<CR>
 nmap <silent> <leader>aj :ALENext<cr>
@@ -385,10 +392,6 @@ inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" have a fixed column for the diagnostics to appear in
-" this removes the jitter when warnings/errors flow in
-set signcolumn=yes
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -719,6 +722,10 @@ autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
 au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 au BufNewFile,BufRead *.rs setlocal colorcolumn=100
 au BufNewFile,BufRead *.py setlocal colorcolumn=80
+au BufNewFile,BufRead *.rs setlocal foldmethod=syntax
+" Use space to toggle folds under cursor
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 " Rust Language Support"
 lua <<EOF
@@ -795,10 +802,10 @@ local opts = {
 require('rust-tools').setup(opts)
 EOF
 
-nnoremap <silent> <leader>cth :RustToggleInlayHints<CR>
-nnoremap <silent> <leader>cm :lua require'rust-tools.expand_macro'.expand_macro()<CR>
-nnoremap <silent> <leader>cr :RustRunnables<CR>
-nnoremap <silent> <leader>cha :RustHoverActions<CR>
+nnoremap <silent> <leader>crh :RustToggleInlayHints<CR>
+nnoremap <silent> <leader>crm :lua require'rust-tools.expand_macro'.expand_macro()<CR>
+nnoremap <silent> <leader>crr :RustRunnables<CR>
+nnoremap <silent> <leader>cra :RustHoverActions<CR>
 
 " For custom commenting functions.
 let b:Comment="//"
