@@ -41,7 +41,7 @@ Plug 'simeji/winresizer'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
-Plug 'dense-analysis/ale'
+""Plug 'dense-analysis/ale'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 
@@ -72,7 +72,7 @@ endif
 
 " files
 Plug 'scrooloose/nerdtree'
-map <C-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 " Better Buffer Close support (don't wipe out splits, etc.)
 Plug 'moll/vim-bbye'
 
@@ -106,6 +106,8 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>ft <cmd>Telescope tags<cr>
 nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader>fr <cmd>Telescope registers<cr>
+nnoremap <leader>fe <cmd>Telescope lsp_document_diagnostics<cr>
+nnoremap <leader>fee <cmd>Telescope lsp_workspace_diagnostics<cr>
 
 " agnostic
 Plug 'mhinz/vim-crates'
@@ -257,31 +259,31 @@ endif
 
 " Linter
 " only lint on save
-set omnifunc=ale#completion#OmniFunc
-let g:ale_completion_enabled = 1
-let g:ale_completion_autoimport = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_virtualtext_cursor = 1
-highlight link ALEWarningSign Todo
-highlight link ALEErrorSign WarningMsg
-highlight link ALEVirtualTextWarning Todo
-highlight link ALEVirtualTextInfo Todo
-highlight link ALEVirtualTextError WarningMsg
-highlight ALEError guibg=None
-highlight ALEWarning guibg=None
-let g:ale_sign_error = "✖"
-let g:ale_sign_warning = "⚠"
-let g:ale_sign_info = "i"
-let g:ale_sign_hint = "➤"
-let g:ale_sign_column_always = 1
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'rust': ['rustfmt'],
-\}
+" set omnifunc=ale#completion#OmniFunc
+" let g:ale_completion_enabled = 1
+" let g:ale_completion_autoimport = 1
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_enter = 0
+" let g:ale_virtualtext_cursor = 1
+" highlight link ALEWarningSign Todo
+" highlight link ALEErrorSign WarningMsg
+" highlight link ALEVirtualTextWarning Todo
+" highlight link ALEVirtualTextInfo Todo
+" highlight link ALEVirtualTextError WarningMsg
+" highlight ALEError guibg=None
+" highlight ALEWarning guibg=None
+" let g:ale_sign_error = "✖"
+" let g:ale_sign_warning = "⚠"
+" let g:ale_sign_info = "i"
+" let g:ale_sign_hint = "➤"
+" let g:ale_sign_column_always = 1
+" let g:ale_fix_on_save = 1
+" let g:ale_fixers = {
+"     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+"     \ 'rust': ['rustfmt'],
+" \}
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -290,17 +292,17 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 imap <Tab> <Plug>(completion_smart_tab)
 imap <S-Tab> <Plug>(completion_smart_s_tab)
 
-nmap <silent> <leader>acd :ALEGoToDefinition<CR>
-nmap <silent> <leader>acr :ALEFindReferences<CR>
-nmap <silent> <leader>aj :ALENext<cr>
-nmap <silent> <leader>ak :ALEPrevious<cr>
-nmap <silent> <leader>al :ALELint<cr>
-nmap <silent> <leader>aep <Plug>(ale_previous_wrap)
-nmap <silent> <leader>aen <Plug>(ale_next_wrap)
-nmap <silent> <leader>al <Plug>(ale_lint)
-nmap <silent> <leader>ad <Plug>(ale_detail)
-nmap <silent> <C-g> :close<cr>
-nnoremap <silent> K :ALEHover<CR>
+" nmap <silent> <leader>acd :ALEGoToDefinition<CR>
+" nmap <silent> <leader>acr :ALEFindReferences<CR>
+" nmap <silent> <leader>aj :ALENext<cr>
+" nmap <silent> <leader>ak :ALEPrevious<cr>
+" nmap <silent> <leader>al :ALELint<cr>
+" nmap <silent> <leader>aep <Plug>(ale_previous_wrap)
+" nmap <silent> <leader>aen <Plug>(ale_next_wrap)
+" nmap <silent> <leader>al <Plug>(ale_lint)
+" nmap <silent> <leader>ad <Plug>(ale_detail)
+" nmap <silent> <C-g> :close<cr>
+" nnoremap <silent> K :ALEHover<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " Enable faster viewport scrolling
