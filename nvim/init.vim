@@ -27,7 +27,6 @@ Plug 'bitc/vim-bad-whitespace'
 Plug 'kbknapp/badWords'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-
 Plug 'godlygeek/tabular'
 nnoremap <leader>t= :Tab /=<CR>
 vnoremap <leader>t= :Tab /=<CR>
@@ -42,11 +41,10 @@ Plug 'simeji/winresizer'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
-Plug 'dense-analysis/ale'
+""Plug 'dense-analysis/ale'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'hoob3rt/lualine.nvim'
+
 " Ctrl+P Fuzzy Matching Files
 "     -> <c-p> / :CtrlP [dir]    Fuzzy Match Files
 "     -> :CtrlPBuffer            Search Buffers
@@ -74,7 +72,7 @@ endif
 
 " files
 Plug 'scrooloose/nerdtree'
-map <C-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 " Better Buffer Close support (don't wipe out splits, etc.)
 Plug 'moll/vim-bbye'
 
@@ -93,11 +91,9 @@ Plug 'hrsh7th/nvim-compe'              " Autcompletions
 Plug 'nvim-lua/completion-nvim'
 Plug 'hrsh7th/vim-vsnip'               " Snippet handling
 Plug 'simrat39/rust-tools.nvim'
-Plug 'glepnir/lspsaga.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'vhyrro/neorg'
 
 " Optional dependencies
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -110,6 +106,9 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>ft <cmd>Telescope tags<cr>
 nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader>fr <cmd>Telescope registers<cr>
+nnoremap <leader>fe <cmd>Telescope lsp_document_diagnostics<cr>
+nnoremap <leader>fee <cmd>Telescope lsp_workspace_diagnostics<cr>
+
 " agnostic
 Plug 'mhinz/vim-crates'
 
@@ -118,9 +117,9 @@ if has('nvim')
 endif
 
 " Semantic language support
-""Plug 'racer-rust/vim-racer'
-""Plug 'ncm2/ncm2'
-""Plug 'roxma/nvim-yarp'
+Plug 'racer-rust/vim-racer'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 
 " Comment or UN-Comment Code
 "     -> gcc                  Comment or uncomment line(s)
@@ -157,9 +156,9 @@ let g:vim_markdown_edit_url_in = 'tab'
 let g:vim_markdown_follow_anchor = 1
 
 " Completion plugins
-""Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-bufword'
 "Plug 'ncm2/ncm2-tmux'
-""Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-path'
 "
 " ----- Git Plugins -----
 ""Plug 'tpope/vim-fugitive'
@@ -186,121 +185,6 @@ Plug 'ghifarit53/tokyonight-vim'
 "                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 call plug#end()
-
-" Neorg Config"
-lua <<EOF
-require('neorg').setup {
-    -- Tell Neorg what modules to load
-    load = {
-	["core.defaults"] = {}, -- Load all the default modules
-	["core.norg.concealer"] = {}, -- Allows for use of icons
-	["core.keybinds"] = { -- Configure core.keybinds
-	    config = {
-		default_keybinds = true, -- Generate the default keybinds
-		neorg_leader = "<Leader>o" -- This is the default if unspecified
-	    }
-	},
-	["core.norg.dirman"] = { -- Manage your directories with Neorg
-	    config = {
-		workspaces = {
-		    my_workspace = "~/neorg"
-		}
-	    }
-	}
-    },
-}
-EOF
-
-" Tree-Sitter Config
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    disable = {},
-  },
-  indent = {
-    enable = false,
-    disable = {},
-  },
-  ensure_installed = {
-    "bash",
-    "c",
-    "dockerfile",
-    "fish",
-    "go",
-    "html",
-    "json",
-    "norg",
-    "python",
-    "rust",
-    "scss",
-    "toml",
-    "yaml",
-    "zig",
-  },
-}
-
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-
-parser_configs.norg = {
-    install_info = {
-        url = "https://github.com/vhyrro/tree-sitter-norg",
-        files = { "src/parser.c" },
-        branch = "main"
-    },
-}
-EOF
-
-" LuaLine Config
-lua <<EOF
-local status, lualine = pcall(require, "lualine")
-if (not status) then return end
-lualine.setup {
-  options = {
-    icons_enabled = true,
-    theme = 'everforest',
-    section_separators = {'', ''},
-    component_separators = {'', ''},
-    disabled_filetypes = {}
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch'},
-    lualine_c = {'filename'},
-    lualine_x = {
-      { 'diagnostics', sources = {"nvim_lsp"}, symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '} },
-      'encoding',
-      'filetype'
-    },
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  extensions = {'fugitive'}
-}
-EOF
-
-" Telescope Config
-lua <<EOF
-local actions = require('telescope.actions')
-require('telescope').setup{
-  defaults = {
-    mappings = {
-      n = {
-        ["q"] = actions.close
-      },
-    },
-  }
-}
-EOF
 
 if has('nvim')
     set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
@@ -375,31 +259,31 @@ endif
 
 " Linter
 " only lint on save
-set omnifunc=ale#completion#OmniFunc
-let g:ale_completion_enabled = 1
-let g:ale_completion_autoimport = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_virtualtext_cursor = 1
-highlight link ALEWarningSign Todo
-highlight link ALEErrorSign WarningMsg
-highlight link ALEVirtualTextWarning Todo
-highlight link ALEVirtualTextInfo Todo
-highlight link ALEVirtualTextError WarningMsg
-highlight ALEError guibg=None
-highlight ALEWarning guibg=None
-let g:ale_sign_error = ""
-let g:ale_sign_warning = "⚠"
-let g:ale_sign_info = ""
-let g:ale_sign_hint = ""
-let g:ale_sign_column_always = 1
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'rust': ['rustfmt'],
-\}
+" set omnifunc=ale#completion#OmniFunc
+" let g:ale_completion_enabled = 1
+" let g:ale_completion_autoimport = 1
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_enter = 0
+" let g:ale_virtualtext_cursor = 1
+" highlight link ALEWarningSign Todo
+" highlight link ALEErrorSign WarningMsg
+" highlight link ALEVirtualTextWarning Todo
+" highlight link ALEVirtualTextInfo Todo
+" highlight link ALEVirtualTextError WarningMsg
+" highlight ALEError guibg=None
+" highlight ALEWarning guibg=None
+" let g:ale_sign_error = "✖"
+" let g:ale_sign_warning = "⚠"
+" let g:ale_sign_info = "i"
+" let g:ale_sign_hint = "➤"
+" let g:ale_sign_column_always = 1
+" let g:ale_fix_on_save = 1
+" let g:ale_fixers = {
+"     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+"     \ 'rust': ['rustfmt'],
+" \}
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -408,17 +292,17 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 imap <Tab> <Plug>(completion_smart_tab)
 imap <S-Tab> <Plug>(completion_smart_s_tab)
 
-nmap <silent> <leader>acd :ALEGoToDefinition<CR>
-nmap <silent> <leader>acr :ALEFindReferences<CR>
-nmap <silent> <leader>aj :ALENext<cr>
-nmap <silent> <leader>ak :ALEPrevious<cr>
-nmap <silent> <leader>al :ALELint<cr>
-nmap <silent> <leader>aep <Plug>(ale_previous_wrap)
-nmap <silent> <leader>aen <Plug>(ale_next_wrap)
-nmap <silent> <leader>al <Plug>(ale_lint)
-nmap <silent> <leader>ad <Plug>(ale_detail)
-nmap <silent> <C-g> :close<cr>
-nnoremap <silent> K :ALEHover<CR>
+" nmap <silent> <leader>acd :ALEGoToDefinition<CR>
+" nmap <silent> <leader>acr :ALEFindReferences<CR>
+" nmap <silent> <leader>aj :ALENext<cr>
+" nmap <silent> <leader>ak :ALEPrevious<cr>
+" nmap <silent> <leader>al :ALELint<cr>
+" nmap <silent> <leader>aep <Plug>(ale_previous_wrap)
+" nmap <silent> <leader>aen <Plug>(ale_next_wrap)
+" nmap <silent> <leader>al <Plug>(ale_lint)
+" nmap <silent> <leader>ad <Plug>(ale_detail)
+" nmap <silent> <C-g> :close<cr>
+" nnoremap <silent> K :ALEHover<CR>
 "nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " Enable faster viewport scrolling
@@ -449,7 +333,7 @@ nmap <leader>w :w<CR>
 let g:localvimrc_ask = 0
 
 " Completion
-""autocmd BufEnter * call ncm2#enable_for_buffer()
+autocmd BufEnter * call ncm2#enable_for_buffer()
 " Better completion experience
 set completeopt=noinsert,menu,menuone,noselect
 " Avoid showing extra messages with completions
@@ -458,23 +342,6 @@ set shortmess+=c
 " and don't hijack my enter key
 ""inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
 ""inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")
-
-lua <<EOF
-local saga = require 'lspsaga'
-saga.init_lsp_saga {
-	error_sign = '',
-	warn_sign = '⚠',
-	hint_sign = '',
-	infor_sign = '',
-	border_style = "round",
-}
-EOF
-
-" Hover Docs
-nnoremap <silent>K <Cmd>Lspsaga hover_doc<CR>
-nnoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
-nnoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
-nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 
 " Code navigation shortcuts
 " as found in :help lsp
@@ -779,44 +646,6 @@ function! <SID>ranger()
     endfor
     redraw!
 endfunction
-
-function MyTabLine()
-  let s = ''
-  for i in range(tabpagenr('$'))
-    " select the highlighting
-    if i + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
-    " set the tab page number (for mouse clicks)
-    let s .= '%' . (i + 1) . 'T'
-    " the label is made by MyTabLabel()
-    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-    if i + 1 == tabpagenr()
-      let s .= '%#TabLineSep#ÓÇ∞'
-    elseif i + 2 == tabpagenr()
-      let s .= '%#TabLineSep2#ÓÇ∞'
-    else
-      let s .= 'ÓÇ±'
-    endif
-  endfor
-  " after the last tab fill with TabLineFill and reset tab page nr
-  let s .= '%#TabLineFill#%T'
-  " right-align the label to close the current tab page
-  if tabpagenr('$') > 1
-    let s .= '%=%#TabLine#%999X'
-  endif
-  return s
-endfunction
-function MyTabLabel(n)
-  let buflist = tabpagebuflist(a:n)
-  let winnr = tabpagewinnr(a:n)
-  let name = bufname(buflist[winnr - 1])
-  let label = fnamemodify(name, ':t')
-  return len(label) == 0 ? '[No Name]' : label
-endfunction
-set tabline=%!MyTabLine()
 
 " Auto Close Pairs
 inoremap {<CR> {<CR>}<C-o>O
