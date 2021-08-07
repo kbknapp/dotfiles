@@ -100,6 +100,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>/ <cmd>Telescope live_grep<cr>
+nnoremap <leader>ss <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>bb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
@@ -108,6 +109,13 @@ nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader>fr <cmd>Telescope registers<cr>
 nnoremap <leader>fe <cmd>Telescope lsp_document_diagnostics<cr>
 nnoremap <leader>fee <cmd>Telescope lsp_workspace_diagnostics<cr>
+Plug 'windwp/nvim-spectre'
+nnoremap <leader>sr :lua require('spectre').open()<CR>
+"search current word
+nnoremap <leader>sw :lua require('spectre').open_visual({select_word=true})<CR>
+vnoremap <leader>s :lua require('spectre').open_visual()<CR>
+"  search in current file
+nnoremap <leader>sb viw:lua require('spectre').open_file_search()<cr>
 
 " agnostic
 Plug 'mhinz/vim-crates'
@@ -398,8 +406,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
-" Show diagnostic popup on cursor hover
-autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+" Show diagnostic popup on cursor hover, but don't focus
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})
 
 " Goto previous/next diagnostic warning/error
 nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
