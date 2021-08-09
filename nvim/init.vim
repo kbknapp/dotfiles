@@ -84,6 +84,9 @@ Plug 'airblade/vim-rooter'
 "" CoC based
 ""Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Zig
+Plug 'ziglang/zig.vim'
+
 "" nvim-lsp based"
 Plug 'neovim/nvim-lspconfig'           " Common configuration
 Plug 'nvim-lua/lsp_extensions.nvim'    " type inlay hints, etc
@@ -91,6 +94,7 @@ Plug 'hrsh7th/nvim-compe'              " Autcompletions
 Plug 'nvim-lua/completion-nvim'
 Plug 'hrsh7th/vim-vsnip'               " Snippet handling
 Plug 'simrat39/rust-tools.nvim'
+Plug 'zigtools/zls'
 
 " Optional dependencies
 Plug 'nvim-lua/plenary.nvim'
@@ -265,6 +269,27 @@ if executable('rg')
 	let g:ctrlp_switch_buffer = 'et'
 endif
 
+:lua << EOF
+    local lspconfig = require('lspconfig')
+
+    local on_attach = function(_, bufnr)
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        require('completion').on_attach()
+    end
+
+    local servers = {'zls'}
+    for _, lsp in ipairs(servers) do
+        lspconfig[lsp].setup {
+            on_attach = on_attach,
+        }
+    end
+EOF
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Enable completions as you type
+let g:completion_enable_auto_popup = 1
 " Linter
 " only lint on save
 " set omnifunc=ale#completion#OmniFunc
