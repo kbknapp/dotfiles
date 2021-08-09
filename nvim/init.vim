@@ -659,7 +659,7 @@ map <F1> <Esc>
 imap <F1> <Esc>
 
 " open ranger as a file chooser using the function below
-nnoremap <leader>r :call <SID>ranger()<CR>
+nnoremap <leader>R :call <SID>ranger()<CR>
 
 function! <SID>ranger()
     let l:temp = tempname()
