@@ -116,8 +116,8 @@ nnoremap <leader>fee <cmd>Telescope lsp_workspace_diagnostics<cr>
 Plug 'windwp/nvim-spectre'
 nnoremap <leader>sr :lua require('spectre').open()<CR>
 "search current word
-nnoremap <leader>sw :lua require('spectre').open_visual({select_word=true})<CR>
-vnoremap <leader>s :lua require('spectre').open_visual()<CR>
+nnoremap <leader>srw :lua require('spectre').open_visual({select_word=true})<CR>
+vnoremap <leader>r :lua require('spectre').open_visual()<CR>
 "  search in current file
 nnoremap <leader>sb viw:lua require('spectre').open_file_search()<cr>
 
