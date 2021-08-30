@@ -222,6 +222,8 @@ for _, lsp in ipairs(servers) do
         }
 end
 
+require "lsp_signature".setup()
+
 vim.g.completion_enable_auto_popup = true -- Enable completions as you type
 vim.g.localvimrc = false -- Don't confirm .lvimrc
 
