@@ -52,16 +52,14 @@ Plug 'andymass/vim-matchup'
 --     -> :GundoToggle           See Undo Tree
 Plug 'sjl/gundo.vim'
 
--- Files
+-- Files / Coding
 Plug 'kyazdani42/nvim-web-devicons' -- for file icons
 Plug 'kyazdani42/nvim-tree.lua'     -- better NERDTree
--- Better Buffer Close support (don't wipe out splits, etc.)
-Plug 'moll/vim-bbye'
-
+Plug 'moll/vim-bbye' -- Better Buffer Close support (don't wipe out splits, etc.)
 Plug 'airblade/vim-rooter' -- Find project root
+Plug 'simrat39/symbols-outline.nvim' -- Tagbar replacement
 
 -- Languages
-
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -287,7 +285,7 @@ local cmp = require'cmp'
       format = function(entry, vim_item)
         -- fancy icons and a name of kind
         vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
-    
+
         -- set a name for each source
         vim_item.menu = ({
           buffer = "[Buffer]",
@@ -385,6 +383,53 @@ require('lualine').setup {
   }
 }
 
+-- Symbols-Outline (Tagbar)
+map {'n', '<C-s>', ':SymbolsOutline<CR>'}
+vim.g.symbols_outline = {
+    highlight_hovered_item = false,
+    show_guides = true,
+    auto_preview = false,
+    show_symbol_details = true,
+    keymaps = {
+        close = {"<Esc>", "q"},
+        goto_location = "<Cr>",
+        focus_location = "o",
+        hover_symbol = "<C-space>",
+        toggle_preview = "K",
+        rename_symbol = "r",
+        code_actions = "a",
+    },
+    lsp_blacklist = {},
+    symbol_blacklist = {},
+    symbols = {
+        File = {icon = "", hl = "TSURI"},
+        Module = {icon = "", hl = "TSNamespace"},
+        Namespace = {icon = "", hl = "TSNamespace"},
+        Package = {icon = "📦", hl = "TSNamespace"},
+        Class = {icon = "𝓒", hl = "TSType"},
+        Method = {icon = "ƒ", hl = "TSMethod"},
+        Property = {icon = "", hl = "TSMethod"},
+        Field = {icon = "α", hl = "TSField"},
+        Constructor = {icon = "", hl = "TSConstructor"},
+        Enum = {icon = "∑", hl = "TSType"},
+        Interface = {icon = "ﰮ", hl = "TSType"},
+        Function = {icon = "ƒ", hl = "TSFunction"},
+        Variable = {icon = "α", hl = "TSConstant"},
+        Constant = {icon = "π", hl = "TSConstant"},
+        String = {icon = "𝓐", hl = "TSString"},
+        Number = {icon = "#", hl = "TSNumber"},
+        Boolean = {icon = "⊨", hl = "TSBoolean"},
+        Array = {icon = "", hl = "TSConstant"},
+        Object = {icon = "⦿", hl = "TSType"},
+        Key = {icon = "🔑", hl = "TSType"},
+        Null = {icon = "␀", hl = "TSType"},
+        EnumMember = {icon = "σ", hl = "TSField"},
+        Struct = {icon = "𝓢", hl = "TSType"},
+        Event = {icon = "⇝", hl = "TSType"},
+        Operator = {icon = "+", hl = "TSOperator"},
+        TypeParameter = {icon = "T", hl = "TSParameter"}
+    }
+}
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'
 
