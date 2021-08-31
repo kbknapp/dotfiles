@@ -95,6 +95,7 @@ Plug 'onsails/lspkind-nvim'
 --Plug 'nvim-lua/completion-nvim'
 --Plug 'steelsojka/completion-buffers'
 --Plug 'nvim-treesitter/completion-treesitter'
+Plug 'hrsh7th/cmp-nvim-lsp'
 
 -- Semantic language support
 -- Plug 'ncm2/ncm2'
@@ -275,6 +276,9 @@ vim.g.nvim_tree_group_empty = true -- compact folders that only contain a single
 vim.g.nvim_tree_lsp_diagnostics = true -- will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
 vim.g.nvim_tree_hijack_cursor = false -- when moving cursor in the tree, position the cursor at the start of the file on the current line
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 local lspconfig = require('lspconfig')
 local on_attach = function(_, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -286,6 +290,7 @@ local servers = {'zls'}
 for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
             on_attach = on_attach,
+	    capabilities = capabilities,
         }
 end
 
