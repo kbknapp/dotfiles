@@ -64,29 +64,41 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'windwp/nvim-spectre'
+Plug 'mitchellh/tree-sitter-hcl'
+-- Plug 'hrsh7th/vim-vsnip'               -- Snippet handling
+Plug 'saadparwaiz1/cmp_luasnip'
+-- Plug 'hrsh7th/vim-vsnip'
+-- Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'L3MON4D3/LuaSnip'
+--Plug 'fhill2/telescope-ultisnips.nvim'
+--Plug 'SirVer/ultisnips'
+--Plug 'honza/vim-snippets'   -- Actual snippets for UltiSnip
+Plug 'rafamadriz/friendly-snippets'
 
 -- Zig
 Plug 'ziglang/zig.vim'
+Plug 'zigtools/zls'                    -- Zig
 
 -- Rust
 Plug 'mhinz/vim-crates'
 Plug 'rust-lang/rust.vim'
+Plug 'simrat39/rust-tools.nvim'        -- Rust
 --Plug 'racer-rust/vim-racer'
 
 -- nvim-lsp based
 Plug 'neovim/nvim-lspconfig'           -- Common configuration
 Plug 'nvim-lua/lsp_extensions.nvim'    -- type inlay hints, etc
-Plug 'hrsh7th/nvim-cmp'                -- Autocompletion
-Plug 'nvim-lua/completion-nvim'
-Plug 'hrsh7th/vim-vsnip'               -- Snippet handling
-Plug 'simrat39/rust-tools.nvim'        -- Rust
-Plug 'zigtools/zls'                    -- Zig
-Plug 'hrsh7th/cmp-buffer'
 Plug 'ray-x/lsp_signature.nvim'        -- Function signatures
+Plug 'hrsh7th/nvim-cmp'                -- Autocompletion
+Plug 'hrsh7th/cmp-buffer'
+Plug 'onsails/lspkind-nvim'
+--Plug 'nvim-lua/completion-nvim'
+--Plug 'steelsojka/completion-buffers'
+--Plug 'nvim-treesitter/completion-treesitter'
 
 -- Semantic language support
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
+-- Plug 'ncm2/ncm2'
+-- Plug 'roxma/nvim-yarp'
 
 -- Comment or UN-Comment Code
 --    -> gcc                  Comment or uncomment line(s)
@@ -96,14 +108,23 @@ Plug 'b3nj5m1n/kommentary'
 --     -> cs"'     "Hello"->'Hello'
 --     -> ysiw[   'Hello'->[Hello]
 --     -> ds[     [Hello]->Hello
-Plug 'tpope/vim-surround'
+-- Plug 'tpope/vim-surround'
+-- Better surround support
+--     -> s{act}{obj}{item}
+--     --> a=add, d=delete, r=replace
+--     --> obj is text object
+--     --> item is the surround
+--     -> saiw'     Hello->'Hello'
+--     -> srb[   'Hello'->[Hello]
+--     -> sd[     [Hello]->Hello
+Plug 'machakann/vim-sandwich'
 
 -- Markdown
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'plasticboy/vim-markdown'
 Plug('junegunn/goyo.vim', {['for'] = 'markdown'})
 
--- Git Plugins 
+-- Git Plugins
 -- Plug 'TimUntersberger/neogit'
 
 -- +,-,~ in gutter
@@ -120,6 +141,8 @@ Plug 'dag/vim-fish'
 
 -- Colorscheme
 Plug('folke/tokyonight.nvim', {['branch'] = 'main'})
+
+Plug 'chrisbra/unicode.vim'
 
 vim.call('plug#end')
 
@@ -155,6 +178,51 @@ map {'n', '<leader>t:', ':Tab /:\\zs<CR>'}
 map {'v', '<leader>t:', ':Tab /:\\zs<CR>'}
 
 -- Telescope
+require('telescope').setup{
+  defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
+    prompt_prefix = "> ",
+    selection_caret = "> ",
+    entry_prefix = "  ",
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "descending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        mirror = false,
+      },
+      vertical = {
+        mirror = false,
+      },
+    },
+    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+    file_ignore_patterns = {},
+    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+    winblend = 0,
+    border = {},
+    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    color_devicons = true,
+    use_less = true,
+    path_display = {},
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+
+    -- Developer configurations: Not meant for general override
+    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+  }
+}
+-- require('telescope').load_extension('ultisnips')
 map {'n', '<leader>ff', '<cmd>Telescope find_files<CR>'}
 map {'n', '<C-p>', '<cmd>Telescope find_files<CR>'}
 map {'n', '<leader>/', '<cmd>Telescope live_grep<CR>'}
@@ -166,6 +234,7 @@ map {'n', '<leader>fh', '<cmd>Telescope help_tags<CR>'}
 map {'n', '<leader>ft', '<cmd>Telescope tags<CR>'}
 map {'n', '<leader>fm', '<cmd>Telescope marks<CR>'}
 map {'n', '<leader>fr', '<cmd>Telescope registers<CR>'}
+-- map {'n', '<leader>sn', '<cmd>Telescope ultisnips<CR>'}
 map {'n', '<leader>fe', '<cmd>Telescope lsp_document_diagnostics<CR>'}
 map {'n', '<leader>fee', '<cmd>Telescope lsp_workspace_documents<CR>'}
 
@@ -222,8 +291,78 @@ end
 
 require "lsp_signature".setup()
 
-vim.g.completion_enable_auto_popup = true -- Enable completions as you type
-vim.g.localvimrc = false -- Don't confirm .lvimrc
+-- nvim-cmp
+local lspkind = require('lspkind')
+local cmp = require'cmp'.setup({
+  snippet = {
+    expand = function(args)
+      require'luasnip'.lsp_expand(args.body)
+    end,
+  },
+  sources = {
+    { name = 'buffer', name = 'luasnip', name = 'nvim_lsp' },
+  },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.kind = lspkind.presets.default[vim_item.kind]
+      vim_item.menu = ({
+        buffer = "[Buffer]",
+        nvim_lsp = "[LSP]",
+        luasnip = "[LuaSnip]",
+      })[entry.source.name]
+      return vim_item
+    end
+  },
+})
+
+-- LuaSnip
+
+local function prequire(...)
+local status, lib = pcall(require, ...)
+if (status) then return lib end
+    return nil
+end
+
+local luasnip = prequire('luasnip')
+
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+  local col = vim.fn.col '.' - 1
+  return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' ~= nil
+end
+
+_G.tab_complete = function()
+    if vim.fn.pumvisible() == 1 then
+        return t "<C-n>"
+    elseif luasnip and luasnip.expand_or_jumpable() then
+        return t "<Plug>luasnip-expand-or-jump"
+    elseif check_back_space() then
+        return t "<Tab>"
+    else
+        return cmp.complete()
+    end
+end
+_G.s_tab_complete = function()
+    if vim.fn.pumvisible() == 1 then
+        return t "<C-p>"
+    elseif luasnip and luasnip.jumpable(-1) then
+        return t "<Plug>luasnip-jump-prev"
+    else
+        return t "<S-Tab>"
+    end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
+vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
+
+require("luasnip/loaders/from_vscode").load({})
 
 -- Enable faster viewport scrolling
 map {'n', '<C-e>', '8<C-e>'}
@@ -265,43 +404,8 @@ map {'n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'}
 map {'n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'}
 
 
--- nvim-cmp Configuration
-
-local cmp = require'cmp'
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    mapping = {
-      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    },
-    sources = {
-      { name = '...' },
-      ...
-    },
-    formatting = {
-      format = function(entry, vim_item)
-        -- fancy icons and a name of kind
-        vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
-
-        -- set a name for each source
-        vim_item.menu = ({
-          buffer = "[Buffer]",
-          nvim_lsp = "[LSP]",
-          luasnip = "[LuaSnip]",
-          nvim_lua = "[Lua]",
-          latex_symbols = "[Latex]",
-        })[entry.source.name]
-        return vim_item
-      end,
-    }
-})
-
-
 -- Rust Language Support
-local opts = {
+require('rust-tools').setup({
     tools = { -- rust-tools options
         -- automatically set inlay hints (type hints)
         -- There is an issue due to which the hints are not applied on the first
@@ -369,9 +473,7 @@ local opts = {
     -- these override the defaults set by rust-tools.nvim
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {}, -- rust-analyer options
-}
-
-require('rust-tools').setup(opts)
+})
 
 vim.cmd[[colorscheme tokyonight]]
 vim.g.tokyonight_style = "night"
@@ -385,6 +487,7 @@ require('lualine').setup {
 
 -- Symbols-Outline (Tagbar)
 map {'n', '<C-s>', ':SymbolsOutline<CR>'}
+map {'n', '<leader>o', ':SymbolsOutline<CR>'}
 vim.g.symbols_outline = {
     highlight_hovered_item = false,
     show_guides = true,
@@ -406,17 +509,17 @@ vim.g.symbols_outline = {
         Module = {icon = "", hl = "TSNamespace"},
         Namespace = {icon = "", hl = "TSNamespace"},
         Package = {icon = "📦", hl = "TSNamespace"},
-        Class = {icon = "𝓒", hl = "TSType"},
+        Class = {icon = "ﴯ", hl = "TSType"},
         Method = {icon = "ƒ", hl = "TSMethod"},
-        Property = {icon = "", hl = "TSMethod"},
+        Property = {icon = "ﰠ", hl = "TSMethod"},
         Field = {icon = "α", hl = "TSField"},
         Constructor = {icon = "", hl = "TSConstructor"},
         Enum = {icon = "∑", hl = "TSType"},
-        Interface = {icon = "ﰮ", hl = "TSType"},
+        Interface = {icon = "", hl = "TSType"},
         Function = {icon = "ƒ", hl = "TSFunction"},
         Variable = {icon = "α", hl = "TSConstant"},
         Constant = {icon = "π", hl = "TSConstant"},
-        String = {icon = "𝓐", hl = "TSString"},
+        String = {icon = "", hl = "TSString"},
         Number = {icon = "#", hl = "TSNumber"},
         Boolean = {icon = "⊨", hl = "TSBoolean"},
         Array = {icon = "", hl = "TSConstant"},
@@ -425,11 +528,46 @@ vim.g.symbols_outline = {
         Null = {icon = "␀", hl = "TSType"},
         EnumMember = {icon = "σ", hl = "TSField"},
         Struct = {icon = "𝓢", hl = "TSType"},
-        Event = {icon = "⇝", hl = "TSType"},
-        Operator = {icon = "+", hl = "TSOperator"},
+        Event = {icon = "", hl = "TSType"},
+        Operator = {icon = "", hl = "TSOperator"},
         TypeParameter = {icon = "T", hl = "TSParameter"}
     }
 }
+
+-- lspkind
+require('lspkind').init({
+    -- enables text annotations
+    with_text = true,
+    -- override preset symbols
+    symbol_map = {
+      Text = "",
+      Method = "",
+      Function = "ƒ",
+      Constructor = "",
+      Field = "ﰠ",
+      Variable = "",
+      Class = "ﴯ",
+      Interface = "",
+      Module = "",
+      Property = "ﰠ",
+      Unit = "塞",
+      Value = "",
+      Enum = "∑",
+      Keyword = "",
+      Snippet = "",
+      Color = "",
+      File = "",
+      Reference = "",
+      Folder = "",
+      EnumMember = "σ",
+      Constant = "",
+      Struct = "𝓢",
+      Event = "",
+      Operator = "",
+      TypeParameter = "T"
+    },
+})
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'
+
 

@@ -92,41 +92,20 @@ let g:secure_modelines_allowed_items = [
 let base16colorspace=256
 let g:base16_shell_path="~/dev/others/base16/builder/templates/shell/scripts/"
 
-" from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
-" if executable('ag')
-" 	set grepprg=ag\ --nogroup\ --nocolor
-" endif
-if executable('rg')
-	set grepprg=rg\ --no-heading\ --vimgrep
-	set grepformat=%f:%l:%c:%m
-
-	" Use Ripgrep with Ctrl-P
-	let g:ctrlp_user_command = 'rg --files %s --hidden --color=never --glob ""'
-	let g:ctrlp_use_caching = 0
-	let g:ctrlp_working_path_mode = 'ra'
-	let g:ctrlp_switch_buffer = 'et'
-endif
-
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" use <Tab> as trigger keys
-imap <Tab> <Plug>(completion_smart_tab)
-imap <S-Tab> <Plug>(completion_smart_s_tab)
-
-" Completion
-" Better completion experience
-set completeopt=noinsert,menu,menuone,noselect
 " Avoid showing extra messages with completions
 set shortmess+=c
 
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+
+snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -247,7 +226,6 @@ set diffopt+=indent-heuristic
 set colorcolumn=80 " and give me a colored column
 set showcmd " Show (partial) command in status line.
 set mouse=a " Enable mouse usage (all modes) in terminals
-set shortmess+=c " don't give |ins-completion-menu| messages.
 
 " Show those damn hidden characters
 " Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•
@@ -299,25 +277,6 @@ set clipboard^=unnamed,unnamedplus
 
 noremap <leader>p :read !xsel --clipboard --output<cr>
 noremap <leader>c :w !xsel -ib<cr><cr>
-
-" <leader>/ for Rg search
-" noremap <leader>/ :Rg<space>
-" let g:fzf_layout = { 'down': '~20%' }
-" command! -bang -nargs=* Rg
-"   \ call fzf#vim#grep(
-"   \   'rg --column --hidden --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-"   \   <bang>0 ? fzf#vim#with_preview('up:60%')
-"   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"   \   <bang>0)
-"
-" function! s:list_cmd()
-"   let base = fnamemodify(expand('%'), ':h:.:S')
-"   return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
-" endfunction
-"
-" command! -bang -nargs=? -complete=dir Files
-"   \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
-"   \                               'options': '--tiebreak=index'}, <bang>0)
 
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -491,9 +450,32 @@ autocmd FileType markdown setlocal spell spelllang=en_us
 if has('nvim')
 	runtime! plugin/python_setup.vim
 endif
+
+" vim-sandwhich for Rust
+fun! s:AddRustSandwichBinding(input, start, end)
+	let g:sandwich#recipes += [{
+		\ 'buns': [a:start, a:end],
+		\ 'filetype': ['rust'],
+		\ 'input': [a:input],
+		\ 'nesting': 1,
+		\ 'indent': 1
+	\ }]
+endf
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+call s:AddRustSandwichBinding('d', 'dbg!(', ')')
+call s:AddRustSandwichBinding('o', 'Some(', ')')
+call s:AddRustSandwichBinding('r', 'Ok(', ')')
+call s:AddRustSandwichBinding('e', 'Err(', ')')
+call s:AddRustSandwichBinding('v', 'vec![', ']')
+call s:AddRustSandwichBinding('b', 'Box::new(', ')')
+call s:AddRustSandwichBinding('B', 'Box<', '>')
+call s:AddRustSandwichBinding('O', 'Option<', '>')
+call s:AddRustSandwichBinding('R', 'Result<', '>')
+
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
 packloadall
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
 silent! helptags ALL
+
