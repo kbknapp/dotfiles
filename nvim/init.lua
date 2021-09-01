@@ -63,13 +63,16 @@ Plug 'simrat39/symbols-outline.nvim' -- Tagbar replacement
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'windwp/nvim-spectre'
+--Plug 'Maverun/telescope-snippets'
+Plug 'norcalli/snippets.nvim'
+Plug 'windwp/nvim-spectre'              -- Search and Replace
 Plug 'mitchellh/tree-sitter-hcl'
--- Plug 'hrsh7th/vim-vsnip'               -- Snippet handling
+-- Plug 'hrsh7th/vim-vsnip'             -- Snippet handling
 Plug 'saadparwaiz1/cmp_luasnip'
 -- Plug 'hrsh7th/vim-vsnip'
 -- Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'L3MON4D3/LuaSnip'
+Plug '~/Projects/telescope-luasnip'
 --Plug 'fhill2/telescope-ultisnips.nvim'
 --Plug 'SirVer/ultisnips'
 --Plug 'honza/vim-snippets'   -- Actual snippets for UltiSnip
@@ -223,19 +226,21 @@ require('telescope').setup{
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   }
 }
--- require('telescope').load_extension('ultisnips')
+
+require('telescope').load_extension('luasnip')
+
 map {'n', '<leader>ff', '<cmd>Telescope find_files<CR>'}
 map {'n', '<C-p>', '<cmd>Telescope find_files<CR>'}
 map {'n', '<leader>/', '<cmd>Telescope live_grep<CR>'}
 map {'n', '<leader>fg', '<cmd>Telescope live_grep<CR>'}
 map {'n', '<leader>ss', '<cmd>Telescope live_grep<CR>'}
+map {'n', '<leader>sn', '<cmd>Telescope luasnip<CR>'}
 map {'n', '<leader>fb', '<cmd>Telescope buffers<CR>'}
 map {'n', '<leader>bb', '<cmd>Telescope buffers<CR>'}
 map {'n', '<leader>fh', '<cmd>Telescope help_tags<CR>'}
 map {'n', '<leader>ft', '<cmd>Telescope tags<CR>'}
 map {'n', '<leader>fm', '<cmd>Telescope marks<CR>'}
 map {'n', '<leader>fr', '<cmd>Telescope registers<CR>'}
--- map {'n', '<leader>sn', '<cmd>Telescope ultisnips<CR>'}
 map {'n', '<leader>fe', '<cmd>Telescope lsp_document_diagnostics<CR>'}
 map {'n', '<leader>fee', '<cmd>Telescope lsp_workspace_documents<CR>'}
 
@@ -367,7 +372,13 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
 vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
 
-require("luasnip/loaders/from_vscode").load({})
+-- Load predefined LSP snippets
+require("luasnip/loaders/from_vscode").load({
+	paths = {
+		'~/.config/nvim/snippets/',
+		'~/.config/nvim/plugged/friendly-snippets/'}
+	}
+)
 
 -- Enable faster viewport scrolling
 map {'n', '<C-e>', '8<C-e>'}
