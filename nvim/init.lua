@@ -58,6 +58,7 @@ Plug 'kyazdani42/nvim-tree.lua'     -- better NERDTree
 Plug 'moll/vim-bbye' -- Better Buffer Close support (don't wipe out splits, etc.)
 Plug 'airblade/vim-rooter' -- Find project root
 Plug 'simrat39/symbols-outline.nvim' -- Tagbar replacement
+Plug 'mfussenegger/nvim-dap'
 
 -- Languages
 Plug 'nvim-lua/plenary.nvim'
@@ -77,6 +78,10 @@ Plug '~/Projects/telescope-luasnip'
 --Plug 'SirVer/ultisnips'
 --Plug 'honza/vim-snippets'   -- Actual snippets for UltiSnip
 Plug 'rafamadriz/friendly-snippets'
+
+-- Python
+Plug('neoclide/coc.nvim', {['branch'] = 'release'})
+Plug 'mfussenegger/nvim-dap-python'
 
 -- Zig
 Plug 'ziglang/zig.vim'
@@ -151,6 +156,11 @@ Plug 'chrisbra/unicode.vim'
 vim.call('plug#end')
 
 require("which-key").setup { }
+
+-- python-dap
+require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+vim.fn.sign_define('DapBreakpoint', {text='🔴', texthl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='🟢', texthl='', numhl=''})
 
 -- Crates.io
 vim.cmd [[
@@ -418,7 +428,6 @@ map {'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>'}
 -- Goto previous/next diagnostic warning/error
 map {'n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'}
 map {'n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'}
-
 
 -- Rust Language Support
 require('rust-tools').setup({
