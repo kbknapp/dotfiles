@@ -390,6 +390,9 @@ require("luasnip/loaders/from_vscode").load({
 	}
 )
 
+-- Search for a word under the cursor in the buffer
+map {'n', '<leader>sw', 'bvey/\\v'}
+
 -- Enable faster viewport scrolling
 map {'n', '<C-e>', '8<C-e>'}
 map {'n', '<C-y>', '8<C-y>'}
