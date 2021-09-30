@@ -2,7 +2,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# This defines which key super maps to on your keyboard.  
+# This defines which key super maps to on your keyboard.
 # Alt key is Mod1, and Windows key is Mod4
 set $mod Mod4
 set $alt Mod1
@@ -49,11 +49,9 @@ bindsym $mod+Shift+Return exec /usr/bin/firefox
 # kill focused window
 bindsym $mod+Shift+q kill
 
-set $rofi_theme regolith-theme
-
 # rofi app and window launchers
-bindsym $mod+space exec --no-startup-id rofi_run -r --theme $rofi_theme
-bindsym $mod+Ctrl+space exec --no-startup-id rofi_run -w --theme $rofi_theme
+bindsym $mod+space exec --no-startup-id rofi_run -r
+bindsym $mod+Ctrl+space exec --no-startup-id rofi_run -w
 
 # change focus
 bindsym $mod+Left focus left
@@ -341,7 +339,6 @@ assign [class="(?i)(?:privateinternetaccess)"] → $ws10
 
 ## Assign properties to specific window types
 for_window [title="Desktop — Plasma"] kill; floating enable; border none
-for_window [class="plasmashell"] floating enable;
 for_window [class="Plasma"] floating enable; border none
 for_window [title="plasma-desktop"] floating enable; border none
 for_window [title="win7"] floating enable; border none
@@ -349,15 +346,15 @@ for_window [class="krunner"] floating enable; border none
 for_window [class="Kmix"] floating enable; border none
 for_window [class="Klipper"] floating enable; border none
 for_window [class="Plasmoidviewer"] floating enable; border none
-#for_window [class="(?i)*nextcloud*"] floating disable
-for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 650px, move down 450px, no_focus 
-
-# fix notification focusing
-no_focus [class="plasmashell" window_type="notification"]
-
+for_window [class="systemsettings"] floating enable
+for_window [window_role="task_dialog"] floating enable
 # # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
 for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
+
+# fix notification focusing
+for_window [class="plasmashell"] floating enable;
+for_window [class="plasmashell" window_type="notification"] floating enable; border none; move right 650px; move down 450px; no_focus
 
 popup_during_fullscreen smart
 
@@ -365,16 +362,16 @@ popup_during_fullscreen smart
 bindsym $mod+Ctrl+Shift+s exec systemctl suspend
 
 # Logout/lock
-bindsym $mod+x exec --no-startup-id rofi_run -l --theme $rofi_theme
+bindsym $mod+x exec --no-startup-id rofi_run -l
 # Translate
-bindsym $mod+e          exec --no-startup-id rofi_run --en-es --theme $rofi_theme
-bindsym $mod+$alt+e     exec --no-startup-id rofi_run --es-en --theme $rofi_theme
+bindsym $mod+e          exec --no-startup-id rofi_run --en-es
+bindsym $mod+$alt+e     exec --no-startup-id rofi_run --es-en
 # Rust Docs Search
-bindsym $mod+d          exec --no-startup-id rofi_run --rust --theme $rofi_theme
+bindsym $mod+d          exec --no-startup-id rofi_run --rust
 # Clipboard
-bindsym $mod+p          exec --no-startup-id rofi_run -c --theme $rofi_theme
+bindsym $mod+p          exec --no-startup-id rofi_run -c
 # Browser Search
-bindsym $mod+w          exec --no-startup-id rofi_run -b --theme $rofi_theme
+bindsym $mod+w          exec --no-startup-id rofi_run -b
 
 # move workspaces left or right
 bindsym $mod+Shift+mod1+h exec i3-msg move workspace to output left
