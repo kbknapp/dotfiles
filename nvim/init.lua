@@ -291,6 +291,8 @@ vim.g.nvim_tree_group_empty = true -- compact folders that only contain a single
 vim.g.nvim_tree_lsp_diagnostics = true -- will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
 vim.g.nvim_tree_hijack_cursor = false -- when moving cursor in the tree, position the cursor at the start of the file on the current line
 
+require'nvim-tree'.setup()
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
@@ -389,9 +391,6 @@ require("luasnip/loaders/from_vscode").load({
 		'~/.config/nvim/plugged/friendly-snippets/'}
 	}
 )
-
--- Search for a word under the cursor in the buffer
-map {'n', '<leader>sw', 'bvey/\\v'}
 
 -- Enable faster viewport scrolling
 map {'n', '<C-e>', '8<C-e>'}

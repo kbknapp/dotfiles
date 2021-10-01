@@ -3,10 +3,14 @@
 # al-polybar-session: Polybar session launcher script for ArchLabs
 # Copyright (C) 2017 Nathaniel Maia <natemaia10@gmail.com>
 
-if ! hash polybar >/dev/null 2>&1; then
+set -eo pipefail
+
+WM=i3
+
+if ! command -v polybar >/dev/null 2>&1; then
 	echo "error: al-polybar-session: polybar is required" >&2
 	exit
-elif hash xprop >/dev/null 2>&1 && [[ $DISPLAY && -z $WM ]]; then
+elif command -v xprop >/dev/null 2>&1 && [[ $DISPLAY && -z $WM ]]; then
 	ID="$(xprop -root -notype _NET_SUPPORTING_WM_CHECK)"
 	WM="$(xprop -id "${ID##* }" -notype -len 100 -f _NET_WM_NAME 8t)"
 	WM="${WM/*WM_NAME = }"
@@ -24,12 +28,12 @@ else
 fi
 
 # if system is a laptop add the battery module and set a few ENV variables
-if hash laptop-detect >/dev/null 2>&1 && laptop-detect; then
+if command -v laptop-detect >/dev/null 2>&1 && laptop-detect ; then
 	info="$(ls -1 /sys/class/power_supply/)"
 	LAPTOP_ADAPTER="$(awk 'NR==1 {print $0}' <<< "$info")"
 	LAPTOP_BATTERY="$(awk 'NR==2 {print $0}' <<< "$info")"
 	if [[ $LAPTOP_ADAPTER && $LAPTOP_BATTERY ]]; then
-		POLYBAR_MODULES="battery coreuse temperature memory pkg volume"
+		POLYBAR_MODULES="battery coreuse system-cpu-frequency memory volume wired-network wireless-network vpn-network"
 		export POLYBAR_MODULES LAPTOP_ADAPTER LAPTOP_BATTERY
 	fi
 fi
@@ -88,15 +92,15 @@ EOF
 		;;
 esac
 
-if [[ -x "$HOME/bin/check-update" ]]; then
-	{ pgrep check-update && kill "$(pgrep check-update)"; } >/dev/null 2>&1
-	"$HOME/bin/check-update" &
-fi
+# if [[ -x "$HOME/.local/bin/check-update" ]]; then
+# 	{ pgrep check-update && kill "$(pgrep check-update)"; } >/dev/null 2>&1
+# 	"$HOME/.local/bin/check-update" &
+# fi
 
-if [[ -x "$HOME/bin/check-network" ]]; then
-	{ pgrep check-network && kill "$(pgrep check-network)"; } >/dev/null 2>&1
-	"$HOME/bin/check-network" &
-fi
+# if [[ -x "$HOME/.local/bin/check-network" ]]; then
+# 	{ pgrep check-network && kill "$(pgrep check-network)"; } >/dev/null 2>&1
+# 	"$HOME/.local/bin/check-network" &
+# fi
 
 if [[ -e $SESSIONFILE ]]; then
 	while pidof polybar >/dev/null 2>&1; do

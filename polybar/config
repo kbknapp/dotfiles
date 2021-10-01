@@ -15,9 +15,9 @@ include-file = /home/kevin/.config/polybar/modules.conf
 inherit = bar/master
 
 ; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor =
+monitor = DP-2-2
 
-modules-left   = i3 menu
+modules-left   = menu
 modules-center = clock
-modules-right  = ${env:POLYBAR_MODULES: coreuse system-cpu-frequency temperature memory battery volume}
+modules-right  = ${env:POLYBAR_MODULES: coreuse system-cpu-frequency memory volume wired-network wireless-network vpn-network}
 
