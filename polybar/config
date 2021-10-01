@@ -19,5 +19,5 @@ monitor = DP-2-2
 
 modules-left   = menu
 modules-center = clock
-modules-right  = ${env:POLYBAR_MODULES: coreuse system-cpu-frequency memory volume wired-network wireless-network vpn-network}
+modules-right  = battery coreuse system-cpu-frequency memory volume wired-network wireless-network vpn-network
 
