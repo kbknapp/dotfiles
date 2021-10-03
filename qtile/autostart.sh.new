@@ -1,0 +1,8 @@
+#!/bin/bash
+#[home + '/.local/bin/al-polybar-session'],
+picom --experimental-backends -f --config ~/.config/picom/config &
+~/.local/bin/randobg.sh 1080p &
+/usr/lib/pam_kwallet_init
+systemctl --user start plasma-plasmashell
+#emacs --daemon
+

@@ -1,0 +1,267 @@
+# Copyright (c) 2010 Aldo Cortesi
+# Copyright (c) 2010, 2014 dequis
+# Copyright (c) 2012 Randall Ma
+# Copyright (c) 2012-2014 Tycho Andersen
+# Copyright (c) 2012 Craig Barnes
+# Copyright (c) 2013 horsik
+# Copyright (c) 2013 Tao Sauvage
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+from typing import List  # noqa: F401
+
+from libqtile import bar, layout, widget, hook
+from libqtile.config import Click, Drag, Group, ScratchPad, DropDown, Key, Match, Screen
+from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
+
+import os
+import subprocess
+
+mod = "mod4"
+alt = "mod1"
+terminal = "/usr/bin/alacritty"
+home = os.path.expanduser('~')
+
+keys = [
+    # Switch between windows
+    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+
+    # Move windows between left/right columns or move up/down in current stack.
+    # Moving out of range in Columns layout will create new column.
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
+        desc="Move window to the left"),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right(),
+        desc="Move window to the right"),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
+        desc="Move window down"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+
+    # Grow windows. If current window is on the edge of screen and direction
+    # will be to screen edge - window would shrink.
+    Key([mod, "control"], "h", lazy.layout.grow_left(),
+        desc="Grow window to the left"),
+    Key([mod, "control"], "l", lazy.layout.grow_right(),
+        desc="Grow window to the right"),
+    Key([mod, "control"], "j", lazy.layout.grow_down(),
+        desc="Grow window down"),
+    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+
+    # Toggle between split and unsplit sides of stack.
+    # Split = all windows displayed
+    # Unsplit = 1 window displayed, like Max layout, but still with
+    # multiple stack panes
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
+        desc="Toggle between split and unsplit sides of stack"),
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+
+    # Rofi Menus
+    Key([mod], "space", lazy.spawn("rofi_run -r"),
+        desc="Application Menu"),
+    Key([mod, "control"], "space", lazy.spawn("rofi_run -w"),
+        desc="Switch to Window"),
+    Key([mod], "x", lazy.spawn("rofi_run -l"),
+        desc="Logout, Lock, Shutdown, Reboot"),
+    Key([mod], "e", lazy.spawn("rofi_run --en-es"),
+        desc="Translate english to spansih"),
+    Key([mod, alt], "e", lazy.spawn("rofi_run --es-en"),
+        desc="Translate spansih to english"),
+    Key([mod], "r", lazy.spawn("rofi_run --rust"),
+        desc="Search the Rust docs"),
+    Key([mod], "c", lazy.spawn("rofi_run -c"),
+        desc="Clipboard"),
+    Key([mod], "b", lazy.spawn("rofi_run -b"),
+        desc="Search in browser"),
+
+    # Toggle between different layouts as defined below
+    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod, "shift"], "q", lazy.window.kill(), desc="Kill focused window"),
+
+    Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
+    #Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod, "shift"], "space", lazy.spawncmd(),
+        desc="Spawn a command using a prompt widget"),
+
+    # Toggle Groups
+    Key([mod], "BackSpace", lazy.screen.toggle_group(), desc="Move to the previously visited group")
+]
+
+groups = [
+        ScratchPad("scratchpad", [DropDown("qshell", "alacritty -e qshell",
+                 opacity=0.9, on_focus_lost_hide=True) ]),
+        Group("1: "),
+        Group("2: ", matches=[Match(wm_class="Firefox"), Match(wm_class="vivaldi-stable"), Match(wm_class="microsoft-edge-beta")]),
+        Group("3: ", matches=[Match(wm_class="dolphin")]),
+        Group("4: ", matches=[Match(wm_class="Code"), Match(wm_class="Emacs"),
+            Match(wm_class="Jetbrains-CLion")]),
+        Group("5: ", matches=[Match(wm_class="gitkraken")]),
+        Group("6: ", matches=[Match(wm_class="VMware"), Match(wm_class="Anydesk")]),
+        Group("7: ", matches=[ Match(wm_class="Microsoft Teams - Preview"),
+            Match(wm_class="TelegramDesktop"), Match(wm_class="Signal"),
+            Match(wm_class="WhatsAppQt"), Match(wm_class="Zulip"),
+            Match(wm_class="Element"), Match(wm_class="Fractal")]),
+        Group("8: ", matches=[Match(wm_class="Obsidian"), Match(wm_class="Standard Notes")]),
+        Group("9: ", matches=[Match(wm_class="Mailspring")]),
+        Group("0: ", matches=[Match(wm_class="Mullvad"), Match(wm_class="PrivateInternetAcces"), Match(wm_class="ExpressVPN"), Match(wm_class="Steam")]),
+        ]
+
+
+keys.extend([Key([mod, "control"], "q", lazy.group['scratchpad'].dropdown_toggle('qshell')),])
+
+for i in groups:
+    if i.name == "scratchpad": continue
+    i.persistent = False
+    keys.extend([
+        # mod1 + letter of group = switch to group
+        Key([mod], i.name[0], lazy.group[i.name].toscreen(),
+            desc=f"Switch to group {i.name}"),
+
+        # mod1 + shift + letter of group = switch to & move focused window to group
+        Key([mod, "shift"], i.name[0], lazy.window.togroup(i.name, switch_group=True),
+            desc=f"Switch to & move focused window to group {i.name}"),
+        # Or, use below if you prefer not to switch to that group.
+        # # mod1 + shift + letter of group = move focused window to group
+        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+        #     desc="move focused window to group {}".format(i.name)),
+    ])
+
+layouts = [
+    layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
+    layout.Max(),
+    # Try more layouts by unleashing below layouts.
+    # layout.Stack(num_stacks=2),
+    # layout.Bsp(),
+    # layout.Matrix(),
+    # layout.MonadTall(),
+    # layout.MonadWide(),
+    layout.RatioTile(),
+    # layout.Tile(),
+    # layout.TreeTab(),
+    # layout.VerticalTile(),
+    # layout.Zoomy(),
+]
+
+widget_defaults = dict(
+    font='sans',
+    fontsize=12,
+    padding=3,
+)
+extension_defaults = widget_defaults.copy()
+
+screens = [
+    Screen(
+        bottom=bar.Bar(
+            [
+                widget.CurrentLayout(),
+                widget.GroupBox(),
+                widget.Prompt(),
+                widget.WindowName(),
+                widget.Chord(
+                    chords_colors={
+                        'launch': ("#ff0000", "#ffffff"),
+                    },
+                    name_transform=lambda name: name.upper(),
+                ),
+                widget.TextBox("default config", name="default"),
+                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                widget.Systray(),
+                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+                widget.QuickExit(),
+            ],
+            24,
+        ),
+    ),
+]
+
+# Drag floating layouts.
+mouse = [
+    Drag([mod], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click([mod], "Button2", lazy.window.bring_to_front())
+]
+
+dgroups_key_binder = None
+dgroups_app_rules = []  # type: List
+follow_mouse_focus = True
+bring_front_click = False
+cursor_warp = True # Cursor follows focus of keyboard
+floating_layout = layout.Floating(float_rules=[
+    # Run the utility of `xprop` to see the wm class and name of an X client.
+    *layout.Floating.default_float_rules,
+    Match(role='pop-up'),
+    Match(role='setup'),
+    Match(title='branchdialog'),  # gitk
+    Match(title='copying'),
+    Match(title='deleting'),
+    Match(title='moving'),
+    Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='Desktop - Plasma'),
+    Match(wm_class='Klipper'),
+    Match(wm_class='Kmix'),
+    Match(wm_class='Plasma'),
+    Match(wm_class='Plasma-desktop'),
+    Match(wm_class='Plasmoidviewer'),
+    Match(wm_class='confirmreset'),  # gitk
+    Match(wm_class='dialog'),  # Dialogs stuff
+    Match(wm_class='kruner'),
+    Match(wm_class='makebranch'),  # gitk
+    Match(wm_class='maketag'),  # gitk
+    Match(wm_class='plasmashell'),
+    Match(wm_class='plasmashell', wm_type='notification'),
+    Match(wm_class='ssh-askpass'),  # ssh-askpass
+])
+auto_fullscreen = True
+focus_on_window_activation = "smart"
+reconfigure_screens = True
+
+# If things like steam games want to auto-minimize themselves when losing
+# focus, should we respect this or not?
+auto_minimize = True
+
+# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
+# string besides java UI toolkits; you can see several discussions on the
+# mailing lists, GitHub issues, and other WM documentation that suggest setting
+# this string if your java app doesn't work correctly. We may as well just lie
+# and say that we're a working one by default.
+#
+# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
+# java that happens to be on java's whitelist.
+wmname = "LG3D"
+
+
+@hook.subscribe.startup_once
+def autostart():
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
+
+# @hook.subscribe.set_group
+# def back_forth_group():
+#   pass
+
+
+@hook.subscribe.client_new
+def dialogs(window):
+    if(window.window.get_wm_type() == 'dialog' or window.window.get_wm_transient_for()):
+        window.floating = True
+
