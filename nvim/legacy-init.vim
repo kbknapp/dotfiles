@@ -210,7 +210,7 @@ nnoremap <silent> <Leader>tp :tabprevious<CR>
 set guioptions-=T " Remove toolbar
 set vb t_vb= " No more beeps
 set backspace=2 " Backspace over newlines
-""set nofoldenable
+set nofoldenable
 set foldmethod=syntax
 ""set foldexpr=nvim_treesitter#foldexpr()
 ""set foldtext=getline(v:foldstart).'...'.trim(getline(v:foldend))
@@ -417,12 +417,12 @@ autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
 au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 au BufNewFile,BufRead *.rs setlocal colorcolumn=100
 au BufNewFile,BufRead *.py setlocal colorcolumn=80
-au BufNewFile,BufRead *.py setlocal foldmethod=indent
-au FileType rs setlocal foldmethod=syntax
+au BufNewFile,BufReadPost *.py setlocal foldmethod=indent
+au BufNewFile,BufReadPost *.rs setlocal foldmethod=syntax
 " Use space to toggle folds under cursor
-nnoremap <silent> <Space>z @=(foldlevel('.')?'za':"\<Space>")<CR>
+nnoremap <silent> <leader>z @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <silent> zf @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+""vnoremap <Space> zf
 
 nnoremap <silent> <leader>crh :RustToggleInlayHints<CR>
 nnoremap <silent> <leader>crm <cmd>lua require'rust-tools.expand_macro'.expand_macro()<CR>
