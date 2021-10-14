@@ -131,7 +131,7 @@ set nowrap
 set nojoinspaces
 let g:sneak#s_next = 1
 set printfont=:h10
-set guifont=FantasqueSansMono\ Nerd\ Font:h9
+set guifont=FantasqueSansMono\ Nerd\ Font:h12
 set printencoding=utf-8
 set printoptions=paper:letter
 " Always draw sign column. Prevent buffer moving when adding/deleting sign.
@@ -210,7 +210,14 @@ nnoremap <silent> <Leader>tp :tabprevious<CR>
 set guioptions-=T " Remove toolbar
 set vb t_vb= " No more beeps
 set backspace=2 " Backspace over newlines
-set nofoldenable
+""set nofoldenable
+set foldmethod=syntax
+""set foldexpr=nvim_treesitter#foldexpr()
+""set foldtext=getline(v:foldstart).'...'.trim(getline(v:foldend))
+set fillchars=fold:-
+set foldtext=substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend))
+set foldnestmax=5
+set foldminlines=1
 set ruler " Where am I?
 set ttyfast
 " https://github.com/vim/vim/issues/1735#issuecomment-383353563
@@ -245,8 +252,8 @@ let g:neovide_cursor_vfx_mode = "railgun"
 inoremap jj <ESC>
 
 " Edit/Source the config
-nnoremap <silent> <leader>ec :e ~/.config/nvim/init.vim<CR>
-nnoremap <silent> <leader>sc :source ~/.config/nvim/init.vim<CR>
+nnoremap <silent> <leader>ec :e ~/.config/nvim/init.lua<CR>
+nnoremap <silent> <leader>sc :source ~/.config/nvim/init.lua<CR>
 
 " Use ALT+hkjl to navigate windows"
 inoremap <A-h> <C-w>h
@@ -410,9 +417,11 @@ autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
 au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 au BufNewFile,BufRead *.rs setlocal colorcolumn=100
 au BufNewFile,BufRead *.py setlocal colorcolumn=80
-au BufNewFile,BufRead *.rs setlocal foldmethod=syntax
+au BufNewFile,BufRead *.py setlocal foldmethod=indent
+au FileType rs setlocal foldmethod=syntax
 " Use space to toggle folds under cursor
 nnoremap <silent> <Space>z @=(foldlevel('.')?'za':"\<Space>")<CR>
+nnoremap <silent> zf @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
 nnoremap <silent> <leader>crh :RustToggleInlayHints<CR>

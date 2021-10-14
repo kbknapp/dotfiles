@@ -5,7 +5,7 @@ vim.cmd[[
 	set nocompatible
 ]]
 
--- For easier remapping keys 
+-- For easier remapping keys
 local map = function(key)
   -- get the extra options
   local opts = {noremap = true}
@@ -42,6 +42,7 @@ Plug 'godlygeek/tabular'
 Plug 'folke/which-key.nvim'
 Plug 'tpope/vim-repeat' -- Repeat all commands with . not just native
 Plug 'simeji/winresizer' -- Better window resizing with Ctrl+E"
+Plug 'roosta/fzf-folds.vim'
 
 -- GUI enhancements
 Plug 'hoob3rt/lualine.nvim'
@@ -155,7 +156,7 @@ Plug 'chrisbra/unicode.vim'
 
 vim.call('plug#end')
 
-require("which-key").setup { }
+require("which-key").setup()
 
 -- python-dap
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
@@ -174,6 +175,10 @@ vim.opt.undolevels = 100
 if vim.fn.has('python3') == 1 then
     vim.g.gundo_prefer_python3 = true
 end
+
+-- Folds
+map {'n', '<leader>zz', ':set foldmethod=syntax<cr>', silent = true }
+map {'n', '<leader>fz', ':Folds<cr>'}
 
 -- Kommentary
 map {'n', '<C-/>', 'gcc'}
@@ -281,17 +286,21 @@ map {'n', '<leader>n', ':NvimTreeFindFile<CR>'}
 
 vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache', 'target' } -- empty by default
 vim.g.nvim_tree_gitignore = true
-vim.g.nvim_tree_auto_close = true -- closes the tree when it's the last window
 vim.g.nvim_tree_indent_markers = true  -- shows indent markers when folders are open
 vim.g.nvim_tree_hide_dotfiles = true -- hides files and folders starting with a dot `.`
 vim.g.nvim_tree_git_hl = true -- will enable file highlight for git attributes (can be used without the icons).
 vim.g.nvim_tree_highlight_opened_files = true -- will enable folder and file icon highlight for opened files/directories.
 vim.g.nvim_tree_add_trailing = true -- append a trailing slash to folder names
 vim.g.nvim_tree_group_empty = true -- compact folders that only contain a single folder into one node in the file tree
-vim.g.nvim_tree_lsp_diagnostics = true -- will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
-vim.g.nvim_tree_hijack_cursor = false -- when moving cursor in the tree, position the cursor at the start of the file on the current line
 
-require'nvim-tree'.setup()
+require'nvim-tree'.setup({
+  -- closes the tree when it's the last window
+  auto_close = true,
+  -- will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
+  lsp_diagnostics = true,
+  -- when moving cursor in the tree, position the cursor at the start of the file on the current line
+  hijack_cursor = false,
+})
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
@@ -594,7 +603,10 @@ require('lspkind').init({
       TypeParameter = "T"
     },
 })
+
+-- Toggle cursor line
+map {'n', '<leader>hl', ':set cursorline! cursorcolumn!<CR>'}
+
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'
-
 
