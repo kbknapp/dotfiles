@@ -356,7 +356,7 @@ for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
 
 # fix notification focusing
 for_window [class="plasmashell"] floating enable;
-for_window [class="plasmashell" window_type="notification"] floating enable; border none; move right 650px; move down 450px; no_focus
+for_window [class="plasmashell" window_type="notification"] floating enable; border none; no_focus
 
 popup_during_fullscreen smart
 
