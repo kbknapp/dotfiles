@@ -623,6 +623,8 @@ require('lspkind').init({
 -- Toggle cursor line
 map {'n', '<leader>hl', ':set cursorline! cursorcolumn!<CR>'}
 
+map {'i', 'kj', '<Esc>'}
+
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'
 
