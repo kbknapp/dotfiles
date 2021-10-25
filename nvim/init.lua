@@ -44,6 +44,9 @@ Plug 'tpope/vim-repeat' -- Repeat all commands with . not just native
 Plug 'simeji/winresizer' -- Better window resizing with Ctrl+E"
 Plug 'roosta/fzf-folds.vim'
 
+-- Leetcode Client
+Plug 'ianding1/leetcode.vim'
+
 -- GUI enhancements
 Plug 'hoob3rt/lualine.nvim'
 Plug 'machakann/vim-highlightedyank'
@@ -182,6 +185,11 @@ map {'n', '<leader>fz', ':Folds<cr>'}
 
 -- Kommentary
 map {'n', '<C-/>', 'gcc'}
+
+-- Leetcode
+vim.g.leetcode_browser = 'firefox'
+vim.g.leetcode_solution_filetype = 'rust'
+vim.g.leetcode_hide_paid_only = 1
 
 -- Pull up magit
 map {'n', '<leader>gg', ':silent ! emacs -e magit-status &<CR>'}
