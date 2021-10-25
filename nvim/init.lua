@@ -296,8 +296,16 @@ vim.g.nvim_tree_group_empty = true -- compact folders that only contain a single
 require'nvim-tree'.setup({
   -- closes the tree when it's the last window
   auto_close = true,
-  -- will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
-  lsp_diagnostics = true,
+  -- will show lsp diagnostics in the signcolumn.
+  diagnostics = {
+    enable = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
   -- when moving cursor in the tree, position the cursor at the start of the file on the current line
   hijack_cursor = false,
 })
