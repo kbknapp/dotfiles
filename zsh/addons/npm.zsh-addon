@@ -1,2 +1,2 @@
 # No sudo with NPM
-export PATH=$HOME/.npm-global/bin:$PATH
+export PATH=$HOME/.local/npm/bin:$HOME/.npm-global/bin:$PATH
