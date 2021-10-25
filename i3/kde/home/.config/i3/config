@@ -50,8 +50,8 @@ bindsym $mod+Shift+Return exec /usr/bin/firefox
 bindsym $mod+Shift+q kill
 
 # rofi app and window launchers
-bindsym $mod+space exec --no-startup-id rofi_run -r
-bindsym $mod+Ctrl+space exec --no-startup-id rofi_run -w
+bindsym $mod+space exec --no-startup-id ~/.local/bin/rofi_run -r
+bindsym $mod+Ctrl+space exec --no-startup-id ~/.local/bin/rofi_run -w
 
 # change focus
 bindsym $mod+Left focus left
@@ -362,16 +362,16 @@ popup_during_fullscreen smart
 bindsym $mod+Ctrl+Shift+s exec systemctl suspend
 
 # Logout/lock
-bindsym $mod+x exec --no-startup-id rofi_run -l
+bindsym $mod+x exec --no-startup-id ~/.local/bin/rofi_run -l
 # Translate
-bindsym $mod+e          exec --no-startup-id rofi_run --en-es
-bindsym $mod+$alt+e     exec --no-startup-id rofi_run --es-en
+bindsym $mod+e          exec --no-startup-id ~/.local/bin/rofi_run --en-es
+bindsym $mod+$alt+e     exec --no-startup-id ~/.local/bin/rofi_run --es-en
 # Rust Docs Search
-bindsym $mod+d          exec --no-startup-id rofi_run --rust
+bindsym $mod+d          exec --no-startup-id ~/.local/bin/rofi_run --rust
 # Clipboard
-bindsym $mod+p          exec --no-startup-id rofi_run -c
+bindsym $mod+p          exec --no-startup-id ~/.local/bin/rofi_run -c
 # Browser Search
-bindsym $mod+w          exec --no-startup-id rofi_run -b
+bindsym $mod+w          exec --no-startup-id ~/.local/bin/rofi_run -b
 
 # move workspaces left or right
 bindsym $mod+Shift+mod1+h exec i3-msg move workspace to output left
