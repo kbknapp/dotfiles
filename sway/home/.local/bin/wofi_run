@@ -70,7 +70,7 @@ for arg in "${args[@]}"; do
                       --hide-scroll --lines 4)"
 
             case "$ANS" in
-                *Lock) swaylock-fancy ;;
+                *Lock) swaylock -c 696969 ;;
                 *Reboot) systemctl reboot ;;
                 *Shutdown) systemctl -i poweroff ;;
                 *Logout) session-logout || loginctl terminate-user "$USER" || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
