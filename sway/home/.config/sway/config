@@ -1,0 +1,390 @@
+# sway config file Based on v4 for Regolith Desktop Environment
+
+# This defines which key super maps to on your keyboard.
+# Alt key is Mod1, and Windows key is Mod4
+set $mod Mod4
+set $alt Mod1
+
+# compton config file
+#set $picom_config /home/kevin/.config/picom/config
+
+# path to terminal. Override this to specify a custom terminal.
+set $terminal_path /usr/bin/alacritty
+
+# These are the labels which define each sway workspace.
+set $ws1  "1: "
+set $ws2  "2: "
+set $ws3  "3: "
+set $ws4  "4: "
+set $ws5  "5: "
+set $ws6  "6: "
+set $ws7  "7: "
+set $ws8  "8: "
+set $ws9  "9: "
+set $ws10 "10: "
+set $ws11 "11: "
+set $ws12 "12: "
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+set $ws16 "16"
+set $ws17 "17"
+set $ws18 "18"
+set $ws19 "19"
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+hide_edge_borders smart
+
+# start a terminal
+bindsym $mod+Return exec $terminal_path
+
+# start a web browser
+bindsym $mod+Shift+Return exec /usr/bin/firefox
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# wofi app and window launchers
+bindsym $mod+space exec --no-startup-id ~/.local/bin/wofi_run -r
+bindsym $mod+Ctrl+space exec --no-startup-id ~/.local/bin/wofi_run -w
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move windows in workspaces
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+z move scratchpad
+bindsym $mod+z scratchpad show
+
+# toggle split orientation
+bindsym $mod+Shift+BackSpace split toggle
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change gaps interactively
+bindsym $mod+minus gaps inner current minus 6
+bindsym $mod+plus gaps inner current plus 6
+
+# toggle tiling / floating
+bindsym $mod+Shift+f floating toggle
+
+# toggle tabbed mode
+bindsym $mod+t layout toggle tabbed splith splitv
+
+# move to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+Ctrl+1 workspace $ws11
+bindsym $mod+Ctrl+2 workspace $ws12
+bindsym $mod+Ctrl+3 workspace $ws13
+bindsym $mod+Ctrl+4 workspace $ws14
+bindsym $mod+Ctrl+5 workspace $ws15
+bindsym $mod+Ctrl+6 workspace $ws16
+bindsym $mod+Ctrl+7 workspace $ws17
+bindsym $mod+Ctrl+8 workspace $ws18
+bindsym $mod+Ctrl+9 workspace $ws19
+
+# cycle across workspaces
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+Ctrl+1 move container to workspace $ws11
+bindsym $mod+Shift+Ctrl+2 move container to workspace $ws12
+bindsym $mod+Shift+Ctrl+3 move container to workspace $ws13
+bindsym $mod+Shift+Ctrl+4 move container to workspace $ws14
+bindsym $mod+Shift+Ctrl+5 move container to workspace $ws15
+bindsym $mod+Shift+Ctrl+6 move container to workspace $ws16
+bindsym $mod+Shift+Ctrl+7 move container to workspace $ws17
+bindsym $mod+Shift+Ctrl+8 move container to workspace $ws18
+bindsym $mod+Shift+Ctrl+9 move container to workspace $ws19
+
+# move focused container to workspace, move to workspace
+bindsym $mod+$alt+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+$alt+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+$alt+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+$alt+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+$alt+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+$alt+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+$alt+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+$alt+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+$alt+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+$alt+0 move container to workspace $ws10; workspace $ws10
+bindsym $mod+$alt+Ctrl+1 move container to workspace $ws11; workspace $ws11
+bindsym $mod+$alt+Ctrl+2 move container to workspace $ws12; workspace $ws12
+bindsym $mod+$alt+Ctrl+3 move container to workspace $ws13; workspace $ws13
+bindsym $mod+$alt+Ctrl+4 move container to workspace $ws14; workspace $ws14
+bindsym $mod+$alt+Ctrl+5 move container to workspace $ws15; workspace $ws15
+bindsym $mod+$alt+Ctrl+6 move container to workspace $ws16; workspace $ws16
+bindsym $mod+$alt+Ctrl+7 move container to workspace $ws17; workspace $ws17
+bindsym $mod+$alt+Ctrl+8 move container to workspace $ws18; workspace $ws18
+bindsym $mod+$alt+Ctrl+9 move container to workspace $ws19; workspace $ws19
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart sway inplace (preserves your layout/session, can be used to upgrade sway)
+bindsym $mod+Shift+r restart
+
+# shortcuts for common system configuration tasks
+bindsym $mod+c exec systemsettings5
+
+# resize window (you can also use the mouse for that)
+mode "Resize Mode" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym Left resize shrink width 6 px or 6 ppt
+        bindsym Down resize grow height 6 px or 6 ppt
+        bindsym Up resize shrink height 6 px or 6 ppt
+        bindsym Right resize grow width 6 px or 6 ppt
+
+        bindsym Shift+Left resize shrink width 12 px or 12 ppt
+        bindsym Shift+Down resize grow height 12 px or 12 ppt
+        bindsym Shift+Up resize shrink height 12 px or 12 ppt
+        bindsym Shift+Right resize grow width 12 px or 12 ppt
+
+        bindsym h resize shrink width 6 px or 6 ppt
+        bindsym k resize grow height 6 px or 6 ppt
+        bindsym j resize shrink height 6 px or 6 ppt
+        bindsym l resize grow width 6 px or 6 ppt
+
+        bindsym Shift+h resize shrink width 12 px or 12 ppt
+        bindsym Shift+k resize grow height 12 px or 12 ppt
+        bindsym Shift+j resize shrink height 12 px or 12 ppt
+        bindsym Shift+l resize grow width 12 px or 12 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "Resize Mode"
+
+# Disable titlebar
+default_border pixel 1
+default_floating_border pixel 1
+
+# Gaps
+gaps inner 5
+gaps outer 0
+
+# Only enable gaps on a workspace when there is at least one container
+smart_gaps on
+
+set $focused.color.border  "#002b36"
+set $focused.color.background  "#586e75"
+set $focused.color.text  "#fdf6e3"
+set $focused.color.indicator  "#268bd2"
+#set $focused.color.child_border sway-wm.client.focused.color.child_border
+
+set $focused_inactive.color.border  "#002b36"
+set $focused_inactive.color.background  "#121517"
+set $focused_inactive.color.text  "#839496"
+set $focused_inactive.color.indicator  "#121517"
+#set $focused_inactive.color.child_border sway-wm.client.focused_inactive.color.child_border
+
+set $unfocused.color.border  "#002b36"
+set $unfocused.color.background  "#121517"
+set $unfocused.color.text  "#839496"
+set $unfocused.color.indicator  "#121517"
+#set $unfocused.color.child_border sway-wm.client.unfocused.color.child_border
+
+set $urgent.color.border  "#002b36"
+set $urgent.color.background  "#dc322f"
+set $urgent.color.text  "#fdf6e3"
+set $urgent.color.indicator  "#002b36"
+#set $urgent.color.child_border sway-wm.client.urgent.color.child_border
+
+# Window Border color
+# class                 border                             background                         text                               indicator                          child_border
+#client.focused          $focused.color.border              $focused.color.background          $focused.color.text                $focused.color.indicator           $focused.color.child_border
+#client.focused_inactive $focused_inactive.color.border     $focused_inactive.color.background $focused_inactive.color.text       $focused_inactive.color.indicator  $focused_inactive.color.child_border
+#client.unfocused        $unfocused.color.border            $unfocused.color.background        $unfocused.color.text              $unfocused.color.indicator         $unfocused.color.child_border
+#client.urgent           $urgent.color.border               $urgent.color.background           $urgent.color.text                 $urgent.color.indicator            $urgent.color.child_border
+
+# Enable popup during fullscreen
+popup_during_fullscreen smart
+
+# window focus follows your mouse movements as the mouse crosses window borders
+focus_follows_mouse yes
+
+set $sway-wm.bar.background.color "#121517"
+set $sway-wm.bar.statusline.color "#93a1a1"
+set $sway-wm.bar.separator.color "#268bd2"
+
+set $sway-wm.bar.workspace.focused.border.color  "#f35743"
+set $sway-wm.bar.workspace.focused.background.color  "#303030"
+set $sway-wm.bar.workspace.focused.text.color  "#eee8d5"
+
+set $sway-wm.bar.workspace.active.border.color  "#121517"
+set $sway-wm.bar.workspace.active.background.color  "#121517"
+set $sway-wm.bar.workspace.active.text.color  "#586e75"
+
+set $sway-wm.bar.workspace.inactive.border.color  "#303030"
+set $sway-wm.bar.workspace.inactive.background.color  "#121517"
+set $sway-wm.bar.workspace.inactive.text.color  "#586e75"
+
+set $sway-wm.bar.workspace.urgent.border.color  "#dc322f"
+set $sway-wm.bar.workspace.urgent.background.color  "#dc322f"
+set $sway-wm.bar.workspace.urgent.text.color  "#fdf6e3"
+
+set $sway-wm.bar.font "pango:Source Code Pro Medium 13, FontAwesome 13"
+
+# Configure the bar
+bar {
+  font $sway-wm.bar.font
+  separator_symbol " "
+  status_command i3status -c /etc/i3status.conf
+  tray_output primary
+  strip_workspace_numbers yes
+
+  colors {
+      background $sway-wm.bar.background.color
+      statusline $sway-wm.bar.statusline.color
+      separator  $sway-wm.bar.separator.color
+
+      #                  BORDER                                         BACKGROUND                                      TEXT
+      focused_workspace  $sway-wm.bar.workspace.focused.border.color      $sway-wm.bar.workspace.focused.background.color   $sway-wm.bar.workspace.focused.text.color
+      active_workspace   $sway-wm.bar.workspace.active.border.color       $sway-wm.bar.workspace.active.background.color    $sway-wm.bar.workspace.active.text.color
+      inactive_workspace $sway-wm.bar.workspace.inactive.border.color     $sway-wm.bar.workspace.inactive.background.color  $sway-wm.bar.workspace.inactive.text.color
+      urgent_workspace   $sway-wm.bar.workspace.urgent.border.color       $sway-wm.bar.workspace.urgent.background.color    $sway-wm.bar.workspace.urgent.text.color
+  }
+}
+
+# Run programs when sway starts
+
+# Hide the mouse pointer if unused for a duration
+#exec --no-startup-id /usr/bin/unclutter -b
+
+exec --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
+
+# Start compton
+#exec_always --no-startup-id picom --experimental-backends -f --config /home/kevin/.config/picom/config
+exec --no-startup-id emacs --daemon
+exec --no-startup-id dunst -c ~/.config/dunst/dunstrc
+
+### kbknapp Addtions
+#
+## Assign Applications to specific workspace
+## get class with xprop
+assign [class="(?i)(?:firefox)"] → $ws2
+assign [class="(?i)(?:vivaldi-stable)"] → $ws2
+
+assign [class="(?i)(?:org.gnome.Nautilus)"]  → $ws3
+assign [class="(?i)(?:dolphin)"]  → $ws3
+
+assign [class="(?i)(?:jetbrains-clion)"] → $ws4
+assign [class="(?i)(?:Emacs)"] → $ws4
+assign [class="(?i)(?:Code)"] → $ws4
+
+assign [class="(?i)(?:gitkraken)"] → $ws5
+
+assign [class="(?i)(?:vmware)"] → $ws6
+assign [class="(?i)(?:Anydesk)"] → $ws6
+
+assign [class="(?i)(?:Microsoft Teams - Preview)"] → $ws7
+assign [class="(?i)(?:TelegramDesktop)"] → $ws7
+assign [class="(?i)(?:Signal)"] → $ws7
+assign [class="(?i)(?:Element)"] → $ws7
+assign [class="(?i)(?:Zulip)"] → $ws7
+assign [class="(?i)(?:WhatsAppQT)"] → $ws7
+
+assign [class="(?i)(?:obsidian)"] → $ws8
+assign [class="(?i)(?:standard notes)"] → $ws8
+
+assign [class="(?i)(?:mailspring)"] → $ws9
+
+assign [class="(?i)(?:mullvad)"] → $ws10
+assign [class="(?i)(?:steam)"] → $ws10
+assign [class="(?i)(?:privateinternetaccess)"] → $ws10
+
+## Assign properties to specific window types
+for_window [title="Desktop — Plasma"] kill; floating enable; border none
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="systemsettings"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [class="systemsettings"] floating enable
+for_window [class="streamdeck"] floating enable
+# # focus, floating, & sticky
+for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
+for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
+
+# fix notification focusing
+for_window [class="plasmashell"] floating enable;
+for_window [class="plasmashell" window_type="notification"] floating enable; border none; no_focus
+
+popup_during_fullscreen smart
+
+# put the system to sleep
+bindsym $mod+Ctrl+Shift+s exec systemctl suspend
+
+# Logout/lock
+bindsym $mod+x exec --no-startup-id ~/.local/bin/wofi_run -l
+# Translate
+bindsym $mod+e          exec --no-startup-id ~/.local/bin/wofi_run --en-es
+bindsym $mod+$alt+e     exec --no-startup-id ~/.local/bin/wofi_run --es-en
+# Rust Docs Search
+bindsym $mod+d          exec --no-startup-id ~/.local/bin/wofi_run --rust
+# Clipboard
+bindsym $mod+p          exec --no-startup-id ~/.local/bin/wofi_run -c
+# Browser Search
+bindsym $mod+w          exec --no-startup-id ~/.local/bin/wofi_run -b
+
+# move workspaces left or right
+bindsym $mod+Shift+mod1+h exec i3-msg move workspace to output left
+bindsym $mod+Shift+mod1+l exec i3-msg move workspace to output right
+
+# toggle split orientation
+bindsym $alt+Tab layout toggle tabbed split
+
+# Split directions
+bindsym $mod+g split h
+bindsym $mod+v split v
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+g layout toggle split
+
+bindsym $mod+BackSpace workspace back_and_forth

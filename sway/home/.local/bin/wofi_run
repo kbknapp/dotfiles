@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+NAME=$(basename "$0")
+VER="0.1"
+usage()
+{
+    cat <<- EOF
+
+ USAGE:  $NAME [OPTIONS]
+
+ FLAGS:
+
+     -h,--help          Display this message
+     -v,--version       Display script version
+     -b,--browser       Browser search by keyword
+     -l,--logout        System logout dialog
+     -r,--run           Application launcher
+        --en-es		Translate EN to ES via Google
+        --es-en		Translate ES to EN via Google
+        --rust		Search Rust documentation online
+
+  Without any options the run dialog will be opened.
+
+EOF
+}
+
+args=( "$@" )
+SKIP=0
+for arg in "${args[@]}"; do
+    if [[ "$SKIP" == 1 ]]; then
+	SKIP=0
+	continue
+    fi
+    case $arg in
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        -v|--version)
+            echo -e "$NAME -- Version $VER"
+            exit 0
+            ;;
+        -r|--run)
+            wofi --show drun --columns 2 --hide-scroll --allow-images --prompt "Open..."
+            break
+            ;;
+        -b|--browser)
+            wofi --dmenu --hide-scroll --insensitive --prompt 'Web Search:' --lines 1 \
+            | xargs -I{} xdg-open https://www.google.com/search?q={}
+            break
+            ;;
+        --rust)
+            wofi --dmenu --hide-scroll --insensitive --prompt 'Rust Docs Search:' --lines 1 \
+            | xargs -I{} xdg-open https://doc.rust-lang.org/std/?search={}
+            break
+            ;;
+        --en-es)
+            wofi --dmenu --hide-scroll --insensitive --prompt 'Translate EN to ES:' --lines 1 \
+            | xargs -I{} xdg-open 'https://translate.google.com/#view=home&op=translate&sl=en&tl=es&text={}'
+            break
+            ;;
+        --es-en)
+            wofi --dmenu --hide-scroll --insensitive --prompt 'Translate ES to EN:' --lines 1 \
+            | xargs -I{} xdg-open 'https://translate.google.com/#view=home&op=translate&sl=es&tl=en&text={}'
+            break
+            ;;
+        -l|--logout)
+            ANS="$(echo -e " Lock\n Logout\n Reboot\n Shutdown" |\
+                    wofi --dmenu --insensitive --prompt 'System' --width 20 \
+                      --hide-scroll --lines 4)"
+
+            case "$ANS" in
+                *Lock) swaylock-fancy ;;
+                *Reboot) systemctl reboot ;;
+                *Shutdown) systemctl -i poweroff ;;
+                *Logout) session-logout || loginctl terminate-user "$USER" || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
+            esac
+            break
+            ;;
+        *)
+            printf "\nOption does not exist: %s\n\n" "$arg"
+            exit 2
+	    ;;
+    esac
+done
+
+exit 0
