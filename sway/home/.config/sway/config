@@ -159,10 +159,7 @@ bindsym $mod+$alt+Ctrl+8 move container to workspace $ws18; workspace $ws18
 bindsym $mod+$alt+Ctrl+9 move container to workspace $ws19; workspace $ws19
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
-
-# restart sway inplace (preserves your layout/session, can be used to upgrade sway)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r reload
 
 # shortcuts for common system configuration tasks
 bindsym $mod+c exec systemsettings5
@@ -388,3 +385,9 @@ bindsym $mod+Shift+s layout stacking
 bindsym $mod+Shift+g layout toggle split
 
 bindsym $mod+BackSpace workspace back_and_forth
+
+input "type:keyboard" {
+    xkb_layout us
+    xkb_variant ,nodeadkeys
+    xkb_options ctrl:nocaps
+}
