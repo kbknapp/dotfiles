@@ -40,6 +40,9 @@ hide_edge_borders smart
 # start a terminal
 bindsym $mod+Return exec $terminal_path
 
+# start a web browser
+bindsym $mod+Shift+Return exec /usr/bin/firefox
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -47,11 +50,13 @@ bindsym $mod+Shift+q kill
 bindsym $mod+space exec --no-startup-id ~/.local/bin/wofi_run -r
 bindsym $mod+Ctrl+space exec --no-startup-id ~/.local/bin/wofi_run -w
 
+# change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
+# move windows in workspaces
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -151,6 +156,7 @@ bindsym $mod+c exec systemsettings5
 
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
+        # These bindings trigger as soon as you enter the resize mode
         bindsym h resize shrink width 6 px or 6 ppt
         bindsym k resize grow height 6 px or 6 ppt
         bindsym j resize shrink height 6 px or 6 ppt
@@ -260,14 +266,6 @@ bar {
 }
 
 # Run programs when sway starts
-
-# Hide the mouse pointer if unused for a duration
-#exec --no-startup-id /usr/bin/unclutter -b
-
-#exec --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
-
-# Start compton
-#exec_always --no-startup-id picom --experimental-backends -f --config /home/kevin/.config/picom/config
 exec --no-startup-id emacs --daemon
 exec --no-startup-id dunst -c ~/.config/dunst/dunstrc
 
@@ -328,6 +326,9 @@ for_window [class="plasmashell"] floating enable;
 for_window [class="plasmashell" window_type="notification"] floating enable; border none; no_focus
 
 popup_during_fullscreen smart
+
+# put the system to sleep
+bindsym $mod+Ctrl+Shift+s exec systemctl suspend
 
 # Logout/lock
 bindsym $mod+x exec --no-startup-id ~/.local/bin/wofi_run -l

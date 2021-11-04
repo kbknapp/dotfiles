@@ -1,0 +1,16 @@
+[Unit]
+Description=KDE PolicyKit Authentication Agent
+#PartOf=graphical-session.target
+#After=plasma-core.target
+
+[Service]
+Environment=QT_QPA_PLATFORM=wayland
+ExecStart=/usr/libexec/kf5/polkit-kde-authentication-agent-1
+BusName=org.kde.polkit-kde-authentication-agent-1
+Slice=background.slice
+TimeoutSec=5sec
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+
