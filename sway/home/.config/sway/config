@@ -246,9 +246,10 @@ set $sway-wm.bar.font "pango:Source Code Pro Medium 13, FontAwesome 13"
 
 # Configure the bar
 bar {
+  swaybar_command waybar
   font $sway-wm.bar.font
   separator_symbol " "
-  status_command i3status -c /etc/i3status.conf
+  #status_command i3status -c /etc/i3status.conf
   tray_output primary
   strip_workspace_numbers yes
 
@@ -266,6 +267,7 @@ bar {
 }
 
 # Run programs when sway starts
+exec --no-startup-id kanshi
 exec --no-startup-id emacs --daemon
 exec --no-startup-id dunst -c ~/.config/dunst/dunstrc
 

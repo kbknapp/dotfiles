@@ -1,0 +1,5 @@
+profile {
+	output DP-1 mode 2560x1440@144.000Hz position 0,1170 scale 1 transform normal
+	output DP-3 mode 1920x1080 position 2560,1170 scale 1 transform 90
+	output HDMI-A-1 mode 1920x1080 position 3640,1170 scale 1 transform 90
+}
