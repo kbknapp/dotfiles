@@ -320,6 +320,7 @@ for_window [class="streamdeck"] floating enable
 # # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
 for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
+for_window [app_id="pinentry-qt"] floating enable
 
 # fix notification focusing
 for_window [class="plasmashell"] floating enable;
