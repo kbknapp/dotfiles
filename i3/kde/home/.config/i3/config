@@ -7,11 +7,10 @@
 set $mod Mod4
 set $alt Mod1
 
-# compton config file
-set $picom_config /home/kevin/.config/picom/config
-
-# path to terminal. Override this to specify a custom terminal.
+# Set paths
+set $picom_config ~/.config/picom/config
 set $terminal_path /usr/bin/alacritty
+set $rofi ~/.local/bin/rofi_run
 
 # Color values are defined in ~/.Xresources-regolith
 # These are the labels which define each i3 workspace.
@@ -43,33 +42,20 @@ hide_edge_borders smart
 # start a terminal
 bindsym $mod+Return exec $terminal_path
 
-# start a web browser
-bindsym $mod+Shift+Return exec /usr/bin/firefox
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # rofi app and window launchers
-bindsym $mod+space exec --no-startup-id ~/.local/bin/rofi_run -r
-bindsym $mod+Ctrl+space exec --no-startup-id ~/.local/bin/rofi_run -w
+bindsym $mod+space exec --no-startup-id $rofi -r
+bindsym $mod+Ctrl+space exec --no-startup-id $rofi -w
 
 # change focus
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move windows in workspaces
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -173,16 +159,6 @@ bindsym $mod+c exec systemsettings5
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
         # These bindings trigger as soon as you enter the resize mode
-        bindsym Left resize shrink width 6 px or 6 ppt
-        bindsym Down resize grow height 6 px or 6 ppt
-        bindsym Up resize shrink height 6 px or 6 ppt
-        bindsym Right resize grow width 6 px or 6 ppt
-
-        bindsym Shift+Left resize shrink width 12 px or 12 ppt
-        bindsym Shift+Down resize grow height 12 px or 12 ppt
-        bindsym Shift+Up resize shrink height 12 px or 12 ppt
-        bindsym Shift+Right resize grow width 12 px or 12 ppt
-
         bindsym h resize shrink width 6 px or 6 ppt
         bindsym k resize grow height 6 px or 6 ppt
         bindsym j resize shrink height 6 px or 6 ppt
@@ -275,7 +251,7 @@ bar {
   font $i3-wm.bar.font
   separator_symbol " "
   status_command i3status -c /etc/i3status.conf
-  tray_output none
+  tray_output primary
   strip_workspace_numbers yes
 
   colors {
@@ -294,16 +270,12 @@ bar {
 # Run programs when i3 starts
 
 # Hide the mouse pointer if unused for a duration
-exec --no-startup-id /usr/bin/unclutter -b
-
 exec --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
 
 # Start compton
 exec_always --no-startup-id picom --experimental-backends -f --config /home/kevin/.config/picom/config
 exec --no-startup-id emacs --daemon
 
-### kbknapp Addtions
-#
 ## Assign Applications to specific workspace
 ## get class with xprop
 assign [class="(?i)(?:firefox)"] → $ws2
@@ -360,20 +332,17 @@ for_window [class="plasmashell" window_type="notification"] floating enable; bor
 
 popup_during_fullscreen smart
 
-# put the system to sleep
-bindsym $mod+Ctrl+Shift+s exec systemctl suspend
-
 # Logout/lock
-bindsym $mod+x exec --no-startup-id ~/.local/bin/rofi_run -l
+bindsym $mod+x exec --no-startup-id $rofi -l
 # Translate
-bindsym $mod+e          exec --no-startup-id ~/.local/bin/rofi_run --en-es
-bindsym $mod+$alt+e     exec --no-startup-id ~/.local/bin/rofi_run --es-en
+bindsym $mod+e          exec --no-startup-id $rofi --en-es
+bindsym $mod+$alt+e     exec --no-startup-id $rofi --es-en
 # Rust Docs Search
-bindsym $mod+d          exec --no-startup-id ~/.local/bin/rofi_run --rust
+bindsym $mod+d          exec --no-startup-id $rofi --rust
 # Clipboard
-bindsym $mod+p          exec --no-startup-id ~/.local/bin/rofi_run -c
+bindsym $mod+p          exec --no-startup-id $rofi -c
 # Browser Search
-bindsym $mod+w          exec --no-startup-id ~/.local/bin/rofi_run -b
+bindsym $mod+w          exec --no-startup-id $rofi -b
 
 # move workspaces left or right
 bindsym $mod+Shift+mod1+h exec i3-msg move workspace to output left

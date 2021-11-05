@@ -1,15 +1,13 @@
-# sway config file Based on v4 for Regolith Desktop Environment
+# sway config file originally Based on v4 for Regolith Desktop Environment
 
 # This defines which key super maps to on your keyboard.
 # Alt key is Mod1, and Windows key is Mod4
 set $mod Mod4
 set $alt Mod1
 
-# compton config file
-#set $picom_config /home/kevin/.config/picom/config
-
-# path to terminal. Override this to specify a custom terminal.
+# Set paths
 set $terminal_path /usr/bin/alacritty
+set $wofi ~/.local/bin/wofi_run
 
 # These are the labels which define each sway workspace.
 set $ws1  "1: "
@@ -47,8 +45,8 @@ bindsym $mod+Shift+Return exec /usr/bin/firefox
 bindsym $mod+Shift+q kill
 
 # wofi app and window launchers
-bindsym $mod+space exec --no-startup-id ~/.local/bin/wofi_run -r
-bindsym $mod+Ctrl+space exec --no-startup-id ~/.local/bin/wofi_run -w
+bindsym $mod+space exec --no-startup-id $wofi -r
+bindsym $mod+Ctrl+space exec --no-startup-id $wofi -w
 
 # change focus
 bindsym $mod+h focus left
@@ -271,8 +269,6 @@ exec --no-startup-id kanshi
 exec --no-startup-id emacs --daemon
 exec --no-startup-id dunst -c ~/.config/dunst/dunstrc
 
-### kbknapp Addtions
-#
 ## Assign Applications to specific workspace
 ## get class with xprop
 assign [class="(?i)(?:firefox)"] → $ws2
@@ -334,16 +330,16 @@ popup_during_fullscreen smart
 bindsym $mod+Ctrl+Shift+s exec systemctl suspend
 
 # Logout/lock
-bindsym $mod+x exec --no-startup-id ~/.local/bin/wofi_run -l
+bindsym $mod+x exec --no-startup-id $wofi -l
 # Translate
-bindsym $mod+e          exec --no-startup-id ~/.local/bin/wofi_run --en-es
-bindsym $mod+$alt+e     exec --no-startup-id ~/.local/bin/wofi_run --es-en
+bindsym $mod+e          exec --no-startup-id $wofi --en-es
+bindsym $mod+$alt+e     exec --no-startup-id $wofi --es-en
 # Rust Docs Search
-bindsym $mod+d          exec --no-startup-id ~/.local/bin/wofi_run --rust
+bindsym $mod+d          exec --no-startup-id $wofi --rust
 # Clipboard
-bindsym $mod+p          exec --no-startup-id ~/.local/bin/wofi_run -c
+bindsym $mod+p          exec --no-startup-id $wofi -c
 # Browser Search
-bindsym $mod+w          exec --no-startup-id ~/.local/bin/wofi_run -b
+bindsym $mod+w          exec --no-startup-id $wofi -b
 
 # move workspaces left or right
 bindsym $mod+Shift+mod1+h exec swaymsg move workspace to output left
