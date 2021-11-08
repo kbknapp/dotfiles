@@ -184,6 +184,9 @@ map {'n', '<leader>zz', ':set foldmethod=syntax<cr>', silent = true }
 map {'n', '<leader>fz', ':Folds<cr>'}
 
 -- Kommentary
+require('kommentary.config').configure_language("rust", {
+    prefer_single_line_comments = true,
+})
 map {'n', '<C-/>', 'gcc'}
 
 -- Leetcode
