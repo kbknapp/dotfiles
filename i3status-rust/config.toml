@@ -1,0 +1,65 @@
+theme = "nord-dark"
+icons = "awesome5"
+
+[[block]]
+block = "battery"
+interval = 10
+format = " {percentage} {time}"
+
+[[block]]
+block = "dnf"
+interval = 1800
+format = "{count:1}"
+format_singular = "{count:1}"
+format_up_to_date = "✓"
+critical_updates_regex = "(linux|linux-lts|linux-zen)"
+# shows dmenu with cached available updates. Any dmenu alternative should also work.
+on_click = "dnf list -q --upgrades | tail -n +2 | rofi -dmenu"
+
+[[block]]
+block = "cpu"
+interval = 1
+format = "{barchart} {utilization} {frequency}"
+
+[[block]]
+block = "memory"
+format_mem = "{mem_used}/{mem_total}({mem_used_percents})"
+format_swap = "{swap_used}/{swap_total}({swap_used_percents})"
+display_type = "memory"
+icons = true
+clickable = true
+interval = 5
+warning_mem = 80
+warning_swap = 80
+critical_mem = 95
+critical_swap = 95
+
+[[block]]
+block = "networkmanager"
+on_click = "alacritty -e nmtui"
+interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
+interface_name_include = []
+ap_format = " {ssid^7}.."
+device_format = "{icon} {ap}"
+
+[[block]]
+block = "notify"
+
+[[block]]
+block = "sound"
+format = "{output_description} {volume}"
+
+[[block]]
+block = "temperature"
+collapsed = false
+interval = 10
+format = "{min} min, {max} max, {average} avg"
+chip = "*-isa-*"
+inputs = ["CPUTIN", "SYSTIN"]
+
+[[block]]
+block = "time"
+format = "%a %d/%m %R"
+timezone = "US/Eastern"
+interval = 60
+locale = "en_US"

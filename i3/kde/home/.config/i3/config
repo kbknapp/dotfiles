@@ -7,10 +7,11 @@
 set $mod Mod4
 set $alt Mod1
 
-# Set paths
-set $picom_config ~/.config/picom/config
+# compton config file
+set $picom_config /home/kevin/.config/picom/config
+
+# path to terminal. Override this to specify a custom terminal.
 set $terminal_path /usr/bin/alacritty
-set $rofi ~/.local/bin/rofi_run
 
 # Color values are defined in ~/.Xresources-regolith
 # These are the labels which define each i3 workspace.
@@ -42,20 +43,33 @@ hide_edge_borders smart
 # start a terminal
 bindsym $mod+Return exec $terminal_path
 
+# start a web browser
+bindsym $mod+Shift+Return exec /usr/bin/firefox
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # rofi app and window launchers
-bindsym $mod+space exec --no-startup-id $rofi -r
-bindsym $mod+Ctrl+space exec --no-startup-id $rofi -w
+bindsym $mod+space exec --no-startup-id ~/.local/bin/rofi_run -r
+bindsym $mod+Ctrl+space exec --no-startup-id ~/.local/bin/rofi_run -w
 
 # change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move windows in workspaces
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -159,6 +173,16 @@ bindsym $mod+c exec systemsettings5
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
         # These bindings trigger as soon as you enter the resize mode
+        bindsym Left resize shrink width 6 px or 6 ppt
+        bindsym Down resize grow height 6 px or 6 ppt
+        bindsym Up resize shrink height 6 px or 6 ppt
+        bindsym Right resize grow width 6 px or 6 ppt
+
+        bindsym Shift+Left resize shrink width 12 px or 12 ppt
+        bindsym Shift+Down resize grow height 12 px or 12 ppt
+        bindsym Shift+Up resize shrink height 12 px or 12 ppt
+        bindsym Shift+Right resize grow width 12 px or 12 ppt
+
         bindsym h resize shrink width 6 px or 6 ppt
         bindsym k resize grow height 6 px or 6 ppt
         bindsym j resize shrink height 6 px or 6 ppt
@@ -247,35 +271,54 @@ set_from_resource $i3-wm.bar.workspace.urgent.text.color i3-wm.bar.workspace.urg
 set_from_resource $i3-wm.bar.font i3-wm.bar.font "pango:Source Code Pro Medium 13, FontAwesome 13"
 
 # Configure the bar
+# bar {
+#   font $i3-wm.bar.font
+#   separator_symbol " "
+#   status_command i3status -c /etc/i3status.conf
+#   tray_output primary
+#   strip_workspace_numbers yes
+# 
+#   colors {
+#       background $i3-wm.bar.background.color
+#       statusline $i3-wm.bar.statusline.color
+#       separator  $i3-wm.bar.separator.color
+# 
+# #                        BORDER  BACKGROUND TEXT
+#       focused_workspace  $i3-wm.bar.workspace.focused.border.color      $i3-wm.bar.workspace.focused.background.color   $i3-wm.bar.workspace.focused.text.color
+#       active_workspace   $i3-wm.bar.workspace.active.border.color       $i3-wm.bar.workspace.active.background.color    $i3-wm.bar.workspace.active.text.color
+#       inactive_workspace $i3-wm.bar.workspace.inactive.border.color     $i3-wm.bar.workspace.inactive.background.color  $i3-wm.bar.workspace.inactive.text.color
+#       urgent_workspace   $i3-wm.bar.workspace.urgent.border.color       $i3-wm.bar.workspace.urgent.background.color    $i3-wm.bar.workspace.urgent.text.color
+#   }
+# }
 bar {
-  font $i3-wm.bar.font
-  separator_symbol " "
-  status_command i3status -c /etc/i3status.conf
-  tray_output primary
-  strip_workspace_numbers yes
-
-  colors {
-      background $i3-wm.bar.background.color
-      statusline $i3-wm.bar.statusline.color
-      separator  $i3-wm.bar.separator.color
-
-#                        BORDER  BACKGROUND TEXT
-      focused_workspace  $i3-wm.bar.workspace.focused.border.color      $i3-wm.bar.workspace.focused.background.color   $i3-wm.bar.workspace.focused.text.color
-      active_workspace   $i3-wm.bar.workspace.active.border.color       $i3-wm.bar.workspace.active.background.color    $i3-wm.bar.workspace.active.text.color
-      inactive_workspace $i3-wm.bar.workspace.inactive.border.color     $i3-wm.bar.workspace.inactive.background.color  $i3-wm.bar.workspace.inactive.text.color
-      urgent_workspace   $i3-wm.bar.workspace.urgent.border.color       $i3-wm.bar.workspace.urgent.background.color    $i3-wm.bar.workspace.urgent.text.color
-  }
+    font pango:FantasqueSansMono Nerd Font, FontAwesome 12
+    position top
+    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
 }
 
 # Run programs when i3 starts
 
 # Hide the mouse pointer if unused for a duration
+#exec --no-startup-id /usr/bin/unclutter -b
+
 exec --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
 
 # Start compton
 exec_always --no-startup-id picom --experimental-backends -f --config /home/kevin/.config/picom/config
 exec --no-startup-id emacs --daemon
+exec --no-startup-id dunst -c ~/.config/dunst/dunstrc
 
+### kbknapp Addtions
+#
 ## Assign Applications to specific workspace
 ## get class with xprop
 assign [class="(?i)(?:firefox)"] → $ws2
@@ -332,17 +375,20 @@ for_window [class="plasmashell" window_type="notification"] floating enable; bor
 
 popup_during_fullscreen smart
 
+# put the system to sleep
+bindsym $mod+Ctrl+Shift+s exec systemctl suspend
+
 # Logout/lock
-bindsym $mod+x exec --no-startup-id $rofi -l
+bindsym $mod+x exec --no-startup-id ~/.local/bin/rofi_run -l
 # Translate
-bindsym $mod+e          exec --no-startup-id $rofi --en-es
-bindsym $mod+$alt+e     exec --no-startup-id $rofi --es-en
+bindsym $mod+e          exec --no-startup-id ~/.local/bin/rofi_run --en-es
+bindsym $mod+$alt+e     exec --no-startup-id ~/.local/bin/rofi_run --es-en
 # Rust Docs Search
-bindsym $mod+d          exec --no-startup-id $rofi --rust
+bindsym $mod+d          exec --no-startup-id ~/.local/bin/rofi_run --rust
 # Clipboard
-bindsym $mod+p          exec --no-startup-id $rofi -c
+bindsym $mod+p          exec --no-startup-id ~/.local/bin/rofi_run -c
 # Browser Search
-bindsym $mod+w          exec --no-startup-id $rofi -b
+bindsym $mod+w          exec --no-startup-id ~/.local/bin/rofi_run -b
 
 # move workspaces left or right
 bindsym $mod+Shift+mod1+h exec i3-msg move workspace to output left
