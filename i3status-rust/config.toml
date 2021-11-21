@@ -43,19 +43,20 @@ ap_format = " {ssid^7}.."
 device_format = "{icon} {ap}"
 
 [[block]]
-block = "notify"
-
-[[block]]
 block = "sound"
-format = "{output_description} {volume}"
+format = "{output_name} {volume}"
+[block.mappings]
+#"alsa_output.usb-Harman_Multimedia_JBL_Pebbles_1.0.0-00.analog-stereo" = "🔈"
+# Buu
+"alsa_output.pci-0000_00_1f.3.analog-stereo" = "🔈"
 
 [[block]]
 block = "temperature"
-collapsed = false
+collapsed = true
 interval = 10
 format = "{min} min, {max} max, {average} avg"
-chip = "*-isa-*"
-inputs = ["CPUTIN", "SYSTIN"]
+chip = "coretemp-isa-*"
+inputs = ["Package id 0"]
 
 [[block]]
 block = "time"
@@ -63,3 +64,7 @@ format = "%a %d/%m %R"
 timezone = "US/Eastern"
 interval = 60
 locale = "en_US"
+
+[[block]]
+block = "notify"
+
