@@ -1,0 +1,12 @@
+# fix notification focusing
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Plasma"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="systemsettings"] floating enable
+for_window [title="Desktop — Plasma"] kill; floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [class="plasmashell"] floating enable;
+for_window [class="plasmashell" window_type="notification"] floating enable; border none; no_focus
+

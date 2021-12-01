@@ -7,33 +7,33 @@
 set $mod Mod4
 set $alt Mod1
 
-# compton config file
-set $picom_config /home/kevin/.config/picom/config
+# For host specific settings
+set $host roshi
 
-# path to terminal. Override this to specify a custom terminal.
+set $picom_config ~/.config/picom/config
 set $terminal_path /usr/bin/alacritty
 
 # Color values are defined in ~/.Xresources-regolith
 # These are the labels which define each i3 workspace.
-set_from_resource $ws1  i3-wm.workspace.01.name "1: "
-set_from_resource $ws2  i3-wm.workspace.02.name "2: "
-set_from_resource $ws3  i3-wm.workspace.03.name "3: "
-set_from_resource $ws4  i3-wm.workspace.04.name "4: "
-set_from_resource $ws5  i3-wm.workspace.05.name "5: "
-set_from_resource $ws6  i3-wm.workspace.06.name "6: "
-set_from_resource $ws7  i3-wm.workspace.07.name "7: "
-set_from_resource $ws8  i3-wm.workspace.08.name "8: "
-set_from_resource $ws9  i3-wm.workspace.09.name "9: "
-set_from_resource $ws10 i3-wm.workspace.10.name "10: "
-set_from_resource $ws11 i3-wm.workspace.11.name "11: "
-set_from_resource $ws12 i3-wm.workspace.12.name "12: "
-set_from_resource $ws13 i3-wm.workspace.13.name "13"
-set_from_resource $ws14 i3-wm.workspace.14.name "14"
-set_from_resource $ws15 i3-wm.workspace.15.name "15"
-set_from_resource $ws16 i3-wm.workspace.16.name "16"
-set_from_resource $ws17 i3-wm.workspace.17.name "17"
-set_from_resource $ws18 i3-wm.workspace.18.name "18"
-set_from_resource $ws19 i3-wm.workspace.19.name "19"
+set $ws1  "1: "
+set $ws2  "2: "
+set $ws3  "3: "
+set $ws4  "4: "
+set $ws5  "5: "
+set $ws6  "6: "
+set $ws7  "7: "
+set $ws8  "8: "
+set $ws9  "9: "
+set $ws10 "10: "
+set $ws11 "11: "
+set $ws12 "12: "
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+set $ws16 "16"
+set $ws17 "17"
+set $ws18 "18"
+set $ws19 "19"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -43,9 +43,6 @@ hide_edge_borders smart
 # start a terminal
 bindsym $mod+Return exec $terminal_path
 
-# start a web browser
-bindsym $mod+Shift+Return exec /usr/bin/firefox
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -54,22 +51,12 @@ bindsym $mod+space exec --no-startup-id ~/.local/bin/rofi_run -r
 bindsym $mod+Ctrl+space exec --no-startup-id ~/.local/bin/rofi_run -w
 
 # change focus
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move windows in workspaces
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -173,16 +160,6 @@ bindsym $mod+c exec systemsettings5
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
         # These bindings trigger as soon as you enter the resize mode
-        bindsym Left resize shrink width 6 px or 6 ppt
-        bindsym Down resize grow height 6 px or 6 ppt
-        bindsym Up resize shrink height 6 px or 6 ppt
-        bindsym Right resize grow width 6 px or 6 ppt
-
-        bindsym Shift+Left resize shrink width 12 px or 12 ppt
-        bindsym Shift+Down resize grow height 12 px or 12 ppt
-        bindsym Shift+Up resize shrink height 12 px or 12 ppt
-        bindsym Shift+Right resize grow width 12 px or 12 ppt
-
         bindsym h resize shrink width 6 px or 6 ppt
         bindsym k resize grow height 6 px or 6 ppt
         bindsym j resize shrink height 6 px or 6 ppt
@@ -211,29 +188,29 @@ gaps outer 0
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on
 
-set_from_resource $focused.color.border i3-wm.client.focused.color.border "#002b36"
-set_from_resource $focused.color.background i3-wm.client.focused.color.background "#586e75"
-set_from_resource $focused.color.text i3-wm.client.focused.color.text "#fdf6e3"
-set_from_resource $focused.color.indicator i3-wm.client.focused.color.indicator "#268bd2"
-set_from_resource $focused.color.child_border i3-wm.client.focused.color.child_border
+set $focused.color.border  "#002b36"
+set $focused.color.background  "#586e75"
+set $focused.color.text  "#fdf6e3"
+set $focused.color.indicator  "#268bd2"
+#set $focused.color.child_border i3-wm.client.focused.color.child_border
 
-set_from_resource $focused_inactive.color.border i3-wm.client.focused_inactive.color.border "#002b36"
-set_from_resource $focused_inactive.color.background i3-wm.client.focused_inactive.color.background "#121517"
-set_from_resource $focused_inactive.color.text i3-wm.client.focused_inactive.color.text "#839496"
-set_from_resource $focused_inactive.color.indicator i3-wm.client.focused_inactive.color.indicator "#121517"
-set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border
+set $focused_inactive.color.border  "#002b36"
+set $focused_inactive.color.background  "#121517"
+set $focused_inactive.color.text  "#839496"
+set $focused_inactive.color.indicator  "#121517"
+#set $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border
 
-set_from_resource $unfocused.color.border i3-wm.client.unfocused.color.border "#002b36"
-set_from_resource $unfocused.color.background i3-wm.client.unfocused.color.background "#121517"
-set_from_resource $unfocused.color.text i3-wm.client.unfocused.color.text "#839496"
-set_from_resource $unfocused.color.indicator i3-wm.client.unfocused.color.indicator "#121517"
-set_from_resource $unfocused.color.child_border i3-wm.client.unfocused.color.child_border
+set $unfocused.color.border  "#002b36"
+set $unfocused.color.background  "#121517"
+set $unfocused.color.text  "#839496"
+set $unfocused.color.indicator  "#121517"
+#set $unfocused.color.child_border i3-wm.client.unfocused.color.child_border
 
-set_from_resource $urgent.color.border i3-wm.client.urgent.color.border "#002b36"
-set_from_resource $urgent.color.background i3-wm.client.urgent.color.background "#dc322f"
-set_from_resource $urgent.color.text i3-wm.client.urgent.color.text "#fdf6e3"
-set_from_resource $urgent.color.indicator i3-wm.client.urgent.color.indicator "#002b36"
-set_from_resource $urgent.color.child_border i3-wm.client.urgent.color.child_border
+set $urgent.color.border  "#002b36"
+set $urgent.color.background  "#dc322f"
+set $urgent.color.text  "#fdf6e3"
+set $urgent.color.indicator  "#002b36"
+#set $urgent.color.child_border i3-wm.client.urgent.color.child_border
 
 # Window Border color
 # class                 border                             background                         text                               indicator                          child_border
@@ -248,48 +225,28 @@ popup_during_fullscreen smart
 # window focus follows your mouse movements as the mouse crosses window borders
 focus_follows_mouse yes
 
-set_from_resource $i3-wm.bar.background.color i3-wm.bar.background.color "#121517"
-set_from_resource $i3-wm.bar.statusline.color i3-wm.bar.statusline.color "#93a1a1"
-set_from_resource $i3-wm.bar.separator.color i3-wm.bar.separator.color "#268bd2"
+set $i3-wm.bar.background.color  "#121517"
+set $i3-wm.bar.statusline.color  "#93a1a1"
+set $i3-wm.bar.separator.color  "#268bd2"
 
-set_from_resource $i3-wm.bar.workspace.focused.border.color i3-wm.bar.workspace.focused.border.color "#f35743"
-set_from_resource $i3-wm.bar.workspace.focused.background.color i3-wm.bar.workspace.focused.background.color "#303030"
-set_from_resource $i3-wm.bar.workspace.focused.text.color i3-wm.bar.workspace.focused.text.color "#eee8d5"
+set $i3-wm.bar.workspace.focused.border.color  "#f35743"
+set $i3-wm.bar.workspace.focused.background.color  "#303030"
+set $i3-wm.bar.workspace.focused.text.color  "#eee8d5"
 
-set_from_resource $i3-wm.bar.workspace.active.border.color i3-wm.bar.workspace.active.border.color "#121517"
-set_from_resource $i3-wm.bar.workspace.active.background.color i3-wm.bar.workspace.active.background.color "#121517"
-set_from_resource $i3-wm.bar.workspace.active.text.color i3-wm.bar.workspace.active.text.color "#586e75"
+set $i3-wm.bar.workspace.active.border.color  "#121517"
+set $i3-wm.bar.workspace.active.background.color  "#121517"
+set $i3-wm.bar.workspace.active.text.color  "#586e75"
 
-set_from_resource $i3-wm.bar.workspace.inactive.border.color i3-wm.bar.workspace.inactive.border.color "#303030"
-set_from_resource $i3-wm.bar.workspace.inactive.background.color i3-wm.bar.workspace.inactive.background.color "#121517"
-set_from_resource $i3-wm.bar.workspace.inactive.text.color i3-wm.bar.workspace.inactive.text.color "#586e75"
+set $i3-wm.bar.workspace.inactive.border.color  "#303030"
+set $i3-wm.bar.workspace.inactive.background.color  "#121517"
+set $i3-wm.bar.workspace.inactive.text.color  "#586e75"
 
-set_from_resource $i3-wm.bar.workspace.urgent.border.color i3-wm.bar.workspace.urgent.border.color "#dc322f"
-set_from_resource $i3-wm.bar.workspace.urgent.background.color i3-wm.bar.workspace.urgent.background.color "#dc322f"
-set_from_resource $i3-wm.bar.workspace.urgent.text.color i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
+set $i3-wm.bar.workspace.urgent.border.color  "#dc322f"
+set $i3-wm.bar.workspace.urgent.background.color  "#dc322f"
+set $i3-wm.bar.workspace.urgent.text.color  "#fdf6e3"
 
-set_from_resource $i3-wm.bar.font i3-wm.bar.font "pango:Source Code Pro Medium 13, FontAwesome 13"
+set $i3-wm.bar.font  "pango:FantasqueSansMono Nerd Font, FontAwesome 12"
 
-# Configure the bar
-# bar {
-#   font $i3-wm.bar.font
-#   separator_symbol " "
-#   status_command i3status -c /etc/i3status.conf
-#   tray_output primary
-#   strip_workspace_numbers yes
-# 
-#   colors {
-#       background $i3-wm.bar.background.color
-#       statusline $i3-wm.bar.statusline.color
-#       separator  $i3-wm.bar.separator.color
-# 
-# #                        BORDER  BACKGROUND TEXT
-#       focused_workspace  $i3-wm.bar.workspace.focused.border.color      $i3-wm.bar.workspace.focused.background.color   $i3-wm.bar.workspace.focused.text.color
-#       active_workspace   $i3-wm.bar.workspace.active.border.color       $i3-wm.bar.workspace.active.background.color    $i3-wm.bar.workspace.active.text.color
-#       inactive_workspace $i3-wm.bar.workspace.inactive.border.color     $i3-wm.bar.workspace.inactive.background.color  $i3-wm.bar.workspace.inactive.text.color
-#       urgent_workspace   $i3-wm.bar.workspace.urgent.border.color       $i3-wm.bar.workspace.urgent.background.color    $i3-wm.bar.workspace.urgent.text.color
-#   }
-# }
 bar {
     font pango:FantasqueSansMono Nerd Font, FontAwesome 12
     position top
@@ -322,19 +279,12 @@ bar {
 
 # Run programs when i3 starts
 
-# Hide the mouse pointer if unused for a duration
-#exec --no-startup-id /usr/bin/unclutter -b
-
-exec --no-startup-id /home/kevin/.local/bin/randobg.sh 1080p
-
-# Start compton
-exec_always --no-startup-id picom --experimental-backends -f --config /home/kevin/.config/picom/config
+exec --no-startup-id ~/.local/bin/randobg.sh 1080p
+exec_always --no-startup-id picom --experimental-backends -f --config ~/.config/picom/config
 exec --no-startup-id emacs --daemon
 exec --no-startup-id dunst -c ~/.config/dunst/dunstrc
-exec --no-startup-id sh ~/.screenlayout/shenron.sh
+exec --no-startup-id sh ~/.screenlayout/$host.sh
 
-### kbknapp Addtions
-#
 ## Assign Applications to specific workspace
 ## get class with xprop
 assign [class="(?i)(?:firefox)"] → $ws2
@@ -369,30 +319,14 @@ assign [class="(?i)(?:steam)"] → $ws10
 assign [class="(?i)(?:privateinternetaccess)"] → $ws10
 
 ## Assign properties to specific window types
-for_window [title="Desktop — Plasma"] kill; floating enable; border none
-for_window [class="Plasma"] floating enable; border none
-for_window [title="plasma-desktop"] floating enable; border none
-for_window [title="win7"] floating enable; border none
-for_window [class="krunner"] floating enable; border none
-for_window [class="Kmix"] floating enable; border none
-for_window [class="Klipper"] floating enable; border none
-for_window [class="Plasmoidviewer"] floating enable; border none
-for_window [class="systemsettings"] floating enable
-for_window [window_role="task_dialog"] floating enable
-for_window [class="systemsettings"] floating enable
 for_window [class="streamdeck"] floating enable
+for_window [title="win7"] floating enable; border none
+for_window [window_role="task_dialog"] floating enable
 # # focus, floating, & sticky
 for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
 for_window [window_role="(?i)(?:pop-up|setup)"]      floating enable
 
-# fix notification focusing
-for_window [class="plasmashell"] floating enable;
-for_window [class="plasmashell" window_type="notification"] floating enable; border none; no_focus
-
 popup_during_fullscreen smart
-
-# put the system to sleep
-bindsym $mod+Ctrl+Shift+s exec systemctl suspend
 
 # Logout/lock
 bindsym $mod+x exec --no-startup-id ~/.local/bin/rofi_run -l
