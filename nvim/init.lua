@@ -295,16 +295,18 @@ map {'n', '<C-n>', ':NvimTreeToggle<CR>'}
 map {'n', '<leader>r', ':NvimTreeRefresh<CR>'}
 map {'n', '<leader>n', ':NvimTreeFindFile<CR>'}
 
-vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache', 'target' } -- empty by default
-vim.g.nvim_tree_gitignore = true
 vim.g.nvim_tree_indent_markers = true  -- shows indent markers when folders are open
-vim.g.nvim_tree_hide_dotfiles = true -- hides files and folders starting with a dot `.`
 vim.g.nvim_tree_git_hl = true -- will enable file highlight for git attributes (can be used without the icons).
 vim.g.nvim_tree_highlight_opened_files = true -- will enable folder and file icon highlight for opened files/directories.
 vim.g.nvim_tree_add_trailing = true -- append a trailing slash to folder names
 vim.g.nvim_tree_group_empty = true -- compact folders that only contain a single folder into one node in the file tree
 
 require'nvim-tree'.setup({
+  gitignore = true,
+  -- empty by default
+  ignore = { '.git', 'node_modules', '.cache', 'target' },
+  -- hides files and folders starting with a dot `.`
+  hide_dotfiles = true,
   -- closes the tree when it's the last window
   auto_close = true,
   -- will show lsp diagnostics in the signcolumn.
@@ -343,11 +345,15 @@ require "lsp_signature".setup()
 
 -- nvim-cmp
 local lspkind = require('lspkind')
-local cmp = require'cmp'.setup({
+local cmp = require'cmp'
+cmp.setup({
   snippet = {
     expand = function(args)
       require'luasnip'.lsp_expand(args.body)
     end,
+  },
+  mapping = {
+    ['<CR>'] = cmp.mapping.confirm({select = true}),
   },
   sources = {
     { name = 'buffer', name = 'luasnip', name = 'nvim_lsp' },
