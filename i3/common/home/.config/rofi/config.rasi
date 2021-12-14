@@ -135,7 +135,6 @@ configuration {
 /*	me-accept-custom: "Control+MouseDPrimary";*/
   /*font: "FantasqueSansMono 12";*/
   /*icon-theme: "Arc-Dark";*/
-  theme: "onedark";
   timeout {
       action: "kb-cancel";
       delay:  0;
@@ -145,3 +144,4 @@ configuration {
       sorting-method:    "name";
   }
 }
+@theme "onedark"
