@@ -659,7 +659,7 @@ map {'n', '<leader>sc', ':e ~/.config/nvim/init.lua<CR>'}
 -- Terminal Mode
 map {'n', '<C-t>', ':terminal<CR>'}
 map {'i', '<C-t>', ':terminal<CR>'}
-map {'i', '<leader>oe', ':terminal<CR>'}
+map {'n', '<leader>oe', ':terminal<CR>'}
 
 -- Use ESC normally
 map {'t', '<Esc>', '<C-\\><C-n>'}
@@ -699,4 +699,3 @@ map {'n', '<leader>tp', ':tabprevious<CR>', silent = true}
 
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'
-
