@@ -42,51 +42,49 @@ Plug 'simeji/winresizer' -- Better window resizing with Ctrl+E"
 Plug 'roosta/fzf-folds.vim'
 Plug 'ggandor/lightspeed.nvim'
 Plug 'andymass/vim-matchup'
-
--- Leetcode Client
-Plug 'ianding1/leetcode.vim'
-
--- GUI enhancements
 Plug 'hoob3rt/lualine.nvim'
-Plug 'machakann/vim-highlightedyank'
-
--- Visualize your Undo Tree
---     -> :GundoToggle           See Undo Tree
-Plug 'sjl/gundo.vim'
-
--- Files / Coding
-Plug 'kyazdani42/nvim-web-devicons' -- for file icons
-Plug 'kyazdani42/nvim-tree.lua'     -- better NERDTree
-Plug 'moll/vim-bbye' -- Better Buffer Close support (don't wipe out splits, etc.)
-Plug 'airblade/vim-rooter' -- Find project root
-Plug 'simrat39/symbols-outline.nvim' -- Tagbar replacement
-Plug 'mfussenegger/nvim-dap'
-
--- Languages
+Plug 'machakann/vim-highlightedyank' -- keep yanked highlighted
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-telescope/telescope.nvim'
---Plug 'Maverun/telescope-snippets'
+Plug('nvim-telescope/telescope.nvim', {['commit'] = '80cdb00b221f69348afc4fb4b701f51eb8dd3120'}) -- The last commit before requiring nvim 0.6
 Plug 'norcalli/snippets.nvim'
-Plug 'windwp/nvim-spectre'              -- Search and Replace
+Plug 'windwp/nvim-spectre'         -- Search and Replace
 Plug 'mitchellh/tree-sitter-hcl'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
 Plug '~/Projects/telescope-luasnip'
 Plug 'rafamadriz/friendly-snippets'
 
+-- Colorscheme
+Plug('folke/tokyonight.nvim', {['branch'] = 'main'})
+
+Plug 'chrisbra/unicode.vim'
+
+-- Visualize your Undo Tree
+--     -> :GundoToggle           See Undo Tree
+Plug 'sjl/gundo.vim'
+
+-- Files / Coding
+Plug 'kyazdani42/nvim-web-devicons'  -- for file icons
+Plug 'kyazdani42/nvim-tree.lua'      -- better NERDTree
+Plug 'moll/vim-bbye'                 -- Better Buffer Close support (don't wipe out splits, etc.)
+Plug 'airblade/vim-rooter'           -- Find project root
+Plug 'simrat39/symbols-outline.nvim' -- Tagbar replacement
+Plug 'mfussenegger/nvim-dap'
+
+-- Languages
 -- Python
-Plug('neoclide/coc.nvim', {['branch'] = 'release'})
-Plug 'mfussenegger/nvim-dap-python'
+Plug('neoclide/coc.nvim', {['branch'] = 'release', ['for'] = 'python' })
+Plug('mfussenegger/nvim-dap-python', {['for'] = 'python'})
 
 -- Zig
-Plug 'ziglang/zig.vim'
-Plug 'zigtools/zls'                    -- Zig
+Plug('ziglang/zig.vim', {['for'] = 'zig'})
+Plug('zigtools/zls', {['for'] = 'zig'})
 
 -- Rust
-Plug 'mhinz/vim-crates'
-Plug 'rust-lang/rust.vim'
-Plug 'simrat39/rust-tools.nvim'        -- Rust
+Plug('mhinz/vim-crates', {['for'] = 'rust'})
+Plug('rust-lang/rust.vim', {['for'] = 'rust'})
+Plug 'simrat39/rust-tools.nvim'
 --Plug 'racer-rust/vim-racer'
 
 -- nvim-lsp based
@@ -109,22 +107,20 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'tpope/vim-surround'
 
 -- Markdown
-Plug 'mzlogin/vim-markdown-toc'
-Plug 'plasticboy/vim-markdown'
+Plug('mzlogin/vim-markdown-toc', {['for'] = 'markdown'})
+Plug('plasticboy/vim-markdown', {['for'] = 'markdown'})
+
+-- Leetcode Client
+Plug 'ianding1/leetcode.vim'
 
 -- +,-,~ in gutter
 Plug 'airblade/vim-gitgutter'
 
 -- TOML
-Plug 'cespare/vim-toml'
+Plug('cespare/vim-toml', {['for'] = 'toml'})
 
 -- Go
-Plug 'fatih/vim-go'
-
--- Colorscheme
-Plug('folke/tokyonight.nvim', {['branch'] = 'main'})
-
-Plug 'chrisbra/unicode.vim'
+Plug('fatih/vim-go', {['for'] = 'go'})
 
 vim.call('plug#end')
 
