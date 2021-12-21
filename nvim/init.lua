@@ -28,9 +28,6 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
 -- VIM enhancements
-Plug 'ciaranm/securemodelines'
-Plug 'vim-scripts/localvimrc'
-Plug 'justinmk/vim-sneak'
 Plug 'kshenoy/vim-signature'
 Plug 'schickling/vim-bufonly'
 Plug 'bitc/vim-bad-whitespace'
@@ -43,6 +40,8 @@ Plug 'folke/which-key.nvim'
 Plug 'tpope/vim-repeat' -- Repeat all commands with . not just native
 Plug 'simeji/winresizer' -- Better window resizing with Ctrl+E"
 Plug 'roosta/fzf-folds.vim'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'andymass/vim-matchup'
 
 -- Leetcode Client
 Plug 'ianding1/leetcode.vim'
@@ -50,7 +49,6 @@ Plug 'ianding1/leetcode.vim'
 -- GUI enhancements
 Plug 'hoob3rt/lualine.nvim'
 Plug 'machakann/vim-highlightedyank'
-Plug 'andymass/vim-matchup'
 
 -- Visualize your Undo Tree
 --     -> :GundoToggle           See Undo Tree
@@ -72,15 +70,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'norcalli/snippets.nvim'
 Plug 'windwp/nvim-spectre'              -- Search and Replace
 Plug 'mitchellh/tree-sitter-hcl'
--- Plug 'hrsh7th/vim-vsnip'             -- Snippet handling
 Plug 'saadparwaiz1/cmp_luasnip'
--- Plug 'hrsh7th/vim-vsnip'
--- Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'L3MON4D3/LuaSnip'
 Plug '~/Projects/telescope-luasnip'
---Plug 'fhill2/telescope-ultisnips.nvim'
---Plug 'SirVer/ultisnips'
---Plug 'honza/vim-snippets'   -- Actual snippets for UltiSnip
 Plug 'rafamadriz/friendly-snippets'
 
 -- Python
@@ -104,14 +96,7 @@ Plug 'ray-x/lsp_signature.nvim'        -- Function signatures
 Plug 'hrsh7th/nvim-cmp'                -- Autocompletion
 Plug 'hrsh7th/cmp-buffer'
 Plug 'onsails/lspkind-nvim'
---Plug 'nvim-lua/completion-nvim'
---Plug 'steelsojka/completion-buffers'
---Plug 'nvim-treesitter/completion-treesitter'
 Plug 'hrsh7th/cmp-nvim-lsp'
-
--- Semantic language support
--- Plug 'ncm2/ncm2'
--- Plug 'roxma/nvim-yarp'
 
 -- Comment or UN-Comment Code
 --    -> gcc                  Comment or uncomment line(s)
@@ -121,24 +106,11 @@ Plug 'b3nj5m1n/kommentary'
 --     -> cs"'     "Hello"->'Hello'
 --     -> ysiw[   'Hello'->[Hello]
 --     -> ds[     [Hello]->Hello
--- Plug 'tpope/vim-surround'
--- Better surround support
---     -> s{act}{obj}{item}
---     --> a=add, d=delete, r=replace
---     --> obj is text object
---     --> item is the surround
---     -> saiw'     Hello->'Hello'
---     -> srb[   'Hello'->[Hello]
---     -> sd[     [Hello]->Hello
-Plug 'machakann/vim-sandwich'
+Plug 'tpope/vim-surround'
 
 -- Markdown
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'plasticboy/vim-markdown'
-Plug('junegunn/goyo.vim', {['for'] = 'markdown'})
-
--- Git Plugins
--- Plug 'TimUntersberger/neogit'
 
 -- +,-,~ in gutter
 Plug 'airblade/vim-gitgutter'
@@ -148,9 +120,6 @@ Plug 'cespare/vim-toml'
 
 -- Go
 Plug 'fatih/vim-go'
-
--- Fish
-Plug 'dag/vim-fish'
 
 -- Colorscheme
 Plug('folke/tokyonight.nvim', {['branch'] = 'main'})
@@ -196,6 +165,19 @@ vim.g.leetcode_hide_paid_only = 1
 
 -- Pull up magit
 map {'n', '<leader>gg', ':silent ! emacs -e magit-status &<CR>'}
+
+-- Surround
+vim.g.surround_no_mappings = 1
+map {'n', 'ds', '<Plug>Dsurround'}
+map {'n', 'cs', '<Plug>Csurround'}
+map {'n', 'cS', '<Plug>CSurround'}
+map {'n', 'ys', '<Plug>Ysurround'}
+map {'n', 'yS', '<Plug>YSurround'}
+map {'n', 'yss', '<Plug>Yssurround'}
+map {'n', 'ySs', '<Plug>YSsurround'}
+map {'n', 'ySS', '<Plug>YSSurround'}
+map {'n', 'gs', '<Plug>VSurround'}
+map {'n', 'gS', '<Plug>VgSurround'}
 
 -- Tabular
 map {'n', '<leader>t=', ':Tab /=<CR>'}
@@ -466,6 +448,11 @@ map {'n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'}
 map {'n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'}
 
 -- Rust Language Support
+
+-- Always run rustfmt is applicable and always use stable.
+vim.g.rustfmt_autosave_if_config_present = 1
+vim.g.rustfmt_command = "rustfmt +stable"
+
 require('rust-tools').setup({
     tools = { -- rust-tools options
         -- automatically set inlay hints (type hints)
@@ -629,10 +616,90 @@ require('lspkind').init({
     },
 })
 
+-- Neovide Settings
+vim.g.neovide_cursor_vfx_mode = "railgun"
+
 -- Toggle cursor line
 map {'n', '<leader>hl', ':set cursorline! cursorcolumn!<CR>'}
 
+-- Keybindings
+--
+-- Suspend with Ctrl+f
+map {'i', '<C-f>', ':sus<cr>'}
+map {'v', '<C-f>', ':sus<cr>'}
+map {'n', '<C-f>', ':sus<cr>'}
+
+-- Jump to start and end of line using the home row keys
+map {'n', 'H', '^'}
+map {'n', 'L', '$'}
+
+-- Use jj or kj as ESC
 map {'i', 'kj', '<Esc>'}
+map {'i', 'jj', '<Esc>'}
+
+-- Move by visual line
+map {'n', 'j', 'gj'}
+map {'n', 'k', 'gk'}
+
+-- toggles between buffers
+map {'n', '<leader><leader>', '<c-^>'}
+
+-- shows/hides hidden characters
+map {'n', '<leader>,', ':set invlist<cr>'}
+
+--  shows stats
+map {'n', '<leader>q', 'g<c-g>'}
+
+-- arrows can switch buffers/tabs
+map {'n', '<left>', ':tp<CR>'}
+map {'n', '<right>', ':tn<CR>'}
+map {'n', '<up>', ':bp<CR>'}
+map {'n', '<down>', ':bn<CR>'}
+
+-- Edit/Source the config
+map {'n', '<leader>ec', ':e ~/.config/nvim/init.lua<CR>'}
+map {'n', '<leader>sc', ':e ~/.config/nvim/init.lua<CR>'}
+
+-- Terminal Mode
+map {'n', '<C-t>', ':terminal<CR>'}
+map {'i', '<C-t>', ':terminal<CR>'}
+map {'i', '<leader>oe', ':terminal<CR>'}
+
+-- Use ESC normally
+map {'t', '<Esc>', '<C-\\><C-n>'}
+map {'t', '<leader>bp', ':bp<CR>'}
+map {'t', '<leader>bk', ':Bwipeout!<CR>:e#<CR>'}
+
+-- CTRL+hkjl to navigate windows
+map {'n', '<C-h>', '<C-w>h'}
+map {'n', '<C-k>', '<C-w>k'}
+map {'n', '<C-j>', '<C-w>j'}
+map {'n', '<C-l>', '<C-w>l'}
+map {'t', '<C-h>', '<C-\\><C-N><C-w>h'}
+map {'t', '<C-k>', '<C-\\><C-N><C-w>k'}
+map {'t', '<C-j>', '<C-\\><C-N><C-w>j'}
+map {'t', '<C-l>', '<C-\\><C-N><C-w>l'}
+
+-- Stay in visual mode
+map {'v', '<', '<gv'}
+map {'v', '>', '>gv'}
+
+
+-- Search results centered please
+map {'n', 'n', 'nzz', silent = true}
+map {'n', 'N', 'Nzz', silent = true}
+map {'n', '*', '*zz', silent = true}
+map {'n', '#', '#zz', silent = true}
+map {'n', 'g*', 'g*zz', silent = true}
+
+-- Very magic by default
+map {'n', '?', '?\\v'}
+map {'n', '/', '/\\v'}
+map {'n', '%s', '%sm/'}
+
+map {'n', '<leader>te', ':tabnew<CR>', silent = true}
+map {'n', '<leader>tn', ':tabnext<CR>', silent = true}
+map {'n', '<leader>tp', ':tabprevious<CR>', silent = true}
 
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'

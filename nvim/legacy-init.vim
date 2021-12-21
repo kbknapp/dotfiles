@@ -1,58 +1,5 @@
 set termguicolors " this variable must be enabled for colors to be applied properly
 
-let g:nvim_tree_window_picker_exclude = {
-    \   'filetype': [
-    \     'packer',
-    \     'qf'
-    \   ],
-    \   'buftype': [
-    \     'terminal'
-    \   ]
-    \ }
-
-" Dictionary of buffer option names mapped to a list of option values that
-" indicates to the window picker that the buffer's window should not be
-" selectable.
-let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 } " List of filenames that gets highlighted with NvimTreeSpecialFile
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 1,
-    \ 'files': 1,
-    \ 'folder_arrows': 0,
-    \ }
-
-" default will show icon by default if no icon is provided
-" default shows no icon by default
-let g:nvim_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★",
-    \   'deleted': "",
-    \   'ignored': "◌"
-    \   },
-    \ 'folder': {
-    \   'arrow_open': "",
-    \   'arrow_closed': "",
-    \   'default': "",
-    \   'open': "",
-    \   'empty': "",
-    \   'empty_open': "",
-    \   'symlink': "",
-    \   'symlink_open': "",
-    \   },
-    \   'lsp': {
-    \     'hint': "",
-    \     'info': "",
-    \     'warning': "",
-    \     'error': "",
-    \   }
-    \ }
-
 " a list of groups can be found at `:help nvim_tree_highlight`
 highlight NvimTreeFolderIcon guibg=blue
 if has('nvim')
@@ -129,7 +76,6 @@ set noshowmode
 set hidden
 set nowrap
 set nojoinspaces
-let g:sneak#s_next = 1
 set printfont=:h10
 set guifont=FantasqueSansMono\ Nerd\ Font:h12
 set printencoding=utf-8
@@ -173,37 +119,6 @@ set ignorecase
 set smartcase
 set gdefault
 
-" Search results centered please
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-
-" Very magic by default
-nnoremap ? ?\v
-nnoremap / /\v
-cnoremap %s/ %sm/
-
-" move on visual lines not physical
-nmap j gj
-nmap k gk
-
-" Stay in visual mode when indenting.
-vnoremap < <gv
-vnoremap > >gv
-
-" change windows with ctrl+(hjkl)
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-nnoremap <silent> <Leader>te :tabnew<CR>
-nnoremap <silent> <Leader>tn :tabnext<CR>
-nnoremap <silent> <Leader>tp :tabprevious<CR>
-
-
 " =============================================================================
 " # GUI settings
 " =============================================================================
@@ -239,42 +154,9 @@ set mouse=a " Enable mouse usage (all modes) in terminals
 set nolist
 set listchars=tab:>-,eol:¶,nbsp:¬,extends:»,precedes:«,trail:•
 
-" Noevide Settings
-let g:neovide_cursor_vfx_mode = "railgun"
-
 " =============================================================================
 " # Keyboard shortcuts
 " =============================================================================
-" ; as :
-"nnoremap ; :
-
-" Use jj for escape
-inoremap jj <ESC>
-
-" Edit/Source the config
-nnoremap <silent> <leader>ec :e ~/.config/nvim/init.lua<CR>
-nnoremap <silent> <leader>sc :source ~/.config/nvim/init.lua<CR>
-
-" Use ALT+hkjl to navigate windows"
-inoremap <A-h> <C-w>h
-inoremap <A-j> <C-w>j
-inoremap <A-k> <C-w>k
-inoremap <A-l> <C-w>l
-inoremap <A-c> <C-w>c
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-nnoremap <A-c> <C-w>c
-
-" Suspend with Ctrl+f
-inoremap <C-f> :sus<cr>
-vnoremap <C-f> :sus<cr>
-nnoremap <C-f> :sus<cr>
-
-" Jump to start and end of line using the home row keys
-map H ^
-map L $
 
 " Neat X clipboard integration
 " ,p will paste clipboard into buffer
@@ -288,35 +170,8 @@ noremap <leader>c :w !xsel -ib<cr><cr>
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
-" arrows can switch buffers/tabs
-nnoremap <left> :tp<CR>
-nnoremap <right> :tn<CR>
-nnoremap <up> :bp<CR>
-nnoremap <down> :bn<CR>
-
-" Move by visual line
-nnoremap j gj
-nnoremap k gk
-
-" <leader><leader> toggles between buffers
-nnoremap <leader><leader> <c-^>
-
-" <leader>, shows/hides hidden characters
-nnoremap <leader>, :set invlist<cr>
-
-" <leader>q shows stats
-nnoremap <leader>q g<c-g>
-
-" Keymap for replacing up to next _ or -
-noremap <leader>m ct_
-noremap <leader>n ct-
-
 " M to make
 "noremap M :!make -k -j4<cr>
-
-" I can type :help on my own, thanks.
-map <F1> <Esc>
-imap <F1> <Esc>
 
 " open ranger as a file chooser using the function below
 nnoremap <leader>R :call <SID>ranger()<CR>
@@ -340,6 +195,7 @@ function! <SID>ranger()
     redraw!
 endfunction
 
+
 " Auto Close Pairs
 inoremap {<CR> {<CR>}<C-o>O
 inoremap {      {}<Left>
@@ -349,32 +205,7 @@ inoremap        (  ()<Left>
 inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
-" function! ConditionalPairMap(open, close)
-"   let line = getline('.')
-"   let col = col('.')
-"   if col < col('$') || stridx(line, a:close, col + 1) != -1
-"     return a:open
-"   else
-"     return a:open . a:close . repeat("\<left>", len(a:close))
-"   endif
-" endf
-" inoremap <expr> ( ConditionalPairMap('(', ')')
-" inoremap <expr> { ConditionalPairMap('{', '}')
-" inoremap <expr> [ ConditionalPairMap('[', ']')
 
-" Terminal Mode
-nnoremap <C-t> <Esc>:terminal<CR>
-inoremap <C-t> <Esc>:terminal<CR>
-nnoremap <leader>oe :terminal<CR>
-" Use ESC normally
-tnoremap <Esc> <C-\><C-n>
-tnoremap <leader>bp :bp<CR>
-tnoremap <leader>bk :Bwipeout!<CR>:e#<CR>
-" ALT+hkjl to navigate windows
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
 " Simulate CTRL-r
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
@@ -458,17 +289,12 @@ runtime! include/spacing/four.vim
 " Make syntax highlighting more efficient.
 syntax sync fromstart
 
-" Always run rustfmt is applicable and always use stable.
-let g:rustfmt_autosave_if_config_present = 1
-let g:rustfmt_command = "rustfmt +stable"
-
 " Markdown Help
 autocmd FileType markdown set cursorline
 autocmd FileType markdown set conceallevel=2
 autocmd FileType markdown set linebreak
 autocmd FileType markdown setlocal scrolloff=12
 autocmd FileType markdown setlocal spell spelllang=en_us
-"autocmd FileType markdown Goyo
 
 " =============================================================================
 " # Footer
@@ -478,27 +304,6 @@ autocmd FileType markdown setlocal spell spelllang=en_us
 if has('nvim')
 	runtime! plugin/python_setup.vim
 endif
-
-" vim-sandwhich for Rust
-fun! s:AddRustSandwichBinding(input, start, end)
-	let g:sandwich#recipes += [{
-		\ 'buns': [a:start, a:end],
-		\ 'filetype': ['rust'],
-		\ 'input': [a:input],
-		\ 'nesting': 1,
-		\ 'indent': 1
-	\ }]
-endf
-let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-call s:AddRustSandwichBinding('d', 'dbg!(', ')')
-call s:AddRustSandwichBinding('o', 'Some(', ')')
-call s:AddRustSandwichBinding('r', 'Ok(', ')')
-call s:AddRustSandwichBinding('e', 'Err(', ')')
-call s:AddRustSandwichBinding('v', 'vec![', ']')
-call s:AddRustSandwichBinding('b', 'Box::new(', ')')
-call s:AddRustSandwichBinding('B', 'Box<', '>')
-call s:AddRustSandwichBinding('O', 'Option<', '>')
-call s:AddRustSandwichBinding('R', 'Result<', '>')
 
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
