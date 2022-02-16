@@ -1,4 +1,4 @@
-vim.opt.shell = '/bin/bash'
+vim.opt.shell = '/bin/zsh'
 vim.g.mapleader = ' '
 vim.cmd[[
 	filetype off
@@ -46,17 +46,17 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'machakann/vim-highlightedyank' -- keep yanked highlighted
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
-Plug('nvim-telescope/telescope.nvim', {['commit'] = '80cdb00b221f69348afc4fb4b701f51eb8dd3120'}) -- The last commit before requiring nvim 0.6
-Plug 'norcalli/snippets.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+-- Plug 'norcalli/snippets.nvim'
 Plug 'windwp/nvim-spectre'         -- Search and Replace
 Plug 'mitchellh/tree-sitter-hcl'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'L3MON4D3/LuaSnip'
-Plug '~/Projects/telescope-luasnip'
-Plug 'rafamadriz/friendly-snippets'
+-- Plug 'L3MON4D3/LuaSnip'
+-- Plug '~/Projects/telescope-luasnip'
+-- Plug 'rafamadriz/friendly-snippets'
 
 -- Colorscheme
 Plug('folke/tokyonight.nvim', {['branch'] = 'main'})
+Plug 'navarasu/onedark.nvim'
 
 Plug 'chrisbra/unicode.vim'
 
@@ -88,13 +88,17 @@ Plug 'simrat39/rust-tools.nvim'
 --Plug 'racer-rust/vim-racer'
 
 -- nvim-lsp based
+--Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'neovim/nvim-lspconfig'           -- Common configuration
 Plug 'nvim-lua/lsp_extensions.nvim'    -- type inlay hints, etc
 Plug 'ray-x/lsp_signature.nvim'        -- Function signatures
-Plug 'hrsh7th/nvim-cmp'                -- Autocompletion
+Plug 'hrsh7th/nvim-cmp'                -- Autocompletion framework
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-vsnip'               -- Snippet completion
+Plug 'hrsh7th/vim-vsnip'               -- Snippet Engine
 Plug 'onsails/lspkind-nvim'
-Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp'            -- LSP Completion
 
 -- Comment or UN-Comment Code
 --    -> gcc                  Comment or uncomment line(s)
@@ -231,14 +235,14 @@ require('telescope').setup{
   }
 }
 
-require('telescope').load_extension('luasnip')
+require('telescope') -- .load_extension('luasnip')
 
 map {'n', '<leader>ff', '<cmd>Telescope find_files<CR>'}
 map {'n', '<C-p>', '<cmd>Telescope find_files<CR>'}
 map {'n', '<leader>/', '<cmd>Telescope live_grep<CR>'}
 map {'n', '<leader>fg', '<cmd>Telescope live_grep<CR>'}
 map {'n', '<leader>ss', '<cmd>Telescope live_grep<CR>'}
-map {'n', '<leader>sn', '<cmd>Telescope luasnip<CR>'}
+-- map {'n', '<leader>sn', '<cmd>Telescope luasnip<CR>'}
 map {'n', '<leader>fb', '<cmd>Telescope buffers<CR>'}
 map {'n', '<leader>bb', '<cmd>Telescope buffers<CR>'}
 map {'n', '<leader>fh', '<cmd>Telescope help_tags<CR>'}
@@ -301,64 +305,124 @@ require'nvim-tree'.setup({
   hijack_cursor = false,
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+-- nvim_lsp Setup
 
-local lspconfig = require('lspconfig')
-local on_attach = function(_, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        require('completion').on_attach()
-	require("lsp_signature").on_attach()
-end
+local nvim_lsp = require'lspconfig'
 
-local servers = {'zls'}
-for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {
-            on_attach = on_attach,
-	    capabilities = capabilities,
+local opts = {
+    tools = { -- rust-tools options
+        autoSetHints = true,
+        hover_with_actions = true,
+        inlay_hints = {
+            show_parameter_hints = false,
+            parameter_hints_prefix = "",
+            other_hints_prefix = "",
+        },
+    },
+
+    -- all the opts to send to nvim-lspconfig
+    -- these override the defaults set by rust-tools.nvim
+    -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
+    server = {
+        -- on_attach is a callback called when the language server attachs to the buffer
+        -- on_attach = on_attach,
+        settings = {
+            -- to enable rust-analyzer settings visit:
+            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+            ["rust-analyzer"] = {
+                -- enable clippy on save
+                checkOnSave = {
+                    command = "clippy"
+                },
+            }
         }
-end
+    },
+}
 
-require "lsp_signature".setup()
+require('rust-tools').setup(opts)
 
--- nvim-cmp
-local lspkind = require('lspkind')
+-- Completion Setup
+
 local cmp = require'cmp'
+
 cmp.setup({
   snippet = {
+    -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      require'luasnip'.lsp_expand(args.body)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
   mapping = {
-    ['<CR>'] = cmp.mapping.confirm({select = true}),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }), -- from rust-tools
+    -- ['<C-Space>'] = cmp.mapping.complete(), -- from cmp-vnsip
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+
+    -- Add tab support
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    --[[ ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
+    }) ]]
   },
-  sources = {
-    { name = 'buffer', name = 'luasnip', name = 'nvim_lsp' },
-  },
-  formatting = {
-    format = function(entry, vim_item)
-      vim_item.kind = lspkind.presets.default[vim_item.kind]
-      vim_item.menu = ({
-        buffer = "[Buffer]",
-        nvim_lsp = "[LSP]",
-        luasnip = "[LuaSnip]",
-      })[entry.source.name]
-      return vim_item
-    end
-  },
+
+  -- Sources
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }, -- For vsnip users.
+    -- { name = 'luasnip' }, -- For luasnip users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+  }, {
+    { name = 'buffer' },
+    { name = 'path' },
+  }),
 })
 
--- LuaSnip
+--[[ -- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it. 
+  }, {
+    { name = 'buffer' },
+  })
+}) ]]
 
+--[[ -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+}) ]]
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+})
+
+require "lsp_signature".setup()
+
+--[[ -- LuaSnip
 local function prequire(...)
 local status, lib = pcall(require, ...)
 if (status) then return lib end
     return nil
 end
 
-local luasnip = prequire('luasnip')
-
+--local luasnip = prequire('luasnip')
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -366,7 +430,7 @@ end
 local check_back_space = function()
   local col = vim.fn.col '.' - 1
   return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' ~= nil
-end
+end ]]
 
 _G.tab_complete = function()
     if vim.fn.pumvisible() == 1 then
@@ -382,8 +446,8 @@ end
 _G.s_tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<C-p>"
-    elseif luasnip and luasnip.jumpable(-1) then
-        return t "<Plug>luasnip-jump-prev"
+    --[[ elseif luasnip and luasnip.jumpable(-1) then
+        return t "<Plug>luasnip-jump-prev" ]]
     else
         return t "<S-Tab>"
     end
@@ -393,17 +457,17 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
-vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
+--[[ vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
+vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {}) ]]
 
 -- Load predefined LSP snippets
-require("luasnip/loaders/from_vscode").load({
+--[[ require("luasnip/loaders/from_vscode").load({
 	paths = {
 		'~/.config/nvim/snippets/',
 		'~/.config/nvim/plugged/friendly-snippets/'}
 	}
 )
-
+ ]]
 -- Enable faster viewport scrolling
 map {'n', '<C-e>', '8<C-e>'}
 map {'n', '<C-y>', '8<C-y>'}
@@ -519,8 +583,13 @@ require('rust-tools').setup({
     server = {}, -- rust-analyer options
 })
 
-vim.cmd[[colorscheme tokyonight]]
-vim.g.tokyonight_style = "night"
+-- Options dark, darker, cool, deep, warm, warmer
+require('onedark').setup {
+    style = 'dark'
+}
+require('onedark').load()
+--vim.cmd[[colorscheme tokyonight]]
+--vim.g.tokyonight_style = "night"
 
 -- LuaLine
 require('lualine').setup {
@@ -579,7 +648,7 @@ vim.g.symbols_outline = {
 }
 
 -- lspkind
-require('lspkind').init({
+--[[ require('lspkind').init({
     -- enables text annotations
     with_text = true,
     -- override preset symbols
@@ -610,7 +679,7 @@ require('lspkind').init({
       Operator = "",
       TypeParameter = "T"
     },
-})
+}) ]]
 
 -- Neovide Settings
 vim.g.neovide_cursor_vfx_mode = "railgun"
