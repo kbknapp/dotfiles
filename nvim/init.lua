@@ -99,6 +99,7 @@ Plug 'hrsh7th/cmp-vsnip'               -- Snippet completion
 Plug 'hrsh7th/vim-vsnip'               -- Snippet Engine
 Plug 'onsails/lspkind-nvim'
 Plug 'hrsh7th/cmp-nvim-lsp'            -- LSP Completion
+Plug 'folke/trouble.nvim'              -- LSP Diagnostics
 
 -- Comment or UN-Comment Code
 --    -> gcc                  Comment or uncomment line(s)
@@ -189,6 +190,16 @@ map {'v', "<leader>t'", ':Tab /=<CR>'}
 map {'n', '<leader>t:', ':Tab /:\\zs<CR>'}
 map {'v', '<leader>t:', ':Tab /:\\zs<CR>'}
 
+--- Trouble
+require("trouble").setup { }
+local actions = require("telescope.actions")
+local trouble = require("trouble.providers.telescope")
+map {'n', "<leader>ee'", ':TroubleToggle<cr>'}
+map {'n', "<leader>ew'", ':TroubleToggle workspace_diagnostics<cr>'}
+map {'n', "<leader>ed'", ':TroubleToggle document_diagnostics<cr>'}
+map {'n', "<leader>eq'", ':TroubleToggle quickfix<cr>'}
+map {'n', "<leader>el'", ':TroubleToggle loclist<cr>'}
+
 -- Telescope
 require('telescope').setup{
   defaults = {
@@ -231,7 +242,11 @@ require('telescope').setup{
     qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
 
     -- Developer configurations: Not meant for general override
-    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
+    mappings = {
+      i = { ["<c-t>"] = trouble.open_with_trouble },
+      n = { ["<c-t>"] = trouble.open_with_trouble },
+    }
   }
 }
 
