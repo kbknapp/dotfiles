@@ -118,8 +118,9 @@ Plug('plasticboy/vim-markdown', {['for'] = 'markdown'})
 -- Leetcode Client
 Plug 'ianding1/leetcode.vim'
 
--- +,-,~ in gutter
-Plug 'airblade/vim-gitgutter'
+-- Git
+Plug 'airblade/vim-gitgutter' -- +,-,~ in gutter
+Plug 'f-person/git-blame.nvim' -- Blame
 
 -- TOML
 Plug('cespare/vim-toml', {['for'] = 'toml'})
@@ -292,20 +293,12 @@ map {'n', '<C-n>', ':NvimTreeToggle<CR>'}
 map {'n', '<leader>r', ':NvimTreeRefresh<CR>'}
 map {'n', '<leader>n', ':NvimTreeFindFile<CR>'}
 
-vim.g.nvim_tree_indent_markers = true  -- shows indent markers when folders are open
 vim.g.nvim_tree_git_hl = true -- will enable file highlight for git attributes (can be used without the icons).
 vim.g.nvim_tree_highlight_opened_files = true -- will enable folder and file icon highlight for opened files/directories.
 vim.g.nvim_tree_add_trailing = true -- append a trailing slash to folder names
 vim.g.nvim_tree_group_empty = true -- compact folders that only contain a single folder into one node in the file tree
 
 require'nvim-tree'.setup({
-  gitignore = true,
-  -- empty by default
-  ignore = { '.git', 'node_modules', '.cache', 'target' },
-  -- hides files and folders starting with a dot `.`
-  hide_dotfiles = true,
-  -- closes the tree when it's the last window
-  auto_close = true,
   -- will show lsp diagnostics in the signcolumn.
   diagnostics = {
     enable = true,
@@ -318,6 +311,11 @@ require'nvim-tree'.setup({
   },
   -- when moving cursor in the tree, position the cursor at the start of the file on the current line
   hijack_cursor = false,
+  renderer = {
+    indent_markers = {
+      enable = true,
+    }
+  },
 })
 
 -- nvim_lsp Setup
@@ -607,9 +605,25 @@ require('onedark').load()
 --vim.g.tokyonight_style = "night"
 
 -- LuaLine
+vim.g.gitblame_display_virtual_text = 0 -- Disable virtual text
+vim.g.gitblame_date_format = '%r'
+
+local git_blame = require('gitblame')
+
 require('lualine').setup {
   options = {
     theme = 'tokyonight'
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'diff', 'diagnostics'},
+    lualine_c = {
+      { 'filename', path = 1},
+      { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
+    },
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
   }
 }
 
