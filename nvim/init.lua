@@ -191,15 +191,16 @@ map {'v', "<leader>t'", ':Tab /=<CR>'}
 map {'n', '<leader>t:', ':Tab /:\\zs<CR>'}
 map {'v', '<leader>t:', ':Tab /:\\zs<CR>'}
 
---- Trouble
+-- Trouble
 require("trouble").setup { }
 local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
-map {'n', "<leader>ee'", ':TroubleToggle<cr>'}
-map {'n', "<leader>ew'", ':TroubleToggle workspace_diagnostics<cr>'}
-map {'n', "<leader>ed'", ':TroubleToggle document_diagnostics<cr>'}
-map {'n', "<leader>eq'", ':TroubleToggle quickfix<cr>'}
-map {'n', "<leader>el'", ':TroubleToggle loclist<cr>'}
+map {'n', '<leader>ee', ':TroubleToggle<CR>'}
+map {'n', '<leader>ed', ':TroubleToggle document_diagnostics<CR>'}
+map {'n', '<leader>ew', ':TroubleToggle workspace_diagnostics<CR>'}
+map {'n', '<leader>eq', ':TroubleToggle quickfix<CR>'}
+map {'n', '<leader>el', ':TroubleToggle loclist<CR>'}
+map {'n', '<leader>eL', ':TroubleToggle lsp_references<CR>'}
 
 -- Telescope
 require('telescope').setup{
@@ -354,6 +355,9 @@ local opts = {
 
 require('rust-tools').setup(opts)
 
+map {'n', 'le', ':RustExpandMacro<cr>'}
+map {'n', 'lh', ':RustToggleInlayHints<cr>'}
+
 -- Completion Setup
 
 local cmp = require'cmp'
@@ -401,22 +405,6 @@ cmp.setup({
   }),
 })
 
---[[ -- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-  sources = cmp.config.sources({
-    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it. 
-  }, {
-    { name = 'buffer' },
-  })
-}) ]]
-
---[[ -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  sources = {
-    { name = 'buffer' }
-  }
-}) ]]
-
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
     sources = cmp.config.sources({
@@ -427,23 +415,6 @@ cmp.setup.cmdline(':', {
 })
 
 require "lsp_signature".setup()
-
---[[ -- LuaSnip
-local function prequire(...)
-local status, lib = pcall(require, ...)
-if (status) then return lib end
-    return nil
-end
-
---local luasnip = prequire('luasnip')
-local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-  local col = vim.fn.col '.' - 1
-  return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' ~= nil
-end ]]
 
 _G.tab_complete = function()
     if vim.fn.pumvisible() == 1 then
@@ -751,7 +722,7 @@ map {'n', '<up>', ':bp<CR>'}
 map {'n', '<down>', ':bn<CR>'}
 
 -- Edit/Source the config
-map {'n', '<leader>ec', ':e ~/.config/nvim/init.lua<CR>'}
+map {'n', '<leader>sec', ':e ~/.config/nvim/init.lua<CR>'}
 map {'n', '<leader>sc', ':e ~/.config/nvim/init.lua<CR>'}
 
 -- Terminal Mode
