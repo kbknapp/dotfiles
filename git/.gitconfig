@@ -1,12 +1,26 @@
-[rebase]
-	autosquash = true
-[color]
-	ui = true
 [user]
-	email = kbknapp@gmail.com
-	name = Kevin K.
-	signingkey = 17218E4B3692F01A
-[merge]
-	tool = vimdiff
+        email = kbknapp@gmail.com
+        name = Kevin K.
+        signingkey = 17218E4B3692F01A
+[color]
+        ui = true
+[rebase]
+        autosquash = true
 [commit]
-	gpgsign = true
+        gpgsign = true
+[pull]
+        rebase = true
+[core]
+        excludesfile = /home/kevin/.gitignore
+[pager]
+ diff = delta
+ log = delta
+ reflog = delta
+ show = delta
+[delta]
+ plus-style = "syntax #012800"
+ minus-style = "syntax #340001"
+ syntax-theme = Monokai Extended
+ navigate = true
+[interactive]
+ diffFilter = delta --color-only
