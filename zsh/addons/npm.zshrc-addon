@@ -1,6 +1,7 @@
-NPM_PACKAGES="${HOME}/.npm-packages"
+NPM_PACKAGES="${HOME}/.local/npm-packages"
+NPM_G_PACKAGES="${HOME}/.local/npm-global"
 
-export PATH="$PATH:$NPM_PACKAGES/bin"
+export PATH="$NPM_PACKAGES/bin:$NPM_G_PACKAGES/bin:$PATH"
 
 # Preserve MANPATH if you already defined it somewhere in your config.
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
