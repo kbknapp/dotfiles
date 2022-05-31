@@ -294,11 +294,6 @@ map {'n', '<C-n>', ':NvimTreeToggle<CR>'}
 map {'n', '<leader>r', ':NvimTreeRefresh<CR>'}
 map {'n', '<leader>n', ':NvimTreeFindFile<CR>'}
 
-vim.g.nvim_tree_git_hl = true -- will enable file highlight for git attributes (can be used without the icons).
-vim.g.nvim_tree_highlight_opened_files = true -- will enable folder and file icon highlight for opened files/directories.
-vim.g.nvim_tree_add_trailing = true -- append a trailing slash to folder names
-vim.g.nvim_tree_group_empty = true -- compact folders that only contain a single folder into one node in the file tree
-
 require'nvim-tree'.setup({
   -- will show lsp diagnostics in the signcolumn.
   diagnostics = {
@@ -313,8 +308,16 @@ require'nvim-tree'.setup({
   -- when moving cursor in the tree, position the cursor at the start of the file on the current line
   hijack_cursor = false,
   renderer = {
+    -- will enable folder and file icon highlight for opened files/directories.
+    highlight_opened_files = "name",
+    -- compact folders that only contain a single folder into one node in the file tree
+    group_empty = true,
+    -- will enable file highlight for git attributes (can be used without the icons).
+    highlight_git = true,
+    -- append a trailing slash to folder names
+    add_trailing = true,
     indent_markers = {
-      enable = true,
+	enable = true,
     }
   },
 })
