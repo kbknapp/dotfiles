@@ -1,0 +1,35 @@
+[user]
+        email = kbknapp@gmail.com
+        name = Kevin K.
+        signingkey = 17218E4B3692F01A
+[color]
+        ui = true
+[rebase]
+        autosquash = true
+[commit]
+        gpgsign = true
+[pull]
+        rebase = true
+[core]
+        excludesfile = /home/kevin/.gitignore
+[diff]
+        tool = difftastic
+[difftool]
+        prompt = false
+[difftool "difftastic"]
+        cmd = difft "$LOCAL" "$REMOTE"
+
+[pager]
+ difftool = true
+ diff = difft
+ log = difft
+ reflog = difft
+ show = difft
+[delta]
+ plus-style = "syntax #012800"
+ minus-style = "syntax #340001"
+ syntax-theme = Monokai Extended
+ navigate = true
+
+[alias]
+  dft = difftool
