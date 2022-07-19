@@ -71,6 +71,7 @@ Plug 'moll/vim-bbye'                 -- Better Buffer Close support (don't wipe 
 Plug 'airblade/vim-rooter'           -- Find project root
 Plug 'simrat39/symbols-outline.nvim' -- Tagbar replacement
 Plug 'mfussenegger/nvim-dap'
+--Plug 'github/copilot.vim'            -- Github Copilot; run :Copilot setup
 
 -- Languages
 -- Python
