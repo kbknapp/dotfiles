@@ -255,30 +255,6 @@ nnoremap <silent> <leader>z @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <silent> zf @=(foldlevel('.')?'za':"\<Space>")<CR>
 ""vnoremap <Space> zf
 
-nnoremap <silent> <leader>crh :RustToggleInlayHints<CR>
-nnoremap <silent> <leader>crm <cmd>lua require'rust-tools.expand_macro'.expand_macro()<CR>
-nnoremap <silent> <leader>crr :RustRunnables<CR>
-nnoremap <silent> <leader>cra :RustHoverActions<CR>
-
-" dap
-nnoremap <silent> <leader>dd <cmd>lua require'dap'.run_last()<CR>
-nnoremap <silent> <leader>dr <cmd>lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>la
-nnoremap <silent> <leader>db <cmd>lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <leader>dc <cmd>lua require'dap'.continue()<CR>
-nnoremap <silent> <F9> <cmd>lua require'dap'.continue()<CR>
-nnoremap <silent> <leader>dsi <cmd>lua require'dap'.step_into()<CR>
-nnoremap <silent> <F10> <cmd>lua require'dap'.step_into()<CR>
-nnoremap <silent> <leader>dso <cmd>lua require'dap'.step_over()<CR>
-nnoremap <silent> <F11> <cmd>lua require'dap'.step_over()<CR>
-nnoremap <silent> <leader>dsO <cmd>lua require'dap'.step_out()<CR>
-nnoremap <silent> <F12> <cmd>lua require'dap'.step_out()<CR>
-nnoremap <silent> <leader>dtm <cmd>lua require'dap-python'.test_method()<CR>
-nnoremap <silent> <leader>dtc <cmd>lua require'dap-python'.test_class()<CR>
-nnoremap <silent> <leader>dds <cmd>lua require'dap-python'.debug_selection()<CR>
-nnoremap <silent> <leader>di <cmd>lua require'dap.ui.variables'.hover(function () return vim.fn.expand("<cexpr>") end)<CR>
-nnoremap <silent> <leader>di <cmd>lua require'dap.ui.variables'.visual_hover()<CR>
-
-
 " For custom commenting functions.
 let b:Comment="//"
 let b:EndComment=""
@@ -311,4 +287,3 @@ packloadall
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
 silent! helptags ALL
-

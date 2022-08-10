@@ -83,7 +83,8 @@ Plug('ziglang/zig.vim', {['for'] = 'zig'})
 Plug('zigtools/zls', {['for'] = 'zig'})
 
 -- Rust
-Plug('mhinz/vim-crates', {['for'] = 'rust'})
+--Plug('mhinz/vim-crates', {['for'] = 'rust'})
+Plug 'saecki/crates.nvim'
 Plug('rust-lang/rust.vim', {['for'] = 'rust'})
 Plug 'simrat39/rust-tools.nvim'
 --Plug 'racer-rust/vim-racer'
@@ -137,11 +138,51 @@ require("which-key").setup()
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 vim.fn.sign_define('DapBreakpoint', {text='🔴', texthl='', numhl=''})
 vim.fn.sign_define('DapStopped', {text='🟢', texthl='', numhl=''})
+map {'n', '<leader>dtm', ':lua require"dap-python".test_method()<CR>', opts }
+map {'n', '<leader>dtc', ':lua require"dap-python".test_class()<CR>', opts }
+map {'n', '<leader>dds', ':lua require"dap-python".debug_selection()<CR>', opts }
+
+-- dap
+local opts = { noremap = true, silent = true }
+
+map {'n', '<leader>dd', ':lua require"dap".run_last()<CR>', opts }
+map {'n', '<leader>dr', ':lua require"dap".repl.open({}, "vsplit")<CR><C-w>la', opts }
+map {'n', '<leader>db', ':lua require"dap".toggle_breakpoint()<CR>', opts }
+map {'n', '<leader>dc', ':lua require"dap".continue()<CR>', opts }
+map {'n', '<F9>', ':lua require"dap".continue()<CR>', opts }
+map {'n', '<leader>dsi', ':lua require"dap".step_into()<CR>', opts }
+map {'n', '<F10>', ':lua require"dap".step_into()<CR>', opts }
+map {'n', '<leader>dso',  ':lua require"dap".step_over()<CR>', opts }
+map {'n', '<F11>', ':lua require"dap".step_over()<CR>', opts }
+map {'n', '<leader>dsO', ':lua require"dap".step_out()<CR>', opts }
+map {'n', '<F12>', ':lua require"dap".step_out()<CR>', opts }
+map {'n', '<leader>di', ':lua require"dap.ui.variables".hover(function () return vim.fn.expand("<cexpr>") end)<CR>', opts }
+map {'n', '<leader>di', ':lua require"dap.ui.variables".visual_hover()<CR', opts }
 
 -- Crates.io
-vim.cmd [[
-  autocmd BufRead Cargo.toml call crates#toggle()
-]]
+-- vim.cmd [[
+--  autocmd BufRead Cargo.toml call crates#toggle()
+-- ]]
+require('crates').setup()
+
+local crates = require('crates')
+local opts = { noremap = true, silent = true }
+
+map{'n', '<leader>rct', ':lua require("crates").toggle()<cr>', opts}
+map{'n', '<leader>rcr', ':lua require("crates").reload()<cr>', opts}
+map{'n', '<leader>rcv', ':lua require("crates").show_versions_popup()<cr>', opts}
+map{'n', '<leader>rcf', ':lua require("crates").show_features_popup()<cr>', opts}
+map{'n', '<leader>rcd', ':lua require("crates").show_dependencies_popup()<cr>', opts}
+map{'n', '<leader>rcu', ':lua require("crates").update_crate()<cr>', opts}
+map{'v', '<leader>rcu', ':lua require("crates").update_crates()<cr>', opts}
+map{'n', '<leader>rca', ':lua require("crates").update_all_crates()<cr>', opts}
+map{'n', '<leader>rcU', ':lua require("crates").upgrade_crate()<cr>', opts}
+map{'v', '<leader>rcU', ':lua require("crates").upgrade_crates()<cr>', opts}
+map{'n', '<leader>rcA', ':lua require("crates").upgrade_all_crates()<cr>', opts}
+map{'n', '<leader>rcH', ':lua require("crates").open_homepage()<cr>', opts}
+map{'n', '<leader>rcR', ':lua require("crates").open_repository()<cr>', opts}
+map{'n', '<leader>rcD', ':lua require("crates").open_documentation()<cr>', opts}
+map{'n', '<leader>rcC', ':lua require("crates").open_crates_io()<cr>', opts}
 
 -- Gundo
 map {'n', '<C-u>', ':GundoToggle<CR>'}
@@ -330,11 +371,8 @@ local nvim_lsp = require'lspconfig'
 local opts = {
     tools = { -- rust-tools options
         autoSetHints = true,
-        hover_with_actions = true,
         inlay_hints = {
-            show_parameter_hints = false,
-            parameter_hints_prefix = "",
-            other_hints_prefix = "",
+	  only_current_line = true,
         },
     },
 
@@ -355,12 +393,24 @@ local opts = {
             }
         }
     },
+    dap = {
+      adapter = {
+        type = "executable",
+        command = "rust-lldb",
+        name = "rt_lldb",
+    },
+  },
 }
 
 require('rust-tools').setup(opts)
 
-map {'n', 'le', ':RustExpandMacro<cr>'}
-map {'n', 'lh', ':RustToggleInlayHints<cr>'}
+map {'n', 're', ':RustExpandMacro<cr>'}
+map {'n', 'rr', ':RustRunnables<cr>'}
+map {'n', 'rth', ':RustToggleInlayHints<cr>'}
+map {'n', 'rh', ':RustHoverActions<cr>'}
+map {'n', 'rco', ':RustOpenCargo<cr>'}
+map {'n', 'rmu', ':RustMoveItemUp<cr>'}
+map {'n', 'rmd', ':RustMoveItemDown<cr>'}
 
 -- Completion Setup
 
@@ -400,6 +450,7 @@ cmp.setup({
   -- Sources
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'crates' },
     { name = 'vsnip' }, -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
