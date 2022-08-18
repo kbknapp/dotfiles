@@ -11,4 +11,4 @@
 [pull]
         rebase = true
 [core]
-        excludesfile = /home/kevin/.gitignore
+        excludesfile = ~/.gitignore
