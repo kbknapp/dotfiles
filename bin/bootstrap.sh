@@ -30,3 +30,8 @@ cp ~/.dotfiles/starship/starship.toml.container ~/.config/starship.toml
 
 # tmux
 cp ~/.dotfiles/tmux/.tmux.conf ~/
+
+# npm
+mkir -p ~/.local/npm-global
+npm config set prefix ~/.local/npm-global
+npm install -g @withgraphite/graphite-cli@latest
