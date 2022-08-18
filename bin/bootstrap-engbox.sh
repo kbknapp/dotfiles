@@ -35,3 +35,24 @@ cp ~/.dotfiles/tmux/.tmux.conf ~/
 mkir -p ~/.local/npm-global
 npm config set prefix ~/.local/npm-global
 npm install -g @withgraphite/graphite-cli@latest
+
+# git
+cp ~/.dotfiles/git/.gitignore ~/
+cat <<EOF > ~/.dotfiles/git/.gitconfig
+[user]
+	email = kevin@seaplane.io
+	name = kbknapp
+[color]
+        ui = true
+[rebase]
+        autosquash = true
+[pull]
+        rebase = true
+[core]
+        excludesfile = ~/.gitignore
+EOF
+cat ~/.dotfiles/git/.gitconfig.delta >> ~/.gitconfig
+
+# SSH
+cp ~/.dotfiles/ssh/rc ~/.ssh/
+chmod +x ~/.ssh/rc
