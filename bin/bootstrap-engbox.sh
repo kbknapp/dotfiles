@@ -32,7 +32,7 @@ cp ~/.dotfiles/starship/starship.toml.container ~/.config/starship.toml
 cp ~/.dotfiles/tmux/.tmux.conf ~/
 
 # npm
-mkir -p ~/.local/npm-global
+mkdir -p ~/.local/npm-global
 npm config set prefix ~/.local/npm-global
 npm install -g @withgraphite/graphite-cli@latest
 
@@ -56,3 +56,5 @@ cat ~/.dotfiles/git/.gitconfig.delta >> ~/.gitconfig
 # SSH
 cp ~/.dotfiles/ssh/rc ~/.ssh/
 chmod +x ~/.ssh/rc
+
+sudo apt install -y  linux-tools-$(uname -r)
