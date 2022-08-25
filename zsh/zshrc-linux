@@ -71,8 +71,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
-export PATH=/usr/local/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin:/usr/bin:/usr/local/bin:/usr/sbin:/usr/local/sbin:/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # ssh
