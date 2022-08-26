@@ -63,8 +63,15 @@ cat <<EOF > ~/.dotfiles/git/.gitconfig
         rebase = true
 [core]
         excludesfile = ~/.gitignore
+[gpg]
+        format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
 EOF
 cat ~/.dotfiles/git/.gitconfig.delta >> ~/.gitconfig
+git config --global user.signingkey "$(ssh-add -L)"
 
 # SSH
 cp ~/.dotfiles/ssh/rc ~/.ssh/
