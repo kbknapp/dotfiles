@@ -1,4 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+DEFAULT_AMD_REMOTE=engbox-amd64-us1
+DEFAULT_ARM_REMOTE=engbox-amd64-us1
+
 mv ~/dotfiles ~/.dotfiles
+mkdir -p ${HOME}/Projects
+mv ${HOME}/eng ${HOME}/Projects/
+ln -s ${HOME}/Projects/eng ${HOME}/eng
+mv ${HOME}/seaplane ${HOME}/Projects/
 
 # neovim
 if [[ "$(uname -m)" == "aarch64" ]]; then
@@ -78,3 +89,16 @@ cp ~/.dotfiles/ssh/rc ~/.ssh/
 chmod +x ~/.ssh/rc
 
 sudo apt install -y  linux-tools-$(uname -r)
+
+# Retstore in flight projects
+if [[ "$(uname -m)" == "aarch64" ]]; then
+  REMOTE=${DEFAULT_AMD_REMOTE}
+else
+  REMOTE=${DEFAULT_ARM_REMOTE}
+fi
+
+if lxc list -f csv ${REMOTE}: | grep -q $(hostname)-xfer ; then
+  lxc file pull -r ${REMOTE}:$(hostname)-xfer/opt/projects.tgz ${HOME}/ || exit 1
+  lxc delete ${REMOTE}:$(hostname)-xfer --force
+  tar xzf ${HOME}/projects.tgz -C ${HOME}/Projects
+fi
