@@ -11,20 +11,6 @@ mv ${HOME}/eng ${HOME}/Projects/
 ln -s ${HOME}/Projects/eng ${HOME}/eng
 mv ${HOME}/seaplane ${HOME}/Projects/
 
-# neovim
-if [[ "$(uname -m)" == "aarch64" ]]; then
-  mkdir -p ~/.build
-  cd ~/.build
-  sudo apt remove neovim -y
-  sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
-  git clone https://github.com/neovim/neovim
-  cd ./neovim
-  git checkout stable
-  make CMAKE_BUILD_TYPE=RelWithDebInfo
-  sudo make install
-  cd
-fi
-
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir -p ~/.config
 cp -r ~/.dotfiles/nvim ~/.config
