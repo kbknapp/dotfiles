@@ -10,6 +10,11 @@ mkdir -p ${HOME}/Projects
 mv ${HOME}/eng ${HOME}/Projects/
 ln -s ${HOME}/Projects/eng ${HOME}/eng
 mv ${HOME}/seaplane ${HOME}/Projects/
+cd ~/eng/
+git sparse-checkout init --cone
+git checkout main
+git sparse-checkout set seaplanet/ planet/spaceplane/ scripts/safecracker/
+cd
 
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir -p ~/.config
