@@ -209,6 +209,9 @@ inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\
 " Simulate CTRL-r
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
+" vim-rooter
+let g:rooter_patterns = ['justfile', 'Makefile', 'Cargo.lock', 'target']
+
 " =============================================================================
 " # Autocommands
 " =============================================================================
