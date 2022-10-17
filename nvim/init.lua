@@ -53,6 +53,7 @@ Plug 'mitchellh/tree-sitter-hcl'
 -- Plug 'L3MON4D3/LuaSnip'
 -- Plug '~/Projects/telescope-luasnip'
 -- Plug 'rafamadriz/friendly-snippets'
+Plug 'NoahTheDuke/vim-just'
 
 -- Colorscheme
 Plug('folke/tokyonight.nvim', {['branch'] = 'main'})
@@ -63,6 +64,9 @@ Plug 'chrisbra/unicode.vim'
 -- Visualize your Undo Tree
 --     -> :GundoToggle           See Undo Tree
 Plug 'sjl/gundo.vim'
+
+-- Run HTTP requests
+Plug('NTBBloodbath/rest.nvim', {['do'] = ':TSInstall http json'})
 
 -- Files / Coding
 Plug 'kyazdani42/nvim-web-devicons'  -- for file icons
@@ -132,12 +136,56 @@ Plug('fatih/vim-go', {['for'] = 'go'})
 
 vim.call('plug#end')
 
+---
+-- PLUGIN CONFIGURATION
+---
+
+-- which-key
 require("which-key").setup()
+
+-- rest.nvim
+require("rest-nvim").setup({
+      -- Open request results in a horizontal split
+      result_split_horizontal = false,
+      -- Keep the http file buffer above|left when split horizontal|vertical
+      result_split_in_place = true,
+      -- Skip SSL verification, useful for unknown certificates
+      skip_ssl_verification = true,
+      -- Encode URL before making request
+      encode_url = true,
+      -- Highlight request on run
+      highlight = {
+        enabled = true,
+        timeout = 150,
+      },
+      result = {
+        -- toggle showing URL, HTTP info, headers at top the of result window
+        show_url = true,
+        show_http_info = true,
+        show_headers = true,
+        -- executables or functions for formatting response body [optional]
+        -- set them to nil if you want to disable them
+        formatters = {
+          json = "jq",
+          html = function(body)
+            return vim.fn.system({"tidy", "-i", "-q", "-"}, body)
+          end
+        },
+      },
+      -- Jump to request line on run
+      jump_to_request = false,
+      env_file = '.env',
+      custom_dynamic_variables = {},
+      yank_dry_run = true,
+    })
+local opts = { noremap = true, silent = true }
+map {'n', '<leader>hr', '<Plug>RestNvim<CR>', opts }
 
 -- python-dap
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 vim.fn.sign_define('DapBreakpoint', {text='🔴', texthl='', numhl=''})
 vim.fn.sign_define('DapStopped', {text='🟢', texthl='', numhl=''})
+local opts = { noremap = true, silent = true }
 map {'n', '<leader>dtm', ':lua require"dap-python".test_method()<CR>', opts }
 map {'n', '<leader>dtc', ':lua require"dap-python".test_class()<CR>', opts }
 map {'n', '<leader>dds', ':lua require"dap-python".debug_selection()<CR>', opts }
@@ -346,6 +394,10 @@ require'nvim-tree'.setup({
       warning = "",
       error = "",
     }
+  },
+  update_focused_file = {
+    enable = true,
+    update_cwd = true,
   },
   -- when moving cursor in the tree, position the cursor at the start of the file on the current line
   hijack_cursor = false,
