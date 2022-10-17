@@ -108,3 +108,4 @@ eval "$(direnv hook zsh)"
 
 export PATH=/usr/lib/linux-tools/5.8.0-63-generic:$PATH
 
+abbrev-alias kcompute='kubectl --context compute-api --namespace compute-api'
