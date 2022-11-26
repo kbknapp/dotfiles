@@ -49,6 +49,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 -- Plug 'norcalli/snippets.nvim'
 Plug 'windwp/nvim-spectre'         -- Search and Replace
+Plug 'cshuaimin/ssr.nvim'          -- Structured Search and Replace
 Plug 'mitchellh/tree-sitter-hcl'
 -- Plug 'L3MON4D3/LuaSnip'
 -- Plug '~/Projects/telescope-luasnip'
@@ -364,6 +365,9 @@ map {'n', '<leader>sr', '<cmd>lua require("spectre").open()<CR>'}
 map {'n', '<leader>srw', "<cmd>lua require('spectre').open_visual({select_word=true})<CR>"} -- search current word
 map {'n', '<leader>sb', "<cmd>lua require('spectre').open_file_search()<cr>"}  -- search in current file
 map {'v', '<leader>r', "<cmd>lua require('spectre').open_visual()<CR>"}
+
+-- SSR
+vim.keymap.set({ "n", "x" }, "<leader>ssr", function() require("ssr").open() end)
 
 -- Configuration for vim-markdown / Goyo
 vim.g.vim_markdown_auto_insert_bullets = false
