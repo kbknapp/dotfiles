@@ -1,2 +1,8 @@
-theme = "onedark"
+theme = "tokyonight"
 
+[editor]
+true-color = true
+
+[keys.normal]
+"space" = {"space" = ":buffer-previous" }
+C-p = "file_picker"
