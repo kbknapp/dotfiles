@@ -34,14 +34,14 @@ Plug 'bitc/vim-bad-whitespace'
 Plug 'kbknapp/badWords'
 Plug 'romgrk/nvim-treesitter-context'
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
-Plug 'nvim-treesitter/playground'
+--Plug 'nvim-treesitter/playground'
 Plug 'godlygeek/tabular'
 Plug 'folke/which-key.nvim'
 Plug 'tpope/vim-repeat' -- Repeat all commands with . not just native
 Plug 'simeji/winresizer' -- Better window resizing with Ctrl+E"
-Plug 'roosta/fzf-folds.vim'
+--Plug 'roosta/fzf-folds.vim'
 Plug 'ggandor/lightspeed.nvim'
-Plug 'andymass/vim-matchup'
+--lug 'andymass/vim-matchup'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'machakann/vim-highlightedyank' -- keep yanked highlighted
 Plug 'nvim-lua/plenary.nvim'
@@ -64,7 +64,7 @@ Plug 'chrisbra/unicode.vim'
 
 -- Visualize your Undo Tree
 --     -> :GundoToggle           See Undo Tree
-Plug 'sjl/gundo.vim'
+--Plug 'sjl/gundo.vim'
 
 -- Run HTTP requests
 Plug('NTBBloodbath/rest.nvim', {['do'] = ':TSInstall http json'})
@@ -90,8 +90,8 @@ Plug('zigtools/zls', {['for'] = 'zig'})
 -- Rust
 --Plug('mhinz/vim-crates', {['for'] = 'rust'})
 Plug 'saecki/crates.nvim'
-Plug('rust-lang/rust.vim', {['for'] = 'rust'})
-Plug 'simrat39/rust-tools.nvim'
+--Plug('rust-lang/rust.vim', {['for'] = 'rust'})
+Plug('simrat39/rust-tools.nvim', {['for'] = 'rust'})
 --Plug 'racer-rust/vim-racer'
 
 -- nvim-lsp based
@@ -102,8 +102,8 @@ Plug 'ray-x/lsp_signature.nvim'        -- Function signatures
 Plug 'hrsh7th/nvim-cmp'                -- Autocompletion framework
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-vsnip'               -- Snippet completion
-Plug 'hrsh7th/vim-vsnip'               -- Snippet Engine
+--Plug 'hrsh7th/cmp-vsnip'               -- Snippet completion
+--Plug 'hrsh7th/vim-vsnip'               -- Snippet Engine
 Plug 'onsails/lspkind-nvim'
 Plug 'hrsh7th/cmp-nvim-lsp'            -- LSP Completion
 Plug 'folke/trouble.nvim'              -- LSP Diagnostics
@@ -123,7 +123,7 @@ Plug('mzlogin/vim-markdown-toc', {['for'] = 'markdown'})
 Plug('plasticboy/vim-markdown', {['for'] = 'markdown'})
 
 -- Leetcode Client
-Plug 'ianding1/leetcode.vim'
+--Plug 'ianding1/leetcode.vim'
 
 -- Git
 Plug 'airblade/vim-gitgutter' -- +,-,~ in gutter
@@ -142,7 +142,8 @@ vim.call('plug#end')
 ---
 
 -- which-key
-require("which-key").setup()
+--require("which-key").setup()
+local wk = require("which-key")
 
 -- rest.nvim
 require("rest-nvim").setup({
@@ -179,34 +180,37 @@ require("rest-nvim").setup({
       custom_dynamic_variables = {},
       yank_dry_run = true,
     })
-local opts = { noremap = true, silent = true }
-map {'n', '<leader>hr', '<Plug>RestNvim<CR>', opts }
+
+wk.register({
+  ["<leader>h"] = {
+    name = "+http",
+    r = { "<Plug>RestNvim<CR>", "REST Nvim" },
+  },
+})
 
 -- python-dap
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 vim.fn.sign_define('DapBreakpoint', {text='🔴', texthl='', numhl=''})
 vim.fn.sign_define('DapStopped', {text='🟢', texthl='', numhl=''})
-local opts = { noremap = true, silent = true }
-map {'n', '<leader>dtm', ':lua require"dap-python".test_method()<CR>', opts }
-map {'n', '<leader>dtc', ':lua require"dap-python".test_class()<CR>', opts }
-map {'n', '<leader>dds', ':lua require"dap-python".debug_selection()<CR>', opts }
-
--- dap
-local opts = { noremap = true, silent = true }
-
-map {'n', '<leader>dd', ':lua require"dap".run_last()<CR>', opts }
-map {'n', '<leader>dr', ':lua require"dap".repl.open({}, "vsplit")<CR><C-w>la', opts }
-map {'n', '<leader>db', ':lua require"dap".toggle_breakpoint()<CR>', opts }
-map {'n', '<leader>dc', ':lua require"dap".continue()<CR>', opts }
-map {'n', '<F9>', ':lua require"dap".continue()<CR>', opts }
-map {'n', '<leader>dsi', ':lua require"dap".step_into()<CR>', opts }
-map {'n', '<F10>', ':lua require"dap".step_into()<CR>', opts }
-map {'n', '<leader>dso',  ':lua require"dap".step_over()<CR>', opts }
-map {'n', '<F11>', ':lua require"dap".step_over()<CR>', opts }
-map {'n', '<leader>dsO', ':lua require"dap".step_out()<CR>', opts }
-map {'n', '<F12>', ':lua require"dap".step_out()<CR>', opts }
-map {'n', '<leader>di', ':lua require"dap.ui.variables".hover(function () return vim.fn.expand("<cexpr>") end)<CR>', opts }
-map {'n', '<leader>di', ':lua require"dap.ui.variables".visual_hover()<CR', opts }
+wk.register({
+  ["<leader>d"] = { name = "+debug" },
+    ["<leader>dp"] = { name = "+python-test" },
+      ["<leader>dpm"] = {":lua require'dap-python'.test_method()<CR>", "Test Method" },
+      ["<leader>dpc"] = {":lua require'dap-python'.test_class()<CR>", "Test Class" },
+      ["<leader>dps"] = {":lua require'dap-python'.debug_selection()<CR>", "Test Selection" },
+    ["<leader>dd"] = { ':lua require"dap".run_last()<CR>', "Run Last" },
+    ["<leader>dr"] = { ':lua require"dap".repl.open({}, "vsplit")<CR><C-w>la', "REPL"},
+    ["<leader>db"] = { ':lua require"dap".toggle_breakpoint()<CR>', "Toggle Breakpoint"},
+    ["<leader>dc"] = {':lua require"dap".continue()<CR>', "Continue"},
+    ["<leader>ds"] = { name = "+step" },
+    ["<leader>dsi"] = {':lua require"dap".step_into()<CR>', "Step In"},
+    ["<leader>dso"] = {':lua require"dap".step_over()<CR>', "Step Over"},
+    ["<leader>dsO"] = {':lua require"dap".step_out()<CR>', "Step Out"},
+})
+map {'n', '<F9>', ':lua require"dap".continue()<CR>'}
+map {'n', '<F10>', ':lua require"dap".step_into()<CR>'}
+map {'n', '<F11>', ':lua require"dap".step_over()<CR>'}
+map {'n', '<F12>', ':lua require"dap".step_out()<CR>'}
 
 -- Crates.io
 -- vim.cmd [[
@@ -215,35 +219,39 @@ map {'n', '<leader>di', ':lua require"dap.ui.variables".visual_hover()<CR', opts
 require('crates').setup()
 
 local crates = require('crates')
-local opts = { noremap = true, silent = true }
 
-map{'n', '<leader>rct', ':lua require("crates").toggle()<cr>', opts}
-map{'n', '<leader>rcr', ':lua require("crates").reload()<cr>', opts}
-map{'n', '<leader>rcv', ':lua require("crates").show_versions_popup()<cr>', opts}
-map{'n', '<leader>rcf', ':lua require("crates").show_features_popup()<cr>', opts}
-map{'n', '<leader>rcd', ':lua require("crates").show_dependencies_popup()<cr>', opts}
-map{'n', '<leader>rcu', ':lua require("crates").update_crate()<cr>', opts}
-map{'v', '<leader>rcu', ':lua require("crates").update_crates()<cr>', opts}
-map{'n', '<leader>rca', ':lua require("crates").update_all_crates()<cr>', opts}
-map{'n', '<leader>rcU', ':lua require("crates").upgrade_crate()<cr>', opts}
-map{'v', '<leader>rcU', ':lua require("crates").upgrade_crates()<cr>', opts}
-map{'n', '<leader>rcA', ':lua require("crates").upgrade_all_crates()<cr>', opts}
-map{'n', '<leader>rcH', ':lua require("crates").open_homepage()<cr>', opts}
-map{'n', '<leader>rcR', ':lua require("crates").open_repository()<cr>', opts}
-map{'n', '<leader>rcD', ':lua require("crates").open_documentation()<cr>', opts}
-map{'n', '<leader>rcC', ':lua require("crates").open_crates_io()<cr>', opts}
+wk.register({
+  ["<leader>r"] = { name = "+rust" },
+    ["<leader>rc"] = { name = "+crates" },
+      ["<leader>rct"] = {':lua require("crates").toggle()<cr>', "Toggle"},
+      ["<leader>rcr"] = {':lua require("crates").reload()<cr>', "Reload"},
+      ["<leader>rcv"] = {':lua require("crates").show_versions_popup()<cr>', "Version Popup"},
+      ["<leader>rcf"] = {':lua require("crates").show_features_popup()<cr>', "Features Popup"},
+      ["<leader>rcd"] = {':lua require("crates").show_dependencies_popup()<cr>', "Deps Popup"},
+      ["<leader>rcu"] = {':lua require("crates").update_crate()<cr>', "Update Crate"},
+      ["<leader>rca"] = {':lua require("crates").update_all_crates()<cr>', "Update All Crates"},
+      ["<leader>rcU"] = {':lua require("crates").upgrade_crate()<cr>', "Upgrade Crate"},
+      ["<leader>rcA"] = {':lua require("crates").upgrade_all_crates()<cr>', "Upgrade All Crates"},
+      ["<leader>rcH"] = {':lua require("crates").open_homepage()<cr>', "Homepage"},
+      ["<leader>rcR"] = {':lua require("crates").open_repository()<cr>', "Repository"},
+      ["<leader>rcD"] = {':lua require("crates").open_documentation()<cr>', "Docs"},
+      ["<leader>rcC"] = {':lua require("crates").open_crates_io()<cr>', "Crates.io"},
+})
 
 -- Gundo
-map {'n', '<C-u>', ':GundoToggle<CR>'}
-vim.opt.undofile = true     -- persist the undo-tree between sessions
-vim.opt.undolevels = 100
-if vim.fn.has('python3') == 1 then
-    vim.g.gundo_prefer_python3 = true
-end
+--map {'n', '<C-u>', ':GundoToggle<CR>'}
+--vim.opt.undofile = true     -- persist the undo-tree between sessions
+--vim.opt.undolevels = 100
+--if vim.fn.has('python3') == 1 then
+--    vim.g.gundo_prefer_python3 = true
+--end
 
 -- Folds
-map {'n', '<leader>zz', ':set foldmethod=syntax<cr>', silent = true }
-map {'n', '<leader>fz', ':Folds<cr>'}
+wk.register({
+  ["<leader>z"] = { name = "+fold" },
+  ["<leader>zz"] = {':set foldmethod=syntax<cr>', "Fold Syntax"},
+  ["<leader>zf"] = {':Folds<cr>', "Folds Plug"},
+})
 
 -- Kommentary
 require('kommentary.config').configure_language("rust", {
@@ -252,12 +260,15 @@ require('kommentary.config').configure_language("rust", {
 map {'n', '<C-/>', 'gcc'}
 
 -- Leetcode
-vim.g.leetcode_browser = 'firefox'
-vim.g.leetcode_solution_filetype = 'rust'
-vim.g.leetcode_hide_paid_only = 1
+--vim.g.leetcode_browser = 'firefox'
+--vim.g.leetcode_solution_filetype = 'rust'
+--vim.g.leetcode_hide_paid_only = 1
 
 -- Pull up magit
-map {'n', '<leader>gg', ':silent ! emacs -e magit-status &<CR>'}
+wk.register({
+  ["<leader>g"] = { name = "+git" },
+  ["<leader>gg"] = {':silent ! emacs -e magit-status &<CR>', "magit"},
+})
 
 -- Surround
 vim.g.surround_no_mappings = 1
@@ -273,25 +284,31 @@ map {'n', 'gs', '<Plug>VSurround'}
 map {'n', 'gS', '<Plug>VgSurround'}
 
 -- Tabular
-map {'n', '<leader>t=', ':Tab /=<CR>'}
-map {'v', '<leader>t=', ':Tab /=<CR>'}
-map {'n', '<leader>t"', ':Tab /=<CR>'}
-map {'v', '<leader>t"', ':Tab /=<CR>'}
-map {'n', "<leader>t'", ':Tab /=<CR>'}
-map {'v', "<leader>t'", ':Tab /=<CR>'}
-map {'n', '<leader>t:', ':Tab /:\\zs<CR>'}
-map {'v', '<leader>t:', ':Tab /:\\zs<CR>'}
+wk.register({
+  ["<leader>a"] = { name = "+tabs" },
+    ["<leader>a="] = {':Tab /=<CR>', "Align on ="},
+    ["<leader>a="] = {':Tab /=<CR>', "Align on =", mode = "v"},
+    ['<leader>a"'] = {':Tab /"<CR>', 'Align on "'},
+    ['<leader>a"'] = {':Tab /"<CR>', 'Align on "', mode = "v"},
+    ["<leader>a'"] = {":Tab /'<CR>", "Align on '"},
+    ["<leader>a'"] = {":Tab /'<CR>", "Align on '", mode = "v"},
+    ["<leader>a:"] = {":Tab /:\\zs<CR>", "Align on :"},
+    ["<leader>a:"] = {":Tab /:\\zs<CR>", "Align on :", mode = "v"},
+})
 
 -- Trouble
 require("trouble").setup { }
 local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
-map {'n', '<leader>ee', ':TroubleToggle<CR>'}
-map {'n', '<leader>ed', ':TroubleToggle document_diagnostics<CR>'}
-map {'n', '<leader>ew', ':TroubleToggle workspace_diagnostics<CR>'}
-map {'n', '<leader>eq', ':TroubleToggle quickfix<CR>'}
-map {'n', '<leader>el', ':TroubleToggle loclist<CR>'}
-map {'n', '<leader>eL', ':TroubleToggle lsp_references<CR>'}
+wk.register({
+  ["<leader>e"] = { name = "+errors" },
+    ["<leader>ee"] = {':TroubleToggle<CR>', "Trouble Toggle"},
+    ["<leader>ed"] = {':TroubleToggle document_diagnostics<CR>', "Document Diagnostics"},
+    ["<leader>ew"] = {':TroubleToggle workspace_diagnostics<CR>', "Workspace Diagnostics"},
+    ["<leader>eq"] = {':TroubleToggle quickfix<CR>', "Quickfix"},
+    ["<leader>el"] = {':TroubleToggle loclist<CR>', "Loclist"},
+    ["<leader>eL"] = {':TroubleToggle lsp_references<CR>', "LSP Refs"},
+})
 
 -- Telescope
 require('telescope').setup{
@@ -345,29 +362,61 @@ require('telescope').setup{
 
 require('telescope') -- .load_extension('luasnip')
 
-map {'n', '<leader>ff', '<cmd>Telescope find_files<CR>'}
-map {'n', '<C-p>', '<cmd>Telescope find_files<CR>'}
-map {'n', '<leader>/', '<cmd>Telescope live_grep<CR>'}
-map {'n', '<leader>fg', '<cmd>Telescope live_grep<CR>'}
-map {'n', '<leader>ss', '<cmd>Telescope live_grep<CR>'}
--- map {'n', '<leader>sn', '<cmd>Telescope luasnip<CR>'}
-map {'n', '<leader>fb', '<cmd>Telescope buffers<CR>'}
-map {'n', '<leader>bb', '<cmd>Telescope buffers<CR>'}
-map {'n', '<leader>fh', '<cmd>Telescope help_tags<CR>'}
-map {'n', '<leader>ft', '<cmd>Telescope tags<CR>'}
-map {'n', '<leader>fm', '<cmd>Telescope marks<CR>'}
-map {'n', '<leader>fr', '<cmd>Telescope registers<CR>'}
-map {'n', '<leader>fe', '<cmd>Telescope lsp_document_diagnostics<CR>'}
-map {'n', '<leader>fee', '<cmd>Telescope lsp_workspace_documents<CR>'}
+map {'n', '<C-p>', '<cmd>lua require"telescope.builtin".find_files{}<CR>'}
+wk.register({
+  ["<leader>/"] = {'<cmd>lua require"telescope.builtin".live_grep{}<CR>', "Live Grep"},
+  ["<leader>cd"] = {'<cmd>lua require"telescope.builtin".lsp_definitions{}<CR>', "Definitions"},
+  ["<leader>gd"] = {'<cmd>lua require"telescope.builtin".lsp_definitions{}<CR>', "Definitions"},
+  ["<leader>b"] = {name = "+buffer"},
+    ["<leader>bb"] = {'<cmd>lua require"telescope.builtin".buffers{}<CR>', "Buffers"},
+  ["<leader>f"] = { name = "+find" },
+    ["<leader>fts"] = {'<cmd>lua require"telescope.builtin".treesitter{}<CR>', "Treesitter"},
+    ["<leader>ff"] = {'<cmd>lua require"telescope.builtin".find_files{}<CR>', "Files"},
+    ["<leader>fg"] = {'<cmd>lua require"telescope.builtin".live_grep{}<CR>', "Live Grep"},
+    ["<leader>fb"] = {'<cmd>lua require"telescope.builtin".buffers{}<CR>', "Buffers"},
+    ["<leader>ft"] = {'<cmd>lua require"telescope.builtin".tags{}<CR>', "Tags"},
+    ["<leader>fm"] = {'<cmd>lua require"telescope.builtin".marks{}<CR>', "Marks"},
+    ["<leader>fr"] = {'<cmd>lua require"telescope.builtin".registers{}<CR>', "Registers"},
+    ["<leader>fq"] = {'<cmd>lua require"telescope.builtin".quickfix{}<CR>', "Quickfix"},
+    ["<leader>fj"] = {'<cmd>lua require"telescope.builtin".jumplist{}<CR>', "Jumplist"},
+    ["<leader>fL"] = {'<cmd>lua require"telescope.builtin".loclist{}<CR>', "Loclist"},
+    ["<leader>fl"] = {name = "+lsp"},
+      ["<leader>flr"] = {'<cmd>lua require"telescope.builtin".lsp_references{}<CR>', "References"},
+      ["<leader>flc"] = {name = "+calls"},
+        ["<leader>flci"] = {'<cmd>lua require"telescope.builtin".lsp_incoming_calls{}<CR>', "Incoming"},
+        ["<leader>flco"] = {'<cmd>lua require"telescope.builtin".lsp_outgoing_calls{}<CR>', "Outgoing"},
+      ["<leader>fls"] = {name = "+symbols"},
+        ["<leader>flsb"] = {'<cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>', "Document"},
+        ["<leader>flsw"] = {'<cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>', "Workspace"},
+        ["<leader>flsW"] = {'<cmd>lua require"telescope.builtin".lsp_dynamic_workspace_symbols{}<CR>', "Workspace Dynamic"},
+      ["<leader>fle"] = {'<cmd>lua require"telescope.builtin".diagnostics{}<CR>', "Diagnostics"},
+      ["<leader>fli"] = {'<cmd>lua require"telescope.builtin".lsp_implementations{}<CR>', "Implementations"},
+      ["<leader>fld"] = {'<cmd>lua require"telescope.builtin".lsp_definitions{}<CR>', "Definitions"},
+      ["<leader>fltd"] = {'<cmd>lua require"telescope.builtin".lsp_type_definitions{}<CR>', "Type Definitions"},
+    ["<leader>fg"] = {name = "+git"},
+      ["<leader>fgl"] = {'<cmd>lua require"telescope.builtin".git_commits{}<CR>', "Log"},
+      ["<leader>fgL"] = {'<cmd>lua require"telescope.builtin".git_bcommits{}<CR>', "Log (buffer)"},
+      ["<leader>fgb"] = {'<cmd>lua require"telescope.builtin".git_branches{}<CR>', "Branches"},
+      ["<leader>fgs"] = {'<cmd>lua require"telescope.builtin".git_status{}<CR>', "Status"},
+      ["<leader>fgz"] = {'<cmd>lua require"telescope.builtin".git_stash{}<CR>', "Stash"},
+})
 
 -- Spectre
-map {'n', '<leader>sr', '<cmd>lua require("spectre").open()<CR>'}
-map {'n', '<leader>srw', "<cmd>lua require('spectre').open_visual({select_word=true})<CR>"} -- search current word
-map {'n', '<leader>sb', "<cmd>lua require('spectre').open_file_search()<cr>"}  -- search in current file
-map {'v', '<leader>r', "<cmd>lua require('spectre').open_visual()<CR>"}
+wk.register({
+  ["<leader>s"] = {name = "+search"},
+    ["<leader>ss"] = {'<cmd>lua require"telescope.builtin".live_grep{}<CR>', "Live Grep"},
+    ["<leader>sr"] = {'<cmd>lua require("spectre").open()<CR>', "Spectre"},
+    ["<leader>sw"] = {"<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Spectre (Word)"},
+    ["<leader>sb"] = {"<cmd>lua require('spectre').open_file_search()<cr>", "Spectre (Buffer)"},
+})
+
+--map {'v', '<leader>r', "<cmd>lua require('spectre').open_visual()<CR>"}
 
 -- SSR
-vim.keymap.set({ "n", "x" }, "<leader>ssr", function() require("ssr").open() end)
+wk.register({
+  ["<leader>S"] = { function() require("ssr").open() end, "AST Search", mode = "n"},
+  ["<leader>S"] = { function() require("ssr").open() end, "AST Search", mode = "x"},
+})
 
 -- Configuration for vim-markdown / Goyo
 vim.g.vim_markdown_auto_insert_bullets = false
@@ -385,8 +434,11 @@ vim.g.vim_markdown_toml_frontmatter = true
 
 -- nvim-tree
 map {'n', '<C-n>', ':NvimTreeToggle<CR>'}
-map {'n', '<leader>r', ':NvimTreeRefresh<CR>'}
-map {'n', '<leader>n', ':NvimTreeFindFile<CR>'}
+wk.register({
+  ["<leader>n"] = { name = "+NVIMTree"},
+    ["<leader>nr"] = {':NvimTreeRefresh<CR>', "Refresh"},
+    ["<leader>nf"] = {':NvimTreeFindFile<CR>', "Find Files"},
+})
 
 require'nvim-tree'.setup({
   -- will show lsp diagnostics in the signcolumn.
@@ -424,12 +476,26 @@ require'nvim-tree'.setup({
 
 local nvim_lsp = require'lspconfig'
 
-local opts = {
+require('rust-tools').setup({
     tools = { -- rust-tools options
-        autoSetHints = true,
         inlay_hints = {
 	  only_current_line = true,
         },
+
+        hover_actions = {
+            -- the border that is used for the hover window
+            -- see vim.api.nvim_open_win()
+            border = {
+              {"╭", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╮", "FloatBorder"},
+              {"│", "FloatBorder"},
+              {"╯", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╰", "FloatBorder"},
+              {"│", "FloatBorder"}
+            },
+        }
     },
 
     -- all the opts to send to nvim-lspconfig
@@ -454,22 +520,22 @@ local opts = {
         type = "executable",
         command = "rust-lldb",
         name = "rt_lldb",
-    },
-  },
-}
+      }
+    }
+})
 
-require('rust-tools').setup(opts)
-
-map {'n', 're', ':RustExpandMacro<cr>'}
-map {'n', 'rr', ':RustRunnables<cr>'}
-map {'n', 'rth', ':RustToggleInlayHints<cr>'}
-map {'n', 'rh', ':RustHoverActions<cr>'}
-map {'n', 'rco', ':RustOpenCargo<cr>'}
-map {'n', 'rmu', ':RustMoveItemUp<cr>'}
-map {'n', 'rmd', ':RustMoveItemDown<cr>'}
+wk.register({
+  ["<leader>re"] = {':RustExpandMacro<cr>', "Expand Macro"},
+  ["<leader>rr"] = {':RustRunnables<cr>', "Runnables"},
+  ["<leader>rh"] = {':RustToggleInlayHints<cr>', "Inlay Hints"},
+  ["<leader>ra"] = {':RustHoverActions<cr>', "Hover Action"},
+  ["<leader>rc"] = {':RustOpenCargo<cr>', "Open Cargo"},
+  ["<leader>rm"] = {name = "+move"},
+  ["<leader>rmu"] = {':RustMoveItemUp<cr>', "Up"},
+  ["<leader>rmd"] = {':RustMoveItemDown<cr>', "Down"},
+})
 
 -- Completion Setup
-
 local cmp = require'cmp'
 
 cmp.setup({
@@ -573,21 +639,23 @@ map {'n', '<C-b>', '<C-]>'}
 map {'n', "<C-'>", '<C-O>'}
 
 -- Open hotkeys
-map {'n', '<leader>bp', ':bp<CR>', noremap = false}
-map {'n', '<leader>bn', ':bn<CR>', noremap = false}
-map {'n', '<leader>bw', ':Bwipeout!<CR>', noremap = false}
-map {'n', '<leader>bk', ':Bdelete!<CR>', noremap = false}
-map {'n', '<leader>bW', ':wa :bufdo :Bwipeout!<CR>', noremap = false}
--- Close all buffers but re-open the most recent...i.e. all but current one
-map {'n', '<leader>bK', ':wa :%bdelete!<CR><C-O>:Bd#<CR>', noremap = false}
+wk.register({
+  ["<leader>bp"] = {':bp<CR>', "Previous", noremap = false},
+  ["<leader>bn"] = {':bn<CR>', "Next", noremap = false},
+  ["<leader>bw"] = {':Bwipeout!<CR>', "Wipeout", noremap = false},
+  ["<leader>bk"] = {':Bdelete!<CR>', "Delete", noremap = false},
+  ["<leader>bW"] = {':wa :bufdo :Bwipeout!<CR>', "Wipeout All", noremap = false},
+  ["<leader>bK"] = {':wa :%bdelete!<CR><C-O>:Bd#<CR>', "Kill All (reopen current)", noremap = false},
+})
 
 -- Quick-save
-map {'n', '<leader>w', ':w<CR>', noremap = false}
+wk.register({
+  ["<leader>w"] = {':w<CR>', "Save", noremap = false},
+})
 
 -- Code navigation shortcuts as found in :help lsp 
 -- (<silent>?)
 map {'n', "<c-]>", '<cmd>lua vim.lsp.buf.definition()<CR>'}
-map {'n', "<leader>cd", '<cmd>lua vim.lsp.buf.definition()<CR>'}
 map {'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>'}
 map {'n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>'}
 map {'n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>'}
@@ -597,7 +665,7 @@ map {'n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>'}
 map {'n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>'}
 -- rust-analyzer does not yet support goto declaration
 -- re-mapped `gd` to definition
-map {'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>'}
+--map {'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>'}
 -- Goto previous/next diagnostic warning/error
 map {'n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'}
 map {'n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'}
@@ -607,71 +675,6 @@ map {'n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'}
 -- Always run rustfmt is applicable and always use stable.
 vim.g.rustfmt_autosave_if_config_present = 1
 vim.g.rustfmt_command = "rustfmt +stable"
-
-require('rust-tools').setup({
-    tools = { -- rust-tools options
-        -- automatically set inlay hints (type hints)
-        -- There is an issue due to which the hints are not applied on the first
-        -- opened file. For now, write to the file to trigger a reapplication of
-        -- the hints or just run :RustSetInlayHints.
-        -- default: true
-        autoSetHints = true,
-
-        runnables = {
-            -- whether to use telescope for selection menu or not
-            -- default: true
-            use_telescope = true
-
-            -- rest of the opts are forwarded to telescope
-        },
-
-        inlay_hints = {
-            -- wheter to show parameter hints with the inlay hints or not
-            -- default: true
-            show_parameter_hints = true,
-
-            -- prefix for parameter hints
-            -- default: "<-"
-            parameter_hints_prefix = "<-",
-
-            -- prefix for all the other hints (type, chaining)
-            -- default: "=>"
-            other_hints_prefix  = "=>",
-
-            -- whether to align to the lenght of the longest line in the file
-            max_len_align = false,
-
-            -- padding from the left if max_len_align is true
-            max_len_align_padding = 1,
-
-            -- whether to align to the extreme right or not
-            right_align = false,
-
-            -- padding from the right if right_align is true
-            right_align_padding = 7,
-        },
-
-        hover_actions = {
-            -- the border that is used for the hover window
-            -- see vim.api.nvim_open_win()
-            border = {
-              {"╭", "FloatBorder"},
-              {"─", "FloatBorder"},
-              {"╮", "FloatBorder"},
-              {"│", "FloatBorder"},
-              {"╯", "FloatBorder"},
-              {"─", "FloatBorder"},
-              {"╰", "FloatBorder"},
-              {"│", "FloatBorder"}
-            },
-        }
-    },
-
-    -- all the opts to send to nvim-lspconfig
-    -- these override the defaults set by rust-tools.nvim
-    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
-    server = {}, -- rust-analyer options
-})
 
 -- Options dark, darker, cool, deep, warm, warmer
 require('onedark').setup {
@@ -705,8 +708,6 @@ require('lualine').setup {
 }
 
 -- Symbols-Outline (Tagbar)
-map {'n', '<C-s>', ':SymbolsOutline<CR>'}
-map {'n', '<leader>o', ':SymbolsOutline<CR>'}
 vim.g.symbols_outline = {
     highlight_hovered_item = false,
     show_guides = true,
@@ -753,6 +754,10 @@ vim.g.symbols_outline = {
     }
 }
 
+map {'n', '<C-s>', ':SymbolsOutline<CR>'}
+wk.register({
+  ["<leader>oo"] = {':SymbolsOutline<CR>', "Symbol Outline"},
+})
 -- lspkind
 --[[ require('lspkind').init({
     -- enables text annotations
@@ -791,7 +796,10 @@ vim.g.symbols_outline = {
 vim.g.neovide_cursor_vfx_mode = "railgun"
 
 -- Toggle cursor line
-map {'n', '<leader>hl', ':set cursorline! cursorcolumn!<CR>'}
+wk.register({
+  ["<leader>h"] = {name = "+highlight"},
+  ["<leader>hl"] = {':set cursorline! cursorcolumn!<CR>', "Cross"},
+})
 
 -- Keybindings
 --
@@ -816,7 +824,9 @@ map {'n', 'k', 'gk'}
 map {'n', '<leader><leader>', '<c-^>'}
 
 -- shows/hides hidden characters
-map {'n', '<leader>,', ':set invlist<cr>'}
+wk.register({
+  ["<leader>,"] = {':set invlist<cr>', "Hidden Chars"},
+})
 
 --  shows stats
 map {'n', '<leader>q', 'g<c-g>'}
@@ -834,7 +844,10 @@ map {'n', '<leader>sc', ':e ~/.config/nvim/init.lua<CR>'}
 -- Terminal Mode
 map {'n', '<C-t>', ':terminal<CR>'}
 map {'i', '<C-t>', ':terminal<CR>'}
-map {'n', '<leader>oe', ':terminal<CR>'}
+wk.register({
+  ["<leader>o"] = {name = "+open"},
+  ["<leader>ot"] = {':terminal<CR>', "Terminal"},
+})
 
 -- Use ESC normally
 map {'t', '<Esc>', '<C-\\><C-n>'}
@@ -855,7 +868,6 @@ map {'t', '<C-l>', '<C-\\><C-N><C-w>l'}
 map {'v', '<', '<gv'}
 map {'v', '>', '>gv'}
 
-
 -- Search results centered please
 map {'n', 'n', 'nzz', silent = true}
 map {'n', 'N', 'Nzz', silent = true}
@@ -868,9 +880,12 @@ map {'n', '?', '?\\v'}
 map {'n', '/', '/\\v'}
 map {'n', '%s', '%sm/'}
 
-map {'n', '<leader>te', ':tabnew<CR>', silent = true}
-map {'n', '<leader>tn', ':tabnext<CR>', silent = true}
-map {'n', '<leader>tp', ':tabprevious<CR>', silent = true}
+wk.register({
+  ["<leader>t"] = { name = "+tab" },
+  ["<leader>te"] = {':tabnew<CR>', "New"},
+  ["<leader>tn"] = {':tabnext<CR>', "Next"},
+  ["<leader>tp"] = {':tabprevious<CR>', "Previous"},
+})
 
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'
