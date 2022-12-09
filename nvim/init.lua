@@ -34,37 +34,25 @@ Plug 'bitc/vim-bad-whitespace'
 Plug 'kbknapp/badWords'
 Plug 'romgrk/nvim-treesitter-context'
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
---Plug 'nvim-treesitter/playground'
 Plug 'godlygeek/tabular'
 Plug 'folke/which-key.nvim'
 Plug 'tpope/vim-repeat' -- Repeat all commands with . not just native
 Plug 'simeji/winresizer' -- Better window resizing with Ctrl+E"
---Plug 'roosta/fzf-folds.vim'
 Plug 'ggandor/lightspeed.nvim'
---lug 'andymass/vim-matchup'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'machakann/vim-highlightedyank' -- keep yanked highlighted
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
--- Plug 'norcalli/snippets.nvim'
 Plug 'windwp/nvim-spectre'         -- Search and Replace
 Plug 'cshuaimin/ssr.nvim'          -- Structured Search and Replace
 Plug 'mitchellh/tree-sitter-hcl'
--- Plug 'L3MON4D3/LuaSnip'
--- Plug '~/Projects/telescope-luasnip'
--- Plug 'rafamadriz/friendly-snippets'
 Plug 'NoahTheDuke/vim-just'
+Plug 'chrisbra/unicode.vim'
 
 -- Colorscheme
 Plug('folke/tokyonight.nvim', {['branch'] = 'main'})
 Plug 'navarasu/onedark.nvim'
-
-Plug 'chrisbra/unicode.vim'
-
--- Visualize your Undo Tree
---     -> :GundoToggle           See Undo Tree
---Plug 'sjl/gundo.vim'
 
 -- Run HTTP requests
 Plug('NTBBloodbath/rest.nvim', {['do'] = ':TSInstall http json'})
@@ -88,7 +76,6 @@ Plug('ziglang/zig.vim', {['for'] = 'zig'})
 Plug('zigtools/zls', {['for'] = 'zig'})
 
 -- Rust
---Plug('mhinz/vim-crates', {['for'] = 'rust'})
 Plug 'saecki/crates.nvim'
 --Plug('rust-lang/rust.vim', {['for'] = 'rust'})
 Plug('simrat39/rust-tools.nvim', {['for'] = 'rust'})
@@ -102,8 +89,8 @@ Plug 'ray-x/lsp_signature.nvim'        -- Function signatures
 Plug 'hrsh7th/nvim-cmp'                -- Autocompletion framework
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
---Plug 'hrsh7th/cmp-vsnip'               -- Snippet completion
---Plug 'hrsh7th/vim-vsnip'               -- Snippet Engine
+Plug 'hrsh7th/cmp-vsnip'               -- Snippet completion
+Plug 'hrsh7th/vim-vsnip'               -- Snippet Engine
 Plug 'onsails/lspkind-nvim'
 Plug 'hrsh7th/cmp-nvim-lsp'            -- LSP Completion
 Plug 'folke/trouble.nvim'              -- LSP Diagnostics
@@ -474,28 +461,15 @@ require'nvim-tree'.setup({
 
 -- nvim_lsp Setup
 
-local nvim_lsp = require'lspconfig'
+--local nvim_lsp = require'lspconfig'
+require'lspconfig'.rust_analyzer.setup{}
 
 require('rust-tools').setup({
     tools = { -- rust-tools options
         inlay_hints = {
+          auto = false,
 	  only_current_line = true,
         },
-
-        hover_actions = {
-            -- the border that is used for the hover window
-            -- see vim.api.nvim_open_win()
-            border = {
-              {"╭", "FloatBorder"},
-              {"─", "FloatBorder"},
-              {"╮", "FloatBorder"},
-              {"│", "FloatBorder"},
-              {"╯", "FloatBorder"},
-              {"─", "FloatBorder"},
-              {"╰", "FloatBorder"},
-              {"│", "FloatBorder"}
-            },
-        }
     },
 
     -- all the opts to send to nvim-lspconfig
@@ -889,3 +863,6 @@ wk.register({
 
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'
+-- Treesitter
+require'nvim-treesitter.configs'.setup{highlight={enable=true}, auto_install = true}
+

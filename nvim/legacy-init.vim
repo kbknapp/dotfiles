@@ -61,8 +61,8 @@ set updatetime=300
 autocmd CursorHold * lua vim.diagnostic.open_float(0, {focusable = false})
 
 " Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
+""autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+""\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
 " =============================================================================
 " # Editor settings
@@ -248,7 +248,7 @@ autocmd BufRead *.xlsx.axlsx set filetype=ruby
 autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
 
 " Flag bad whitespace
-au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h,*.md match BadWhitespace /\s\+$/
 au BufNewFile,BufRead *.rs setlocal colorcolumn=100
 au BufNewFile,BufRead *.py setlocal colorcolumn=80
 au BufNewFile,BufReadPost *.py setlocal foldmethod=indent
