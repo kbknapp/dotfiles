@@ -639,7 +639,7 @@ map {'n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>'}
 map {'n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>'}
 -- rust-analyzer does not yet support goto declaration
 -- re-mapped `gd` to definition
---map {'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>'}
+map {'n', 'gd', '<cmd>lua require"telescope.builtin".lsp_definitions{}<CR>'}
 -- Goto previous/next diagnostic warning/error
 map {'n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'}
 map {'n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'}
@@ -863,6 +863,57 @@ wk.register({
 
 -- Source existing nvim config
 vim.cmd 'source ~/.config/nvim/legacy-init.vim'
+
+-- --
+-- Autocommands
+-- --
+
+-- Format on save
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+-- Rust-tags support
+vim.cmd [[autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi]]
+vim.cmd [[autocmd BufWritePost *.rs :silent! exec '!rusty-tags vi --quiet --start-dir=' . expand('%:p:h') . '&' | redraw!]]
+
+-- Prevent accidental writes to buffers that shouldn't be edited
+vim.cmd [[autocmd BufRead *.orig set readonly]]
+vim.cmd [[autocmd BufRead *.pacnew set readonly]]
+
+-- Leave paste mode when leaving insert mode
+vim.cmd [[autocmd InsertLeave * set nopaste]]
+
+-- Auto-make less files on save
+vim.cmd [[autocmd BufWritePost *.less if filereadable("Makefile") | make | endif]]
+
+-- Help filetype detection
+vim.cmd [[autocmd BufRead *.plot set filetype=gnuplot]]
+vim.cmd [[autocmd BufRead *.md set filetype=markdown]]
+vim.cmd [[autocmd BufRead *.lds set filetype=ld]]
+vim.cmd [[autocmd BufRead *.tex set filetype=tex]]
+vim.cmd [[autocmd BufRead *.trm set filetype=c]]
+vim.cmd [[autocmd BufRead *.xlsx.axlsx set filetype=ruby]]
+
+-- Flag bad whitespace
+vim.cmd [[au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h,*.md match BadWhitespace /\s\+$/]]
+vim.cmd [[au BufNewFile,BufRead *.rs setlocal colorcolumn=100]]
+vim.cmd [[au BufNewFile,BufRead *.py setlocal colorcolumn=80]]
+vim.cmd [[au BufNewFile,BufReadPost *.py setlocal foldmethod=indent]]
+vim.cmd [[au BufNewFile,BufReadPost *.rs setlocal foldmethod=syntax]]
+
+-- Script plugins
+vim.cmd [[autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim]]
+
+-- Jump to last edit position on opening file
+-- https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+vim.cmd [[au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
+
+
+-- Markdown Help
+vim.cmd [[autocmd FileType markdown set cursorline]]
+vim.cmd [[autocmd FileType markdown set conceallevel=2]]
+vim.cmd [[autocmd FileType markdown set linebreak]]
+vim.cmd [[autocmd FileType markdown setlocal scrolloff=12]]
+vim.cmd [[autocmd FileType markdown setlocal spell spelllang=en_us]]
+
 -- Treesitter
 require'nvim-treesitter.configs'.setup{highlight={enable=true}, auto_install = true}
 

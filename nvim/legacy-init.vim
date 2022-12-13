@@ -212,47 +212,6 @@ tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 " vim-rooter
 let g:rooter_patterns = ['justfile', 'Makefile', 'Cargo.lock', 'target']
 
-" =============================================================================
-" # Autocommands
-" =============================================================================
-
-" Rust-tags support
-autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
-autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
-
-" Prevent accidental writes to buffers that shouldn't be edited
-autocmd BufRead *.orig set readonly
-autocmd BufRead *.pacnew set readonly
-
-" Leave paste mode when leaving insert mode
-autocmd InsertLeave * set nopaste
-
-" Jump to last edit position on opening file
-if has("autocmd")
-  " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
-  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-" Auto-make less files on save
-autocmd BufWritePost *.less if filereadable("Makefile") | make | endif
-
-" Help filetype detection
-autocmd BufRead *.plot set filetype=gnuplot
-autocmd BufRead *.md set filetype=markdown
-autocmd BufRead *.lds set filetype=ld
-autocmd BufRead *.tex set filetype=tex
-autocmd BufRead *.trm set filetype=c
-autocmd BufRead *.xlsx.axlsx set filetype=ruby
-
-" Script plugins
-autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
-
-" Flag bad whitespace
-au BufRead,BufNewFile *.rs,*.py,*.pyw,*.c,*.h,*.md match BadWhitespace /\s\+$/
-au BufNewFile,BufRead *.rs setlocal colorcolumn=100
-au BufNewFile,BufRead *.py setlocal colorcolumn=80
-au BufNewFile,BufReadPost *.py setlocal foldmethod=indent
-au BufNewFile,BufReadPost *.rs setlocal foldmethod=syntax
 " Use space to toggle folds under cursor
 nnoremap <silent> <leader>z @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <silent> zf @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -267,13 +226,6 @@ runtime! include/spacing/four.vim
 
 " Make syntax highlighting more efficient.
 syntax sync fromstart
-
-" Markdown Help
-autocmd FileType markdown set cursorline
-autocmd FileType markdown set conceallevel=2
-autocmd FileType markdown set linebreak
-autocmd FileType markdown setlocal scrolloff=12
-autocmd FileType markdown setlocal spell spelllang=en_us
 
 " =============================================================================
 " # Footer
