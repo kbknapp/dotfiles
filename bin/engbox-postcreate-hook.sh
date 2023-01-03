@@ -2,20 +2,35 @@
 
 set -euo pipefail
 
-DEFAULT_AMD_REMOTE=engbox-amd64-us1
-DEFAULT_ARM_REMOTE=engbox-amd64-us1
+sudo apt install -y  linux-tools-$(uname -r) python3-poetry python3-pip \
+  python3-cachecontrol llvm clang libxcb1-dev libxcb-shape0-dev \
+  libxcb-xfixes0-dev lldb lld linux-tools-common linux-tools-generic curl \
+  pkg-config build-essential protobuf-compiler direnv
 
-mv ~/dotfiles ~/.dotfiles
-mkdir -p ${HOME}/Projects
-mv ${HOME}/eng ${HOME}/Projects/
-ln -s ${HOME}/Projects/eng ${HOME}/eng
-mv ${HOME}/seaplane ${HOME}/Projects/
-cd ~/eng/
+# Python
+pip3 install --user --upgrade black
+
+# Repos
+cd
+git clone git@github.com:kbknapp/baseline
+mkdir -p ~/Projects
+cd ~/Projects/
+git clone git@github.com:seaplane-io/eng
 git sparse-checkout init --cone
 git checkout main
 git sparse-checkout set seaplanet/ planet/spaceplane/ scripts/safecracker/
+ln -s ~/Projects/eng ~/eng
+git clone git@github.com:seaplane-io/seaplane
+git clone git@github.com:seaplane-io/just
+git clone git@github.com:seaplane-io/documentation
+git clone git@github.com:seaplane-io/nomad-driver-seaplane
+git clone git@github.com:seaplane-io/temp-nomad-driver
 cd
 
+# Neovim
+wget https://github.com/neovim/neovim/releases/download/v0.8.1/nvim-linux64.tar.gz
+tar xzf nvim-linux64.tar.gz
+sudo cp -r nvim-linux64/* /usr/local/
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir -p ~/.config
 cp -r ~/.dotfiles/nvim ~/.config
@@ -50,6 +65,8 @@ cp ~/.dotfiles/tmux/.tmux.conf ~/
 mkdir -p ~/.local/npm-global
 npm config set prefix ~/.local/npm-global
 npm install -g @withgraphite/graphite-cli@latest
+npm install -g @stoplight/spectral-cli
+npm install -g markdownlint-cli
 
 # git
 cp ~/.dotfiles/git/.gitignore ~/
@@ -79,17 +96,10 @@ git config --global user.signingkey "$(ssh-add -L)"
 cp ~/.dotfiles/ssh/rc ~/.ssh/
 chmod +x ~/.ssh/rc
 
-sudo apt install -y  linux-tools-$(uname -r)
+# Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo install \
+  bindgen exa fd-find ripgrep cargo-deny cargo-lichking bpf-linker \
+  cargo-generate cargo-update hexyl jless topgrade zellij zoxide
 
-# Retstore in flight projects
-if [[ "$(uname -m)" == "aarch64" ]]; then
-  REMOTE=${DEFAULT_AMD_REMOTE}
-else
-  REMOTE=${DEFAULT_ARM_REMOTE}
-fi
-
-if lxc list -f csv ${REMOTE}: | grep -q $(hostname)-xfer ; then
-  lxc file pull -r ${REMOTE}:$(hostname)-xfer/opt/projects.tgz ${HOME}/ || exit 1
-  lxc delete ${REMOTE}:$(hostname)-xfer --force
-  tar xzf ${HOME}/projects.tgz -C ${HOME}/Projects
-fi
+cargo install --locked git-branchless
