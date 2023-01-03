@@ -64,7 +64,7 @@ show_always = true
 [hostname]
 format = "[$hostname]($style) in "
 style = "bold dimmed blue"
-trim_at = "-"
+trim_at = "."
 ssh_only = false
 disabled = false
 
