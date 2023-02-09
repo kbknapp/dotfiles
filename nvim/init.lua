@@ -623,8 +623,8 @@ wk.register({
   ["<leader>bn"] = {':bn<CR>', "Next", noremap = false},
   ["<leader>bw"] = {':Bwipeout!<CR>', "Wipeout", noremap = false},
   ["<leader>bk"] = {':Bdelete!<CR>', "Delete", noremap = false},
-  ["<leader>bW"] = {':wa :bufdo :Bwipeout!<CR>', "Wipeout All", noremap = false},
-  ["<leader>bK"] = {':wa :%bdelete!<CR><C-O>:Bd#<CR>', "Kill All (reopen current)", noremap = false},
+  ["<leader>bW"] = {':bufdo :Bwipeout!<CR>', "Wipeout All", noremap = false},
+  ["<leader>bK"] = {':bufdo :Bdelete!<CR><C-o>', "Kill All", noremap = false},
 })
 
 -- Quick-save
