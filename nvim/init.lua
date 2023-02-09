@@ -38,7 +38,7 @@ Plug 'godlygeek/tabular'
 Plug 'folke/which-key.nvim'
 Plug 'tpope/vim-repeat' -- Repeat all commands with . not just native
 Plug 'simeji/winresizer' -- Better window resizing with Ctrl+E"
-Plug 'ggandor/lightspeed.nvim'
+Plug 'ggandor/leap.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'machakann/vim-highlightedyank' -- keep yanked highlighted
 Plug 'nvim-lua/plenary.nvim'
@@ -127,6 +127,11 @@ vim.call('plug#end')
 ---
 -- PLUGIN CONFIGURATION
 ---
+
+-- leap
+require('leap').add_default_mappings()
+map {'n', 's', '<cmd>lua require"leap".leap { }<CR>'}
+map {'n', 'S', '<cmd>lua require"leap".leap { backwards = true }<CR>'}
 
 -- which-key
 --require("which-key").setup()
