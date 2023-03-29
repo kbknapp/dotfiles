@@ -115,6 +115,8 @@ Plug('plasticboy/vim-markdown', {['for'] = 'markdown'})
 -- Git
 Plug 'airblade/vim-gitgutter' -- +,-,~ in gutter
 Plug 'f-person/git-blame.nvim' -- Blame
+Plug 'TimUntersberger/neogit'
+Plug 'sindrets/diffview.nvim'
 
 -- TOML
 Plug('cespare/vim-toml', {['for'] = 'toml'})
@@ -128,14 +130,29 @@ vim.call('plug#end')
 -- PLUGIN CONFIGURATION
 ---
 
+-- which-key
+--require("which-key").setup()
+local wk = require("which-key")
+
+-- Noegit
+local neogit = require('neogit')
+
+neogit.setup {
+  use_magit_keybindings = true,
+  integrations = {
+    diffview = true
+  }
+}
+
+wk.register({
+  ["<leader>g"] = { name = "+git" },
+  ["<leader>gg"] = {'<cmd>lua require"neogit".open()<CR>', "neogit"},
+})
+
 -- leap
 require('leap').add_default_mappings()
 map {'n', 's', '<cmd>lua require"leap".leap { }<CR>'}
 map {'n', 'S', '<cmd>lua require"leap".leap { backwards = true }<CR>'}
-
--- which-key
---require("which-key").setup()
-local wk = require("which-key")
 
 -- rest.nvim
 require("rest-nvim").setup({
@@ -255,12 +272,6 @@ map {'n', '<C-/>', 'gcc'}
 --vim.g.leetcode_browser = 'firefox'
 --vim.g.leetcode_solution_filetype = 'rust'
 --vim.g.leetcode_hide_paid_only = 1
-
--- Pull up magit
-wk.register({
-  ["<leader>g"] = { name = "+git" },
-  ["<leader>gg"] = {':silent ! emacs -e magit-status &<CR>', "magit"},
-})
 
 -- Surround
 vim.g.surround_no_mappings = 1

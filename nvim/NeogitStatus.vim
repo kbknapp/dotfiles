@@ -1,0 +1,2 @@
+hi link NeogitDiffAddHighlight diffAdded
+hi link NeogitDiffDeleteHighlight diffRemoved
