@@ -224,13 +224,6 @@ runtime! include/spacing/four.vim
 " Make syntax highlighting more efficient.
 syntax sync fromstart
 
-" Markdown Help
-autocmd FileType markdown set cursorline
-autocmd FileType markdown set conceallevel=2
-autocmd FileType markdown set linebreak
-autocmd FileType markdown setlocal scrolloff=12
-autocmd FileType markdown setlocal spell spelllang=en_us
-
 " =============================================================================
 " # Footer
 " =============================================================================
