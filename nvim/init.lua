@@ -61,10 +61,11 @@ Plug('NTBBloodbath/rest.nvim', {['do'] = ':TSInstall http json'})
 Plug 'kyazdani42/nvim-web-devicons'  -- for file icons
 Plug 'kyazdani42/nvim-tree.lua'      -- better NERDTree
 Plug 'moll/vim-bbye'                 -- Better Buffer Close support (don't wipe out splits, etc.)
-Plug 'airblade/vim-rooter'           -- Find project root
+--Plug 'airblade/vim-rooter'           -- Find project root
+Plug 'ahmedkhalf/project.nvim'       -- Find project root and project mgmt
 Plug 'simrat39/symbols-outline.nvim' -- Tagbar replacement
 Plug 'mfussenegger/nvim-dap'
---Plug 'github/copilot.vim'            -- Github Copilot; run :Copilot setup
+Plug 'github/copilot.vim'            -- Github Copilot; run :Copilot setup
 
 -- Languages
 -- Python
@@ -363,7 +364,18 @@ require('telescope').setup{
   }
 }
 
-require('telescope') -- .load_extension('luasnip')
+-- Project.nvim
+require("project_nvim").setup {
+  detection_methods = { "pattern" },
+  patterns = { "justfile", "Makefile", "Cargo.toml", "=target", "Cargo.lock", "package.json", ".git" },
+}
+
+require('telescope').load_extension('projects')
+ -- .load_extension('luasnip')
+
+wk.register({
+  ["<leader>pp"] = {'<cmd>lua require"telescope".extensions.projects.projects{}<CR>', "Find Project"}
+})
 
 map {'n', '<C-p>', '<cmd>lua require"telescope.builtin".find_files{}<CR>'}
 wk.register({
@@ -457,6 +469,7 @@ require'nvim-tree'.setup({
   update_focused_file = {
     enable = true,
     update_cwd = true,
+    update_root = true,
   },
   -- when moving cursor in the tree, position the cursor at the start of the file on the current line
   hijack_cursor = false,
@@ -473,6 +486,8 @@ require'nvim-tree'.setup({
 	enable = true,
     }
   },
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
 })
 
 -- nvim_lsp Setup
