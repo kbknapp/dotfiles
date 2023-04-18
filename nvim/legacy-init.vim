@@ -77,11 +77,11 @@ set hidden
 set nowrap
 set nojoinspaces
 set guifont=FantasqueSansMono\ Nerd\ Font:h12
-" Always draw sign column. Prevent buffer moving when adding/deleting sign.
-set signcolumn=yes
 "set printfont=:h10
 "set printencoding=utf-8
 "set printoptions=paper:letter
+" Always draw sign column. Prevent buffer moving when adding/deleting sign.
+set signcolumn=yes
 
 " Settings needed for .lvimrc
 set exrc
