@@ -59,7 +59,6 @@ plugins=(
 	emoji
 	fd
 	firewalld
-	fzf
 	pylint
 	pip
 	ripgrep
@@ -83,24 +82,29 @@ fpath+=~/.zfunc
 compinit -U
 
 ## Must be first
+source $HOME/.dotfiles/zsh/addons/nix.zshrc-addon
+# Must be second
 source $HOME/.dotfiles/zsh/addons/abbrev-alias.zshrc-addon
+# Must be third
+source $HOME/.dotfiles/zsh/addons/rust.zshrc-addon
 
-source $HOME/.dotfiles/zsh/addons/broot.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/cp-cow-abbrev-alias.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/direnv.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/exa-abbrev-alias.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/emacs.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/fzf.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/git-abbrev-alias.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/just.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/magit.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/navi.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/npm.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/pipx.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/pyenv.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/rust.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/snapd.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/starship.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/virtualenvwrapper.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/zoxide.zshrc-addon
 
 export GPG_TTY=$(tty)
+
+alias vim=nvim
+alias vi=nvim
 
