@@ -946,5 +946,11 @@ vim.cmd [[autocmd FileType markdown setlocal scrolloff=12]]
 vim.cmd [[autocmd FileType markdown setlocal spell spelllang=en_us]]
 
 -- Treesitter
-require'nvim-treesitter.configs'.setup{highlight={enable=true}, auto_install = true}
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
+  highlight = {
+    enable = true
+  },
+  auto_install = true
+}
 
