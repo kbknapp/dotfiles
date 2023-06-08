@@ -11,6 +11,5 @@ return {
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.rust" },
-  { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.yaml" },
 }
