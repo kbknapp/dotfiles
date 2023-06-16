@@ -6,6 +6,15 @@
 return {
   -- first key is the mode
   n = {
+    ["<leader><leader>"] = {'<c-^>'},
+    ["<C-n>"] = {'<cmd>Neotree toggle<cr>'},
+    ["<leader>e"] = { name = "+errors" },
+    ["<leader>ee"] = {':TroubleToggle<CR>', desc = "Trouble Toggle"},
+    ["<leader>ed"] = {':TroubleToggle document_diagnostics<CR>', desc ="Document Diagnostics"},
+    ["<leader>ew"] = {':TroubleToggle workspace_diagnostics<CR>', desc = "Workspace Diagnostics"},
+    ["<leader>eq"] = {':TroubleToggle quickfix<CR>', desc = "Quickfix"},
+    ["<leader>el"] = {':TroubleToggle loclist<CR>', desc = "Loclist"},
+    ["<leader>eL"] = {':TroubleToggle lsp_references<CR>', desc = "LSP Refs"},
     ["<leader>gg"] = { '<cmd>lua require"neogit".open()<cr>', desc = "neogit"},
     ["<leader>gG"] = { function() utils.toggle_term_cmd "lazygit" end, desc = "ToggleTerm lazygit" },
     -- second key is the lefthand side of the map
