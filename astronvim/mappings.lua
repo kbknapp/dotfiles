@@ -8,6 +8,7 @@ return {
   n = {
     ["<leader><leader>"] = {'<c-^>'},
     ["<C-n>"] = {'<cmd>Neotree toggle<cr>'},
+    ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
     ["<leader>e"] = { name = "+errors" },
     ["<leader>ee"] = {':TroubleToggle<CR>', desc = "Trouble Toggle"},
     ["<leader>ed"] = {':TroubleToggle document_diagnostics<CR>', desc ="Document Diagnostics"},
