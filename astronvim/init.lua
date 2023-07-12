@@ -27,19 +27,23 @@ return {
   },
 
   lsp = {
+    setup_handlers = {
+      rust_analyzer = function(_, opts) require("rust-tools").setup { server = opts } end
+    },
     -- customize lsp formatting options
     formatting = {
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
-        allow_filetypes = { -- enable format on save for specified filetypes only
-          "rust",
-        },
+        --allow_filetypes = { -- enable format on save for specified filetypes only
+          --"rust",
+        --},
         ignore_filetypes = { -- disable format on save for specified filetypes
           -- "python",
         },
       },
       disabled = { -- disable formatting capabilities for the listed language servers
+        "prettierd",
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
         -- "lua_ls",
       },
@@ -53,6 +57,17 @@ return {
       -- "pyright"
     },
   },
+
+  plugins = {
+    "simrat39/rust-tools.nvim", -- add lsp plugin
+    {
+      "williamboman/mason-lspconfig.nvim",
+      opts = {
+        ensure_installed = { "rust_analyzer" },
+      },
+    },
+  },
+
 
   -- Configure require("lazy").setup() options
   lazy = {

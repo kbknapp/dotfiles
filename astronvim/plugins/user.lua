@@ -37,8 +37,9 @@ return {
       local trouble = require("trouble.providers.telescope")
     end,
   },
-  {'mzlogin/vim-markdown-toc', event = "BufEnter *.md"},
-  {'plasticboy/vim-markdown', event = "BufEnter *.md"},
+  --{'mzlogin/vim-markdown-toc', event = "BufEnter *.md"},
+  --{'plasticboy/vim-markdown', event = "BufEnter *.md"},
+  "godlygeek/tabular",
   -- You can also add new plugins here as well:
   -- Add plugins, the lazy syntax
   -- "andweeb/presence.nvim",
