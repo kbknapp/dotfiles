@@ -1,0 +1,8 @@
+Host *
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  IdentitiesOnly yes
+  LogLevel FATAL
+	ForwardAgent yes
+	TCPKeepAlive yes
+
