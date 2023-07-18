@@ -24,6 +24,7 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  use('navarasu/onedark.nvim')
   use({
       "folke/tokyonight.nvim",
 	  as = 'tokyonight',
