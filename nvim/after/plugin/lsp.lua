@@ -29,22 +29,33 @@ lsp.set_preferences({
     suggest_lsp_servers = false,
 })
 
-lsp.on_attach(function(client, bufnr)
-  local opts = {buffer = bufnr, remap = false}
-
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-  vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-  vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-end)
-
 lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true
 })
+
+vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
+vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end)
+vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end)
+vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end)
+
+local tsb = require('telescope.builtin')
+
+  -- Muscle memory from emacs...
+vim.keymap.set("n", "<leader>cd", function() tsb.lsp_definitions{} end, { desc = "defs"})
+vim.keymap.set("n", "<leader>gd",  function() tsb.lsp_definitions{} end , { desc = "defs"})
+vim.keymap.set("n", "<leader>l", "<nop>", { desc = "+lsp" })
+vim.keymap.set("n", "<leader>lf",  function() vim.lsp.buf.format() end, { desc = "format"})
+vim.keymap.set("n", "<leader>lk",  function() vim.lsp.buf.hover() end, { desc = "hover"})
+vim.keymap.set("n", "<leader>lca",  function() vim.lsp.buf.code_action() end, { desc = "code actions"})
+vim.keymap.set("n", "<leader>lr",  function() vim.lsp.buf.references() end, { desc = "refs"})
+vim.keymap.set("n", "<leader>lmv",  function() vim.lsp.buf.rename() end, { desc = "rename"})
+vim.keymap.set("n", "<leader>ls", "<nop>", {desc = "+symbols"})
+vim.keymap.set("n", "<leader>lsb",  function() tsb.lsp_document_symbols{} end, {desc = "document"})
+vim.keymap.set("n", "<leader>lsw",  function() tsb.lsp_workspace_symbols{} end, {desc = "workspace"})
+vim.keymap.set("n", "<leader>lsW",  function() tsb.lsp_dynamic_workspace_symbols{} end, {desc = "dyn workspace"})
+vim.keymap.set("n", "<leader>fle",  function() tsb.diagnostics{} end,{desc =  "Diagnostics"})
+vim.keymap.set("n", "<leader>fli", function() tsb.lsp_implementations{} end , {desc = "Implementations"})
+vim.keymap.set("n", "<leader>fld", function() tsb.lsp_definitions{} end, {desc = "Definitions"})
+vim.keymap.set("n", "<leader>fltd", function() tsb.lsp_type_definitions{} end, {desc = "Type Definitions"})

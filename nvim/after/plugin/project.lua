@@ -6,7 +6,4 @@ require("project_nvim").setup {
 require('telescope').load_extension('projects')
  -- .load_extension('luasnip')
 
-local wk = require("which-key")
-wk.register({
-  ["<leader>pp"] = {'<cmd>lua require"telescope".extensions.projects.projects{}<CR>', "Find Project"}
-})
+vim.keymap.set("n", "<leader>pp",  function() require"telescope".extensions.projects.projects{} end, {desc = "Find Project"})

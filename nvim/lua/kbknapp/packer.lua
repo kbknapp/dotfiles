@@ -68,6 +68,10 @@ return require('packer').startup(function(use)
 		  -- Snippets
 		  {'L3MON4D3/LuaSnip'},
 		  {'rafamadriz/friendly-snippets'},
+
+          -- Rust
+          {'simrat39/rust-tools.nvim'},
+
 	  }
   }
   use({
@@ -91,9 +95,13 @@ return require('packer').startup(function(use)
   use('b3nj5m1n/kommentary') -- better commenting with gcc
   use({'mzlogin/vim-markdown-toc', ft = {'markdown'}})
   use({'plasticboy/vim-markdown', ft = {'markdown'}})
-  use('airblade/vim-gitgutter') -- +,-,~ in gutter
+  --use('airblade/vim-gitgutter') -- +,-,~ in gutter
   use('f-person/git-blame.nvim') -- Blame
-  use('hoob3rt/lualine.nvim') -- Statusline
+  use({
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons',
+    opt = true }
+  }) -- Statusline
   use('ahmedkhalf/project.nvim') -- Project management
 
   -- Automatically set up your configuration after cloning packer.nvim

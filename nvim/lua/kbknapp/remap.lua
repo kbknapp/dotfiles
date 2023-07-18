@@ -22,7 +22,6 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -37,10 +36,8 @@ vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
 vim.keymap.set("n", "<leader><leader>", "<C-^>")
 
-local wk = require("which-key")
-wk.register({
-  ["<leader>z"] = { name = "+fold" },
-  ["<leader>zz"] = {':set foldmethod=syntax<cr>', "Fold Syntax"},
-  ["<leader>zf"] = {':Folds<cr>', "Folds Plug"},
-})
+vim.keymap.set("n", "<leader>z", "<nop>", { desc = "+fold" })
+vim.keymap.set("n", "<leader>zf", '<cmd>Folds<cr>', { desc = "Folds Plug"})
+vim.keymap.set("n", "<leader>zz", '<cmd>set foldmethod=syntax<CR>', { desc = "Fold Syntax"})
+
 

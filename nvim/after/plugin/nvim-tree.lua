@@ -1,10 +1,7 @@
 vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
-local wk = require("which-key")
-wk.register({
-  ["<leader>n"] = { name = "+NVIMTree"},
-    ["<leader>nr"] = {':NvimTreeRefresh<CR>', "Refresh"},
-    ["<leader>nf"] = {':NvimTreeFindFile<CR>', "Find Files"},
-})
+vim.keymap.set("n", "<leader>n", "<nop>", { desc = "+NVIMTree"})
+vim.keymap.set("n", "<leader>nr", '<cmd>NvimTreeRefresh<CR>', {desc ="Refresh"})
+vim.keymap.set("n", "<leader>nf", '<cmd>NvimTreeFindFile<CR>', {desc = "Find Files"})
 
 require'nvim-tree'.setup({
   -- will show lsp diagnostics in the signcolumn.

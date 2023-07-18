@@ -52,42 +52,28 @@ require('telescope').setup{
     }
   }
 }
-local wk = require("which-key")
-wk.register({
-  ["<leader>/"] = {'<cmd>lua require"telescope.builtin".live_grep{}<CR>', "Live Grep"},
-  ["<leader>cd"] = {'<cmd>lua require"telescope.builtin".lsp_definitions{}<CR>', "Definitions"},
-  ["<leader>gd"] = {'<cmd>lua require"telescope.builtin".lsp_definitions{}<CR>', "Definitions"},
-  ["<leader>b"] = {name = "+buffer"},
-    ["<leader>bb"] = {'<cmd>lua require"telescope.builtin".buffers{}<CR>', "Buffers"},
-  ["<leader>f"] = { name = "+find" },
-    ["<leader>fts"] = {'<cmd>lua require"telescope.builtin".treesitter{}<CR>', "Treesitter"},
-    ["<leader>ff"] = {'<cmd>lua require"telescope.builtin".find_files{}<CR>', "Files"},
-    ["<leader>ffg"] = {'<cmd>lua require"telescope.builtin".git_files{}<CR>', "Files"},
-    ["<leader>fg"] = {'<cmd>lua require"telescope.builtin".live_grep{}<CR>', "Live Grep"},
-    ["<leader>fb"] = {'<cmd>lua require"telescope.builtin".buffers{}<CR>', "Buffers"},
-    ["<leader>ft"] = {'<cmd>lua require"telescope.builtin".tags{}<CR>', "Tags"},
-    ["<leader>fm"] = {'<cmd>lua require"telescope.builtin".marks{}<CR>', "Marks"},
-    ["<leader>fr"] = {'<cmd>lua require"telescope.builtin".registers{}<CR>', "Registers"},
-    ["<leader>fq"] = {'<cmd>lua require"telescope.builtin".quickfix{}<CR>', "Quickfix"},
-    ["<leader>fj"] = {'<cmd>lua require"telescope.builtin".jumplist{}<CR>', "Jumplist"},
-    ["<leader>fL"] = {'<cmd>lua require"telescope.builtin".loclist{}<CR>', "Loclist"},
-    ["<leader>fl"] = {name = "+lsp"},
-      ["<leader>flr"] = {'<cmd>lua require"telescope.builtin".lsp_references{}<CR>', "References"},
-      ["<leader>flc"] = {name = "+calls"},
-        ["<leader>flci"] = {'<cmd>lua require"telescope.builtin".lsp_incoming_calls{}<CR>', "Incoming"},
-        ["<leader>flco"] = {'<cmd>lua require"telescope.builtin".lsp_outgoing_calls{}<CR>', "Outgoing"},
-      ["<leader>fls"] = {name = "+symbols"},
-        ["<leader>flsb"] = {'<cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>', "Document"},
-        ["<leader>flsw"] = {'<cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>', "Workspace"},
-        ["<leader>flsW"] = {'<cmd>lua require"telescope.builtin".lsp_dynamic_workspace_symbols{}<CR>', "Workspace Dynamic"},
-      ["<leader>fle"] = {'<cmd>lua require"telescope.builtin".diagnostics{}<CR>', "Diagnostics"},
-      ["<leader>fli"] = {'<cmd>lua require"telescope.builtin".lsp_implementations{}<CR>', "Implementations"},
-      ["<leader>fld"] = {'<cmd>lua require"telescope.builtin".lsp_definitions{}<CR>', "Definitions"},
-      ["<leader>fltd"] = {'<cmd>lua require"telescope.builtin".lsp_type_definitions{}<CR>', "Type Definitions"},
-    ["<leader>fg"] = {name = "+git"},
-      ["<leader>fgl"] = {'<cmd>lua require"telescope.builtin".git_commits{}<CR>', "Log"},
-      ["<leader>fgL"] = {'<cmd>lua require"telescope.builtin".git_bcommits{}<CR>', "Log (buffer)"},
-      ["<leader>fgb"] = {'<cmd>lua require"telescope.builtin".git_branches{}<CR>', "Branches"},
-      ["<leader>fgs"] = {'<cmd>lua require"telescope.builtin".git_status{}<CR>', "Status"},
-      ["<leader>fgz"] = {'<cmd>lua require"telescope.builtin".git_stash{}<CR>', "Stash"},
-})
+
+local tsb = require'telescope.builtin'
+vim.keymap.set("n", "<leader>/", function() tsb.live_grep{} end, {desc ="Grep"})
+
+vim.keymap.set("n", "<leader>b", "<nop>", {desc= "+buffer"})
+vim.keymap.set("n", "<leader>bb", function() tsb.buffers{} end, {desc ="Buffers"})
+
+vim.keymap.set("n", "<leader>f", "<nop>", { desc = "+find" })
+vim.keymap.set("n", "<leader>fts", function() tsb.treesitter{} end, {desc = "Treesitter"})
+vim.keymap.set("n", "<leader>ff", function() tsb.find_files{} end, {desc = "Files"})
+vim.keymap.set("n", "<leader>ffg", function() tsb.git_files{} end, {desc = "Git Files"})
+vim.keymap.set("n", "<leader>fb", function() tsb.buffers{} end, {desc = "Buffers"})
+vim.keymap.set("n", "<leader>ft", function() tsb.tags{} end, {desc = "Tags"})
+vim.keymap.set("n", "<leader>fm", function() tsb.marks{} end, {desc = "Marks"})
+vim.keymap.set("n", "<leader>fr", function() tsb.registers{} end, {desc = "Registers"})
+vim.keymap.set("n", "<leader>fq", function() tsb.quickfix{} end, {desc = "Quickfix"})
+vim.keymap.set("n", "<leader>fj", function() tsb.jumplist{} end, {desc = "Jumplist"})
+vim.keymap.set("n", "<leader>fL", function() tsb.loclist{} end, {desc = "Loclist"})
+
+vim.keymap.set("n", "<leader>fg", "<nop>", {desc= "+git"})
+vim.keymap.set("n", "<leader>fgl", function() tsb.git_commits{} end, {desc = "Log"})
+vim.keymap.set("n", "<leader>fgL", function() tsb.git_bcommits{} end, {desc = "Log (buffer)"})
+vim.keymap.set("n", "<leader>fgb", function() tsb.git_branches{} end, {desc = "Branches"})
+vim.keymap.set("n", "<leader>fgs", function() tsb.git_status{} end, {desc = "Status"})
+vim.keymap.set("n", "<leader>fgz", function() tsb.git_stash{} end, {desc = "Stash"})

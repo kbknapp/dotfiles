@@ -1,10 +1,4 @@
 local neogit = require('neogit')
-local wk = require("which-key")
-
-wk.register({
-  ["<leader>g"] = { name = "+git" },
-  ["<leader>gg"] = {'<cmd>lua require"neogit".open()<CR>', "neogit"},
-})
 
 neogit.setup {
   use_magit_keybindings = true,
@@ -12,4 +6,7 @@ neogit.setup {
     diffview = true
   }
 }
+
+vim.keymap.set("n", "<leader>g", "<nop>", { desc = "+git" })
+vim.keymap.set("n", "<leader>gg",  function() neogit.open() end, { desc = "neogit"})
 

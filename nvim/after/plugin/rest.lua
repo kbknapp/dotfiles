@@ -1,5 +1,3 @@
-local wk = require("which-key")
-
 require("rest-nvim").setup({
   -- Open request results in a horizontal split
   result_split_horizontal = false,
@@ -37,9 +35,4 @@ require("rest-nvim").setup({
   custom_dynamic_variables = {},
   yank_dry_run = true,
 })
-wk.register({
-  ["<leader>h"] = {
-    name = "+http",
-    r = { "<Plug>RestNvim<CR>", "REST Nvim" },
-  },
-})
+vim.keymap.set("n", "<leader>r", "<cmd>RestNvim<CR>", { desc = "REST Nvim" })
