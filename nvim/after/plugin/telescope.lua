@@ -13,9 +13,11 @@ require('telescope').setup{
       '--with-filename',
       '--line-number',
       '--column',
-      '--smart-case'
+      '--smart-case',
+      '--follow',
+      '--hidden'
     },
-    prompt_prefix = "> ",
+    prompt_prefix = " ",
     selection_caret = "> ",
     entry_prefix = "  ",
     initial_mode = "insert",
@@ -31,7 +33,7 @@ require('telescope').setup{
       },
     },
     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-    file_ignore_patterns = { "target" },
+    file_ignore_patterns = { "target", "vendor*" },
     generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
     winblend = 0,
     border = {},
