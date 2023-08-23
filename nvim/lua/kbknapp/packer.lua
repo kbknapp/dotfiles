@@ -96,6 +96,7 @@ return require('packer').startup(function(use)
   use('b3nj5m1n/kommentary') -- better commenting with gcc
   use({'mzlogin/vim-markdown-toc', ft = {'markdown'}})
   use({'plasticboy/vim-markdown', ft = {'markdown'}})
+  use({'christoomey/vim-tmux-navigator'})
   --use('airblade/vim-gitgutter') -- +,-,~ in gutter
   use('f-person/git-blame.nvim') -- Blame
   use({
