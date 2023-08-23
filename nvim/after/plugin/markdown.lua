@@ -10,3 +10,4 @@ vim.g.vim_markdown_math = true
 vim.g.vim_markdown_new_list_item_indent = false
 vim.g.vim_markdown_strikethrough = true
 vim.g.vim_markdown_toml_frontmatter = true
+vim.g.vim_markdown_folding_disabled = 1
