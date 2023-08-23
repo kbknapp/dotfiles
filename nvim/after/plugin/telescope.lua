@@ -79,3 +79,6 @@ vim.keymap.set("n", "<leader>fgL", function() tsb.git_bcommits{} end, {desc = "L
 vim.keymap.set("n", "<leader>fgb", function() tsb.git_branches{} end, {desc = "Branches"})
 vim.keymap.set("n", "<leader>fgs", function() tsb.git_status{} end, {desc = "Status"})
 vim.keymap.set("n", "<leader>fgz", function() tsb.git_stash{} end, {desc = "Stash"})
+
+require("telescope").load_extension("harpoon")
+vim.keymap.set("n", "<leader>fM", "<cmd>Telescope harpoon marks<cr>", {desc = "Harpoon Marks"})
