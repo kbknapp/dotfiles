@@ -24,11 +24,12 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  --use({
+  --    "folke/tokyonight.nvim",
+  --    as = 'tokyonight',
+  --})
   use('navarasu/onedark.nvim')
-  use({
-      "folke/tokyonight.nvim",
-	  as = 'tokyonight',
-  })
+  --use({'shaunsingh/oxocarbon.nvim'})
 
   use({
       "folke/trouble.nvim",
@@ -43,11 +44,11 @@ return require('packer').startup(function(use)
   })
 
   use({
-        'nvim-treesitter/nvim-treesitter',
-        run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-    end,})
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+          local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+          ts_update()
+  end,})
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',
@@ -76,9 +77,9 @@ return require('packer').startup(function(use)
 	  }
   }
   use({
-      "rest-nvim/rest.nvim",
-      requires = { "nvim-lua/plenary.nvim" },
-    })
+    "rest-nvim/rest.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+  })
 
   use("github/copilot.vim")
   use("theprimeagen/harpoon") -- Quick jump between files
