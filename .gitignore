@@ -6,3 +6,5 @@
 
 vim/bundle/*
 vim/Vundle.vim/*
+
+.DS_Store
