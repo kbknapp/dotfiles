@@ -1,5 +1,9 @@
 local lsp = require("lsp-zero")
 
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({buffer = bufnr})
+end)
+
 lsp.preset("recommended")
 
 lsp.ensure_installed({
@@ -29,7 +33,22 @@ lsp.set_preferences({
     suggest_lsp_servers = false,
 })
 
-lsp.setup()
+--require('mason').setup()
+--require('mason-lspconfig').setup()
+
+require('lspconfig').rust_analyzer.setup({
+  settings = {
+    ["rust-analyzer"] = {
+      checkOnSave = true,
+      check = {
+        command = "clippy"
+      },
+      rustfmt = {
+        extraArgs = { "+nightly" },
+      },
+    }
+  }
+})
 
 vim.diagnostic.config({
     virtual_text = true
@@ -46,7 +65,7 @@ local tsb = require('telescope.builtin')
 vim.keymap.set("n", "<leader>cd", function() tsb.lsp_definitions{} end, { desc = "defs"})
 vim.keymap.set("n", "<leader>gd",  function() tsb.lsp_definitions{} end , { desc = "defs"})
 vim.keymap.set("n", "<leader>l", "<nop>", { desc = "+lsp" })
-vim.keymap.set("n", "<leader>lf",  function() vim.lsp.buf.format() end, { desc = "format"})
+vim.keymap.set("n", "<leader>lf",  function() vim.lsp.buf.format { async = true } end, { desc = "format"})
 vim.keymap.set("n", "<leader>lk",  function() vim.lsp.buf.hover() end, { desc = "hover"})
 vim.keymap.set("n", "<leader>lca",  function() vim.lsp.buf.code_action() end, { desc = "code actions"})
 vim.keymap.set("n", "<leader>lr",  function() vim.lsp.buf.references() end, { desc = "refs"})
