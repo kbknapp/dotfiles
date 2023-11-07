@@ -92,7 +92,6 @@ source $HOME/.dotfiles/zsh/addons/abbrev-alias.zshrc-addon
 
 #source $HOME/.dotfiles/zsh/addons/navi.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/git-abbrev-alias.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/git.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/just.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/npm.zshrc-addon
