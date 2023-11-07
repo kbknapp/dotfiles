@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
 eval "$(/opt/homebrew/bin/brew shellenv)"

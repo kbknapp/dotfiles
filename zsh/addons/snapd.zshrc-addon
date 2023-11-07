@@ -1,1 +1,1 @@
-export PATH=$PATH:/var/lib/snapd/snap/bin
+path=(/var/lib/snapd/snap/bin $path)

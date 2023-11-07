@@ -1,7 +1,15 @@
 # exa is a ls replacement written in Rust
-alias ls='exa'
-alias lsa='exa -a'
-alias ll='exa -bghHliS'
-alias lla='exa -bghaHliS'
-alias tree='exa -T'
+if [[ "$USE_ABBREV_ALIAS" == 1 ]]; then
+	abbrev-alias ls='exa'
+	abbrev-alias lsa='exa -a'
+	abbrev-alias ll='exa -bghHliS'
+	abbrev-alias lla='exa -bghaHliS'
+	abbrev-alias tree='exa -T'
+else
+    alias ls='exa'
+    alias lsa='exa -a'
+    alias ll='exa -bghHliS'
+    alias lla='exa -bghaHliS'
+    alias tree='exa -T'
+fi
 

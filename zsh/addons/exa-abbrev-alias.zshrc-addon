@@ -1,8 +1,0 @@
-# exa is a ls replacement written in Rust
-if [[ "$USE_ABBREV_ALIAS" == 1 ]]; then
-	abbrev-alias ls='exa'
-	abbrev-alias lsa='exa -a'
-	abbrev-alias ll='exa -bghHliS'
-	abbrev-alias lla='exa -bghaHliS'
-	abbrev-alias tree='exa -T'
-fi

@@ -1,4 +1,2 @@
-#!/bin/sh
-
 # Starship
 eval "$(starship init zsh)"

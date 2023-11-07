@@ -1,7 +1,18 @@
 # git settings
-alias gl='git log --graph --all --oneline --decorate'
-alias gcm='git commit -m'
-alias gcam='git commit -am'
-alias gpo='git push origin'
-alias gst='git status'
-alias ggpull='git pull origin $(git_current_branch)'
+if [[ "$USE_ABBREV_ALIAS" == 1 ]]; then
+	abbrev-alias gcam='git commit -am'
+	abbrev-alias gcm='git commit -m'
+    abbrev-alias ggpull='git pull origin $(git_current_branch)'
+	abbrev-alias gl='git log --graph --all --oneline --decorate'
+	abbrev-alias gpo='git push origin'
+	abbrev-alias grl='git fetch --all && git log --oneline --no-merges HEAD..FETCH_HEAD'
+else
+    alias gcam='git commit -am'
+    alias gcm='git commit -m'
+    alias ggpull='git pull origin $(git_current_branch)'
+    alias gl='git log --graph --all --oneline --decorate'
+    alias gpo='git push origin'
+    alias gst='git status'
+	alias grl='git fetch --all && git log --oneline --no-merges HEAD..FETCH_HEAD'
+fi
+

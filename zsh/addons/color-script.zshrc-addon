@@ -1,1 +1,1 @@
-~/.dotfiles/bin/colorscript.sh random
+sh -c "${HOME}/.dotfiles/bin/colorscript.sh random"

@@ -1,4 +1,4 @@
-export PATH=$HOME/.emacs.d/bin:$PATH
+path=($HOME/.emacs.d/bin $path)
 
 # Open Emacs with current dir as a project
 alias ecdp='touch ./.projectile && emacsclient -a emacs -t .projectile && rm ./.projectile'

@@ -2,5 +2,5 @@
 export GOPATH=$HOME/.local/go
 export GOBIN=$GOPATH/bin
 #export GOROOT=/usr/lib/go
-export PATH=$GOBIN:$GOROOT/bin:$PATH
+path=($GOBIN:$GOROOT/bin $path)
 
