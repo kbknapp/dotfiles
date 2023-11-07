@@ -13,3 +13,9 @@ if [ -e "$SSH_AUTH_SOCK" ] ; then
   fi
 fi
 
+if [[ "$(uname)" == "Darwin" ]]; then
+    ssh-add --apple-use-keychain "${SSH_KEY_PATH}"
+else
+    ssh-add "${SSH_KEY_PATH}"
+fi
+
