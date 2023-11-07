@@ -3,4 +3,5 @@ alias gl='git log --graph --all --oneline --decorate'
 alias gcm='git commit -m'
 alias gcam='git commit -am'
 alias gpo='git push origin'
-
+alias gst='git status'
+alias ggpull='git pull origin $(git_current_branch)'
