@@ -1,2 +1,4 @@
+#!/usr/bin/env bash
+
 NIX_DAEMON_SCRIPT=/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 [[ ! $(command -v nix) && -e "${NIX_DAEMON_SCRIPT}" ]] && source "${NIX_DAEMON_SCRIPT}"
