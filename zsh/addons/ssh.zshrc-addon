@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Fix SSH auth socket location so agent forwarding works with tmux
+
+[ -n "$SSH_AGENT_PID" ] || source $HOME/.dotfiles/bin/ssh_agent_init.sh
+
