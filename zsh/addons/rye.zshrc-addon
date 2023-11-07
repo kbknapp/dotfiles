@@ -1,0 +1,6 @@
+source "$HOME/.rye/env"
+
+# Generate completions
+if [[ ! -e ~/.zfunc/_rye ]]; then
+  rye self completion -s zsh > ~/.zfunc/_rye
+fi
