@@ -87,18 +87,14 @@ source $HOME/.dotfiles/zsh/addons/rust.zshrc-addon
 # Must be second
 source $HOME/.dotfiles/zsh/addons/nix.zshrc-addon
 # Must be third
-#source $HOME/.dotfiles/zsh/addons/abbrev-alias.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/abbrev-alias.zshrc-addon
 
+source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/cp-cow-abbrev-alias.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/exa.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/git.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/direnv.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/git-abbrev-alias.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/just.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/navi.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/npm.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/starship.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/zoxide.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
-#source $HOME/.dotfiles/zsh/addons/exa-abbrev-alias.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/just.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/navi.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/npm.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
 

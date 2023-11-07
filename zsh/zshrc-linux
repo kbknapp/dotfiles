@@ -10,3 +10,7 @@ source $ZSH/oh-my-zsh.sh
 
 fpath+=~/.zfunc
 compinit -U
+
+source $HOME/.dotfiles/zsh/addons/direnv.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/starship.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/zoxide.zshrc-addon

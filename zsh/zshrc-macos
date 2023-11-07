@@ -11,3 +11,9 @@ source $ZSH/oh-my-zsh.sh
 fpath+=~/.zfunc
 compinit -U
 
+# These need to run each time a new shell opens
+source $HOME/.dotfiles/zsh/addons/direnv.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/homebrew.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/ssh.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/starship.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/zoxide.zshrc-addon
