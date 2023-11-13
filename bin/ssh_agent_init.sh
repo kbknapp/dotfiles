@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
 # Fix SSH auth socket location so agent forwarding works with tmux
-pkill ssh-agent
-unset SSH_AUTH_SOCK
-unset SSH_AGENT_PID
-
 [ -n "$SSH_AGENT_PID" ] || eval "$(ssh-agent -s)"
 
 if [ -e "$SSH_AUTH_SOCK" ] ; then
