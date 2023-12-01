@@ -1,0 +1,22 @@
+env:
+  TERM: alacritty
+key_bindings:
+  - { key: Return,   mods: Control|Super, action: SpawnNewInstance }
+font:
+  normal:
+    family: FantasqueSansM Nerd Font Mono
+    style: Regular
+
+  bold:
+    family: FantasqueSansM Nerd Font Mono
+    style: Bold
+
+  italic:
+    family: FantasqueSansM Nerd Font Mono
+    style: Italic
+
+  bold_italic:
+    family: FantasqueSansM Nerd Font Mono
+    style: Bold Italic
+
+  size: 11
