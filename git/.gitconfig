@@ -1,5 +1,5 @@
 [user]
-        email = kbknapp@gmail.com
+        email = kevin@24dev.io
         name = Kevin K.
 [color]
         ui = true
@@ -15,3 +15,5 @@
         format = ssh
 [tag]
         gpgsign = true
+[init]
+	defaultBranch = main
