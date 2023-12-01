@@ -1,0 +1,15 @@
+# lsd is a ls replacement written in Rust
+if [[ "$USE_ABBREV_ALIAS" == 1 ]]; then
+	abbrev-alias ls='lsd'
+	abbrev-alias lsa='lsd -a'
+	abbrev-alias ll='lsd -ghaliS --header'
+	abbrev-alias lla='lsd -aghaliS --header'
+	abbrev-alias tree='lsd --tree'
+else
+    alias ls='lsd'
+    alias lsa='lsd -a'
+    alias ll='lsd -ghaliS --header'
+    alias lla='lsd -aghaliS --header'
+    alias tree='lsd --tree'
+fi
+
