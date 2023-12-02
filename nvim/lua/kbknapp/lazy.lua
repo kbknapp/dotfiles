@@ -48,13 +48,8 @@ require("lazy").setup({
       'hrsh7th/nvim-cmp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
-      'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
-
-      -- Snippets
-      'L3MON4D3/LuaSnip',
-      'rafamadriz/friendly-snippets',
 
       -- Rust
       'simrat39/rust-tools.nvim',
@@ -90,7 +85,6 @@ require("lazy").setup({
   'christoomey/vim-tmux-navigator',
   "github/copilot.vim",
   "theprimeagen/harpoon", -- Quick jump between files
-  "mbbill/undotree", -- Deep undo tree
   "nvim-treesitter/nvim-treesitter-context",
   'bitc/vim-bad-whitespace', -- show bad whitespace
   'kbknapp/badWords', -- Highlight bad words for general audience
@@ -104,5 +98,4 @@ require("lazy").setup({
   'ahmedkhalf/project.nvim', -- Project management
   'navarasu/onedark.nvim',
 
-  --'airblade/vim-gitgutter', -- +,-,~ in gutter
 })
