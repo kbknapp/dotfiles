@@ -10,7 +10,9 @@ vim.keymap.set("n", "<leader>h1", function() ui.nav_file(1) end, {desc ="Nav Fil
 vim.keymap.set("n", "<leader>h2", function() ui.nav_file(2) end, {desc ="Nav File 2"})
 vim.keymap.set("n", "<leader>h3", function() ui.nav_file(3) end, {desc ="Nav File 3"})
 
--- vim.keymap.set("n", "<C-h>", function() ui.toggle_quick_menu() end)
--- vim.keymap.set("n", "<C-j>", function() ui.nav_file(1) end)
--- vim.keymap.set("n", "<C-k>", function() ui.nav_file(2) end)
--- vim.keymap.set("n", "<C-l>", function() ui.nav_file(3) end)
+vim.keymap.set("n", "<A-h>", function() ui.toggle_quick_menu() end)
+vim.keymap.set("n", "<A-j>", function() ui.nav_file(1) end)
+vim.keymap.set("n", "<A-k>", function() ui.nav_file(2) end)
+vim.keymap.set("n", "<A-l>", function() ui.nav_file(3) end)
+vim.keymap.set("n", "<A-n>", function() ui.nav_next() end)
+vim.keymap.set("n", "<A-p>", function() ui.nav_prev() end)
