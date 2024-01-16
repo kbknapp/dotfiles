@@ -1,3 +1,9 @@
+# `.zshrc` is sourced in interactive shells after `.zshenv`.
+#
+# It should contain commands to set up aliases, functions, options, key
+# bindings, etc.
+
+
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
 # zstyle ':omz:update' mode auto      # update automatically without asking
@@ -11,6 +17,15 @@ source $ZSH/oh-my-zsh.sh
 fpath+=~/.zfunc
 compinit -U
 
+source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/cp-cow-abbrev-alias.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/direnv.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/exa.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/git.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/navi.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/starship.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/zoxide.zshrc-addon
+
+# Should be last as the `~/.dotfiles/zsh/addons/*` will modify $path
+path=($prepend_path $path)

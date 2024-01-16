@@ -1,12 +1,20 @@
+# `.zshenv` is sourced first on all invocations of the shell, unless
+# the `-f` option is set.
+#
+# It should contain commands to set the command search path, plus other
+# important environment variables. `.zshenv` should not contain commands that
+# produce output or assume the shell is attached to a tty.
+
+
 typeset -U path
-path_prepend=( ~/.local/bin /usr/bin /usr/local/bin /usr/sbin /usr/local/sbin /bin ) 
+path_prepend=( $HOME/.local/bin /usr/bin /usr/local/bin /usr/sbin /usr/local/sbin /bin )
 path=($prepend_path $path)
 
 # export MANPATH="/usr/local/man:$MANPATH"
 # Path to your oh-my-zsh installation.
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/id_ed25519"
+export SSH_KEY_PATH="$HOME/.ssh/id_ed25519"
 
 export TERM="xterm-256color"
 
@@ -69,15 +77,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
 	vi-mode
 	sudo
-	systemd
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 	dnf
-	fd
-	firewalld
-	ripgrep
-	rust
-	tmux
 )
 
 export GPG_TTY=$(tty)
@@ -85,16 +87,10 @@ export GPG_TTY=$(tty)
 ## Must be first
 source $HOME/.dotfiles/zsh/addons/rust.zshrc-addon
 # Must be second
-source $HOME/.dotfiles/zsh/addons/nix.zshrc-addon
+#source $HOME/.dotfiles/zsh/addons/nix.zshrc-addon
 # Must be third
 source $HOME/.dotfiles/zsh/addons/abbrev-alias.zshrc-addon
 
-source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/cp-cow-abbrev-alias.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/exa.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/git.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/just.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/navi.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/npm.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
 
