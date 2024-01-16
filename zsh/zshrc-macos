@@ -12,8 +12,14 @@ fpath+=~/.zfunc
 compinit -U
 
 # These need to run each time a new shell opens
+source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/direnv.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/homebrew.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/ssh.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/git.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/navi.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/orbstack.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/starship.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/zoxide.zshrc-addon
+
+# Use podman by defaut with toast
+abbrev-alias toast='toast --docker-cli podman'

@@ -5,7 +5,6 @@
 # important environment variables. `.zshenv` should not contain commands that
 # produce output or assume the shell is attached to a tty.
 
-
 typeset -U path
 path_prepend=( $HOME/.local/bin /usr/bin /usr/local/bin /usr/sbin /usr/local/sbin /bin )
 path=($prepend_path $path)
