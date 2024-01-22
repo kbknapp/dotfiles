@@ -23,3 +23,5 @@ source $HOME/.dotfiles/zsh/addons/zoxide.zshrc-addon
 
 # Use podman by defaut with toast
 abbrev-alias toast='toast --docker-cli podman'
+
+path=( $path_prepend $path )

@@ -6,8 +6,8 @@
 # produce output or assume the shell is attached to a tty.
 
 typeset -U path
-path_prepend=( $HOME/.local/bin /usr/bin /usr/local/bin /usr/sbin /usr/local/sbin /bin )
-path=($prepend_path $path)
+path_prepend=( $HOME/.local/bin /usr/local/bin /usr/local/sbin )
+path=($path_prepend $path /usr/bin /usr/sbin /bin )
 
 # export MANPATH="/usr/local/man:$MANPATH"
 # Path to your oh-my-zsh installation.
@@ -99,3 +99,6 @@ source $HOME/.dotfiles/zsh/addons/npm.zshrc-addon
 
 # Use podman instead of Docker for cross
 export CROSS_CONTAINER_ENGINE=podman
+
+# We want system paths *after* brew or nix paths
+path=( $path_prepend $path )
