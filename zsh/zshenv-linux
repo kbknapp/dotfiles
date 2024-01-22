@@ -6,8 +6,6 @@
 # produce output or assume the shell is attached to a tty.
 
 typeset -U path
-path_prepend=( $HOME/.local/bin /usr/bin /usr/local/bin /usr/sbin /usr/local/sbin /bin )
-path=( $path_prepend $path )
 
 # export MANPATH="/usr/local/man:$MANPATH"
 # Path to your oh-my-zsh installation.
@@ -81,15 +79,15 @@ plugins=(
 	dnf
 )
 
-export GPG_TTY=$(tty)
-
 ## Must be first
 source $HOME/.dotfiles/zsh/addons/rust.zshrc-addon
 # Must be second
-#source $HOME/.dotfiles/zsh/addons/nix.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/nix.zshrc-addon
 # Must be third
 source $HOME/.dotfiles/zsh/addons/abbrev-alias.zshrc-addon
 
 source $HOME/.dotfiles/zsh/addons/just.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/npm.zshrc-addon
 
+path_prepend=( $HOME/.local/bin /usr/local/bin /usr/local/sbin )
+path=( $path_prepend $path /usr/bin /usr/sbin /bin )
