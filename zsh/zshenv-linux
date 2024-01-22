@@ -7,7 +7,7 @@
 
 typeset -U path
 path_prepend=( $HOME/.local/bin /usr/bin /usr/local/bin /usr/sbin /usr/local/sbin /bin )
-path=($prepend_path $path)
+path=( $path_prepend $path )
 
 # export MANPATH="/usr/local/man:$MANPATH"
 # Path to your oh-my-zsh installation.
