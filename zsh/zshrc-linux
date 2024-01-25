@@ -15,7 +15,11 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 source $ZSH/oh-my-zsh.sh
 
 fpath+=~/.zfunc
-compinit -U
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/cp-cow-abbrev-alias.zshrc-addon
