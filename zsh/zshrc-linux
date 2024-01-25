@@ -24,7 +24,7 @@ compinit -C
 source $HOME/.dotfiles/zsh/addons/atuin.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/cp-cow-abbrev-alias.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/direnv.zshrc-addon
-source $HOME/.dotfiles/zsh/addons/exa.zshrc-addon
+source $HOME/.dotfiles/zsh/addons/lsd.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/git.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/navi.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
