@@ -1,0 +1,16 @@
+# eza is a ls replacement written in Rust
+if command -v eza &> /dev/null; then
+    if [[ "$USE_ABBREV_ALIAS" == 1 ]]; then
+    	abbrev-alias ls='eza'
+    	abbrev-alias lsa='eza -a'
+    	abbrev-alias ll='eza -bghHliS'
+    	abbrev-alias lla='eza -bghaHliS'
+    	abbrev-alias tree='eza -T'
+    else
+        alias ls='eza'
+        alias lsa='eza -a'
+        alias ll='eza -bghHliS'
+        alias lla='eza -bghaHliS'
+        alias tree='eza -T'
+    fi
+fi
