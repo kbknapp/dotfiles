@@ -31,6 +31,9 @@ source $HOME/.dotfiles/zsh/addons/nvim.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/starship.zshrc-addon
 source $HOME/.dotfiles/zsh/addons/zoxide.zshrc-addon
 
+# disable autocorrect
+unsetopt correct_all
+
 export GPG_TTY=$(tty)
 
 # Should be last as the `~/.dotfiles/zsh/addons/*` will modify $path
