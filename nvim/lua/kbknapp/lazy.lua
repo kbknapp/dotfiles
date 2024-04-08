@@ -52,7 +52,12 @@ require("lazy").setup({
       'hrsh7th/cmp-nvim-lua',
 
       -- Rust
-      'simrat39/rust-tools.nvim',
+      {
+        'mrcjkb/rustaceanvim',
+        version = '^4', -- Recommended
+        ft = { 'rust' },
+      }
+
     },
   },
 

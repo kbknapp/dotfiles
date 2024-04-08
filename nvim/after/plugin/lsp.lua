@@ -36,20 +36,6 @@ lsp.set_preferences({
 --require('mason').setup()
 --require('mason-lspconfig').setup()
 
-require('lspconfig').rust_analyzer.setup({
-  settings = {
-    ["rust-analyzer"] = {
-      checkOnSave = true,
-      check = {
-        command = "clippy"
-      },
-      rustfmt = {
-        extraArgs = { "+nightly" },
-      },
-    }
-  }
-})
-
 vim.diagnostic.config({
     virtual_text = true
 })
