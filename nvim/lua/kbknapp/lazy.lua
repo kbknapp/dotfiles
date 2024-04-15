@@ -50,17 +50,9 @@ require("lazy").setup({
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
-
-      -- Rust
-      {
-        'mrcjkb/rustaceanvim',
-        version = '^4', -- Recommended
-        ft = { 'rust' },
-      }
-
     },
   },
-
+   -- Rust
   {
     "mrcjkb/rustaceanvim",
     version = "^4",
