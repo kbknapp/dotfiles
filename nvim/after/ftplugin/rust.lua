@@ -8,3 +8,21 @@ vim.keymap.set(
   end,
   { silent = true, buffer = bufnr }
 )
+
+vim.keymap.set(
+  "n",
+  "<leader>em",
+  function()
+    vim.cmd.RustLsp('expandMacro')
+  end,
+  { silent = true, buffer = bufnr }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>aa",
+  function()
+    vim.cmd.RustLsp{ 'hover', 'actions' }
+  end,
+  { silent = true, buffer = bufnr }
+)
