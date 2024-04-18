@@ -21,3 +21,4 @@ vim.g.rustaceanvim = {
     },
   },
 }
+
