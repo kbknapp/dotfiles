@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 
-path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ "$(uname)" == "Darwin" ]]; then
+    export HOMEBREW_PREFIX=/opt/homebrew
+else
+    export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+fi
+
+path=(${HOMEBREW_PREFIX}/bin ${HOMEBREW_PREFIX}/sbin $path)
+eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
+
