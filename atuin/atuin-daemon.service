@@ -1,0 +1,12 @@
+[Unit]
+Description=Atuin Daemon
+After=network.target
+
+[Service]
+Type=simple
+Environment=ATUIN_LOG=info
+ExecStart=atuin daemon
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
