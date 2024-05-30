@@ -1,9 +1,9 @@
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find Files" })
+vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Help Tags" })
 vim.keymap.set("n", "<C-p>", function() require"telescope.builtin".find_files{} end)
 
-local trouble = require("trouble.providers.telescope")
+local trouble = require("trouble.sources.telescope")
 require('telescope').setup{
   defaults = {
     vimgrep_arguments = {
@@ -49,8 +49,8 @@ require('telescope').setup{
     -- Developer configurations: Not meant for general override
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
     mappings = {
-      i = { ["<c-t>"] = trouble.open_with_trouble },
-      n = { ["<c-t>"] = trouble.open_with_trouble },
+      i = { ["<c-t>"] = trouble.open },
+      n = { ["<c-t>"] = trouble.open },
     }
   }
 }

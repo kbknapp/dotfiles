@@ -1,4 +1,4 @@
-vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
+vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { desc = "Toggle NvimTree" })
 vim.keymap.set("n", "<leader>n", "<nop>", { desc = "+NVIMTree"})
 vim.keymap.set("n", "<leader>nr", '<cmd>NvimTreeRefresh<CR>', {desc ="Refresh"})
 vim.keymap.set("n", "<leader>nf", '<cmd>NvimTreeFindFile<CR>', {desc = "Find Files"})
