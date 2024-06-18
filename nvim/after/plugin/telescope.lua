@@ -1,9 +1,10 @@
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find Files" })
-vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Help Tags" })
-vim.keymap.set("n", "<C-p>", function() require"telescope.builtin".find_files{} end)
+local actions = require("telescope.actions")
+local open_with_trouble = require("trouble.sources.telescope").open
 
-local trouble = require("trouble.sources.telescope")
+-- Use this to add more results without clearing the trouble list
+local add_to_trouble = require("trouble.sources.telescope").add
+
 require('telescope').setup{
   defaults = {
     vimgrep_arguments = {
@@ -49,9 +50,9 @@ require('telescope').setup{
     -- Developer configurations: Not meant for general override
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
     mappings = {
-      i = { ["<c-t>"] = trouble.open },
-      n = { ["<c-t>"] = trouble.open },
-    }
+      i = { ["<c-t>"] = open_with_trouble },
+      n = { ["<c-t>"] = open_with_trouble },
+    },
   }
 }
 
@@ -60,6 +61,9 @@ vim.keymap.set("n", "<leader>/", function() tsb.live_grep{} end, {desc ="Grep"})
 
 vim.keymap.set("n", "<leader>b", "<nop>", {desc= "+buffer"})
 vim.keymap.set("n", "<leader>bb", function() tsb.buffers{} end, {desc ="Buffers"})
+
+vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find Files" })
+vim.keymap.set("n", "<C-p>", function() require"telescope.builtin".find_files{} end)
 
 vim.keymap.set("n", "<leader>f", "<nop>", { desc = "+find" })
 vim.keymap.set("n", "<leader>fts", function() tsb.treesitter{} end, {desc = "Treesitter"})
@@ -80,5 +84,8 @@ vim.keymap.set("n", "<leader>fgb", function() tsb.git_branches{} end, {desc = "B
 vim.keymap.set("n", "<leader>fgs", function() tsb.git_status{} end, {desc = "Status"})
 vim.keymap.set("n", "<leader>fgz", function() tsb.git_stash{} end, {desc = "Stash"})
 
+vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Help Tags" })
+
 require("telescope").load_extension("harpoon")
 vim.keymap.set("n", "<leader>fM", "<cmd>Telescope harpoon marks<cr>", {desc = "Harpoon Marks"})
+
