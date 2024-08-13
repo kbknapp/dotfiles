@@ -69,6 +69,11 @@ keys = {
 		mods = "CTRL|ALT",
 		action = act.AdjustPaneSize({ "Right", 5 }),
 	},
+	{
+		key = "F",
+		mods = "CMD",
+		action = act.ToggleFullScreen,
+	},
 }
 
 return keys
