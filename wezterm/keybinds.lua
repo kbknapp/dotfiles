@@ -54,26 +54,20 @@ keys = {
 		action = act.SpawnTab("CurrentPaneDomain"),
 	},
 	{
-		key = "H",
-		mods = "CTRL|ALT",
-		action = act.AdjustPaneSize({ "Left", 5 }),
-	},
-	{
-		key = "J",
-		mods = "CTRL|ALT",
-		action = act.AdjustPaneSize({ "Down", 5 }),
-	},
-	{ key = "K", mods = "CTRL|ALT", action = act.AdjustPaneSize({ "Up", 5 }) },
-	{
-		key = "L",
-		mods = "CTRL|ALT",
-		action = act.AdjustPaneSize({ "Right", 5 }),
-	},
-	{
 		key = "F",
 		mods = "CMD",
 		action = act.ToggleFullScreen,
 	},
 }
+
+if wezterm.target_triple == "aarch64-apple-darwin" then
+	for k, v in pairs(require("macos_keybinds")) do
+		keys[k] = v
+	end
+else
+	for k, v in pairs(require("linux_keybinds")) do
+		keys[k] = v
+	end
+end
 
 return keys
