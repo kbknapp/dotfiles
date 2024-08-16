@@ -1,11 +1,21 @@
 local wezterm = require("wezterm")
 local config = {}
 
+if wezterm.target_triple == "aarch64-apple-darwin" then
+	config.set_environment_variables = {
+		PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
+	}
+end
+
 -- colors & appearance
-config.color_scheme = "tokyonight"
 require("powerline")
+config.color_scheme = "tokyonight"
 config.font = wezterm.font("FantasqueSansM Nerd Font Mono")
-config.font_size = 13.0
+if wezterm.target_triple == "aarch64-apple-darwin" then
+	config.font_size = 14.0
+else
+	config.font_size = 13.0
+end
 
 -- window
 if wezterm.target_triple == "aarch64-apple-darwin" then
