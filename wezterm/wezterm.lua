@@ -30,6 +30,6 @@ config.tab_bar_at_bottom = true
 
 -- Keybinds
 config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 }
-config.keys = require("keybinds")
+config.keys = require("keybinds").get_keys(wezterm)
 
 return config
