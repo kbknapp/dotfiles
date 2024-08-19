@@ -1,0 +1,61 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "space f f": "file_finder::Toggle",
+      "space g d": "editor::GoToDefinition",
+      "space f o": "outline::Toggle",
+      "space f e": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-b L": "terminal_panel::ToggleFocus",
+      "space l l m": "assistant::ToggleFocus"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-w c": "tab_switcher::CloseSelectedItem"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-b k": "pane::SplitUp",
+      "ctrl-b j": "pane::SplitDown",
+      "ctrl-b h": "pane::SplitLeft",
+      "ctrl-b l": "pane::SplitRight",
+      "cmd-{": "pane::ActivatePrevItem",
+      "cmd-}": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "space f e": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-w K": ["workspace::SwapPaneInDirection", "Up"],
+      "ctrl-w J": ["workspace::SwapPaneInDirection", "Down"],
+      "ctrl-w H": ["workspace::SwapPaneInDirection", "Left"],
+      "ctrl-w L": ["workspace::SwapPaneInDirection", "Right"]
+    }
+  }
+]
