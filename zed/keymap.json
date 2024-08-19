@@ -11,14 +11,17 @@
     "bindings": {
       "space f f": "file_finder::Toggle",
       "space g d": "editor::GoToDefinition",
-      "space f o": "outline::Toggle",
-      "space f e": "project_panel::ToggleFocus"
+      "space f b": "tab_switcher::Toggle",
+      "space c a": "editor::ToggleCodeActions",
+      "space f e": "project_panel::ToggleFocus",
+      "ctrl-w c": "pane::CloseActiveItem"
     }
   },
   {
     "context": "Workspace",
     "bindings": {
       "ctrl-b L": "terminal_panel::ToggleFocus",
+      "ctrl-b t": "terminal_panel::ToggleFocus",
       "space l l m": "assistant::ToggleFocus"
     }
   },
@@ -36,7 +39,10 @@
       "ctrl-b h": "pane::SplitLeft",
       "ctrl-b l": "pane::SplitRight",
       "cmd-{": "pane::ActivatePrevItem",
-      "cmd-}": "pane::ActivateNextItem"
+      "cmd-}": "pane::ActivateNextItem",
+      "space b K": "pane::CloseInactiveItems",
+      "space b D": "pane::CloseAllItems",
+      "space b d": "pane::CloseActiveItem"
     }
   },
   {
@@ -56,6 +62,14 @@
       "ctrl-w J": ["workspace::SwapPaneInDirection", "Down"],
       "ctrl-w H": ["workspace::SwapPaneInDirection", "Left"],
       "ctrl-w L": ["workspace::SwapPaneInDirection", "Right"]
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
+      "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
+      "ctrl-shift-n": "workspace::NewTerminal"
     }
   }
 ]

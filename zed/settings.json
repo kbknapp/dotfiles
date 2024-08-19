@@ -11,6 +11,11 @@
     "diagnostics": false,
     "metrics": false
   },
+  "theme": {
+    "mode": "dark",
+    "light": "Ayu Light",
+    "dark": "Smooth Dark"
+  },
   "terminal": {
     "dock": "right"
   },
@@ -24,7 +29,7 @@
     "use_multiline_find": true
   },
   "ui_font_size": 16,
-  "buffer_font_size": 16,
+  "buffer_font_size": 17,
   "buffer_line_height": "standard",
   "buffer_font_family": "FantasqueSansMono Nerd Font"
 }
