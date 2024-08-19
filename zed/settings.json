@@ -16,6 +16,17 @@
     "light": "Ayu Light",
     "dark": "Smooth Dark"
   },
+  "inlay_hints": {
+    "enabled": true,
+    "max_length": null,
+    "lifetime_elision_hints": {
+      "useParameterNames": true,
+      "enable": "skip_trivial"
+    },
+    "closureReturnTypeHints": {
+      "enable": "always"
+    }
+  },
   "terminal": {
     "dock": "right"
   },
