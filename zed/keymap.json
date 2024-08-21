@@ -14,15 +14,18 @@
       "space f b": "tab_switcher::Toggle",
       "space c a": "editor::ToggleCodeActions",
       "space f e": "project_panel::ToggleFocus",
-      "ctrl-w c": "pane::CloseActiveItem"
+      "ctrl-w c": "pane::CloseActiveItem",
+      "space l l m": "assistant::ToggleFocus",
+      "space b K": "pane::CloseInactiveItems",
+      "space b D": "pane::CloseAllItems",
+      "space b d": "pane::CloseActiveItem"
     }
   },
   {
     "context": "Workspace",
     "bindings": {
       "ctrl-b L": "terminal_panel::ToggleFocus",
-      "ctrl-b t": "terminal_panel::ToggleFocus",
-      "space l l m": "assistant::ToggleFocus"
+      "ctrl-b t": "terminal_panel::ToggleFocus"
     }
   },
   {
@@ -39,36 +42,57 @@
       "ctrl-b h": "pane::SplitLeft",
       "ctrl-b l": "pane::SplitRight",
       "cmd-{": "pane::ActivatePrevItem",
-      "cmd-}": "pane::ActivateNextItem",
-      "space b K": "pane::CloseInactiveItems",
-      "space b D": "pane::CloseAllItems",
-      "space b d": "pane::CloseActiveItem"
-    }
-  },
-  {
-    "context": "ProjectPanel",
-    "bindings": {
-      "space f e": "project_panel::ToggleFocus"
+      "cmd-}": "pane::ActivateNextItem"
     }
   },
   {
     "context": "Dock",
     "bindings": {
-      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"],
-      "ctrl-w K": ["workspace::SwapPaneInDirection", "Up"],
-      "ctrl-w J": ["workspace::SwapPaneInDirection", "Down"],
-      "ctrl-w H": ["workspace::SwapPaneInDirection", "Left"],
-      "ctrl-w L": ["workspace::SwapPaneInDirection", "Right"]
+      "ctrl-w h": [
+        "workspace::ActivatePaneInDirection",
+        "Left"
+      ],
+      "ctrl-w l": [
+        "workspace::ActivatePaneInDirection",
+        "Right"
+      ],
+      "ctrl-w k": [
+        "workspace::ActivatePaneInDirection",
+        "Up"
+      ],
+      "ctrl-w j": [
+        "workspace::ActivatePaneInDirection",
+        "Down"
+      ],
+      "ctrl-w K": [
+        "workspace::SwapPaneInDirection",
+        "Up"
+      ],
+      "ctrl-w J": [
+        "workspace::SwapPaneInDirection",
+        "Down"
+      ],
+      "ctrl-w H": [
+        "workspace::SwapPaneInDirection",
+        "Left"
+      ],
+      "ctrl-w L": [
+        "workspace::SwapPaneInDirection",
+        "Right"
+      ]
     }
   },
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
-      "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
+      "ctrl-p": [
+        "terminal::SendKeystroke",
+        "ctrl-p"
+      ],
+      "ctrl-n": [
+        "terminal::SendKeystroke",
+        "ctrl-n"
+      ],
       "ctrl-shift-n": "workspace::NewTerminal"
     }
   }
