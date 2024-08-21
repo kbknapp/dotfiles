@@ -30,7 +30,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "onedark", "habamax" } },
+  install = { colorscheme = { "catppuccin-frappe", "onedark" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {

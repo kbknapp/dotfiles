@@ -3,9 +3,10 @@ return {
     {
       "LazyVim/LazyVim",
       opts = {
-        colorscheme = "onedark",
+        colorscheme = "catppuccin-frappe",
       },
     },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     "navarasu/onedark.nvim",
     "kbknapp/badWords", -- Highlight bad words for general audience
     "simeji/winresizer", -- Better resizing with C-e
