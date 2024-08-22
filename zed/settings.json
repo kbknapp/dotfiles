@@ -14,7 +14,7 @@
   "theme": {
     "mode": "dark",
     "light": "Ayu Light",
-    "dark": "Catppuccin Frappe"
+    "dark": "Catppuccin Frappé"
   },
   "inlay_hints": {
     "enabled": false,
@@ -28,7 +28,8 @@
     }
   },
   "terminal": {
-    "dock": "right"
+    "dock": "right",
+    "font_size": 14
   },
   "vim_mode": true,
   "vim": {
@@ -38,6 +39,9 @@
     "use_system_clipboard": "always",
     // Lets `f` and `t` motions extend across multiple lines
     "use_multiline_find": true
+  },
+  "scrollbar": {
+    "show": "never"
   },
   "ui_font_size": 16,
   "buffer_font_size": 17,

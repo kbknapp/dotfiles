@@ -18,14 +18,25 @@
       "space l l m": "assistant::ToggleFocus",
       "space b K": "pane::CloseInactiveItems",
       "space b D": "pane::CloseAllItems",
-      "space b d": "pane::CloseActiveItem"
+      "space b d": "pane::CloseActiveItem",
+      "space e d": "diagnostics::Deploy",
+      "space e e": "editor::GoToDiagnostic",
+      "space e E": "editor::GoToPrevDiagnostic"
     }
   },
   {
     "context": "Workspace",
     "bindings": {
       "ctrl-b L": "terminal_panel::ToggleFocus",
-      "ctrl-b t": "terminal_panel::ToggleFocus"
+      "ctrl-b t": "terminal_panel::ToggleFocus",
+      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-w K": ["workspace::SwapPaneInDirection", "Up"],
+      "ctrl-w J": ["workspace::SwapPaneInDirection", "Down"],
+      "ctrl-w H": ["workspace::SwapPaneInDirection", "Left"],
+      "ctrl-w L": ["workspace::SwapPaneInDirection", "Right"]
     }
   },
   {
@@ -46,54 +57,12 @@
     }
   },
   {
-    "context": "Dock",
-    "bindings": {
-      "ctrl-w h": [
-        "workspace::ActivatePaneInDirection",
-        "Left"
-      ],
-      "ctrl-w l": [
-        "workspace::ActivatePaneInDirection",
-        "Right"
-      ],
-      "ctrl-w k": [
-        "workspace::ActivatePaneInDirection",
-        "Up"
-      ],
-      "ctrl-w j": [
-        "workspace::ActivatePaneInDirection",
-        "Down"
-      ],
-      "ctrl-w K": [
-        "workspace::SwapPaneInDirection",
-        "Up"
-      ],
-      "ctrl-w J": [
-        "workspace::SwapPaneInDirection",
-        "Down"
-      ],
-      "ctrl-w H": [
-        "workspace::SwapPaneInDirection",
-        "Left"
-      ],
-      "ctrl-w L": [
-        "workspace::SwapPaneInDirection",
-        "Right"
-      ]
-    }
-  },
-  {
     "context": "Terminal",
     "bindings": {
-      "ctrl-p": [
-        "terminal::SendKeystroke",
-        "ctrl-p"
-      ],
-      "ctrl-n": [
-        "terminal::SendKeystroke",
-        "ctrl-n"
-      ],
-      "ctrl-shift-n": "workspace::NewTerminal"
+      "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
+      "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
+      "ctrl-shift-n": "workspace::NewTerminal",
+      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"]
     }
   }
 ]
