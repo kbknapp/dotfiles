@@ -1,0 +1,14 @@
+[Desktop Entry]
+TryExec=zed
+Exec=zed %F
+Name=Zed
+GenericName=Code Editor
+Keywords=Text;editor;
+Comment=Edit code
+NoDisplay=false
+Terminal=false
+StartupNotify=false
+Type=Application
+Icon=Zed
+Categories=Utility;TextEditor;
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
