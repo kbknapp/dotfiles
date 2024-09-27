@@ -52,6 +52,13 @@ function module.get_keys(wezterm)
 			mods = "CMD",
 			action = act.ToggleFullScreen,
 		},
+		{
+			key = "r",
+			mods = "LEADER",
+			action = act.RotatePanes("CounterClockwise"),
+		},
+		{ key = "R", mods = "LEADER", action = act.RotatePanes("Clockwise") },
+		{ key = "M", mods = "CTRL", action = act.Nop },
 	}
 
 	if wezterm.target_triple == "aarch64-apple-darwin" then
