@@ -19,8 +19,8 @@ function module.get_keys(wezterm)
 			mods = "CTRL",
 			action = act.ShowDebugOverlay,
 		},
-		{ key = "p", mods = "LEADER", action = act.MoveTabRelative(-1) },
-		{ key = "n", mods = "LEADER", action = act.MoveTabRelative(1) },
+		{ key = "p", mods = "LEADER", action = act.ActivateTabRelative(-1) },
+		{ key = "n", mods = "LEADER", action = act.ActivateTabRelative(1) },
 		{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
 		{
 			key = "h",
