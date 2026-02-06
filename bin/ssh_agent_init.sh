@@ -30,5 +30,5 @@ fi
 if [[ "$(uname)" == "Darwin" ]]; then
   ssh-add --apple-use-keychain "${SSH_KEY_PATH:-~/.ssh/id_ed25519}"
 else
-  ssh-add "${SSH_KEY_PATH:-~/.ssh/id_ed25519}"
+  #ssh-add "${SSH_KEY_PATH:-~/.ssh/id_ed25519}"
 fi
